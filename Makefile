@@ -1,4 +1,4 @@
-OBJECTS = multiboot_header.o boot.o kmain.o io.o
+OBJECTS = multiboot_header.o boot.o kmain.o common.o monitor.o #io.o
 CC = gcc
 INCDIR= -I ./ -I ./modules -I ./core -I ./arch/x86
 CFLAGS = $(INCDIR) -m32 -nostdlib -nostdinc -ffreestanding -fno-builtin -fno-stack-protector \

@@ -1,4 +1,5 @@
 				 #include "io.h"
+#include "monitor.h"
 
 				/* The I/O ports */
 				#define FB_COMMAND_PORT         0x3D4
@@ -131,7 +132,10 @@ int kmain() {
 *((char*)0xb8002)=0x48;
 *((char*)0xb8003)=0x07;*/
 
-write_string( 0x1F, "aloha");
+//write_string( 0x1F, "aloha");
+	monitor_put('M');
+//monitor_write("Hello, world!");
+
 	return 0;
 }
 
