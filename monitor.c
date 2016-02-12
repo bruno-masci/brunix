@@ -2,6 +2,12 @@
 //             heavily based on Bran's kernel development tutorials,
 //             but rewritten for JamesM's kernel tutorials.
 
+
+//ver mas en http://www.osdever.net/bkerndev/Docs/printing.htm
+//http://www.jamesmolloy.co.uk/tutorial_html/3.-The%20Screen.html
+//http://wiki.osdev.org/Printing_To_Screen
+
+
 #include "monitor.h"
 
 // The VGA framebuffer starts at 0xB8000.
@@ -10,15 +16,25 @@ u16int *video_memory = (u16int *)0xB8000;
 u8int cursor_x = 0;
 u8int cursor_y = 0;
 
+
+/* The I/O ports */
+#define FB_COMMAND_PORT         0x3D4
+#define FB_DATA_PORT            0x3D5
+
+/* The I/O port commands */
+#define FB_HIGH_BYTE_COMMAND    14
+#define FB_LOW_BYTE_COMMAND     15
+
+
 // Updates the hardware cursor.
 static void move_cursor()
 {
     // The screen is 80 characters wide...
     u16int cursorLocation = cursor_y * 80 + cursor_x;
-    outb(0x3D4, 14);                  // Tell the VGA board we are setting the high cursor byte.
-    outb(0x3D5, cursorLocation >> 8); // Send the high cursor byte.
-    outb(0x3D4, 15);                  // Tell the VGA board we are setting the low cursor byte.
-    outb(0x3D5, cursorLocation);      // Send the low cursor byte.
+    outb(FB_COMMAND_PORT, FB_HIGH_BYTE_COMMAND);                  // Tell the VGA board we are setting the high cursor byte.
+    outb(FB_DATA_PORT, cursorLocation >> 8); // Send the high cursor byte.
+    outb(FB_COMMAND_PORT, FB_LOW_BYTE_COMMAND);                  // Tell the VGA board we are setting the low cursor byte.
+    outb(FB_DATA_PORT, cursorLocation);      // Send the low cursor byte.
 }
 
 // Scrolls the text on the screen up by one line.
@@ -55,10 +71,10 @@ static void scroll()
 void monitor_put(char c)
 {
     // The background colour is black (0), the foreground is white (15).
-    u8int backColour = 0;
-    u8int foreColour = 15;
+    u8int backColour = COLOR_BLACK;
+    u8int foreColour = COLOR_GREEN;
 
-    // The attribute byte is made up of two nibbles - the lower being the 
+    // The attribute byte is made up of two nibbles - the lower being the
     // foreground colour, and the upper the background colour.
     u8int  attributeByte = (backColour << 4) | (foreColour & 0x0F);
     // The attribute byte is the top 8 bits of the word we have to send to the
@@ -72,26 +88,26 @@ void monitor_put(char c)
         cursor_x--;
     }
 
-    // Handle a tab by increasing the cursor's X, but only to a point
-    // where it is divisible by 8.
+        // Handle a tab by increasing the cursor's X, but only to a point
+        // where it is divisible by 8.
     else if (c == 0x09)
     {
         cursor_x = (cursor_x+8) & ~(8-1);
     }
 
-    // Handle carriage return
+        // Handle carriage return
     else if (c == '\r')
     {
         cursor_x = 0;
     }
 
-    // Handle newline by moving cursor back to left and increasing the row
+        // Handle newline by moving cursor back to left and increasing the row
     else if (c == '\n')
     {
         cursor_x = 0;
         cursor_y++;
     }
-    // Handle any other printable character.
+        // Handle any other printable character.
     else if(c >= ' ')
     {
         location = video_memory + (cursor_y*80 + cursor_x);
@@ -111,8 +127,8 @@ void monitor_put(char c)
     scroll();
     // Move the hardware cursor.
     move_cursor();
-
 }
+
 
 // Clears the screen, by copying lots of spaces to the framebuffer.
 void monitor_clear()
@@ -150,5 +166,13 @@ void monitor_write_hex(u32int n)
 
 void monitor_write_dec(u32int n)
 {
-    // TODO: implement this yourself!
+    char str[100];
+    itoa(n, str, 10);
+
+
+    int i = 0;
+    while (str[i])
+    {
+        monitor_put(str[i++]);
+    }
 }

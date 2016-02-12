@@ -5,7 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/common.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Makefile" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/monitor.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/common.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/string.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/README.md" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/multiboot_header.s" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/monitor.c" isTestSource="false" />

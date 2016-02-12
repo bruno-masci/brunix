@@ -8,7 +8,7 @@ set(SOURCE_FILES
     bochsout.log
     bochsrc.txt
     boot.s
-    common.c
+        include/string.h
     common.h
     gdt.c
     io.h

@@ -1,13 +1,13 @@
-OBJECTS = multiboot_header.o boot.o kmain.o common.o monitor.o #io.o
+OBJECTS = multiboot_header.o boot.o kmain.o monitor.o io.o libc/string.o libc/stdlib.o
 CC = gcc
-INCDIR= -I ./ -I ./modules -I ./core -I ./arch/x86
+INCDIR= -I ./ -I ./include -I ./modules -I ./core -I ./arch/x86
 CFLAGS = $(INCDIR) -m32 -nostdlib -nostdinc -ffreestanding -fno-builtin -fno-stack-protector \
          -nostartfiles -nodefaultlibs -Wall -Wextra  -c -g -O2 \
-         -trigraphs  -fno-exceptions -O0 -m64 -Wunused-value
+         -trigraphs  -fno-exceptions -O0 -Wunused-value
          #-Werror
-LDFLAGS = -T linker.ld -m elf_x86_64 -n -nostdlib
+LDFLAGS = -T linker.ld -m elf_i386 -n -nostdlib
 AS = nasm
-ASFLAGS = -f elf64
+ASFLAGS = -f elf32
 
 all: kernel.bin
 
@@ -18,6 +18,14 @@ kernel.bin: $(OBJECTS)
 
 run:
 	qemu-system-i386 -cdrom os.iso
+#	-S -s & gdb  \
+#	        -ex 'file kernel.elf' \
+ #           -ex 'target remote localhost:1234' \
+  #          -ex 'layout src' \
+   #         -ex 'layout regs' \
+    #        -ex 'layout asm' \
+     #       -ex 'break kmain' \
+      #      -ex 'continue'
 
 %.o: %.c
 	$(CC) $(CFLAGS)  $< -o $@
@@ -26,5 +34,5 @@ run:
 	$(AS) $(ASFLAGS) $< -o $@
 
 clean:
-	rm -rf *.o kernel.bin os.iso
+	rm -rf *.o libc/*.o kernel.bin os.iso
 	rm -rf iso/boot/kernel.bin
