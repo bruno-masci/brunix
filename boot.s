@@ -1,5 +1,3 @@
-;bloque sacado de http://os.phil-opp.com/multiboot-kernel.html
-
 global start
 
 section .text
@@ -29,11 +27,6 @@ start:
     jmp .loop                   ; loop forever
 
 
-
-
-
-;www.jofre.de/?download=WritingAnOs.pdf
-;http://www.osdever.net/bkerndev/index.php
 
 
 

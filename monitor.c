@@ -3,11 +3,6 @@
 //             but rewritten for JamesM's kernel tutorials.
 
 
-//ver mas en http://www.osdever.net/bkerndev/Docs/printing.htm
-//http://www.jamesmolloy.co.uk/tutorial_html/3.-The%20Screen.html
-//http://wiki.osdev.org/Printing_To_Screen
-
-
 #include "monitor.h"
 
 // The VGA framebuffer starts at 0xB8000.
@@ -31,10 +26,10 @@ static void move_cursor()
 {
     // The screen is 80 characters wide...
     u16int cursorLocation = cursor_y * 80 + cursor_x;
-    outb(FB_COMMAND_PORT, FB_HIGH_BYTE_COMMAND);                  // Tell the VGA board we are setting the high cursor byte.
-    outb(FB_DATA_PORT, cursorLocation >> 8); // Send the high cursor byte.
-    outb(FB_COMMAND_PORT, FB_LOW_BYTE_COMMAND);                  // Tell the VGA board we are setting the low cursor byte.
-    outb(FB_DATA_PORT, cursorLocation);      // Send the low cursor byte.
+    outb(FB_COMMAND_PORT, FB_HIGH_BYTE_COMMAND);	// Tell the VGA board we are setting the high cursor byte.
+    outb(FB_DATA_PORT, cursorLocation >> 8);		// Send the high cursor byte.
+    outb(FB_COMMAND_PORT, FB_LOW_BYTE_COMMAND);		// Tell the VGA board we are setting the low cursor byte.
+    outb(FB_DATA_PORT, cursorLocation);			// Send the low cursor byte.
 }
 
 // Scrolls the text on the screen up by one line.
