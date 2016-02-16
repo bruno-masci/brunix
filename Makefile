@@ -1,9 +1,9 @@
-OBJECTS = multiboot_header.o boot.o kmain.o monitor.o io.o libc/string.o libc/stdlib.o
+OBJECTS = multiboot_header.o boot.o kmain.o monitor.o io.o descriptor_tables.o gdt.o libc/string.o libc/stdlib.o
 CC = gcc
-INCDIR= -I ./ -I ./include -I ./modules -I ./core -I ./arch/x86
+INCDIR= -I ./ -I ./include -I ./arch/x86/include
 CFLAGS = $(INCDIR) -m32 -nostdlib -nostdinc -ffreestanding -fno-builtin -fno-stack-protector \
          -nostartfiles -nodefaultlibs -Wall -Wextra  -c -g -O2 \
-         -trigraphs  -fno-exceptions -O0 -Wunused-value
+         -trigraphs  -fno-exceptions -O0 -Wunused-value -std=gnu99
          #-Werror
 LDFLAGS = -T linker.ld -m elf_i386 -n -nostdlib
 AS = nasm

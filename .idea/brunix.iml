@@ -2,23 +2,11 @@
 <module type="CPP_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/common.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Makefile" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/monitor.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/include/string.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/README.md" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/multiboot_header.s" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/monitor.c" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/io.s" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/bochsrc.txt" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/kmain.c" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/iso/boot/grub/grub.cfg" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/bochsout.log" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/io.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/linker.ld" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/gdt.c" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/boot.s" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/monitor.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/common.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/kmain.c" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
