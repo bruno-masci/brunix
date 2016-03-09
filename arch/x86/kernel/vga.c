@@ -3,7 +3,7 @@
 //             but rewritten for JamesM's kernel tutorials.
 
 
-#include "monitor.h"
+#include "vga.h"
 
 // The VGA framebuffer starts at 0xB8000.
 volatile uint16_t *video_memory = (volatile uint16_t *)0xB8000;
@@ -62,8 +62,12 @@ static void scroll()
     }
 }
 
+void vga_init() {
+    vga_clear();
+}
+
 // Writes a single character out to the screen.
-void monitor_put(char c) {
+void vga_putc(unsigned char c) {
     // The background colour is black (0), the foreground is white (15).
     uint8_t backColour = COLOR_BLACK;
     uint8_t foreColour = COLOR_GREEN;
@@ -125,7 +129,7 @@ void monitor_put(char c) {
 
 
 // Clears the screen, by copying lots of spaces to the framebuffer.
-void monitor_clear() {
+void vga_clear() {
     // Make an attribute byte for the default colours
     uint8_t attributeByte = (0 /*black*/ << 4) | (15 /*white*/ & 0x0F);
     uint16_t blank = 0x20 /* space */ | (attributeByte << 8);
@@ -142,24 +146,24 @@ void monitor_clear() {
     move_cursor();
 }
 
-void monitor_write(char *str) {
+void vga_puts(char *str) {
     for (int i = 0; str[i]; i++) {
-        monitor_put(str[i]);
+        vga_putc(str[i]);
     }
 }
 
-void monitor_write_hex(uint32_t n) {
-    monitor_write("0x");
+static void monitor_write_number(uint32_t n, int base) {
+    char str[15];
+    itoa(n, str, base);
+    vga_puts(str);
+    vga_putc(' ');
+}
+
+void vga_puthex(uint32_t n) {
+    vga_puts("0x");
 	monitor_write_number(n, 16);
 }
 
-void monitor_write_dec(uint32_t n) {
+void vga_putdec(uint32_t n) {
 	monitor_write_number(n, 10);
-}
-
-void monitor_write_number(uint32_t n, int base) {
-    char str[15];
-    itoa(n, str, base);
-    monitor_write(str);
-    monitor_put(' ');
 }

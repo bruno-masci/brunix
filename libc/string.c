@@ -7,8 +7,12 @@ void memcpy(uint8_t *dest, const uint8_t *src, uint32_t len) {
 }
 
 // Write len copies of val into dest.
+// from http://clc-wiki.net/wiki/C_standard_library:string.h:memset
 void memset(uint8_t *dest, uint8_t val, uint32_t len) {
-    // TODO: implement this yourself!
+    uint8_t *p = dest;
+    while(len--) {
+        *p++ = (uint8_t) val;
+    }
 }
 
 // Compare two strings. Should return -1 if str1 < str2, 0 if they are equal or 1 otherwise.

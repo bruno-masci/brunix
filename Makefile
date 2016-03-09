@@ -1,4 +1,6 @@
-OBJECTS = multiboot_header.o boot.o kmain.o monitor.o io.o descriptor_tables.o gdt.o interrupt.o isr.o libc/string.o libc/stdlib.o
+ARCH = x86
+NAME = brunix
+OBJECTS = multiboot_header.o boot.o kmain.o arch/x86/kernel/vga.o io.o descriptor_tables.o gdt.o interrupt.o isr.o libc/string.o libc/stdlib.o
 CC = gcc
 INCDIR= -I ./ -I ./include -I ./arch/x86/include
 CFLAGS = $(INCDIR) -m32 -nostdlib -nostdinc -ffreestanding -fno-builtin -fno-stack-protector \
@@ -7,13 +9,13 @@ CFLAGS = $(INCDIR) -m32 -nostdlib -nostdinc -ffreestanding -fno-builtin -fno-sta
          #-Werror
 LDFLAGS = -T linker.ld -m elf_i386 -n -nostdlib
 AS = nasm
-ASFLAGS = -f elf32
+ASFLAGS = -f elf32 -g
 
-all: kernel.bin
+all: $(NAME).elf
 
-kernel.bin: $(OBJECTS)
-	ld $(LDFLAGS) $(OBJECTS) -o kernel.bin
-	cp kernel.bin iso/boot/
+$(NAME).elf: $(OBJECTS)
+	ld $(LDFLAGS) $(OBJECTS) -o $(NAME).elf
+	cp $(NAME).elf iso/boot/
 	grub-mkrescue -o os.iso iso/
 
 run:
@@ -34,5 +36,8 @@ run:
 	$(AS) $(ASFLAGS) $< -o $@
 
 clean:
-	rm -rf *.o libc/*.o kernel.bin os.iso
-	rm -rf iso/boot/kernel.bin
+	rm -rf *.o libc/*.o $(NAME).elf os.iso
+	rm -rf iso/boot/$(NAME).elf
+
+
+#revisar si poner estas opciones a gcc: -Wpointer-arith -Wcast-align -Wno-unused-parameter -fno-rtti

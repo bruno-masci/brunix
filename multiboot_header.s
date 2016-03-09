@@ -13,3 +13,5 @@ header_start:
     dw 0    ; flags
     dd 8    ; size
 header_end:
+
+;TODO Ver http://download-mirror.savannah.gnu.org/releases/grub/phcoder/multiboot.pdf
