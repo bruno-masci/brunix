@@ -15,8 +15,8 @@ all: $(NAME).elf
 
 $(NAME).elf: $(OBJECTS)
 	ld $(LDFLAGS) $(OBJECTS) -o $(NAME).elf
-	cp $(NAME).elf iso/boot/
-	grub-mkrescue -o os.iso iso/
+    cp $(NAME).elf iso/boot/
+	grub-mkrescue -d misc/grub/i386-pc -o os.iso iso/	# -d is needed for amd64 host platforms
 
 run:
 	qemu-system-i386 -cdrom os.iso
