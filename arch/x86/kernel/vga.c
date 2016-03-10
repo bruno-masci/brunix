@@ -156,7 +156,6 @@ static void monitor_write_number(uint32_t n, int base) {
     char str[15];
     itoa(n, str, base);
     vga_puts(str);
-    vga_putc(' ');
 }
 
 void vga_puthex(uint32_t n) {
@@ -166,4 +165,8 @@ void vga_puthex(uint32_t n) {
 
 void vga_putdec(uint32_t n) {
 	monitor_write_number(n, 10);
+}
+
+void vga_putbin(uint32_t n) {
+    monitor_write_number(n, 2);
 }

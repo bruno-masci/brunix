@@ -107,4 +107,8 @@ struct state {
 	uint32_t ss;
 };
 
+
+#define NULL                    ((void*) 0)
+
+
 #endif

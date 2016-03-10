@@ -37,19 +37,21 @@ struct multiboot
 typedef struct multiboot_header multiboot_header_t;
 
 
-extern const uint32_t kernel_start;
-extern const uint32_t kernel_end;
-extern const uint32_t bss_start;
-extern const uint32_t bss_end;
+extern const void kernel_start;
+extern const void kernel_end;
+extern const void bss_start;
+extern const void bss_end;
+extern char __BUILD_DATE;
+extern char __BUILD_TIME;
 
 
 int kmain(uint32_t magic, struct multiboot *mboot_ptr) {
 	vga_init();
 
-	vga_puts("Starting Brunix...\n\n");
+	printk("Starting Brunix...\n\n");
 
 	if (magic != MULTIBOOT_BOOTLOADER_MAGIC) {
-		vga_puts("Invalid magic number! Multiboot compatible loader is needed...");
+		printk("Invalid magic number! Multiboot compatible loader is needed...");
 	        return 1;
          }
 
@@ -59,13 +61,13 @@ int kmain(uint32_t magic, struct multiboot *mboot_ptr) {
         //memset((void*)&bss_start, 0x00, ((size_t) &bss_end - (size_t) &bss_start));
 
 
-	vga_puts("Kernel starts at "); vga_puthex((uint32_t)&kernel_start); vga_puts(" and ends at "); vga_puthex((uint32_t)&kernel_end); vga_puts(". Total: "); vga_putdec(-(&kernel_end - &kernel_start) / 1024) ; vga_puts(" KB\n");
-	vga_puts("BSS section starts at "); vga_puthex((uint32_t)&bss_start); vga_puts(" and ends at "); vga_puthex((uint32_t)&bss_end); vga_puts(". Total: "); vga_putdec((&bss_end - &bss_start) / 1024) ; vga_puts(" KB\n");
+	printk("Kernel starts at %x and ends at %x. Total: %d KB\n", &kernel_start, &kernel_end, -(&kernel_end - &kernel_start) / 1024);
+	printk("BSS section starts at %x and ends at %x. Total: %d KB\n", &bss_start, &bss_end, (&bss_end - &bss_start) / 1024);
+   printk("Build date: %d, time: %d\n", &__BUILD_DATE, &__BUILD_TIME);
 
 
 	asm volatile ("int $0x10");
 //	asm volatile ("int $0x8");		FALLA
-	vga_puts("\n");
 
 	return 0;
 }
