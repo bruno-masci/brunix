@@ -27,7 +27,7 @@ i440fxsupport: enabled=1
 
 
 display_library: sdl
-
+#debug: action=report
 
 
 

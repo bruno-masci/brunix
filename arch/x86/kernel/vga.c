@@ -3,13 +3,21 @@
 //             but rewritten for JamesM's kernel tutorials.
 
 
-#include "vga.h"
+#include <asm/vga.h>
 
 // The VGA framebuffer starts at 0xB8000.
 volatile uint16_t *video_memory = (volatile uint16_t *)0xB8000;
 // Stores the cursor position.
 uint8_t cursor_x = 0;
 uint8_t cursor_y = 0;
+
+uint8_t backColour = COLOR_BLACK;
+uint8_t foreColour = COLOR_WHITE;
+
+void set_foreground_color(uint8_t colour) {
+	foreColour = colour;
+}
+
 
 
 /* The I/O ports */
@@ -22,20 +30,16 @@ uint8_t cursor_y = 0;
 
 
 // Updates the hardware cursor.
-static void move_cursor()
-{
-    // The screen is 80 characters wide...
-    uint16_t cursorLocation = cursor_y * 80 + cursor_x;
-    outb(FB_COMMAND_PORT, FB_HIGH_BYTE_COMMAND);	// Tell the VGA board we are setting the high cursor byte.
-    outb(FB_DATA_PORT, cursorLocation >> 8);		// Send the high cursor byte.
-    outb(FB_COMMAND_PORT, FB_LOW_BYTE_COMMAND);		// Tell the VGA board we are setting the low cursor byte.
-    outb(FB_DATA_PORT, cursorLocation);			// Send the low cursor byte.
+static void move_cursor() {
+    uint16_t cursorLocation = cursor_y * 80 + cursor_x;		// The screen is 80 characters wide...
+    outb(FB_COMMAND_PORT, FB_HIGH_BYTE_COMMAND);			// Tell the VGA board we are setting the high cursor byte.
+    outb(FB_DATA_PORT, cursorLocation >> 8);				// Send the high cursor byte.
+    outb(FB_COMMAND_PORT, FB_LOW_BYTE_COMMAND);				// Tell the VGA board we are setting the low cursor byte.
+    outb(FB_DATA_PORT, cursorLocation);						// Send the low cursor byte.
 }
 
 // Scrolls the text on the screen up by one line.
-static void scroll()
-{
-
+static void scroll() {
     // Get a space character with the default colour attributes.
     uint8_t attributeByte = (0 /*black*/ << 4) | (15 /*white*/ & 0x0F);
     uint16_t blank = 0x20 /* space */ | (attributeByte << 8);
@@ -69,8 +73,6 @@ void vga_init() {
 // Writes a single character out to the screen.
 void vga_putc(unsigned char c) {
     // The background colour is black (0), the foreground is white (15).
-    uint8_t backColour = COLOR_BLACK;
-    uint8_t foreColour = COLOR_GREEN;
 
     // The attribute byte is made up of two nibbles - the lower being the
     // foreground colour, and the upper the background colour.

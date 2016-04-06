@@ -56,9 +56,9 @@
 /// Privilege level: Ring 3 
 #define GDT_FLAG_RING3		0x60
 /// Segment is present
-#define GDT_FLAG_PRESENT        0x80
+#define GDT_FLAG_PRESENT    0x80
 /// Segment was accessed
-#define GDT_FLAG_ACCESSED       0x01
+#define GDT_FLAG_ACCESSED   0x01
 /** 
  * @brief Granularity of segment limit 
  * - set: segment limit unit is 4 KB (page size)
@@ -80,20 +80,19 @@
  * - 32 bit base address (chunkwise embedded into this structure)
  * - 20 bit limit
  */
-typedef struct {
-	/// Lower 16 bits of limit range
-	uint16_t limit_low;
-	/// Lower 16 bits of base address
-	uint16_t base_low;
-	/// middle 8 bits of base address
-	uint8_t base_middle;
-	/// Access bits
-	uint8_t access;
-	/// Granularity bits
-	uint8_t granularity;
-	/// Higher 8 bits of base address
-	uint8_t base_high;
-} __attribute__ ((packed)) gdt_entry_t;
+
+// struct segdesc_s
+struct gdt_entry_struct {
+    uint16_t limit_low;
+    uint16_t base_low;
+    uint8_t  base_middle;
+    uint8_t  access;				/* |P|DL|1|X|E|R|A| */
+    uint8_t  granularity;			/* |G|X|0|A|LIMT| */
+    uint8_t  base_high;
+} __attribute__((packed));
+typedef struct gdt_entry_struct gdt_entry_t;
+
+
 
 /** @brief defines the GDT pointer structure
  *
@@ -102,40 +101,17 @@ typedef struct {
 typedef struct {
 	/// Size of the table in bytes (not the number of entries!)
 	uint16_t limit;
-	/// Address of the table
+	/// Address of the table (the address of the first gdt_entry_t struct)
 	size_t base;
 } __attribute__ ((packed)) gdt_ptr_t;
 
-#define GDT_ENTRIES	(5+1)
 
-#if GDT_ENTRIES > 8192
-#error Too many GDT entries!
-#endif
+#define GDT_ENTRIES	(4+1)	// 5+1 con TSS
 
-/** @brief Installs the global descriptor table
- *
- * The installation involves the following steps:
- * - set up the special GDT pointer 
- * - set up the entries in our GDT
- * - finally call gdt_flush() in our assembler file 
- *   in order to tell the processor where the new GDT is
- * - update the new segment registers 
- */
-void gdt_install(void);
 
-/** @brief Set gate with chosen attributes
- */
-void gdt_set_gate(int num, unsigned long base, unsigned long limit,
-			  unsigned char access, unsigned char gran);
 
-/** @brief Configures and returns a GDT descriptor with chosen attributes
- *
- * Just feed this function with address, limit and the flags
- * you have seen in idt.h
- *
- * @return a preconfigured gdt descriptor
- */
-void configure_gdt_entry(gdt_entry_t *dest_entry, unsigned long base, unsigned long limit,
-		unsigned char access, unsigned char gran);
+void gdt_init();
 
-#endif
+
+
+#endif /* #define __ARCH_GDT_H__ */
