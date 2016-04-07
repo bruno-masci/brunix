@@ -62,4 +62,4 @@ extern void irq15();
 
 
 
-#endif /* __ARCH_IDT_H__ */
+#endif /* #define __ARCH_IDT_H__ */

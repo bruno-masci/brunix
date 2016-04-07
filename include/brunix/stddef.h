@@ -111,4 +111,4 @@ struct state {
 #define NULL                    ((void*) 0)
 
 
-#endif
+#endif /* #define __ARCH_STDDEF_H__ */

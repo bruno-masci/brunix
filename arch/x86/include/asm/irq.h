@@ -57,4 +57,4 @@ extern void irq15(void);
 void irq_init();
 
 
-#endif /* __ARCH_IRQ_H__ */
+#endif /* #define __ARCH_IRQ_H__ */

@@ -44,4 +44,4 @@ void vga_putdec(uint32_t n);
 void vga_puthex(uint32_t n);
 
 
-#endif // __ARCH_VGA_H__
+#endif /* #define __ARCH_VGA_H__ */

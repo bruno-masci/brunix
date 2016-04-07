@@ -20,8 +20,8 @@ all: $(NAME).elf
 $(NAME).elf:
 	ld $(LDFLAGS) -o $(NAME).elf $^
 	objcopy --only-keep-debug $(NAME).elf $(NAME).sym
-	objcopy --strip-debug $(NAME).elf
-	cp $(NAME).elf iso/boot/
+	objcopy --strip-debug $(NAME).elf $(NAME)-nosym.elf
+	cp $(NAME)-nosym.elf iso/boot/$(NAME).elf
 	grub-mkrescue -d misc/grub/i386-pc -o os.iso iso/	# -d is needed for amd64 host platforms
 
 
@@ -47,7 +47,7 @@ run-qemu-gdb:
 	$(AS) $(ASFLAGS) $< -o $@
 
 clean:
-	rm -rf $(NAME).elf $(NAME).sym os.iso
+	rm -rf $(NAME).elf $(NAME)-nosym.elf $(NAME).sym os.iso
 	rm -rf iso/boot/$(NAME).elf
 
 
