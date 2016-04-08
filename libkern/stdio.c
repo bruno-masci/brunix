@@ -1,6 +1,10 @@
 #include <asm/vga.h>
-#include <brunix/printk.h>
+#include <brunix/stdio.h>
 
+
+void video_init(void) {
+    vga_init();
+}
 
 void printk(const char *fmt, ...) {
     va_list params;
@@ -48,4 +52,8 @@ void printk(const char *fmt, ...) {
     }
 
     va_end(params);
+}
+
+void set_fg_color(uint8_t colour) {
+    vga_set_foreground_color(colour);
 }

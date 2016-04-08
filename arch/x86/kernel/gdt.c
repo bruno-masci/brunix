@@ -1,5 +1,5 @@
 #include <asm/gdt.h>
-#include <brunix/printk.h>
+#include <brunix/stdio.h>
 
 // PROTOTYPES
 extern void gdt_flush(uint32_t);

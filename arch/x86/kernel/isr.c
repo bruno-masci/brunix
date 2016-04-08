@@ -7,7 +7,7 @@
 #include <asm/isr.h>
 #include <asm/io.h>
 #include <asm/vga.h>
-#include <brunix/printk.h>
+#include <brunix/stdio.h>
 
 static isr_t interrupt_handlers[256] = {[0 ... 255] = {0, 0, 0, 0, 0, 0}};
 

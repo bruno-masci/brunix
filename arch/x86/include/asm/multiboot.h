@@ -1,5 +1,10 @@
-#ifndef __MULTIBOOT_H
-#define __MULTIBOOT_H
+/**
+ * @author Bruno Masci
+ * @brief Structures related to the Multiboot interface. (http://www.gnu.org/software/grub/manual/multiboot/)
+ */
+
+#ifndef __ARCH_MULTIBOOT_H__
+#define __ARCH_MULTIBOOT_H__
 
 
 #define MULTIBOOT2_HEADER_MAGIC 0x36D76289
@@ -42,7 +47,7 @@ struct multiboot_info {
 typedef struct multiboot_info multiboot_info_t;
 
 
-#endif /* __MULTIBOOT_H */
+#endif /* __ARCH_MULTIBOOT_H__ */
 
 
 

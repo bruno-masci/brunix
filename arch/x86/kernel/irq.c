@@ -1,7 +1,8 @@
 #include <asm/irq.h>
 #include <asm/idt.h>
 #include <asm/isr.h>
-#include <brunix/printk.h>
+#include <asm/io.h>
+#include <brunix/stdio.h>
 
 
 /** @brief IRQ handle pointers

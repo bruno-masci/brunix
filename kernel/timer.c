@@ -3,16 +3,11 @@
 #include <asm/isr.h>
 #include <asm/irq.h>
 #include <asm/io.h>
-#include <brunix/printk.h>
+#include <brunix/stdio.h>
+#include <brunix/processor.h>
 
 
 
-inline static uint64_t rdtsc(void)//TODO mover a processor.h. ver eduOS
-{
-	uint64_t x;
-	asm volatile ("rdtsc" : "=A" (x));
-	return x;
-}
 #define WAIT_SOME_TIME() do { uint64_t start = rdtsc(); \
 			      while(rdtsc() - start < 1000000) ; \
 			} while (0)

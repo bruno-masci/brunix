@@ -1,7 +1,7 @@
 TOPDIR = $(shell pwd)
 ARCH = x86
 NAME = brunix
-KERNDIRS = kernel arch/$(ARCH)/kernel libc
+KERNDIRS = kernel arch/$(ARCH)/kernel libkern
 SUBDIRS = $(KERNDIRS)
 CC = gcc
 INCDIR= -I ./ -I ./include -I ./arch/x86/include

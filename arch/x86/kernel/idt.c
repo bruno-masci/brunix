@@ -1,5 +1,5 @@
 #include <asm/idt.h>
-#include <brunix/printk.h>
+#include <brunix/stdio.h>
 
 
 extern void idt_flush(uint32_t);

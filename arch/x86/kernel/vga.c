@@ -1,12 +1,16 @@
-// monitor.c -- Defines functions for writing to the monitor.
-//             heavily based on Bran's kernel development tutorials,
-//             but rewritten for JamesM's kernel tutorials.
-
+/**
+ * @author Bruno Masci
+ * @brief VGA output related code
+ *
+ * Heavily based on Bran's kernel development tutorials, but rewritten for JamesM's kernel tutorials.
+ * TODO ver vga.c de eduOS a ver si se puede mejorar algo.
+ */
 
 #include <asm/vga.h>
+#include <asm/io.h>
 
 // The VGA framebuffer starts at 0xB8000.
-volatile uint16_t *video_memory = (volatile uint16_t *)0xB8000;
+volatile uint16_t *video_memory = (volatile uint16_t *)VIDEO_MEM_ADDR;
 // Stores the cursor position.
 uint8_t cursor_x = 0;
 uint8_t cursor_y = 0;
@@ -14,7 +18,8 @@ uint8_t cursor_y = 0;
 uint8_t backColour = COLOR_BLACK;
 uint8_t foreColour = COLOR_WHITE;
 
-void set_foreground_color(uint8_t colour) {
+
+void vga_set_foreground_color(uint8_t colour) {
 	foreColour = colour;
 }
 
@@ -154,7 +159,7 @@ void vga_puts(char *str) {
     }
 }
 
-static void monitor_write_number(uint32_t n, int base) {
+static void vga_write_number(uint32_t n, int base) {
     char str[15];
     itoa(n, str, base);
     vga_puts(str);
@@ -162,13 +167,13 @@ static void monitor_write_number(uint32_t n, int base) {
 
 void vga_puthex(uint32_t n) {
     vga_puts("0x");
-	monitor_write_number(n, 16);
+    vga_write_number(n, 16);
 }
 
 void vga_putdec(uint32_t n) {
-	monitor_write_number(n, 10);
+    vga_write_number(n, 10);
 }
 
 void vga_putbin(uint32_t n) {
-    monitor_write_number(n, 2);
+    vga_write_number(n, 2);
 }

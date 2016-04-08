@@ -7,13 +7,13 @@ set(SOURCE_FILES
     arch/x86/include/asm/gdt.h
     arch/x86/kernel/vga.c
     arch/x86/kernel/vga.h
-    include/brunix/stddef.h
+        arch/x86/include/asm/stddef.h
     include/stdint.h
-    include/stdlib.h
-    include/string.h
+        include/brunix/stdlib.h
+        include/brunix/string.h
     iso/boot/grub/grub.cfg
-    libc/stdlib.c
-    libc/string.c
+        libkern/stdlib.c
+        libkern/string.c
     bochsrc.txt
     boot.s
     CMakeLists.txt
