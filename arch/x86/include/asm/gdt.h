@@ -81,8 +81,7 @@
  * - 20 bit limit
  */
 
-// struct segdesc_s
-struct gdt_entry_struct {
+struct gdt_desc_struct {
     uint16_t limit_low;
     uint16_t base_low;
     uint8_t  base_middle;
@@ -90,7 +89,7 @@ struct gdt_entry_struct {
     uint8_t  granularity;			/* |G|X|0|A|LIMT| */
     uint8_t  base_high;
 } __attribute__((packed));
-typedef struct gdt_entry_struct gdt_entry_t;
+typedef struct gdt_desc_struct gdt_desc_t;
 
 
 
@@ -101,7 +100,7 @@ typedef struct gdt_entry_struct gdt_entry_t;
 typedef struct {
 	/// Size of the table in bytes (not the number of entries!)
 	uint16_t limit;
-	/// Address of the table (the address of the first gdt_entry_t struct)
+	/// Address of the table (the address of the first gdt_desc_t struct)
 	size_t base;
 } __attribute__ ((packed)) gdt_ptr_t;
 
@@ -114,4 +113,4 @@ void gdt_init();
 
 
 
-#endif /* #define __ARCH_GDT_H__ */
+#endif /* __ARCH_GDT_H__ */

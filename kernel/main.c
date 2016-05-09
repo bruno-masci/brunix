@@ -55,7 +55,7 @@ extern char __BUILD_DATE;
 extern char __BUILD_TIME;
 
 
-uint32_t initial_esp;
+static uint32_t initial_esp;
 
 
 static void print_kernel_context_info(multiboot_info_t *mboot_info_ptr);
@@ -90,16 +90,21 @@ int kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic, uint32_t initial_sta
 	debug_noargs("kmain", "Enabling interrupts...");
 	asm volatile("sti");
 
-	init_timer(100); // Initialise timer to 100Hz
+	timer_init(100); // Initialise timer to 100Hz
 	print_timer_ticks();
 
-	printk("\nSimulating CPU's exception number 0...\n");
-	asm volatile ("int $0x0");
+	printk("Installing keyboard...");
+	kbd_init();
 
-	printk("\nSimulating a syscall...\n");
-	asm volatile ("int $0x80");
 
-	print_timer_ticks();
+//	io.print("Loading Task Register \n");
+//	asm("	movw $0x38, %ax; ltr %ax"); 38 === descriptor en gdt
+
+	//printk("\nSimulating CPU's exception number 0...\n");
+//	asm volatile ("int $0x0");
+
+//	printk("\nSimulating a syscall...\n");
+//	asm volatile ("int $0x80");
 
 	while(1) {
 		HALT;
@@ -110,7 +115,9 @@ int kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic, uint32_t initial_sta
 
 static void print_kernel_context_info(multiboot_info_t *mboot_info_ptr) {
 	printk("This is build %u, %u\n", &__BUILD_DATE, &__BUILD_TIME);
-	printk("Kernel starts at %x and ends at %x. Total: %u KB\n", &kernel_start, &kernel_end, -(&kernel_end - &kernel_start) / 1024);
+	printk("START: %u\n", &kernel_start);
+	printk("END: %u\n", (void*)kernel_end);
+	printk("Kernel starts at %x and ends at %x. Total: %u KB. Initial ESP: %x\n", &kernel_start, &kernel_end, -(&kernel_end - &kernel_start) / 1024, initial_esp);
 	printk("BSS section starts at %x and ends at %x. Total: %d KB\n\n", &bss_start, &bss_end, (&bss_end - &bss_start) / 1024);
 
 	printk("GRUB info...\n");

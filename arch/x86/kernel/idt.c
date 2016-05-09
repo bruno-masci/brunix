@@ -2,7 +2,7 @@
 #include <brunix/stdio.h>
 
 
-extern void idt_flush(uint32_t);
+extern void __idt_flush(uint32_t);
 
 
 
@@ -16,7 +16,7 @@ void init_idt() {
     idt_ptr.limit = sizeof(idt_entry_t) * 256 - 1;
     idt_ptr.base = (uint32_t)&idt;
 
-    idt_flush((uint32_t)&idt_ptr);
+    __idt_flush((uint32_t)&idt_ptr);
 }
 
 

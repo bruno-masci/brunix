@@ -6,7 +6,7 @@
 
 uint64_t get_clock_tick(void);
 
-void init_timer (uint32_t frequency);
+void timer_init(uint32_t frequency);
 
 
 #endif /* __TIMER_H__ */

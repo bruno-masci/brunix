@@ -4,9 +4,9 @@
 ;          Based on code from Bran's kernel development tutorials.
 ;          Rewritten for JamesM's kernel development tutorials.
 
-[GLOBAL gdt_flush]    ; Allows the C code to call gdt_flush().
+[GLOBAL __gdt_flush]    ; Allows the C code to call __gdt_flush().
 
-gdt_flush:
+__gdt_flush:
     mov eax, [esp+4]  ; Get the pointer to the GDT, passed as a parameter.
     lgdt [eax]        ; Load the new GDT pointer
 
@@ -20,9 +20,9 @@ gdt_flush:
 .flush:
     ret
 
-[GLOBAL idt_flush]    ; Allows the C code to call idt_flush().
+[GLOBAL __idt_flush]    ; Allows the C code to call __idt_flush().
 
-idt_flush:
+__idt_flush:
     mov eax, [esp+4]  ; Get the pointer to the IDT, passed as a parameter.
     lidt [eax]        ; Load the IDT pointer.
     ret

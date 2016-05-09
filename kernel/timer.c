@@ -34,11 +34,10 @@ static void timer_callback(struct registers_t *regs) {
     //printk ("Tick: %d\n", timer_ticks);
 }
 
-
 /*
  * Sets up the system clock by installing the timer handler into IRQ0
  */
-void init_timer(uint32_t frequency) {
+void timer_init(uint32_t frequency) {
 	register_irq_handler(IRQ0, &timer_callback);
 
     // The value we send to the PIT is the value to divide it's input clock

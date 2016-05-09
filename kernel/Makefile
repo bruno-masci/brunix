@@ -1,4 +1,4 @@
-C_source := main.c timer.c
+C_source := main.c timer.c keyboard.c
 ASM_source :=
 MODULE := kernel
 

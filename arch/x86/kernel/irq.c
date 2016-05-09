@@ -78,11 +78,14 @@ void pic_acknowledge(uint32_t int_no) {
 	}
 	//debug("isr", "Resetting master!");
 	outb (PIC1_COMMAND, PIC_EOI); /* Send reset signal to master. (As well as slave, if necessary). */
+
+
+	outb(0x61, inb(0x61) | 0x03); //speaker
 }
 
 /* Called from our ASM interrupt handler stub */
 void irq_handler(struct registers_t regs) {
-	if (regs.int_no != 32) {
+	if (regs.int_no != 32 && regs.int_no != 33) {
 		debug("isr", "Calling isr_handler() for IRQ %d!", regs.int_no - 32);
 	}
 
