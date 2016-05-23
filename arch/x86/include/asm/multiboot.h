@@ -7,13 +7,11 @@
 #define __ARCH_MULTIBOOT_H__
 
 
-#define MULTIBOOT2_HEADER_MAGIC 0x36D76289
+#define MULTIBOOT_HEADER_MAGIC 0x2BADB002
 
 
 struct multiboot_info {
     uint32_t flags;
-    uint32_t flags1;
-    uint32_t flags2;
     uint32_t mem_lower;
     uint32_t mem_upper;
     uint32_t boot_device;
