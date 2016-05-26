@@ -5,8 +5,8 @@
 
 
 struct idt_ptr_struct {
-    uint16_t limit;               // The upper 16 bits of all selector limits.
-    uint32_t base;                // The address of the first gdt_entry_t struct.
+    uint16_t limit;               // Table limit: The upper 16 bits of all selector limits.
+    uint32_t base;                // Linear base address: The address of the first gdt_entry_t struct.
 } __attribute__((packed));
 typedef struct idt_ptr_struct idt_ptr_t;
 
@@ -62,4 +62,4 @@ extern void irq15();
 
 
 
-#endif /* #define __ARCH_IDT_H__ */
+#endif /* __ARCH_IDT_H__ */

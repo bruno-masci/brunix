@@ -14,6 +14,7 @@ void printk(const char *fmt, ...) {
     while (*fmt != '\0') {
         if (*fmt == '%') {
             char op = *(++fmt);
+            unsigned long hex = 0;
             switch (op) {
                 case 'c':
                     vga_putc(va_arg(params, char*));
@@ -28,6 +29,15 @@ void printk(const char *fmt, ...) {
                 case 'x':
                 case 'X':
                     vga_puthex(va_arg(params, uint32_t));
+                    break;
+                case 'p':
+                    hex = va_arg(params, uint32_t);
+                    vga_puthex(hex);
+                    vga_puts("(Pg");
+                    vga_putdec(hex / 4096);
+                    vga_puts("; ");
+                    vga_putdec(hex / 1024);
+                    vga_puts("KB)");
                     break;
                 case 'b':
                 case 'B':

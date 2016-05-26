@@ -21,9 +21,9 @@ void set_fg_color(uint8_t colour);
 
 #define debug_noargs(module_name, msg) 		set_fg_color(COLOR_LIGHT_GREY); printk("[" module_name "]: " msg "\n"); set_fg_color(COLOR_WHITE);
 
-#define panic(fmt, ...)						set_fg_color(COLOR_RED); printk("KERNEL PANIC: "fmt, __VA_ARGS__); while(1) { HALT; };
+#define panic(fmt, ...)						set_fg_color(COLOR_RED); printk("Kernel panic: " fmt " (" __FILE__ ")", __VA_ARGS__); while(1) { HALT; };
 
-#define panic_noargs(msg) 					set_fg_color(COLOR_RED); printk("KERNEL PANIC: "msg); while(1) { HALT; };
+#define panic_noargs(msg) 					set_fg_color(COLOR_RED); printk("Kernel panic: " msg " (%s:%d)", __FILE__, __LINE__); while(1) { HALT; };
 
 
 #endif /* __STDIO_H__ */

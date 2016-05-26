@@ -2,14 +2,19 @@
 <module type="CPP_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/arch/x86/include/asm/stddef.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/arch/x86/include/asm/gdt.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/arch/x86/kernel/vga.c" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/kmain.c" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/descriptor_tables.c" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/io.c" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/libc/stdlib.c" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/libc/string.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/libkern/stdlib.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/libkern/string.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/isr.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Makefile" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/iso/boot/grub/grub.cfg" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/linker.ld" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/README.md" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/brunix/string.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/include/brunix/stdlib.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/bochsrc.txt" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">

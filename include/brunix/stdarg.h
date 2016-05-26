@@ -1,6 +1,6 @@
 /**
  * @author Bruno Masci
- * @brief Macros related to variable arguments' functions
+ * @brief Definitions for variable argument lists
  */
 
 #ifndef __STDARG_H__

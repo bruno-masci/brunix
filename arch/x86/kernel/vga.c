@@ -160,7 +160,7 @@ void vga_puts(char *str) {
 }
 
 static void vga_write_number(uint32_t n, int base) {
-    char str[15];
+    char str[64+1];
     itoa(n, str, base);
     vga_puts(str);
 }

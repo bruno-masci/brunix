@@ -19,7 +19,7 @@ static isr_t irq_handlers[256] = {[0 ... 255] = {0, 0, 0, 0, 0, 0}};
 
 
 void register_irq_handler(uint8_t n, isr_t handler) {
-	debug("irq", "Registering IRQ handler number %d, handler %x!...", n, handler);
+	debug("irq", "Registering IRQ handler number %d (%d), handler %x!...", n - 32, n, handler);
 	irq_handlers[n] = handler;
 }
 

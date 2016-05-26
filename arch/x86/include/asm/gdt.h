@@ -39,6 +39,10 @@
 
 #include <brunix/stddef.h>
 
+
+#define GDT_SEGMENT_LIMIT	0xFFFFFFFF
+
+
 /// This segment is a data segment
 #define GDT_FLAG_DATASEG	0x02
 /// This segment is a code segment
@@ -49,10 +53,6 @@
 #define GDT_FLAG_SEGMENT	0x10
 /// Privilege level: Ring 0 
 #define GDT_FLAG_RING0		0x00
-/// Privilege level: Ring 1
-#define GDT_FLAG_RING1		0x20
-/// Privilege level: Ring 2 
-#define GDT_FLAG_RING2		0x40
 /// Privilege level: Ring 3 
 #define GDT_FLAG_RING3		0x60
 /// Segment is present
@@ -99,11 +99,35 @@ typedef struct gdt_entry_struct gdt_entry_t;
  * This structure tells the address and size of the table.
  */
 typedef struct {
-	/// Size of the table in bytes (not the number of entries!)
+	/// Table limit: Size of the table in bytes (not the number of entries!)
 	uint16_t limit;
-	/// Address of the table (the address of the first gdt_entry_t struct)
+	/// Linear base address: Address of the table (the address of the first gdt_entry_t struct)
 	size_t base;
 } __attribute__ ((packed)) gdt_ptr_t;
+
+
+
+struct tss {
+	uint16_t previous_task, __previous_task_unused;
+	uint32_t esp0;
+	uint16_t ss0, __ss0_unused;
+	uint32_t esp1;
+	uint16_t ss1, __ss1_unused;
+	uint32_t esp2;
+	uint16_t ss2, __ss2_unused;
+	uint32_t cr3;
+	uint32_t eip, eflags, eax, ecx, edx, ebx, esp, ebp, esi, edi;
+	uint16_t es, __es_unused;
+	uint16_t cs, __cs_unused;
+	uint16_t ss, __ss_unused;
+	uint16_t ds, __ds_unused;
+	uint16_t fs, __fs_unused;
+	uint16_t gs, __gs_unused;
+	uint16_t ldt_selector, __ldt_sel_unused;
+	uint16_t debug_flag, io_map;
+} __attribute__ ((packed));
+typedef struct tss tss_t;
+
 
 
 #define GDT_ENTRIES	(4+1)	// 5+1 con TSS
@@ -114,4 +138,4 @@ void gdt_init();
 
 
 
-#endif /* #define __ARCH_GDT_H__ */
+#endif /* __ARCH_GDT_H__ */
