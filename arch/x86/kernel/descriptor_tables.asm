@@ -10,11 +10,11 @@
 %define __KERNEL_DS 0x10
 
 
-[GLOBAL gdt_flush]          ; Allows the C code to call gdt_flush().
+[GLOBAL __gdt_flush]          ; Allows the C code to call gdt_flush().
 
-gdt_flush:
-    mov eax, [esp+4]        ; Get the pointer to the GDT, passed as a parameter.
-    lgdt [eax]              ; Load the new GDT pointer
+__gdt_flush:
+    mov eax, [esp+4]  ; Get the pointer to the GDT, passed as a parameter.
+    lgdt [eax]        ; Load the new GDT pointer
 
     mov ax, __KERNEL_DS     ; 0x10 is the offset in the GDT to our data segment
     mov ds, ax              ; Load all data segment selectors
@@ -26,9 +26,9 @@ gdt_flush:
 .flush:
     ret
 
-[GLOBAL idt_flush]          ; Allows the C code to call idt_flush().
+[GLOBAL __idt_flush]    ; Allows the C code to call __idt_flush().
 
-idt_flush:
-    mov eax, [esp+4]        ; Get the pointer to the IDT, passed as a parameter.
-    lidt [eax]              ; Load the IDT pointer.
+__idt_flush:
+    mov eax, [esp+4]  ; Get the pointer to the IDT, passed as a parameter.
+    lidt [eax]        ; Load the IDT pointer.
     ret

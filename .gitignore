@@ -1,3 +1,4 @@
 .idea/workspace.xml
 CMakeLists.txt
+bochsout.log
 *.o

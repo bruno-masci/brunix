@@ -1,7 +1,7 @@
 OUTPUT_FORMAT("elf32-i386")
 OUTPUT_ARCH("i386")
 ENTRY(start)
-phys = 0x00100000;      /* 1 MB */
+. = 0x00100000;
 
 SECTIONS {
     kernel_start = .;

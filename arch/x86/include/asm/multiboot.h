@@ -7,7 +7,7 @@
 #define __ARCH_MULTIBOOT_H__
 
 
-#define MULTIBOOT2_HEADER_MAGIC 0x36D76289
+#define MULTIBOOT_HEADER_MAGIC 0x2BADB002
 
 
 struct multiboot_info {

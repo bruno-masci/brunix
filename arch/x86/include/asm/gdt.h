@@ -81,8 +81,7 @@
  * - 20 bit limit
  */
 
-// struct segdesc_s
-struct gdt_entry_struct {
+struct gdt_desc_struct {
     uint16_t limit_low;
     uint16_t base_low;
     uint8_t  base_middle;
@@ -90,7 +89,7 @@ struct gdt_entry_struct {
     uint8_t  granularity;			/* |G|X|0|A|LIMT| */
     uint8_t  base_high;
 } __attribute__((packed));
-typedef struct gdt_entry_struct gdt_entry_t;
+typedef struct gdt_desc_struct gdt_desc_t;
 
 
 
