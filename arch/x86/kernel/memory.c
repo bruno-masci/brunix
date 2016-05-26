@@ -5,8 +5,8 @@
 #include <brunix/stdio.h>
 
 
-extern void load_page_directory(page_dir_t *pd);
-extern void enable_paging(void);
+extern void __load_page_directory(page_dir_t *pd);
+extern void __enable_paging(void);
 
 
 static page_dir_t page_directory[1024] __attribute__((aligned(4096)));
@@ -49,13 +49,43 @@ static void page_fault_callback(struct registers_t *regs) {
 }
 
 
+#define set_page_frame_used(page)	mem_bitmap[((uint32_t) page)/8] |= (1 << (((uint32_t) page)%8))
 
-void paging_init(void) {
+
+void paging_init(uint32_t mem_upper_in_bytes) {
+
+	printk("Total frames: %d\n", mem_upper_in_bytes / 4096);
+
+
+	//	char *pg0 = (char *) 0;						/* kernel page 0 (4MB) */
+//	char *pg1 = (char *) 0x400000;				/* kernel page 1 (4MB) 0x400000*/
+	char *kernel_mem_end = (char *) 0x800000;	/* limite de la page 1 0x800000*/
+
+	const int total_pages = mem_upper_in_bytes / PAGE_SIZE; /* Last page number */
+	uint32_t bitmap_size = total_pages / 8;
+	uint8_t mem_bitmap[bitmap_size];		/* Pages' allocation bitmap */
+
+	/* Initialisation of physical pages' bitmap */
+	int page_num;
+	for (page_num = 0; page_num < bitmap_size; page_num++)
+		mem_bitmap[page_num] = 0;
+
+	for (page_num = bitmap_size; page_num < RAM_MAXPAGE / 8; page_num++)	//para llegar del max RAM a 1Gb virtual del kernel (?)
+		mem_bitmap[page_num] = 0xFF;
+
+	/* Pages reserved for kernel (the first 8MB of RAM; identity mapped */
+	for (page_num = PAGE(0x0); page_num < PAGE(kernel_mem_end); page_num++) {
+		set_page_frame_used(page_num);
+	}
+
+
+
+
 	page_directory[0].present_flag = 1;
 	page_directory[0].read_write_flag = 1;
 	page_directory[0].user_supervisor_flag = 0;
 	page_directory[0].unused_flags = 0;
-	page_directory[0].page_table_base_address = TABLE_SHIFT_R(first_page_table);
+	page_directory[0].page_table_base_address = PAGE(first_page_table);
 
 	for(unsigned int i = 1; i < 1024; i++) {
 		page_directory[i].present_flag = 0;
@@ -70,7 +100,7 @@ void paging_init(void) {
 	for(unsigned int i = 0; i < 1024; i++) {
 		// As the address is page aligned, it will always leave 12 bits zeroed.
 		// Those bits are used by the attributes ;)
-		first_page_table[i].physical_page_address = TABLE_SHIFT_R(i * PAGE_SIZE);
+		first_page_table[i].physical_page_address = PAGE(i * PAGE_SIZE);
 		first_page_table[i].present_flag = 1;
 		first_page_table[i].read_write_flag = 1;
 		first_page_table[i].user_supervisor_flag = 0;
@@ -81,6 +111,6 @@ void paging_init(void) {
 
 	register_interrupt_handler(14, &page_fault_callback);
 
-	load_page_directory(page_directory);	// physical address
-	enable_paging();
+	__load_page_directory(page_directory);	// physical address
+	__enable_paging();
 }

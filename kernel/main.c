@@ -42,7 +42,7 @@ int kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic, uint32_t initial_sta
 
 	video_init();
 
-	printk("Starting Brunix...");//FIXME enters; Starting Brunix...
+	printk("Starting Brunix... ");//FIXME enters; Starting Brunix...
 
 	if (magic != MULTIBOOT_HEADER_MAGIC) {
 		panic_noargs("Invalid magic number! A Multiboot compatible loader is needed...");
@@ -50,9 +50,9 @@ int kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic, uint32_t initial_sta
 
 	print_kernel_context_info(mboot_info_ptr);
 
-	printk("Initializing GDT...\n");
+	printk("GDT...");
 	gdt_init();
-	printk("Initializing IRQs...\n");
+	printk("IRQs...");
 	irq_init();
 
 
@@ -62,38 +62,14 @@ int kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic, uint32_t initial_sta
 	timer_init(100); // Initialise timer to 100Hz
 	print_timer_ticks();
 
-	printk("Installing keyboard...");
+	printk("Keyboard...");
 	kbd_init();
 
-	printk("Loading Virtual Memory Management...\n");
+	printk("VMM...");
 	uint32_t mem_upper_in_bytes = mboot_info_ptr->mem_upper * 1024;
-	printk("Total frames: %d\n", mem_upper_in_bytes / 4096);
 
-#define	PAGESIZE 			4096
-#define	RAM_MAXPAGE			0x100000
-#define PAGE(addr)		(addr) >> 12
-#define set_page_frame_used(page)	mem_bitmap[((uint32_t) page)/8] |= (1 << (((uint32_t) page)%8))
 
-//	char *pg0 = (char *) 0;						/* kernel page 0 (4MB) */
-//	char *pg1 = (char *) 0x400000;				/* kernel page 1 (4MB) 0x400000*/
-	char *kernel_mem_end = (char *) 0x800000;	/* limite de la page 1 0x800000*/
 
-	const int total_pages = mem_upper_in_bytes / PAGESIZE; /* Last page number */
-	uint32_t bitmap_size = total_pages / 8;
-	uint8_t mem_bitmap[bitmap_size];		/* Pages' allocation bitmap */
-
-	/* Initialisation of physical pages' bitmap */
-	int page_num;
-	for (page_num = 0; page_num < bitmap_size; page_num++)
-		mem_bitmap[page_num] = 0;
-
-	for (page_num = bitmap_size; page_num < RAM_MAXPAGE / 8; page_num++)	//para llegar del max RAM a 1Gb virtual del kernel (?)
-		mem_bitmap[page_num] = 0xFF;
-
-	/* Pages reserved for kernel (the first 8MB of RAM; identity mapped */
-	for (page_num = PAGE(0x0); page_num < (uint32_t)(PAGE((uint32_t) kernel_mem_end)); page_num++) {
-		set_page_frame_used(page_num);
-	}
 
 
 //	io.print("Loading Task Register \n");
@@ -107,8 +83,8 @@ int kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic, uint32_t initial_sta
 
 
 
-	printk("Initializing paging...\n");
-	paging_init();
+	printk("Init paging...\n");
+	paging_init(mem_upper_in_bytes);
 
 
 
@@ -118,7 +94,7 @@ int kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic, uint32_t initial_sta
 //	printk("\nSimulating a syscall...\n");
 //	asm volatile ("int $0x80");
 
-	printk("\nGenerating a page fault...\n");
+	printk("\nGenerating a page fault...");
 	uint32_t *ptr = (uint32_t *)0x400000;
 	uint32_t do_page_fault = *ptr;
 

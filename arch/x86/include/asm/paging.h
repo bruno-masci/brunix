@@ -14,14 +14,14 @@
 
 
 
-#define PGDIR_PRESENT_FLAG 		0x1
-#define PGDIR_WRITABLE_FLAG 	0x2
-#define PGDIR_USER_FLAG 		0x4	//(1 << 2) variante
+#define PGDIR_PRESENT_FLAG 			0x1
+#define PGDIR_WRITABLE_FLAG 		0x2
+#define PGDIR_USER_FLAG 			0x4	//(1 << 2) variante
 
 
-#define PAGE_SIZE						0x1000 // 4 KB
-#define TABLE_SHIFT_R(address)			(((uint32_t)address) >> 12)
-
+#define PAGE_SIZE					0x1000 // 4 KB
+#define	RAM_MAXPAGE					0x100000
+#define PAGE(addr)					(uint32_t)(((uint32_t)addr) >> 12)
 
 
 struct page_dir_struct {
@@ -48,7 +48,7 @@ typedef struct page_table_struct page_table_t;
    Sets up the environment, page directories etc and
    enables paging.
 **/
-void paging_init(void);
+void paging_init(uint32_t mem_upper_in_bytes);
 
 /**
    Causes the specified page directory to be loaded into the

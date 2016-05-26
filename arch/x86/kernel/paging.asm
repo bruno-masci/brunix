@@ -1,6 +1,6 @@
 
-[GLOBAL load_page_directory]    ; Allows the C code to call load_page_directory().
-load_page_directory:
+[GLOBAL __load_page_directory]      ; Allows the C code to call __load_page_directory().
+__load_page_directory:
     push ebp
     mov ebp, esp
     mov eax, [esp+8]
@@ -10,8 +10,8 @@ load_page_directory:
     ret
 
 
-[GLOBAL enable_paging]    ; Allows the C code to call enable_paging().
-enable_paging:
+[GLOBAL __enable_paging]            ; Allows the C code to call __enable_paging().
+__enable_paging:
     push ebp
     mov ebp, esp
     mov eax, cr0
