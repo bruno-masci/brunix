@@ -5,30 +5,23 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SOURCE_FILES
     arch/x86/include/asm/gdt.h
+    arch/x86/include/asm/isr.h
+    arch/x86/kernel/gdt.c
+    arch/x86/kernel/isr.c
     arch/x86/kernel/vga.c
-    arch/x86/kernel/vga.h
-        arch/x86/include/asm/stddef.h
-    include/stdint.h
-        include/brunix/stdlib.h
-        include/brunix/string.h
+    arch/x86/include/asm/vga.h
+    arch/x86/include/asm/io.h
+    arch/x86/include/asm/stddef.h
+    include/brunix/stdlib.h
+    include/brunix/string.h
     iso/boot/grub/grub.cfg
-        libkern/stdlib.c
-        libkern/string.c
+    libkern/stdlib.c
+    libkern/string.c
     bochsrc.txt
-    boot.s
     CMakeLists.txt
-    descriptor_tables.c
-    descriptor_tables.h
-    gdt.s
-    interrupt.s
-    io.c
-    io.h
-    isr.c
-    isr.h
-    kmain.c
+    kernel/main.c
     linker.ld
     Makefile
-    multiboot_header.s
     README.md)
 
 add_executable(brunix ${SOURCE_FILES})
