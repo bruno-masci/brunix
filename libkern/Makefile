@@ -1,4 +1,4 @@
-C_source := string.c stdlib.c stdio.c
+C_source := stdlib.c stdio.c
 ASM_source := 
 MODULE := libkern
 

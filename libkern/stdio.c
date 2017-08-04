@@ -1,5 +1,5 @@
-#include <asm/vga.h>
-#include <brunix/stdio.h>
+#include "../include/arch/x86/vga.h"
+#include "../include/brunix/stdio.h"
 
 
 void video_init(void) {
@@ -10,14 +10,13 @@ void printk(const char *fmt, ...) {
     va_list params;
     va_start(params, fmt);
 
-    int arg = 0;
     while (*fmt != '\0') {
         if (*fmt == '%') {
             char op = *(++fmt);
             unsigned long hex = 0;
             switch (op) {
                 case 'c':
-                    vga_putc(va_arg(params, char*));
+                    vga_putc(va_arg(params, int));
                     break;
                 case 'd':
                 case 'i':
@@ -48,8 +47,7 @@ void printk(const char *fmt, ...) {
                     break;
 
                 default:
-                    //WARN("bad specifier");
-                    vga_puts("bad specifier");
+                    vga_puts("printk: Bad specifier");
                     return;
             }
         }
@@ -64,6 +62,6 @@ void printk(const char *fmt, ...) {
     va_end(params);
 }
 
-void set_fg_color(uint8_t colour) {
-    vga_set_foreground_color(colour);
+void set_fg_color(uint8_t color) {
+    vga_set_foreground_color(color);
 }

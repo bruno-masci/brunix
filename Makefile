@@ -1,56 +1,58 @@
+OUTPUT_NAME = brunix
 TOPDIR = $(shell pwd)
-ARCH = x86
-NAME = brunix
-KERNDIRS = kernel arch/$(ARCH)/kernel libkern
-SUBDIRS = $(KERNDIRS)
-CC = gcc
-INCDIR= -I ./ -I ./include -I ./arch/x86/include
-CFLAGS = $(INCDIR) -m32 -nostdlib -nostdinc -ffreestanding -fno-builtin -fno-stack-protector \
-         -nostartfiles -nodefaultlibs -c -g -O2 \
-         -trigraphs -fno-exceptions -O0 -std=gnu99 -w
-         #-Werror -Wall -Wextra -Wunused-value
-LDFLAGS = -T linker.ld -m elf_i386 -n -nostdlib --defsym __BUILD_DATE=$(shell date +'%Y%m%d') --defsym __BUILD_TIME=$(shell date +'%H%M%S')
+SUBDIRS = kernel libkern
 AS = nasm
 ASFLAGS = -f elf32 -g
+CROSS_CC = /home/bmasci/opt/cross/bin/i686-elf-gcc
+CROSS_OBJCOPY = /home/bmasci/opt/cross/bin/i686-elf-objcopy
+CFLAGS = -ffreestanding -c -g -O2 -std=gnu99 -Wall -Wextra -pedantic
+LDFLAGS = -T linker.ld -ffreestanding -O2 -nostdlib
 
-default: all
+default: compile
 
-all: $(NAME).elf
+full: clean $(OUTPUT_NAME).elf run
 
-$(NAME).elf:
-	ld $(LDFLAGS) -o $(NAME).elf $^
-	objcopy --only-keep-debug $(NAME).elf $(NAME).sym
-	objcopy --strip-debug $(NAME).elf $(NAME)-nosym.elf
-	cp $(NAME)-nosym.elf iso/boot/$(NAME).elf
-	grub-mkrescue -d misc/grub/i386-pc -o os.iso iso/	# -d is needed for amd64 host platforms
+compile: $(OUTPUT_NAME).elf
 
+$(OUTPUT_NAME).elf:
+	@echo Linking kernel into {$(OUTPUT_NAME).elf}
+	@$(CROSS_CC) $(LDFLAGS) -o $(OUTPUT_NAME).elf -Wl,-Map,System.map $^ -lgcc
+	@$(CROSS_OBJCOPY) --only-keep-debug $(OUTPUT_NAME).elf $(OUTPUT_NAME).sym
+	@$(CROSS_OBJCOPY) --strip-debug $(OUTPUT_NAME).elf $(OUTPUT_NAME)-nosym.elf
+	@cp $(OUTPUT_NAME)-nosym.elf iso/boot/$(OUTPUT_NAME).elf
+	@echo Generating ISO image file...
+	@grub-mkrescue -d misc/grub/i386-pc -o os.iso iso/	2>/dev/null # -d is needed for amd64 host platforms
 
-run:
-	qemu-system-i386 -cdrom os.iso
-	     
+run: run-qemu
+
+run-qemu:
+	qemu-system-i386 -cdrom os.iso -m 512M
+
 run-bochs:
 	bochs
-	
+
 run-qemu-gdb:
 	qemu-system-i386 -cdrom os.iso \
 	-S -s & gdb  \
-	        -ex 'file brunix.elf' \
+	        -ex 'file $(OUTPUT_NAME).elf' \
             -ex 'target remote localhost:1234' \
             -ex 'layout regs' \
             -ex 'layout asm' \
             -ex 'break kmain'
 
 %.o: %.c
-	$(CC) $(CFLAGS)  $< -o $@
+	@echo + cc $<
+	@$(CROSS_CC) $(CFLAGS) $< -o $@
+	@$(CROSS_CC) -M -MF $<.dep $(CFLAGS) $<
 
 %.o: %.asm
-	$(AS) $(ASFLAGS) $< -o $@
+	@echo + as $<
+	@$(AS) $(ASFLAGS) $< -o $@
 
 clean:
-	rm -rf $(NAME).elf $(NAME)-nosym.elf $(NAME).sym os.iso
-	rm -rf iso/boot/$(NAME).elf
+	@echo Cleaning the rest...
+	@rm -rf $(OUTPUT_NAME).elf $(OUTPUT_NAME)-nosym.elf $(OUTPUT_NAME).sym System.map
+	@rm -rf os.iso iso/boot/$(OUTPUT_NAME).elf
 
-
-#revisar si poner estas opciones a gcc: -Wpointer-arith -Wcast-align -Wno-unused-parameter -fno-rtti
 
 include $(addsuffix /Makefile,$(SUBDIRS))

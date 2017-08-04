@@ -1,4 +1,6 @@
 .idea/workspace.xml
+.idea/brunix.iml
+.idea/misc.xml
 CMakeLists.txt
 bochsout.log
 *.o
