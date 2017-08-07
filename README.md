@@ -1,6 +1,8 @@
 # brunix
 Small Unix-like x86 OS for fun and learning (stage 0)
 
+Note: We assume 386+ when we refer to x86 architecture.
+
 Pre-requisites:
 mtools
 xorriso
@@ -9,10 +11,10 @@ nasm
 A proper cross compiler
 
 here [see http://wiki.osdev.org/GCC_Cross-Compiler]
-[a link](https://github.com/user/repo/blob/branch/other_file.md)
 
-In this very first stage we are going to outline and define the skeleton of the system. It will define
-a primitive OS for running on x86 (386+) architecture.. and includes:
+In this very first stage we are going to outline and depict the project structure. The idea is to do incremental developments (stage0, stage1, ...) to tackle all the complexities in an easer way.
+
+For now, we'll just create a bare OS (if we even can call it that way) that includes:
 * kernel loading (boot)
 * basic console management
 
@@ -36,16 +38,16 @@ Note that GRUB configures a stack but we can't trust its location, so we need to
 
 
 
+* kernel
+** main.c: The C kernel's entry point.
+** vga.c: Basic video routines.
+
 
 References:
 
 http://www.jamesmolloy.co.uk/tutorial_html
-
 http://wiki.osdev.org
-
 http://os.phil-opp.com/multiboot-kernel.html
-
 http://www.osdever.net/bkerndev/index.php
-
 http://www.jofre.de/?download=WritingAnOs.pdf
 
