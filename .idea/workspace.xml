@@ -10,14 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09916d8b-a51c-45d5-9e44-a908d6f2453e" name="Default" comment="Added printk(). Some changes.">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PRECOND" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Makefile" afterPath="$PROJECT_DIR$/Makefile" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kernel/main.c" afterPath="$PROJECT_DIR$/kernel/main.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kernel/multiboot_entry_point.asm" afterPath="$PROJECT_DIR$/kernel/multiboot_entry_point.asm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/linker.ld" afterPath="$PROJECT_DIR$/linker.ld" />
     </list>
     <ignored path="brunix.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -61,8 +54,8 @@
       <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="69" lean-forward="true" selection-start-line="19" selection-start-column="39" selection-end-line="19" selection-end-column="69" />
+            <state relative-caret-position="204">
+              <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -530,7 +523,7 @@
       <workItem from="1501784935910" duration="597000" />
       <workItem from="1501861525117" duration="11264000" />
       <workItem from="1501977932849" duration="8141000" />
-      <workItem from="1502057520001" duration="4916000" />
+      <workItem from="1502057520001" duration="5275000" />
     </task>
     <task id="LOCAL-00001" summary="Added printk(). Some changes.">
       <created>1457640309517</created>
@@ -543,7 +536,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67811000" />
+    <option name="totallyTimeSpent" value="68170000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="24" width="1368" height="721" extended-state="6" />
@@ -833,8 +826,8 @@
     <entry file="file://$PROJECT_DIR$/PRECOND" />
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="69" lean-forward="true" selection-start-line="19" selection-start-column="39" selection-end-line="19" selection-end-column="69" />
+        <state relative-caret-position="204">
+          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding />
         </state>
       </provider>

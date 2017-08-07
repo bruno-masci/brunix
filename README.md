@@ -9,6 +9,7 @@ nasm
 A proper cross compiler
 
 here [see http://wiki.osdev.org/GCC_Cross-Compiler]
+[a link](https://github.com/user/repo/blob/branch/other_file.md)
 
 In this very first stage we are going to outline and define the skeleton of the system. It will define
 a primitive OS for running on x86 (386+) architecture.. and includes:
