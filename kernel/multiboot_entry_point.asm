@@ -42,7 +42,7 @@ align 4
 ; The stack on x86 must be 16-byte aligned according to the System V ABI
 ; standard. The compiler will assume the stack is properly aligned and failure
 ; to align the stack will result in undefined behavior.
-BOOTSTRAP_STACK_SIZE equ 16384     ; size of stack in bytes (16 KiB)
+BOOTSTRAP_STACK_SIZE equ 14384     ; size of stack in bytes (16 KiB)
 
 section .bss nobits ; TODO revisar! parece que .bss por default es nobits
 align 4
@@ -65,7 +65,9 @@ section .text
 ; Declare _start as a function symbol with the given symbol size.
 ;global _start:function (_start.end - _start)
 global _start
-
+# By convention, the _start symbol specifies the ELF entry point.
+# Since we haven't set up virtual memory yet, our entry point is
+# the physical address of 'entry'.
 
 _start:
     ; The bootloader has loaded us into 32-bit protected mode on a x86 machine.

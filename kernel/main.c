@@ -16,14 +16,8 @@
  * Note that linker symbols are not variables, they have no memory allocated for
  * maintaining a value, rather their address is their value.
  */
-extern const void * kernel_start;
-extern const void * kernel_end;
-extern const void * boot_start;
-extern const void * boot_end;
-extern const void * bss_start;
-extern const void * bss_end;
-extern const void * data_start;
-extern const void * data_end;
+extern const void kernel_start;
+extern const void kernel_end;
 
 
 static uint32_t initial_esp;
@@ -54,10 +48,5 @@ int kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic, uint32_t initial_sta
 static void print_kernel_context_info(multiboot_info_t *mboot_info_ptr) {
     printk("Total RAM installed: %u MB\n", mboot_info_ptr->mem_upper / 1024);
     printk("Loading kernel with command line: %s\n", (char *)mboot_info_ptr->cmdline);
-    debug("main", "Bootstrap ESP: %x KB", initial_esp);
-    debug("main", "Kernel size: %d KB {boot: %d B, data: %d B, bss: %d KB}\n\n", \
-    (&kernel_end - &kernel_start) / 1024,
-          (&boot_end - &boot_start),
-          (&data_end - &data_start),
-          (&bss_end - &bss_start) / 1024);
+    debug("main", "Kernel size: %d KB; Bootstrap ESP: %x KB", (&kernel_end - &kernel_start) / 1024, initial_esp);
 }

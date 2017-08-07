@@ -15,7 +15,7 @@ full: clean $(OUTPUT_NAME).elf run
 compile: $(OUTPUT_NAME).elf
 
 $(OUTPUT_NAME).elf:
-	@echo Linking kernel into {$(OUTPUT_NAME).elf}
+	@echo Linking kernel into $(OUTPUT_NAME).elf file...
 	@$(CROSS_CC) $(LDFLAGS) -o $(OUTPUT_NAME).elf -Wl,-Map,System.map $^ -lgcc
 	@$(CROSS_OBJCOPY) --only-keep-debug $(OUTPUT_NAME).elf $(OUTPUT_NAME).sym
 	@$(CROSS_OBJCOPY) --strip-debug $(OUTPUT_NAME).elf $(OUTPUT_NAME)-nosym.elf
