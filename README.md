@@ -12,7 +12,7 @@ A proper cross compiler
 
 here [see http://wiki.osdev.org/GCC_Cross-Compiler]
 
-In this very first stage we are going to outline and depict the project structure. The idea is to do incremental developments (stage0, stage1, ...) to tackle all the complexities in an easer way.
+In this very first stage we are going to outline and depict the project structure. The idea is to do incremental developments (stage0, stage1, ...) to tackle all the complexities in an easier way.
 
 For now, we'll just create a bare OS (if we even can call it that way) that includes:
 * kernel loading (boot)
@@ -20,7 +20,7 @@ For now, we'll just create a bare OS (if we even can call it that way) that incl
 
 When the computer [boots](http://wiki.osdev.org/System_Initialization_(x86)),
 the CPU starts in the so called [Real Mode](http://wiki.osdev.org/Real_Mode) for compatibility reasons. In order
-to get all the power from an 386+ CPU, we need to enable the so called [Protected Mode](http://wiki.osdev.org/Protected_Mode).
+to get all the power from an x86 CPU, we need to enable the so called [Protected Mode](http://wiki.osdev.org/Protected_Mode).
 
 As the bootloader we will use GRUB (GRUB 2, in particular). GRUB save us all the pain of switching from Real Mode to Protected Mode, as it handles
 all the unpleasant details and leaves the CPU in Protected Mode with a full 4 GiB addressing space (32 bits),
