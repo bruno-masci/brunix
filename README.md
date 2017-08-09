@@ -58,7 +58,7 @@ Note that GRUB configures a stack but we can't trust its location, so we need to
 
 
 ## How does the kernel start running?
-First thing first... our kernel image is ELF formatted and its inner structure is given by the linker ([ld](http://wiki.osdev.org/LD) directives and commands declared in the linker.ld file (see http://wiki.osdev.org/Linker_Scripts).
+First thing first... our kernel image is ELF formatted and its inner structure is given by the linker ([ld](http://wiki.osdev.org/LD)) directives and commands declared in the linker.ld file (see [Linker Scripts](http://wiki.osdev.org/Linker_Scripts)).
 When GRUB (or any Multiboot-compliant bootloader, for that matter) loads our kernel image, it needs to check whether the kernel is Multiboot-compliant looking for certain values to be stored at the beginning of the kernel image; that's why we have a "multiboot_header" section at the first position in the linker.ld file.
 Once GRUB has checked the image, it transfers the control to the kernel executing the code at the "_start" symbol.  
 
