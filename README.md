@@ -39,26 +39,19 @@ EAX contains the value 0x2BADB002
 Note that GRUB configures a stack but we can't trust its location, so we need to define ours.
 
 
-
-* kernel
-** main.c: The C kernel's entry point.
-** vga.c: Basic video routines.
-
-
-.
  * |── brunix.elf
  * |── brunix-nosym.elf
  * |── brunix.sym
  * |── brunix-nosym.elf
  * |── include
-   * |── asm-x86: x86 architecture-dependent header files.
-   * |── brunix: architecture-independent header files.
- * |── kernel: kernel source code.
- * |── libkern: custom libc for the kernel.
+   * |── **asm-x86**: x86 architecture-dependent header files.
+   * |── **brunix**: architecture-independent header files.
+ * |── **kernel**: kernel source code.
+ * |── **libkern**: custom libc for the kernel.
  * |── linker.ld
  * |── Makefile
  * |── Makefile.inc
- * |── linker.ld
+ * |── **linker.ld**
  * |── os.iso
  * |── System.map
  
