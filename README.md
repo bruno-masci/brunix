@@ -55,30 +55,13 @@ Note that GRUB configures a stack but we can't trust its location, so we need to
  * |── os.iso
  * |── System.map
  
-. 
-├── iso
-│   └── boot
-│       ├── brunix.elf
-│       └── grub
-│           └── grub.cfg
-├── kernel
-├── 
-├── linker.ld
-├── Makefile
-├── Makefile.inc
-├── os.iso
-├── README.md
-├── System.map
-└── test
-    ├── atoi.c
-    └── atoi-test
 
 
 References:
 
-http://www.jamesmolloy.co.uk/tutorial_html
-http://wiki.osdev.org
-http://os.phil-opp.com/multiboot-kernel.html
-http://www.osdever.net/bkerndev/index.php
-http://www.jofre.de/?download=WritingAnOs.pdf
+* http://www.jamesmolloy.co.uk/tutorial_html
+* http://wiki.osdev.org
+* http://os.phil-opp.com/multiboot-kernel.html
+* http://www.osdever.net/bkerndev/index.php
+* http://www.jofre.de/?download=WritingAnOs.pdf
 
