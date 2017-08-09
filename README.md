@@ -31,7 +31,7 @@ We will take advantage of GRUB's native support for loading ELF files, and so we
 For creating the kernel we are going to use the linker (ld) from the cross-compiler just built as the first step
 to produce an ELF formatted kernel image.
 
-
+There's no standard library..!
 
 Aside,
 EBX contains a pointer to the Multiboot information structure
@@ -51,11 +51,10 @@ Note that GRUB configures a stack but we can't trust its location, so we need to
  * |── brunix.sym
  * |── brunix-nosym.elf
  * |── include
-   * |── arch
-     * |── x86
-   * |── brunix
- * |── kernel
- * |── libkern
+   * |── asm-x86: x86 architecture-dependent header files.
+   * |── brunix: architecture-independent header files.
+ * |── kernel: kernel source code.
+ * |── libkern: custom libc for the kernel.
  * |── linker.ld
  * |── Makefile
  * |── Makefile.inc
