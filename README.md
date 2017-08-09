@@ -18,6 +18,8 @@ For now, we'll just create a bare OS (if we even can call it that way) that incl
 * kernel loading (boot)
 * basic console management
 
+We'll use [ELF](http://wiki.osdev.org/ELF) as the kernel format, because it's a very well supported, portable and flexible format.
+
 When the computer [boots](http://wiki.osdev.org/System_Initialization_(x86)),
 the CPU starts in the so called [Real Mode](http://wiki.osdev.org/Real_Mode) for compatibility reasons. In order
 to get all the power from an x86 CPU, we need to enable the so called [Protected Mode](http://wiki.osdev.org/Protected_Mode).
