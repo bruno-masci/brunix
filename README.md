@@ -46,59 +46,31 @@ Note that GRUB configures a stack but we can't trust its location, so we need to
 
 
 .
- * |── [tree-md](./tree-md)
- * |── [dir2](./dir2)
-   * |── [file21.ext](./dir2/file21.ext)
-   * |── [file22.ext](./dir2/file22.ext)
-   * |── [file23.ext](./dir2/file23.ext)
- * |── [dir1](./dir1)
-   * |── [file11.ext](./dir1/file11.ext)
-   * |── [file12.ext](./dir1/file12.ext)
- * |── [dir3](./dir3)
+ * |── brunix.elf
+ * |── brunix-nosym.elf
+ * |── brunix.sym
+ * |── brunix-nosym.elf
+ * |── include
+   * |── arch
+     * |── x86
+   * |── brunix
+ * |── kernel
+ * |── libkern
+ * |── linker.ld
+ * |── Makefile
+ * |── Makefile.inc
+ * |── linker.ld
+ * |── os.iso
+ * |── System.map
  
-.
-├── bochsout.log
-├── bochsrc.txt
-├── brunix.elf
-├── brunix-nosym.elf
-├── brunix.sym
-├── cmake-build-debug
-│   └── CMakeFiles
-│       └── clion-log.txt
-├── include
-│   ├── arch
-│   │   └── x86
-│   │       ├── io.h
-│   │       ├── multiboot.h
-│   │       ├── processor.h
-│   │       └── vga.h
-│   └── brunix
-│       ├── screen.h
-│       ├── stdio.h
-│       └── stdlib.h
+. 
 ├── iso
 │   └── boot
 │       ├── brunix.elf
 │       └── grub
 │           └── grub.cfg
 ├── kernel
-│   ├── main.c
-│   ├── main.c.dep
-│   ├── main.o
-│   ├── Makefile
-│   ├── multiboot_entry_point.asm
-│   ├── multiboot_entry_point.o
-│   ├── vga.c
-│   ├── vga.c.dep
-│   └── vga.o
-├── libkern
-│   ├── Makefile
-│   ├── stdio.c
-│   ├── stdio.c.dep
-│   ├── stdio.o
-│   ├── stdlib.c
-│   ├── stdlib.c.dep
-│   └── stdlib.o
+├── 
 ├── linker.ld
 ├── Makefile
 ├── Makefile.inc
