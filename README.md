@@ -61,8 +61,8 @@ Note that GRUB configures a stack but we can't trust its location, so we need to
  * |── System.map
 
 
-## How is the kernel ELF image generated?
-When "make" (or "make compile") is run from the project's (' ??) top level directory's Makefile file, all source code is compiled (using the [GCC cross-compiler](http://wiki.osdev.org/GCC_Cross-Compiler) for C, and [nasm](http://wiki.osdev.org/NASM) for ASM) into [relocatable ELF object files](http://wiki.osdev.org/Object_Files) that are linked together using [ld](http://wiki.osdev.org/LD) (really using GCC as a linker) into a conclusive statically linked executable ELF file.
+## How is the ELF kernel image generated?
+When "make" (or "make compile") is run from the project's (' ??) top level directory's Makefile file, all source code is compiled (using the [GCC cross-compiler](http://wiki.osdev.org/GCC_Cross-Compiler) for C and [nasm](http://wiki.osdev.org/NASM) for ASM) into [relocatable ELF object files](http://wiki.osdev.org/Object_Files) that are linked together using [ld](http://wiki.osdev.org/LD) (really using GCC as a linker) into a conclusive statically linked executable ELF file.
 
 ## How does the kernel start running?
 First thing first... our kernel image is ELF formatted and its inner structure is given by the linker ([ld](http://wiki.osdev.org/LD)) directives and commands declared in the linker.ld file (see [Linker Scripts](http://wiki.osdev.org/Linker_Scripts)).
