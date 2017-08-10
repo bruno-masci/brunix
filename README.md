@@ -19,6 +19,11 @@ For now, we'll just create a bare OS (if we even can call it that way) that incl
 * basic console management
 
 We'll use [ELF](http://wiki.osdev.org/ELF) as the kernel format, because it's a very well supported, portable and flexible format.
+For creating the kernel we are going to use the linker (ld) from the cross-compiler just built as the first step
+to produce an ELF formatted kernel image.
+
+## http://wiki.osdev.org/Why_do_I_need_a_Cross_Compiler%3F
+
 
 When the computer [boots](http://wiki.osdev.org/System_Initialization_(x86)),
 the CPU starts in the so called [Real Mode](http://wiki.osdev.org/Real_Mode) for compatibility reasons. In order
@@ -29,11 +34,10 @@ all the unpleasant details and leaves the CPU in Protected Mode with a full 4 Gi
 and paging and interrupts disabled.
 GRUB adheres to the [Multiboot](http://wiki.osdev.org/Multiboot) specification.
 We will take advantage of GRUB's native support for loading ELF files, and so we are going to use the flexible ELF format for our kernel.
-For creating the kernel we are going to use the linker (ld) from the cross-compiler just built as the first step
-to produce an ELF formatted kernel image.
 
-Multiboot spec!!
+
 There's no standard library..!
+
 
 Aside,
 EBX contains a pointer to the Multiboot information structure
@@ -57,9 +61,12 @@ Note that GRUB configures a stack but we can't trust its location, so we need to
  * |── System.map
 
 
+## How is the kernel ELF image generated?
+When "make" (or "make compile") is run from the project's (' ??) top level directory's Makefile file, all source code is compiled (using the [GCC cross-compiler](http://wiki.osdev.org/GCC_Cross-Compiler) for C, and [nasm](http://wiki.osdev.org/NASM) for ASM) into [relocatable ELF object files](http://wiki.osdev.org/Object_Files) that are linked together using [ld](http://wiki.osdev.org/LD) (really using GCC as a linker) into a conclusive statically linked executable ELF file.
+
 ## How does the kernel start running?
 First thing first... our kernel image is ELF formatted and its inner structure is given by the linker ([ld](http://wiki.osdev.org/LD)) directives and commands declared in the linker.ld file (see [Linker Scripts](http://wiki.osdev.org/Linker_Scripts)).
-When GRUB (or any Multiboot-compliant bootloader, for that matter) loads our kernel image, it needs to check whether the kernel is Multiboot-compliant looking for certain values to be stored at the beginning of the kernel image; that's why we have a "multiboot_header" section at the first position in the linker.ld file.
+When GRUB (or any Multiboot-compliant bootloader, for that matter) loads our kernel image, it needs to check whether the kernel is Multiboot-compliant looking for certain values to be stored at the beginning of the kernel image; that's why we have a "multiboot_header" section (see [multiboot_entry_point.asm](/kernel/multiboot_entry_point.asm)) at the very first position in the linker.ld file.
 Once GRUB has checked the image, it transfers the control to the kernel executing the code at the "_start" symbol.  
 
 References:
