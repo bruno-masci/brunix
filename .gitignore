@@ -4,3 +4,7 @@
 CMakeLists.txt
 bochsout.log
 *.o
+*.sym
+*.elf
+*.iso
+System.map

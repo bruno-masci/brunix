@@ -5,12 +5,13 @@
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
     <configurations>
-      <configuration CONFIG_NAME="Debug" />
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
     </configurations>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09916d8b-a51c-45d5-9e44-a908d6f2453e" name="Default" comment="Added printk(). Some changes.">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="brunix.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,17 +26,16 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="brunix" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="multiboot_entry_point.asm" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/kernel/multiboot_entry_point.asm">
+      <file leaf-file-name="main.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kernel/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1173">
-              <caret line="69" column="34" lean-forward="false" selection-start-line="69" selection-start-column="34" selection-end-line="69" selection-end-column="34" />
+            <state relative-caret-position="615">
+              <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -44,28 +44,28 @@
       <file leaf-file-name="Makefile" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Makefile">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
+            <state relative-caret-position="270">
               <caret line="18" column="34" lean-forward="false" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/README.md">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="19" lean-forward="false" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
+            <state relative-caret-position="135">
+              <caret line="9" column="10" lean-forward="false" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="linker.ld" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/linker.ld">
+      <file leaf-file-name="stdio.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/libkern/stdio.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="54" lean-forward="false" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="54" />
+            <state relative-caret-position="510">
+              <caret line="34" column="33" lean-forward="false" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -162,12 +162,12 @@
         <option value="$PROJECT_DIR$/test/atoi.c" />
         <option value="$PROJECT_DIR$/include/arch/x86/io.h" />
         <option value="$PROJECT_DIR$/Makefile.inc" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/Makefile" />
         <option value="$PROJECT_DIR$/linker.ld" />
         <option value="$PROJECT_DIR$/kernel/multiboot_entry_point.asm" />
         <option value="$PROJECT_DIR$/kernel/main.c" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -201,64 +201,19 @@
     <panes>
       <pane id="ProjectPane">
         <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="brunix" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="brunix" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="brunix" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="brunix" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="brunix" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="brunix" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="libkern" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="brunix" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="brunix" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="kernel" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
+          <expand>
+            <path>
+              <item name="brunix" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="brunix" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
         </subPane>
       </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value=".ld&#9;FILE&#9;file:///home/bmasci/osdev/brunix/linker.ld&#10;.asm&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/multiboot_entry_point.asm&#10;mai&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/main.c&#10;io.&#9;FILE&#9;file:///home/bmasci/osdev/brunix/include/arch/x86/io.h&#10;Make&#9;FILE&#9;file:///home/bmasci/osdev/brunix/Makefile&#10;stdli.c&#9;FILE&#9;file:///home/bmasci/osdev/brunix/libkern/stdlib.c&#10;main.c&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/main.c&#10;Make.inc&#9;FILE&#9;file:///home/bmasci/osdev/brunix/Makefile.inc&#10;Makef&#9;FILE&#9;file:///home/bmasci/osdev/brunix/libkern/Makefile&#10;MAke&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/Makefile&#10;std.c&#9;FILE&#9;file:///home/bmasci/osdev/brunix/libkern/stdio.c&#10;stdio.h&#9;FILE&#9;file:///home/bmasci/osdev/brunix/include/brunix/stdio.h&#10;vga.c&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/vga.c&#10;stdint&#9;FILE&#9;file:///usr/include/stdint.h&#10;stdio.c:20&#9;FILE&#9;file:///home/bmasci/osdev/brunix/libkern/stdio.c&#10;stdli.h&#9;FILE&#9;file:///home/bmasci/osdev/brunix/include/brunix/stdlib.h&#10;vga.h:26&#9;FILE&#9;file:///home/bmasci/osdev/brunix/include/asm/vga.h&#10;multib.h&#9;FILE&#9;file:///home/bmasci/osdev/brunix/include/asm/multiboot.h&#10;process&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/include/asm/processor.h&#10;MAkefile&#9;FILE&#9;file:///home/bmasci/osdev/brunix/Makefile.inc&#10;gdt.h&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/include/asm/gdt.h&#10;linker&#9;FILE&#9;file:///home/bmasci/osdev/brunix/linker.ld&#10;entr&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/kernel/entry_point.asm&#10;multiboot_header&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/kernel/multiboot_header.asm&#10;CM&#9;FILE&#9;file:///home/bmasci/osdev/brunix/CMakeLists.txt&#10;desc&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/kernel/descriptor_tables.asm&#10;vga&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/include/asm/vga.h&#10;stdio&#9;FILE&#9;file:///home/bmasci/osdev/brunix/libkern/stdio.c&#10;pag.h&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/include/asm/paging.h&#10;main&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/main.c&#10;multiboo&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/include/asm/multiboot.h&#10;string.h&#9;FILE&#9;file:///usr/include/string.h&#10;processor&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/include/asm/processor.h&#10;printk.c&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/printk.c&#10;isr.c&#9;FILE&#9;file:///home/bmasci/osdev/brunix/isr.c&#10;stdlib&#9;FILE&#9;file:///home/bmasci/downloads/os dev/brunix/include/stdlib.h&#10;string&#9;FILE&#9;file:///home/bmasci/downloads/os dev/brunix/libc/string.c&#10;io&#9;FILE&#9;file:///home/bmasci/downloads/os dev/brunix/io.c&#10;std&#9;FILE&#9;file:///usr/include/stdint.h&#10;io.h&#9;FILE&#9;file:///home/bmasci/downloads/os dev/brunix/io.h&#10;common.h&#9;FILE&#9;file:///home/bmasci/downloads/os dev/brunix/common.h" />
+    <property name="SearchEverywhereHistoryKey" value="Ma&#9;FILE&#9;file:///home/bmasci/osdev/brunix/Makefile&#10;.ld&#9;FILE&#9;file:///home/bmasci/osdev/brunix/linker.ld&#10;.asm&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/multiboot_entry_point.asm&#10;mai&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/main.c&#10;io.&#9;FILE&#9;file:///home/bmasci/osdev/brunix/include/arch/x86/io.h&#10;Make&#9;FILE&#9;file:///home/bmasci/osdev/brunix/Makefile&#10;stdli.c&#9;FILE&#9;file:///home/bmasci/osdev/brunix/libkern/stdlib.c&#10;main.c&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/main.c&#10;Make.inc&#9;FILE&#9;file:///home/bmasci/osdev/brunix/Makefile.inc&#10;Makef&#9;FILE&#9;file:///home/bmasci/osdev/brunix/libkern/Makefile&#10;MAke&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/Makefile&#10;std.c&#9;FILE&#9;file:///home/bmasci/osdev/brunix/libkern/stdio.c&#10;stdio.h&#9;FILE&#9;file:///home/bmasci/osdev/brunix/include/brunix/stdio.h&#10;vga.c&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/vga.c&#10;stdint&#9;FILE&#9;file:///usr/include/stdint.h&#10;stdio.c:20&#9;FILE&#9;file:///home/bmasci/osdev/brunix/libkern/stdio.c&#10;stdli.h&#9;FILE&#9;file:///home/bmasci/osdev/brunix/include/brunix/stdlib.h&#10;vga.h:26&#9;FILE&#9;file:///home/bmasci/osdev/brunix/include/asm/vga.h&#10;multib.h&#9;FILE&#9;file:///home/bmasci/osdev/brunix/include/asm/multiboot.h&#10;process&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/include/asm/processor.h&#10;MAkefile&#9;FILE&#9;file:///home/bmasci/osdev/brunix/Makefile.inc&#10;gdt.h&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/include/asm/gdt.h&#10;linker&#9;FILE&#9;file:///home/bmasci/osdev/brunix/linker.ld&#10;entr&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/kernel/entry_point.asm&#10;multiboot_header&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/kernel/multiboot_header.asm&#10;CM&#9;FILE&#9;file:///home/bmasci/osdev/brunix/CMakeLists.txt&#10;desc&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/kernel/descriptor_tables.asm&#10;vga&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/include/asm/vga.h&#10;stdio&#9;FILE&#9;file:///home/bmasci/osdev/brunix/libkern/stdio.c&#10;pag.h&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/include/asm/paging.h&#10;main&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/main.c&#10;multiboo&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/include/asm/multiboot.h&#10;string.h&#9;FILE&#9;file:///usr/include/string.h&#10;processor&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/include/asm/processor.h&#10;printk.c&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/printk.c&#10;isr.c&#9;FILE&#9;file:///home/bmasci/osdev/brunix/isr.c&#10;stdlib&#9;FILE&#9;file:///home/bmasci/downloads/os dev/brunix/include/stdlib.h&#10;string&#9;FILE&#9;file:///home/bmasci/downloads/os dev/brunix/libc/string.c&#10;io&#9;FILE&#9;file:///home/bmasci/downloads/os dev/brunix/io.c&#10;std&#9;FILE&#9;file:///usr/include/stdint.h&#10;io.h&#9;FILE&#9;file:///home/bmasci/downloads/os dev/brunix/io.h&#10;common.h&#9;FILE&#9;file:///home/bmasci/downloads/os dev/brunix/common.h" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="232" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="242" />
@@ -306,19 +261,20 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Build All">
+  <component name="RunManager">
+    <configuration default="true" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="brunix" CONFIG_NAME="Debug" TEST_MODE="SUITE_TEST">
+      <envs />
+    </configuration>
+    <configuration name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="brunix" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="brunix">
+      <envs />
+    </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="brunix" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
     <configuration default="true" type="CLion_Remote" factoryName="GDB Remote Debug" remoteCommand="" symbolFile="" sysroot="">
       <method />
     </configuration>
     <configuration default="true" type="CMakeCatchTestRunConfigurationType" factoryName="Catch Test" PASS_PARENT_ENVS_2="true" TEST_MODE="SUITE_TEST">
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="brunix" CONFIG_NAME="Debug" TEST_MODE="SUITE_TEST">
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="brunix" CONFIG_NAME="Debug">
       <envs />
       <method />
     </configuration>
@@ -456,7 +412,6 @@
       <option name="_new_additionalArguments" value="&quot;&quot;" />
       <option name="_new_target" value="&quot;.&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
-      <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -471,7 +426,6 @@
       <option name="_new_additionalArguments" value="&quot;&quot;" />
       <option name="_new_target" value="&quot;.&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
-      <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="py.test">
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -487,15 +441,7 @@
       <option name="_new_additionalArguments" value="&quot;&quot;" />
       <option name="_new_target" value="&quot;.&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
-      <method />
     </configuration>
-    <configuration default="false" name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="brunix" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="brunix">
-      <envs />
-      <method />
-    </configuration>
-    <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="Application.Build All" />
-    </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
@@ -539,28 +485,36 @@
     <option name="totallyTimeSpent" value="68272000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="24" width="1368" height="721" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="0" width="1920" height="1054" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18155198" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18133895" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32258064" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32864866" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32864866" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32960895" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32258064" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39957938" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18155198" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30967742" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -686,8 +640,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/libkern/stdio.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="26" lean-forward="false" selection-start-line="22" selection-start-column="26" selection-end-line="22" selection-end-column="26" />
+        <state relative-caret-position="510">
+          <caret line="34" column="33" lean-forward="false" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="33" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -729,41 +684,10 @@
     <entry file="file://$PROJECT_DIR$/kernel/main.dep" />
     <entry file="file://$PROJECT_DIR$/output.map" />
     <entry file="file://$PROJECT_DIR$/kernel/vga.o.dep" />
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="12" lean-forward="true" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/libkern/stdio.c.dep">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kernel/vga.c.dep">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kernel/main.c.dep">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/libkern/stdlib.c.dep">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/libkern/stdio.c.dep" />
+    <entry file="file://$PROJECT_DIR$/kernel/vga.c.dep" />
+    <entry file="file://$PROJECT_DIR$/kernel/main.c.dep" />
+    <entry file="file://$PROJECT_DIR$/libkern/stdlib.c.dep" />
     <entry file="file://$PROJECT_DIR$/Makefile.inc">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -771,18 +695,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/brunix.sym">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="28" lean-forward="true" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/brunix.sym" />
     <entry file="file://$PROJECT_DIR$/kernel/multiboot_entry_point.asm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1173">
           <caret line="69" column="34" lean-forward="false" selection-start-line="69" selection-start-column="34" selection-end-line="69" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -795,31 +712,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/kernel/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="51" column="1" lean-forward="true" selection-start-line="51" selection-start-column="1" selection-end-line="51" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/System.map">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="18" column="21" lean-forward="true" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Makefile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="34" lean-forward="false" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
+        <state relative-caret-position="615">
+          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/System.map" />
     <entry file="file://$PROJECT_DIR$/linker.ld">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" column="54" lean-forward="false" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="54" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -828,6 +731,21 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="18" column="19" lean-forward="false" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="34" lean-forward="false" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="10" lean-forward="false" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
           <folding />
         </state>
       </provider>
