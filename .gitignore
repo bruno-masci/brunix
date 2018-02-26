@@ -8,3 +8,5 @@ bochsout.log
 *.elf
 *.iso
 System.map
+*.c.dep
+cmake-build-debug/CMakeFiles/Makefile.cmake

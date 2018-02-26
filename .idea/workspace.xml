@@ -9,9 +9,20 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
+    <list default="true" id="09916d8b-a51c-45d5-9e44-a908d6f2453e" name="Default" comment="Added printk(). Some changes." />
+=======
     <list default="true" id="09916d8b-a51c-45d5-9e44-a908d6f2453e" name="Default" comment="Added printk(). Some changes.">
+      <change beforePath="" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/include/arch/x86/memlayout.h" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" />
+      <change beforePath="$PROJECT_DIR$/kernel/main.c" afterPath="$PROJECT_DIR$/kernel/main.c" />
+      <change beforePath="$PROJECT_DIR$/kernel/multiboot_entry_point.asm" afterPath="$PROJECT_DIR$/kernel/multiboot_entry_point.asm" />
+      <change beforePath="$PROJECT_DIR$/linker.ld" afterPath="$PROJECT_DIR$/linker.ld" />
     </list>
+>>>>>>> Stashed changes
     <ignored path="brunix.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -30,9 +41,18 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.c" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/kernel/main.c">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+            <state relative-caret-position="469">
+              <caret line="48" column="59" lean-forward="false" selection-start-line="48" selection-start-column="59" selection-end-line="48" selection-end-column="59" />
+=======
+            <state relative-caret-position="765">
+              <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+=======
             <state relative-caret-position="765">
               <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
               <folding />
@@ -40,11 +60,150 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="stdio.c" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/libkern/stdio.c">
+      <file leaf-file-name="io.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/include/arch/x86/io.h">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="15" column="26" lean-forward="false" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="linker.ld" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/linker.ld">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" column="54" lean-forward="false" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="54" />
+>>>>>>> Stashed changes
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="io.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/include/arch/x86/io.h">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
+            <state relative-caret-position="225">
+              <caret line="15" column="26" lean-forward="false" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="linker.ld" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/linker.ld">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" column="54" lean-forward="false" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="54" />
+>>>>>>> Stashed changes
+=======
+            <state relative-caret-position="469">
+              <caret line="48" column="59" lean-forward="false" selection-start-line="48" selection-start-column="59" selection-end-line="48" selection-end-column="59" />
+>>>>>>> Stashed changes
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+<<<<<<< Updated upstream
+      <file leaf-file-name="linker.ld" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/linker.ld">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
+            <state relative-caret-position="465">
+              <caret line="31" column="5" lean-forward="false" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
+=======
+      <file leaf-file-name="System.map" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/System.map">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1800">
+              <caret line="120" column="34" lean-forward="false" selection-start-line="120" selection-start-column="30" selection-end-line="120" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="linker.ld" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/linker.ld">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="480">
+              <caret line="32" column="5" lean-forward="false" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="5" />
+>>>>>>> Stashed changes
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="multiboot_entry_point.asm" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/kernel/multiboot_entry_point.asm">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
+            <state relative-caret-position="529">
+              <caret line="95" column="12" lean-forward="false" selection-start-line="95" selection-start-column="12" selection-end-line="95" selection-end-column="12" />
+=======
+            <state relative-caret-position="319">
+              <caret line="81" column="137" lean-forward="false" selection-start-line="81" selection-start-column="137" selection-end-line="81" selection-end-column="137" />
+>>>>>>> Stashed changes
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="459">
+<<<<<<< Updated upstream
+              <caret line="78" column="0" lean-forward="false" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+=======
+              <caret line="78" column="46" lean-forward="false" selection-start-line="78" selection-start-column="46" selection-end-line="78" selection-end-column="46" />
+>>>>>>> Stashed changes
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="vga.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/include/arch/x86/vga.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="510">
+              <caret line="34" column="15" lean-forward="false" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="15" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+<<<<<<< Updated upstream
+=======
+      <file leaf-file-name="memlayout.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/include/arch/x86/memlayout.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="15" column="70" lean-forward="false" selection-start-line="15" selection-start-column="70" selection-end-line="15" selection-end-column="70" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+>>>>>>> Stashed changes
+      <file leaf-file-name="processor.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/include/arch/x86/processor.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+<<<<<<< Updated upstream
+=======
             <state relative-caret-position="525">
               <caret line="35" column="33" lean-forward="false" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="33" />
+>>>>>>> Stashed changes
+=======
+            <state relative-caret-position="525">
+              <caret line="35" column="33" lean-forward="false" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="33" />
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
               <folding />
             </state>
           </provider>
@@ -54,7 +213,14 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
       <find>objc</find>
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
       <find>dep</find>
       <find>TOPDIR</find>
       <find>KERNDIRS</find>
@@ -71,6 +237,8 @@
       <find>printf</find>
       <find>boot</find>
       <find>ld</find>
+=======
+>>>>>>> Stashed changes
       <find>qem</find>
       <find>cc</find>
       <find>CFLAGS</find>
@@ -84,6 +252,34 @@
       <find>.map</find>
       <find>_start</find>
       <find>x86</find>
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+      <find>-O</find>
+>>>>>>> Stashed changes
+=======
+      <find>-O</find>
+>>>>>>> Stashed changes
+=======
+      <find>-O</find>
+      <find>eh_frame</find>
+      <find>.note</find>
+      <find>eh_fra</find>
+      <find>System.map</find>
+      <find>start</find>
+      <find>03e5</find>
+      <find>stdint</find>
+      <find>dep</find>
+      <find>By convention, the _start symbol specifies the ELF entry point.</find>
+      <find>menuentry</find>
+      <find>multib</find>
+      <find>multibo</find>
+      <find>BADB002</find>
+      <find>see</find>
+      <find>see</find>
+      <find>eax</find>
+>>>>>>> Stashed changes
     </findStrings>
     <replaceStrings>
       <replace />
@@ -101,8 +297,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/arch/x86/include/asm/stddef.h" />
-        <option value="$PROJECT_DIR$/include/brunix/stdlib.h" />
         <option value="$PROJECT_DIR$/include/brunix/screen.h" />
         <option value="$PROJECT_DIR$/include/brunix/stddef.h" />
         <option value="$PROJECT_DIR$/arch/x86/include/asm/vga.h" />
@@ -147,11 +341,13 @@
         <option value="$PROJECT_DIR$/include/arch/x86/io.h" />
         <option value="$PROJECT_DIR$/Makefile.inc" />
         <option value="$PROJECT_DIR$/Makefile" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/include/arch/x86/memory.h" />
         <option value="$PROJECT_DIR$/linker.ld" />
-        <option value="$PROJECT_DIR$/kernel/multiboot_entry_point.asm" />
         <option value="$PROJECT_DIR$/kernel/main.c" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/include/arch/x86/memlayout.h" />
+        <option value="$PROJECT_DIR$/kernel/multiboot_entry_point.asm" />
       </list>
     </option>
   </component>
@@ -162,11 +358,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-1" />
-    <option name="y" value="24" />
-    <option name="width" value="1368" />
-    <option name="height" value="721" />
+    <option name="width" value="1922" />
+    <option name="height" value="1081" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -190,6 +385,44 @@
               <item name="brunix" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
               <item name="brunix" type="462c0819:PsiDirectoryNode" />
             </path>
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+=======
+>>>>>>> Stashed changes
+            <path>
+              <item name="brunix" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="brunix" type="462c0819:PsiDirectoryNode" />
+              <item name="include" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="brunix" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="brunix" type="462c0819:PsiDirectoryNode" />
+              <item name="include" type="462c0819:PsiDirectoryNode" />
+              <item name="arch" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="brunix" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="brunix" type="462c0819:PsiDirectoryNode" />
+              <item name="include" type="462c0819:PsiDirectoryNode" />
+              <item name="arch" type="462c0819:PsiDirectoryNode" />
+              <item name="x86" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="brunix" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="brunix" type="462c0819:PsiDirectoryNode" />
+              <item name="include" type="462c0819:PsiDirectoryNode" />
+              <item name="brunix" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="brunix" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="brunix" type="462c0819:PsiDirectoryNode" />
+              <item name="kernel" type="462c0819:PsiDirectoryNode" />
+            </path>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
           </expand>
           <select />
         </subPane>
@@ -197,7 +430,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="Ma&#9;FILE&#9;file:///home/bmasci/osdev/brunix/Makefile&#10;.ld&#9;FILE&#9;file:///home/bmasci/osdev/brunix/linker.ld&#10;.asm&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/multiboot_entry_point.asm&#10;mai&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/main.c&#10;io.&#9;FILE&#9;file:///home/bmasci/osdev/brunix/include/arch/x86/io.h&#10;Make&#9;FILE&#9;file:///home/bmasci/osdev/brunix/Makefile&#10;stdli.c&#9;FILE&#9;file:///home/bmasci/osdev/brunix/libkern/stdlib.c&#10;main.c&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/main.c&#10;Make.inc&#9;FILE&#9;file:///home/bmasci/osdev/brunix/Makefile.inc&#10;Makef&#9;FILE&#9;file:///home/bmasci/osdev/brunix/libkern/Makefile&#10;MAke&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/Makefile&#10;std.c&#9;FILE&#9;file:///home/bmasci/osdev/brunix/libkern/stdio.c&#10;stdio.h&#9;FILE&#9;file:///home/bmasci/osdev/brunix/include/brunix/stdio.h&#10;vga.c&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/vga.c&#10;stdint&#9;FILE&#9;file:///usr/include/stdint.h&#10;stdio.c:20&#9;FILE&#9;file:///home/bmasci/osdev/brunix/libkern/stdio.c&#10;stdli.h&#9;FILE&#9;file:///home/bmasci/osdev/brunix/include/brunix/stdlib.h&#10;vga.h:26&#9;FILE&#9;file:///home/bmasci/osdev/brunix/include/asm/vga.h&#10;multib.h&#9;FILE&#9;file:///home/bmasci/osdev/brunix/include/asm/multiboot.h&#10;process&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/include/asm/processor.h&#10;MAkefile&#9;FILE&#9;file:///home/bmasci/osdev/brunix/Makefile.inc&#10;gdt.h&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/include/asm/gdt.h&#10;linker&#9;FILE&#9;file:///home/bmasci/osdev/brunix/linker.ld&#10;entr&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/kernel/entry_point.asm&#10;multiboot_header&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/kernel/multiboot_header.asm&#10;CM&#9;FILE&#9;file:///home/bmasci/osdev/brunix/CMakeLists.txt&#10;desc&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/kernel/descriptor_tables.asm&#10;vga&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/include/asm/vga.h&#10;stdio&#9;FILE&#9;file:///home/bmasci/osdev/brunix/libkern/stdio.c&#10;pag.h&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/include/asm/paging.h&#10;main&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/main.c&#10;multiboo&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/include/asm/multiboot.h&#10;string.h&#9;FILE&#9;file:///usr/include/string.h&#10;processor&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/include/asm/processor.h&#10;printk.c&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/printk.c&#10;isr.c&#9;FILE&#9;file:///home/bmasci/osdev/brunix/isr.c&#10;stdlib&#9;FILE&#9;file:///home/bmasci/downloads/os dev/brunix/include/stdlib.h&#10;string&#9;FILE&#9;file:///home/bmasci/downloads/os dev/brunix/libc/string.c&#10;io&#9;FILE&#9;file:///home/bmasci/downloads/os dev/brunix/io.c&#10;std&#9;FILE&#9;file:///usr/include/stdint.h&#10;io.h&#9;FILE&#9;file:///home/bmasci/downloads/os dev/brunix/io.h&#10;common.h&#9;FILE&#9;file:///home/bmasci/downloads/os dev/brunix/common.h" />
+    <property name="SearchEverywhereHistoryKey" value="READ&#9;FILE&#9;file:///home/bmasci/osdev/brunix/README.md&#10;mul&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/multiboot_entry_point.asm&#10;Ma&#9;FILE&#9;file:///home/bmasci/osdev/brunix/Makefile&#10;.ld&#9;FILE&#9;file:///home/bmasci/osdev/brunix/linker.ld&#10;.asm&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/multiboot_entry_point.asm&#10;mai&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/main.c&#10;io.&#9;FILE&#9;file:///home/bmasci/osdev/brunix/include/arch/x86/io.h&#10;Make&#9;FILE&#9;file:///home/bmasci/osdev/brunix/Makefile&#10;stdli.c&#9;FILE&#9;file:///home/bmasci/osdev/brunix/libkern/stdlib.c&#10;main.c&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/main.c&#10;Make.inc&#9;FILE&#9;file:///home/bmasci/osdev/brunix/Makefile.inc&#10;Makef&#9;FILE&#9;file:///home/bmasci/osdev/brunix/libkern/Makefile&#10;MAke&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/Makefile&#10;std.c&#9;FILE&#9;file:///home/bmasci/osdev/brunix/libkern/stdio.c&#10;stdio.h&#9;FILE&#9;file:///home/bmasci/osdev/brunix/include/brunix/stdio.h&#10;vga.c&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/vga.c&#10;stdint&#9;FILE&#9;file:///usr/include/stdint.h&#10;stdio.c:20&#9;FILE&#9;file:///home/bmasci/osdev/brunix/libkern/stdio.c&#10;stdli.h&#9;FILE&#9;file:///home/bmasci/osdev/brunix/include/brunix/stdlib.h&#10;vga.h:26&#9;FILE&#9;file:///home/bmasci/osdev/brunix/include/asm/vga.h&#10;multib.h&#9;FILE&#9;file:///home/bmasci/osdev/brunix/include/asm/multiboot.h&#10;process&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/include/asm/processor.h&#10;MAkefile&#9;FILE&#9;file:///home/bmasci/osdev/brunix/Makefile.inc&#10;gdt.h&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/include/asm/gdt.h&#10;linker&#9;FILE&#9;file:///home/bmasci/osdev/brunix/linker.ld&#10;entr&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/kernel/entry_point.asm&#10;multiboot_header&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/kernel/multiboot_header.asm&#10;CM&#9;FILE&#9;file:///home/bmasci/osdev/brunix/CMakeLists.txt&#10;desc&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/kernel/descriptor_tables.asm&#10;vga&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/include/asm/vga.h&#10;stdio&#9;FILE&#9;file:///home/bmasci/osdev/brunix/libkern/stdio.c&#10;pag.h&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/include/asm/paging.h&#10;main&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/main.c&#10;multiboo&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/include/asm/multiboot.h&#10;string.h&#9;FILE&#9;file:///usr/include/string.h&#10;processor&#9;FILE&#9;file:///home/bmasci/osdev/brunix/arch/x86/include/asm/processor.h&#10;printk.c&#9;FILE&#9;file:///home/bmasci/osdev/brunix/kernel/printk.c&#10;isr.c&#9;FILE&#9;file:///home/bmasci/osdev/brunix/isr.c&#10;stdlib&#9;FILE&#9;file:///home/bmasci/downloads/os dev/brunix/include/stdlib.h&#10;string&#9;FILE&#9;file:///home/bmasci/downloads/os dev/brunix/libc/string.c&#10;io&#9;FILE&#9;file:///home/bmasci/downloads/os dev/brunix/io.c&#10;std&#9;FILE&#9;file:///usr/include/stdint.h&#10;io.h&#9;FILE&#9;file:///home/bmasci/downloads/os dev/brunix/io.h&#10;common.h&#9;FILE&#9;file:///home/bmasci/downloads/os dev/brunix/common.h" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="232" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="242" />
@@ -216,21 +449,22 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../pebble-os-code" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/test" />
-      <recent name="$PROJECT_DIR$/include/asm" />
-      <recent name="$PROJECT_DIR$/kernel" />
-      <recent name="$PROJECT_DIR$/arch/x86/kernel" />
-      <recent name="$PROJECT_DIR$/arch/x86/include/asm" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/include/arch/x86" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/include/asm" />
       <recent name="$PROJECT_DIR$/include/brunix" />
       <recent name="$PROJECT_DIR$/arch/x86/include/asm" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/include/arch/x86" />
+      <recent name="$PROJECT_DIR$/test" />
+      <recent name="$PROJECT_DIR$/include/asm" />
+      <recent name="$PROJECT_DIR$/kernel" />
+      <recent name="$PROJECT_DIR$/arch/x86/kernel" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -259,6 +493,45 @@
       <method />
     </configuration>
     <configuration default="true" type="CMakeCatchTestRunConfigurationType" factoryName="Catch Test" PASS_PARENT_ENVS_2="true" TEST_MODE="SUITE_TEST">
+<<<<<<< Updated upstream
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="ChromiumRemoteDebugType" factoryName="Chromium Remote">
+      <method />
+    </configuration>
+    <configuration default="true" type="CompoundRunConfigurationType" factoryName="Compound Run Configuration">
+      <method />
+    </configuration>
+    <configuration default="true" type="FirefoxRemoteDebugType" factoryName="Firefox Remote">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
+      <node-interpreter value="project" />
+      <working-dir value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeWebKit" factoryName="NW.js">
+      <method />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+=======
       <envs />
       <method />
     </configuration>
@@ -367,6 +640,7 @@
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs />
+>>>>>>> Stashed changes
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
@@ -374,6 +648,20 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="brunix" />
       <option name="SCRIPT_NAME" value="" />
+<<<<<<< Updated upstream
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="ReactNative" factoryName="React Native">
+      <node-interpreter value="project" />
+      <platform value="ANDROID" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+=======
       <option name="CLASS_NAME" value="" />
       <option name="METHOD_NAME" value="" />
       <option name="FOLDER_NAME" value="" />
@@ -398,6 +686,7 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
     </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
+>>>>>>> Stashed changes
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs />
@@ -407,6 +696,136 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="brunix" />
+<<<<<<< Updated upstream
+      <method />
+    </configuration>
+    <configuration default="true" type="XSLT" factoryName="XSLT">
+      <option name="myOutputFile" />
+      <option name="myOpenOutputFile" value="false" />
+      <option name="myOpenInBrowser" value="false" />
+      <option name="mySmartErrorHandling" value="true" />
+      <option name="myRunnerPort" value="34873" />
+      <option name="myVmArguments" />
+      <option name="myWorkingDirectory" />
+      <option name="myModule" />
+      <option name="myJdk" />
+      <parameters />
+      <OutputType value="CONSOLE" save-to-file="false" />
+      <FileType name="XML" />
+      <JdkChoice value="FROM_MODULE" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.grunt" factoryName="Grunt.js">
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+<<<<<<< Updated upstream
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="brunix" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Nosetests">
+=======
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Doctests">
+>>>>>>> Stashed changes
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="brunix" />
+<<<<<<< Updated upstream
+      <option name="_new_regexPattern" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+=======
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Nosetests">
+>>>>>>> Stashed changes
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="brunix" />
+<<<<<<< Updated upstream
+=======
+      <option name="_new_regexPattern" value="&quot;&quot;" />
+>>>>>>> Stashed changes
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
+<<<<<<< Updated upstream
+    <configuration default="true" type="tests" factoryName="py.test">
+=======
+    <configuration default="true" type="tests" factoryName="Unittests">
+>>>>>>> Stashed changes
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="brunix" />
+<<<<<<< Updated upstream
+=======
+=======
+>>>>>>> Stashed changes
       <option name="_new_additionalArguments" value="&quot;&quot;" />
       <option name="_new_target" value="&quot;.&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
@@ -421,6 +840,10 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="brunix" />
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
       <option name="_new_keywords" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
       <option name="_new_target" value="&quot;.&quot;" />
@@ -469,35 +892,66 @@
     <option name="totallyTimeSpent" value="68272000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1919" y="0" width="1922" height="1055" extended-state="6" />
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+    <frame x="-1" y="0" width="1922" height="1055" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18114798" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18155198" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32829374" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32181427" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30967742" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+=======
+    <frame x="1919" y="0" width="1922" height="1055" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18114798" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+=======
+    <frame x="-1" y="0" width="1922" height="1055" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18155198" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+>>>>>>> Stashed changes
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32181427" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30967742" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+<<<<<<< Updated upstream
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32937366" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+=======
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+>>>>>>> Stashed changes
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32960895" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32258064" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39957938" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+<<<<<<< Updated upstream
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18155198" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30967742" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+=======
+>>>>>>> Stashed changes
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -547,15 +1001,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/arch/x86/kernel/gdt.c" />
-    <entry file="file://$PROJECT_DIR$/arch/x86/kernel/multiboot_header.asm" />
-    <entry file="file://$PROJECT_DIR$/arch/x86/include/asm/paging.h" />
-    <entry file="file://$PROJECT_DIR$/arch/x86/kernel/multiboot_entry_point.asm" />
-    <entry file="file://$PROJECT_DIR$/arch/x86/kernel/memory.c" />
-    <entry file="file://$PROJECT_DIR$/arch/x86/kernel/paging.asm" />
-    <entry file="file://$PROJECT_DIR$/include/brunix/stddef.h" />
-    <entry file="file://$PROJECT_DIR$/include/brunix/errno.h" />
-    <entry file="file://$PROJECT_DIR$/include/stdarg.h" />
     <entry file="file://$PROJECT_DIR$/include/brunix/stdarg.h" />
     <entry file="file://$PROJECT_DIR$/include/asm/gdt.h" />
     <entry file="file://$PROJECT_DIR$/include/brunix/processor.h" />
@@ -568,7 +1013,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/arch/x86/kernel/Makefile" />
-    <entry file="file://$PROJECT_DIR$/include/asm/asm.h" />
     <entry file="file://$PROJECT_DIR$/libkern/string.c" />
     <entry file="file:///usr/include/stdint.h">
       <provider selected="true" editor-type-id="text-editor">
@@ -585,13 +1029,27 @@
         </state>
       </provider>
     </entry>
+<<<<<<< Updated upstream
     <entry file="file://$PROJECT_DIR$/include/arch/x86/processor.h">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+        <state relative-caret-position="75">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+=======
         <state relative-caret-position="85">
           <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+>>>>>>> Stashed changes
+=======
+        <state relative-caret-position="85">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+>>>>>>> Stashed changes
         </state>
       </provider>
     </entry>
+=======
+>>>>>>> Stashed changes
     <entry file="file://$PROJECT_DIR$/printk.c" />
     <entry file="file://$PROJECT_DIR$/misc/grub/i386-pc/config.h">
       <provider selected="true" editor-type-id="text-editor">
@@ -615,10 +1073,22 @@
         </state>
       </provider>
     </entry>
+<<<<<<< Updated upstream
     <entry file="file://$PROJECT_DIR$/include/arch/x86/vga.h">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+        <state relative-caret-position="510">
+          <caret line="34" column="15" lean-forward="false" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="15" />
+          <folding />
+=======
         <state relative-caret-position="578">
           <caret line="34" column="15" lean-forward="false" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="15" />
+>>>>>>> Stashed changes
+=======
+        <state relative-caret-position="578">
+          <caret line="34" column="15" lean-forward="false" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="15" />
+>>>>>>> Stashed changes
         </state>
       </provider>
     </entry>
@@ -626,10 +1096,19 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="525">
           <caret line="35" column="33" lean-forward="false" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="33" />
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
           <folding />
+>>>>>>> Stashed changes
+=======
+          <folding />
+>>>>>>> Stashed changes
         </state>
       </provider>
     </entry>
+=======
+>>>>>>> Stashed changes
     <entry file="file://$PROJECT_DIR$/libkern/stdlib.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -651,6 +1130,9 @@
         </state>
       </provider>
     </entry>
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     <entry file="file://$PROJECT_DIR$/include/arch/x86/io.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -658,6 +1140,49 @@
         </state>
       </provider>
     </entry>
+=======
+>>>>>>> Stashed changes
+    <entry file="file://$PROJECT_DIR$/kernel/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="30" lean-forward="false" selection-start-line="4" selection-start-column="30" selection-end-line="4" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kernel/main.dep" />
+    <entry file="file://$PROJECT_DIR$/output.map" />
+    <entry file="file://$PROJECT_DIR$/kernel/vga.o.dep" />
+    <entry file="file://$PROJECT_DIR$/libkern/stdio.c.dep" />
+    <entry file="file://$PROJECT_DIR$/libkern/stdlib.c.dep" />
+    <entry file="file://$PROJECT_DIR$/Makefile.inc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="5" lean-forward="false" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/brunix.sym" />
+    <entry file="file://$PROJECT_DIR$/libkern/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
+        <state relative-caret-position="529">
+          <caret line="95" column="12" lean-forward="false" selection-start-line="95" selection-start-column="12" selection-end-line="95" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libkern/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="12" lean-forward="false" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kernel/main.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="469">
+          <caret line="48" column="59" lean-forward="false" selection-start-line="48" selection-start-column="59" selection-end-line="48" selection-end-column="59" />
+=======
     <entry file="file://$PROJECT_DIR$/kernel/Makefile">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -670,7 +1195,6 @@
     <entry file="file://$PROJECT_DIR$/kernel/vga.o.dep" />
     <entry file="file://$PROJECT_DIR$/libkern/stdio.c.dep" />
     <entry file="file://$PROJECT_DIR$/kernel/vga.c.dep" />
-    <entry file="file://$PROJECT_DIR$/kernel/main.c.dep" />
     <entry file="file://$PROJECT_DIR$/libkern/stdlib.c.dep" />
     <entry file="file://$PROJECT_DIR$/Makefile.inc">
       <provider selected="true" editor-type-id="text-editor">
@@ -694,22 +1218,61 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kernel/main.c">
+    <entry file="file://$PROJECT_DIR$/PRECOND" />
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="306">
+          <caret line="18" column="19" lean-forward="false" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/System.map" />
-    <entry file="file://$PROJECT_DIR$/linker.ld">
+    <entry file="file://$PROJECT_DIR$/Makefile">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="54" lean-forward="false" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="54" />
+        <state relative-caret-position="270">
+          <caret line="18" column="34" lean-forward="false" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
+>>>>>>> Stashed changes
+=======
+    <entry file="file://$PROJECT_DIR$/kernel/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="30" lean-forward="false" selection-start-line="4" selection-start-column="30" selection-end-line="4" selection-end-column="30" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/kernel/main.dep" />
+    <entry file="file://$PROJECT_DIR$/output.map" />
+    <entry file="file://$PROJECT_DIR$/kernel/vga.o.dep" />
+    <entry file="file://$PROJECT_DIR$/libkern/stdio.c.dep" />
+    <entry file="file://$PROJECT_DIR$/kernel/vga.c.dep" />
+    <entry file="file://$PROJECT_DIR$/libkern/stdlib.c.dep" />
+    <entry file="file://$PROJECT_DIR$/Makefile.inc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="5" lean-forward="false" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/brunix.sym" />
+    <entry file="file://$PROJECT_DIR$/kernel/multiboot_entry_point.asm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1173">
+          <caret line="69" column="34" lean-forward="false" selection-start-line="69" selection-start-column="34" selection-end-line="69" selection-end-column="34" />
+=======
+        <state relative-caret-position="0">
+          <caret line="0" column="12" lean-forward="false" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
+>>>>>>> Stashed changes
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PRECOND" />
+    <entry file="file://$PROJECT_DIR$/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="34" lean-forward="false" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< Updated upstream
     <entry file="file://$PROJECT_DIR$/PRECOND" />
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
@@ -726,11 +1289,238 @@
         </state>
       </provider>
     </entry>
+=======
+>>>>>>> Stashed changes
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="10" lean-forward="false" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
+<<<<<<< Updated upstream
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kernel/main.c.dep">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kernel/main.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+>>>>>>> Stashed changes
+=======
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/asm/asm.h" />
+    <entry file="file://$PROJECT_DIR$/arch/x86/include/asm/gdt.h" />
+    <entry file="file://$PROJECT_DIR$/arch/x86/include/asm/io.h" />
+    <entry file="file://$PROJECT_DIR$/arch/x86/include/asm/paging.h" />
+    <entry file="file://$PROJECT_DIR$/arch/x86/include/asm/processor.h" />
+    <entry file="file://$PROJECT_DIR$/arch/x86/include/asm/stddef.h" />
+    <entry file="file://$PROJECT_DIR$/arch/x86/include/asm/vga.h" />
+    <entry file="file://$PROJECT_DIR$/include/arch/x86/io.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="26" lean-forward="false" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libkern/stdio.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="35" column="33" lean-forward="false" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="33" />
+>>>>>>> Stashed changes
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+    <entry file="file://$PROJECT_DIR$/System.map" />
+    <entry file="file://$PROJECT_DIR$/linker.ld">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="31" column="5" lean-forward="false" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
+=======
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="10" lean-forward="false" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kernel/main.c.dep">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+>>>>>>> Stashed changes
+=======
+    <entry file="file://$PROJECT_DIR$/System.map">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1277">
+          <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="14" />
+>>>>>>> Stashed changes
+=======
+    <entry file="file://$PROJECT_DIR$/include/arch/x86/processor.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+>>>>>>> Stashed changes
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+    <entry file="file://$PROJECT_DIR$/PRECOND" />
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="78" column="0" lean-forward="false" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/kernel/main.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+>>>>>>> Stashed changes
+=======
+    <entry file="file://$PROJECT_DIR$/include/arch/x86/vga.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="34" column="15" lean-forward="false" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="15" />
+>>>>>>> Stashed changes
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+    <entry file="file://$PROJECT_DIR$/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="34" lean-forward="false" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
+=======
+    <entry file="file://$PROJECT_DIR$/System.map">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1800">
+          <caret line="120" column="34" lean-forward="false" selection-start-line="120" selection-start-column="30" selection-end-line="120" selection-end-column="34" />
+          <folding />
+>>>>>>> Stashed changes
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kernel/vga.c.dep">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
+        <state relative-caret-position="135">
+          <caret line="9" column="10" lean-forward="false" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
+=======
+    <entry file="file://$PROJECT_DIR$/System.map">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1277">
+          <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="14" />
+=======
+        <state relative-caret-position="15">
+          <caret line="1" column="61" lean-forward="false" selection-start-line="1" selection-start-column="55" selection-end-line="1" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kernel/main.c.dep">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+>>>>>>> Stashed changes
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< Updated upstream
+    <entry file="file://$PROJECT_DIR$/include/arch/x86/io.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="26" lean-forward="false" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
+=======
+    <entry file="file://$PROJECT_DIR$/iso/boot/grub/grub.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+>>>>>>> Stashed changes
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< Updated upstream
+    <entry file="file://$PROJECT_DIR$/linker.ld">
+      <provider selected="true" editor-type-id="text-editor">
+=======
+    <entry file="file://$PROJECT_DIR$/include/arch/x86/io.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="26" lean-forward="false" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
+=======
+    <entry file="file://$PROJECT_DIR$/misc/grub/i386-pc/command.lst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="135" column="0" lean-forward="false" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/arch/x86/memlayout.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="70" lean-forward="false" selection-start-line="15" selection-start-column="70" selection-end-line="15" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kernel/main.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="469">
+          <caret line="48" column="59" lean-forward="false" selection-start-line="48" selection-start-column="59" selection-end-line="48" selection-end-column="59" />
+>>>>>>> Stashed changes
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/linker.ld">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+        <state relative-caret-position="15">
+          <caret line="1" column="54" lean-forward="false" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="54" />
+=======
+        <state relative-caret-position="480">
+          <caret line="32" column="5" lean-forward="false" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="78" column="46" lean-forward="false" selection-start-line="78" selection-start-column="46" selection-end-line="78" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kernel/multiboot_entry_point.asm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="319">
+          <caret line="81" column="137" lean-forward="false" selection-start-line="81" selection-start-column="137" selection-end-line="81" selection-end-column="137" />
+>>>>>>> Stashed changes
+          <folding />
+>>>>>>> Stashed changes
         </state>
       </provider>
     </entry>

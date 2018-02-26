@@ -16,8 +16,8 @@
  * Note that linker symbols are not variables, they have no memory allocated for
  * maintaining a value, rather their address is their value.
  */
-extern const void kernel_start;
-extern const void kernel_end;
+extern const long kernel_start;
+extern const long kernel_end;
 
 
 static uint32_t initial_esp;
