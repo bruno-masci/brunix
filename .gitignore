@@ -1,6 +1,4 @@
-.idea/workspace.xml
-.idea/brunix.iml
-.idea/misc.xml
+.idea/
 CMakeLists.txt
 bochsout.log
 *.o
@@ -9,4 +7,4 @@ bochsout.log
 *.iso
 System.map
 *.c.dep
-cmake-build-debug/CMakeFiles/Makefile.cmake
+cmake-build-debug/
