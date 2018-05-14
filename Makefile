@@ -21,7 +21,7 @@ $(OUTPUT_NAME).elf:
 	@$(CROSS_OBJCOPY) --strip-debug $(OUTPUT_NAME).elf $(OUTPUT_NAME)-nosym.elf
 	@cp $(OUTPUT_NAME)-nosym.elf iso/boot/$(OUTPUT_NAME).elf
 	@echo Generating ISO image file...
-	@grub-mkrescue -d misc/grub/i386-pc -o os.iso iso/	2>/dev/null # -d is needed for amd64 host platforms
+	@grub-mkrescue -d misc/grub/i386-pc -o os.iso iso/ 2>/dev/null # -d is needed for amd64 host platforms
 
 run: run-qemu
 

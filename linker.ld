@@ -2,7 +2,7 @@
  * here [see http://wiki.osdev.org/GCC_Cross-Compiler]
  */
 
-/* This declares the symbol where all the execution begin */
+/* This declares the symbol where kernel execution begin */
 ENTRY(_start)
 
 /* Here we specify that we want our kernel loaded at 1 MiB in physical memory
