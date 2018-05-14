@@ -80,18 +80,16 @@ EAX contains the value 0x2BADB002
 Note that GRUB configures a stack but we can't trust its location, so we need to define ours.
 
 
+## How does GRUB load the ELF-formatted kernel?
 
-## LOADING ELF file
-
-Now.. What happens when we instruct GRUB to load our ELF kernel image?
-In order for GRUB to get the kernel loaded, it needs to know where in RAM memory we want the kernel to be loaded, which
-is the entry point of the kernel, and so on. It gets this information from the ELF headers contained in the image. And the image
+In order for GRUB to get the kernel loaded, it needs to know where in RAM
+memory we want the kernel to be loaded, which is the entry point of the kernel,
+and so on. It gets this information from the ELF headers contained in the
+image. And the image
 is created by the ld linker. (see linker.ld file)
-to parse the ELF headers so it retrieves uses the information stored it
-
 
 ## How is the ELF kernel image generated?
-When "make" (or "make compile") is run from the project's (' ??) top level directory's Makefile file, all source code is compiled (using the [GCC cross-compiler](http://wiki.osdev.org/GCC_Cross-Compiler) for C and [nasm](http://wiki.osdev.org/NASM) for ASM) into [relocatable ELF object files](http://wiki.osdev.org/Object_Files) that are linked together using ld (really using GCC as a linker) into a conclusive statically linked executable ELF file.
+When "make" (or "make compile") is run from the project's top level directory's Makefile file, all source code is compiled (using the [GCC cross-compiler](http://wiki.osdev.org/GCC_Cross-Compiler) for C and [nasm](http://wiki.osdev.org/NASM) for ASM) into [relocatable ELF object files](http://wiki.osdev.org/Object_Files) that are linked together using ld (really using GCC as a linker) into a conclusive statically linked executable ELF file.
 
 ## How does the kernel start running?
 First thing first... our kernel image is ELF formatted and its inner structure is given by the ld linker directives and commands declared in the linker.ld file (see [Linker Scripts](http://wiki.osdev.org/Linker_Scripts)).
