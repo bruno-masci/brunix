@@ -4,3 +4,9 @@
 CMakeLists.txt
 bochsout.log
 *.o
+*.sym
+*.elf
+*.iso
+System.map
+*.c.dep
+cmake-build-debug/CMakeFiles/Makefile.cmake
