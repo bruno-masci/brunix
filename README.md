@@ -5,6 +5,15 @@ Before we start, please note that:
 * the information here is complemented with that contained in the source code,
 * with x86 we mean 386+ architecture.
 
+## Pre-requisites
+* mtools
+* xorriso
+* grub
+* nasm
+* A <b>proper</b> [cross-compiler](http://wiki.osdev.org/GCC_Cross-Compiler)
+
+## Idea
+
 In this very first stage we are going to outline and depict the project
 structure. The idea is to do incremental developments (stage0, stage1, ...) to
 tackle all the complexities in an easier way.
@@ -14,23 +23,12 @@ includes:
 * kernel loading (boot),
 * basic video management.
 
-////
+We'll use [ELF](http://wiki.osdev.org/ELF) as the kernel image format, and
+[ld](http://wiki.osdev.org/LD) linker from the cross-compiler just built (see
+"Pre-requisites") to produce an ELF-formatted kernel image.
 
 
-For creating the kernel we are going to use the
-[ld](http://wiki.osdev.org/LD) linker from the cross-compiler just built as the
-first step to produce an ELF formatted kernel image.
-
-////
-
-## Pre-requisites
-* mtools
-* xorriso
-* grub
-* nasm
-* A proper [cross-compiler](http://wiki.osdev.org/GCC_Cross-Compiler)
-
-## Project structure
+## File structure
 
  * |── brunix.elf
  * |── brunix-nosym.elf
@@ -62,9 +60,7 @@ GRUB save us all the pain of switching from Real Mode to Protected Mode, as it
 handles all the unpleasant details and leaves the CPU in Protected Mode with a
 full 4 GiB addressing space (32 bits), and paging and interrupts disabled.\
 
-We'll use [ELF](http://wiki.osdev.org/ELF) as the kernel image format, because
-it's very well supported, portable and flexible format; GRUB natively supports
-loading ELF files and we'll take advantage of that.
+GRUB natively supports loading ELF files and we'll take advantage of that.
 
 
 ## NO STANDARD LIBRARY
