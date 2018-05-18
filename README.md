@@ -12,7 +12,7 @@ Before we start, please note that:
 * nasm
 * A <b>proper</b> [cross-compiler](http://wiki.osdev.org/GCC_Cross-Compiler)
 
-## Idea
+## Goals
 
 In this very first stage we are going to outline and depict the project
 structure. The idea is to do incremental developments (stage0, stage1, ...) to
@@ -25,43 +25,34 @@ includes:
 
 We'll use [ELF](http://wiki.osdev.org/ELF) as the kernel image format, and
 [ld](http://wiki.osdev.org/LD) linker from the cross-compiler just built (see
-"Pre-requisites") to produce an ELF-formatted kernel image.
+"Pre-requisites" section above) to produce an ELF-formatted kernel image, and
+[GRUB](https://wiki.osdev.org/GRUB)
+[bootloader](https://wiki.osdev.org/Bootloader) for booting the kernel.
+
+#### Why GRUB?
+
+GRUB is so powerful and natively supports loading ELF files. Plus, it adheres
+to the [Multiboot](http://wiki.osdev.org/Multiboot) specification.\
+GRUB save us from all the pain of switching from Real Mode to Protected Mode,
+as it handles all the unpleasant details.
 
 
-## File structure
+## From the beginning...
 
- * |── brunix.elf
- * |── brunix-nosym.elf
- * |── brunix.sym
- * |── include
-   * |── **arch/x86**: x86 architecture-dependent header files.
-   * |── **brunix**: architecture-independent header files.
- * |── **kernel**: kernel source code.
- * |── **libkern**: custom libc for the kernel.
- * |── Makefile
- * |── Makefile.inc
- * |── **linker.ld**
- * |── os.iso
- * |── System.map
-
-
-## How does the computer start running? TODO rever titulo!!
-
-When the computer [boots](http://wiki.osdev.org/System_Initialization_(x86)),
+When the computer is turned on (see
+[Initialization](http://wiki.osdev.org/System_Initialization_(x86))),
 the CPU starts in the so called [Real Mode](http://wiki.osdev.org/Real_Mode)
 for compatibility reasons. In order to get all the power from an x86 CPU, we
 need to enable the so called
 [Protected Mode](http://wiki.osdev.org/Protected_Mode).\
-One simple way to achieve this is by using the
-[GRUB](https://wiki.osdev.org/GRUB)
-[bootloader](https://wiki.osdev.org/Bootloader); GRUB adheres to the
-[Multiboot](http://wiki.osdev.org/Multiboot) specification.\
-GRUB save us all the pain of switching from Real Mode to Protected Mode, as it
-handles all the unpleasant details and leaves the CPU in Protected Mode with a
-full 4 GiB addressing space (32 bits), and paging and interrupts disabled.\
+We'll instruct the CPU to load GRUB code once system initialization has been
+concluded.
+Just before jumping to the kernel, GRUB leaves the CPU in Protected Mode with a
+full 4 GiB addressing space (32 bits), and [Paging] and [Interrupts] disabled
+(more on this later).
 
-GRUB natively supports loading ELF files and we'll take advantage of that.
-
+#### Why don't we just load our kernel instead of GRUB?
+d
 
 ## NO STANDARD LIBRARY
 
@@ -94,6 +85,23 @@ Once GRUB has checked the image, it transfers the control to the kernel executin
 
 
 TODO vEr esto: Since we haven't set up virtual memory yet, all virtual addresses are identical to the physical ones.
+
+
+## File structure
+
+ * |── brunix.elf
+ * |── brunix-nosym.elf
+ * |── brunix.sym
+ * |── include
+   * |── **arch/x86**: x86 architecture-dependent header files.
+   * |── **brunix**: architecture-independent header files.
+ * |── **kernel**: kernel source code.
+ * |── **libkern**: custom libc (see https://wiki.osdev.org/C_Library) for the kernel.
+ * |── Makefile
+ * |── Makefile.inc
+ * |── **linker.ld**: linker script.
+ * |── os.iso
+ * |── System.map
 
 
 
