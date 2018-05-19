@@ -30,23 +30,23 @@ and [GRUB](https://wiki.osdev.org/GRUB) [bootloader](https://wiki.osdev.org/Boot
 GRUB, which adheres to the [Multiboot](http://wiki.osdev.org/Multiboot) specification, is so powerful and natively
 supports loading ELF files.\
 GRUB save us from all the pain of switching from [Real Mode](http://wiki.osdev.org/Real_Mode) to
-[Protected Mode](http://wiki.osdev.org/Protected_Mode), as it handles all the unpleasant details. Plus, it allows us not
-to call [BIOS](https://wiki.osdev.org/BIOS) services.
+[Protected Mode](http://wiki.osdev.org/Protected_Mode), as it handles all the unpleasant details. Plus, GRUB helps us
+avoid having to call [BIOS](https://wiki.osdev.org/BIOS) services.
 
 
 ## The full picture
 
 ### How do we run our OS?
 
-When <i>"make run"</i> is executed from the project's top level directory, QEMU emulator runs:
+When <i>"make run"</i> (see "Makefile" file) is run from the project's top level directory, QEMU emulator runs:
 
 	qemu-system-i386 -cdrom os.iso -m 512M
 
-Here we are simulating that the OS image (os.iso, an ISO file) is inserted in the CD-ROM drive of a machine with 512M of RAM memory.
+simulating that the OS image (os.iso, an ISO file) is inserted in the CD-ROM drive of a machine with 512M of RAM memory.
 
 ### How is the os.iso file created?
 
-When <i>"make"</i> (or "<i>"make compile"</i>) is run from the project's top level directory, once brunix.elf file
+When <i>"make"</i> - or <i>"make compile"</i> - (see "Makefile" file) is run from the project's top level directory, once brunix.elf file
 gets created and put into "/iso" directory, an ISO image is constructed with:
 
 	grub-mkrescue -d misc/grub/i386-pc -o os.iso iso/
