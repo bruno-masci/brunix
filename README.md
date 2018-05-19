@@ -5,54 +5,76 @@ Before we start, please note that:
 * the information here is complemented with that contained in the source code,
 * with x86 we mean 386+ architecture.
 
-## Pre-requisites
+### Pre-requisites
 * mtools
 * xorriso
 * grub
 * nasm
 * A <b>proper</b> [cross-compiler](http://wiki.osdev.org/GCC_Cross-Compiler)
 
-## Goals
+### Goals
 
-In this very first stage we are going to outline and depict the project
-structure. The idea is to do incremental developments (stage0, stage1, ...) to
-tackle all the complexities in an easier way.
+In this very first stage we are going to outline and depict the project structure. The idea is to do incremental
+developments (stage0, stage1, ...) to tackle all the complexities in an easier way.
 
-For now, we'll just create a bare OS (if we even can call it that way) that
-includes:
+For now, we'll just create a bare OS (if we even can call it that way) that includes:
 * kernel loading (boot),
 * basic video management.
 
-We'll use [ELF](http://wiki.osdev.org/ELF) as the kernel image format, and
-[ld](http://wiki.osdev.org/LD) linker from the cross-compiler just built (see
-"Pre-requisites" section above) to produce an ELF-formatted kernel image, and
-[GRUB](https://wiki.osdev.org/GRUB)
-[bootloader](https://wiki.osdev.org/Bootloader) for booting the kernel.
+We'll use [ELF](http://wiki.osdev.org/ELF) as the kernel image format, and [ld](http://wiki.osdev.org/LD) linker from the
+cross-compiler just built (see "[Pre-requisites](#Pre-requisites)" section above) to produce an ELF-formatted kernel image,
+and [GRUB](https://wiki.osdev.org/GRUB) [bootloader](https://wiki.osdev.org/Bootloader) for booting the kernel.
 
 #### Why GRUB?
 
-GRUB is so powerful and natively supports loading ELF files. Plus, it adheres
-to the [Multiboot](http://wiki.osdev.org/Multiboot) specification.\
-GRUB save us from all the pain of switching from Real Mode to Protected Mode,
-as it handles all the unpleasant details.
+GRUB, which adheres to the [Multiboot](http://wiki.osdev.org/Multiboot) specification, is so powerful and natively
+supports loading ELF files.\
+GRUB save us from all the pain of switching from [Real Mode](http://wiki.osdev.org/Real_Mode) to
+[Protected Mode](http://wiki.osdev.org/Protected_Mode), as it handles all the unpleasant details. Plus, it allows us not
+to call [BIOS](https://wiki.osdev.org/BIOS) services.
 
+
+## The full picture
+
+### How do we run our OS?
+
+When <i>"make run"</i> is executed from the project's top level directory, QEMU emulator runs:
+
+	qemu-system-i386 -cdrom os.iso -m 512M
+
+Here we are simulating that the OS image (os.iso, an ISO file) is inserted in the CD-ROM drive of a machine with 512M of RAM memory.
+
+### How is the os.iso file created?
+
+When <i>"make"</i> (or "<i>"make compile"</i>) is run from the project's top level directory, once brunix.elf file
+gets created and put into "/iso" directory, an ISO image is constructed with:
+
+	grub-mkrescue -d misc/grub/i386-pc -o os.iso iso/
+
+IMPORTANT: If you are working on an amd64 platform (as in my case) you need to provide the "-d" option to the command above.
+
+### How is the ELF kernel image generated?
+
+When <i>"make"</i> (or "<i>"make compile"</i>) is run from the project's top level directory, prior creation of the ISO
+file, all source code is compiled (using the GCC cross-compiler for C and [nasm](http://wiki.osdev.org/NASM) for ASM) into
+[relocatable ELF object files](http://wiki.osdev.org/Object_Files) that are linked together using ld (really using GCC
+as a linker) into a conclusive statically linked executable ELF file:
+
+    $(CROSS_CC) $(LDFLAGS) -o $(OUTPUT_NAME).elf -Wl,-Map,System.map $^ -lgcc
 
 ## From the beginning...
 
-When the computer is turned on (see
-[Initialization](http://wiki.osdev.org/System_Initialization_(x86))),
-the CPU starts in the so called [Real Mode](http://wiki.osdev.org/Real_Mode)
-for compatibility reasons. In order to get all the power from an x86 CPU, we
-need to enable the so called
-[Protected Mode](http://wiki.osdev.org/Protected_Mode).\
-We'll instruct the CPU to load GRUB code once system initialization has been
-concluded.
-Just before jumping to the kernel, GRUB leaves the CPU in Protected Mode with a
-full 4 GiB addressing space (32 bits), and [Paging] and [Interrupts] disabled
-(more on this later).
+When the computer is turned on (see [Initialization](http://wiki.osdev.org/System_Initialization_(x86))), the CPU starts
+in the so called Real Mode for compatibility reasons. In order to get all the power from an x86 CPU, we need to enable
+the so called Protected Mode.\
+We'll instruct the CPU to execute GRUB code once system initialization has been concluded.\
+Just before jumping to the kernel, GRUB leaves the CPU in Protected Mode with a full 4 GiB addressing space (32 bits),
+and [Paging] and [Interrupts] disabled (more on this later).
 
-#### Why don't we just load our kernel instead of GRUB?
-d
+
+## How do we instruct the CPU to execute GRUB code?
+
+In "Makefile" file
 
 ## NO STANDARD LIBRARY
 
@@ -74,9 +96,6 @@ memory we want the kernel to be loaded, which is the entry point of the kernel,
 and so on. It gets this information from the ELF headers contained in the
 image. And the image
 is created by the ld linker. (see linker.ld file)
-
-## How is the ELF kernel image generated?
-When "make" (or "make compile") is run from the project's top level directory's Makefile file, all source code is compiled (using the [GCC cross-compiler](http://wiki.osdev.org/GCC_Cross-Compiler) for C and [nasm](http://wiki.osdev.org/NASM) for ASM) into [relocatable ELF object files](http://wiki.osdev.org/Object_Files) that are linked together using ld (really using GCC as a linker) into a conclusive statically linked executable ELF file.
 
 ## How does the kernel start running?
 First thing first... our kernel image is ELF formatted and its inner structure is given by the ld linker directives and commands declared in the linker.ld file (see [Linker Scripts](http://wiki.osdev.org/Linker_Scripts)).
