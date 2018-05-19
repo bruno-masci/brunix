@@ -55,7 +55,7 @@ IMPORTANT: If you are working on an amd64 platform (as in my case) you need to p
 
 ### How is the ELF kernel image generated?
 
-When <i>"make"</i> (or "<i>"make compile"</i>) is run from the project's top level directory, prior creation of the ISO
+When <i>"make"</i> - or <i>"make compile"</i> - (see "Makefile" file) is run from the project's top level directory, prior creation of the ISO
 file, all source code is compiled (using the GCC cross-compiler for C and [nasm](http://wiki.osdev.org/NASM) for ASM) into
 [relocatable ELF object files](http://wiki.osdev.org/Object_Files) that are linked together using ld (really using GCC
 as a linker) into a conclusive statically linked executable ELF file:
