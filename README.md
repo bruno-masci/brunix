@@ -1,9 +1,10 @@
 # brunix
 Small x86 OS for fun and learning (in progress)
 
-The state the computer gets put into by GrUB is as follows:
-Protected mode
-A20 Gate enabled
+FOR NOW, GO TO https://github.com/bruno-masci/brunix/tree/stage0
+
+...and discard bellow text!
+
 EBX contains a pointer to the Multiboot information structure
 EAX contains the value 0x2BADB002
 Paging off
