@@ -70,7 +70,7 @@ are linked together using ld (really using GCC as a linker) into a conclusive st
 The "-Map,System.map" option creates a file called "System.map" containing all the symbols from the ELF image.\
 For the "-lgcc" library inclusion, see [Libgcc](https://wiki.osdev.org/Libgcc).
 
-## Now, what really happens after the emulator starts running?
+## Now, what really happen after the emulator starts running?
 
 When the computer is turned on (see [Initialization](http://wiki.osdev.org/System_Initialization_(x86))), the CPU starts
 in the so called Real Mode for compatibility reasons. In order to get all the power from an x86 CPU, we need to enable
