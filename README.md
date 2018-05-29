@@ -133,20 +133,22 @@ TODO vEr esto: Since we haven't set up virtual memory yet, all virtual addresses
 
 References:
 
+* http://www.cse.iitd.ernet.in/os-lectures
+* https://wiki.osdev.org
 * https://wiki.osdev.org/Bare_Bones
 * http://wiki.osdev.org/GCC_Cross-Compiler
 * http://wiki.osdev.org/Why_do_I_need_a_Cross_Compiler%3F
 * http://wiki.osdev.org/LD
-* https://wiki.osdev.org/System_V_ABI
-* https://wiki.osdev.org/Calling_Conventions
+* https://wiki.osdev.org/System_V_ABI (en duda)
+* https://wiki.osdev.org/Calling_Conventions (en duda)
 * http://wiki.osdev.org/System_Initialization_(x86)
 * http://wiki.osdev.org/Memory_Map_(x86)
-* https://wiki.osdev.org/Interrupts
+* //https://wiki.osdev.org/Interrupts
 * //https://wiki.osdev.org/Non_Maskable_Interrupt
 * http://wiki.osdev.org/Real_Mode
 * http://wiki.osdev.org/Protected_Mode
-* https://wiki.osdev.org/Global_Descriptor_Table
-* https://wiki.osdev.org/Paging
+* //https://wiki.osdev.org/Global_Descriptor_Table
+* //https://wiki.osdev.org/Paging
 * http://wiki.osdev.org/Printing_To_Screen
 * http://wiki.osdev.org/Multiboot
 * http://www.jamesmolloy.co.uk/tutorial_html
