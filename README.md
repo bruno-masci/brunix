@@ -41,6 +41,8 @@ avoid having to call [BIOS](https://wiki.osdev.org/BIOS) services.
 
 ## The full picture
 
+(please read the questions below in order)
+
 ### How do we run our OS?
 
 When we run <i>"make run"</i> (see "Makefile" file) from the project's top level directory, QEMU emulator runs:
