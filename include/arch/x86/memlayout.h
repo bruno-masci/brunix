@@ -7,8 +7,6 @@
 #define __ARCH_MEMLAYOUT_H__
 
 
-
-
 #define EXT_MEM_BASE       0x00100000            // Start of extended memory (1 MiB)
 //#define PHYSTOP 0xE000000           // Top physical memory
 //#define DEVSPACE 0xFE000000         // Other devices are at high addresses
@@ -22,9 +20,6 @@
 //
 //#define V2P_WO(x) ((x) - KERNBASE)    // same as V2P, but without casts
 //#define P2V_WO(x) ((x) + KERNBASE)    // same as P2V, but without casts
-
-
-
 
 
 #endif /* __ARCH_MEMLAYOUT_H__ */

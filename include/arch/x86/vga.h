@@ -6,6 +6,7 @@
 #ifndef __ARCH_VGA_H__
 #define __ARCH_VGA_H__
 
+
 #include <stdint.h>
 #include "../../brunix/screen.h"
 

@@ -6,6 +6,7 @@
 #ifndef __STDIO_H__
 #define __STDIO_H__
 
+
 #include <stdarg.h>
 #include "screen.h"
 #include "../arch/x86/processor.h"

@@ -23,6 +23,7 @@ extern const long kernel_end;
 static uint32_t initial_esp;
 
 
+static void verify_loader(uint32_t magic);
 static void print_kernel_context_info(multiboot_info_t *mboot_info_ptr);
 
 
@@ -34,15 +35,19 @@ int kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic, uint32_t initial_sta
 
 	printk("Starting Brunix...\n\n");
 
-	if (magic != MULTIBOOT_HEADER_MAGIC) {
-		panic_noargs("Invalid magic number! A Multiboot compatible loader is needed...");
-    }
+	verify_loader(magic);
 
 	print_kernel_context_info(mboot_info_ptr);
 
 	panic_noargs("Nada mejor que hacer!");
 
-	return 0;
+	return 0;	// We need to return something...
+}
+
+static void verify_loader(uint32_t magic) {
+	if (magic != MULTIBOOT_HEADER_MAGIC) {
+		panic_noargs("Invalid magic number! A Multiboot compatible loader is needed...");
+	}
 }
 
 static void print_kernel_context_info(multiboot_info_t *mboot_info_ptr) {

@@ -6,6 +6,7 @@
 #ifndef __SCREEN_H__
 #define __SCREEN_H__
 
+
 #define COLOR_BLACK 			0x00
 #define COLOR_BLUE 				0x01
 #define COLOR_GREEN 			0x02
@@ -22,5 +23,6 @@
 #define COLOR_LIGHT_MAGENTA 	0x0D
 #define COLOR_LIGHT_BROWN 		0x0E
 #define COLOR_WHITE 			0x0F
+
 
 #endif /* __SCREEN_H__ */

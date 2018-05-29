@@ -7,6 +7,7 @@
 #ifndef __ARCH_MULTIBOOT_H__
 #define __ARCH_MULTIBOOT_H__
 
+
 #include <stddef.h>
 
 #define MULTIBOOT_HEADER_MAGIC 0x2BADB002
@@ -43,5 +44,6 @@ struct multiboot_info {
 } __attribute__((packed));
 
 typedef struct multiboot_info multiboot_info_t;
+
 
 #endif /* __ARCH_MULTIBOOT_H__ */
