@@ -80,7 +80,7 @@ Once system initialization has been concluded, the ISO file is read from the CD-
 GRUB knows where the kernel is in the storage (see "iso/boot/grub/grub.cfg" file) and where to load it in physical RAM
 memory for execution - 1 MiB, in this case - (see "linker.ld" file).
 Just before jumping to the kernel, GRUB leaves the CPU in Protected Mode with a full 4 GiB addressing space (32 bits),
-and [Paging] and [Interrupts] disabled (more on this later).
+and [Paging](https://wiki.osdev.org/Paging) and [Interrupts](https://wiki.osdev.org/Interrupts) disabled (more on this later).
 
 ## How does GRUB load the ELF-formatted kernel?
 
@@ -142,7 +142,7 @@ References:
 * http://wiki.osdev.org/System_Initialization_(x86)
 * http://wiki.osdev.org/Memory_Map_(x86)
 * https://wiki.osdev.org/Interrupts
-* https://wiki.osdev.org/Non_Maskable_Interrupt
+* //https://wiki.osdev.org/Non_Maskable_Interrupt
 * http://wiki.osdev.org/Real_Mode
 * http://wiki.osdev.org/Protected_Mode
 * https://wiki.osdev.org/Global_Descriptor_Table
