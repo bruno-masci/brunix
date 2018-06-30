@@ -11,9 +11,6 @@
 #include "../../brunix/screen.h"
 
 
-char* itoa(int num, char* str, int base);   // from stdlib.h
-
-
 #define VIDEO_MEM_ADDR 0xB8000 // the video memory address
 
 

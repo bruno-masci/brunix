@@ -1,8 +1,8 @@
 /* Extracted from http://wiki.osdev.org/Printing_To_Screen */
-char * itoa( int value, char * str, int base ) {
-    char * rc;
-    char * ptr;
-    char * low;
+char * itoa(int value, char *str, int base) {
+    char *rc;
+    char *ptr;
+    char *low;
     // Check for supported base.
     if (base < 2 || base > 36) {
         *str = '\0';
@@ -10,27 +10,35 @@ char * itoa( int value, char * str, int base ) {
     }
     rc = ptr = str;
     // Set '-' for negative decimals.
-    if ( value < 0 && base == 10 )
-    {
+    if (value < 0 && base == 10) {
         *ptr++ = '-';
     }
     // Remember where the numbers start.
     low = ptr;
     // The actual conversion.
-    do
-    {
+    do {
         // Modulo is negative for negative value. This trick makes abs() unnecessary.
         *ptr++ = "zyxwvutsrqponmlkjihgfedcba9876543210123456789abcdefghijklmnopqrstuvwxyz"[35 + value % base];
         value /= base;
-    } while ( value );
+    } while (value);
     // Terminating the string.
     *ptr-- = '\0';
     // Invert the numbers.
-    while ( low < ptr )
-    {
+    while (low < ptr) {
         char tmp = *low;
         *low++ = *ptr;
         *ptr-- = tmp;
     }
     return rc;
+}
+
+/* Extracted from https://graphics.stanford.edu/~seander/bithacks.html#RoundUpPowerOf2 */
+long roundup_binary(long n) {
+    n--;
+    n |= n >> 1;
+    n |= n >> 2;
+    n |= n >> 4;
+    n |= n >> 8;
+    n |= n >> 16;
+    return ++n;
 }

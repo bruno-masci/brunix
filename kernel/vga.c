@@ -8,9 +8,12 @@
 
 #include "../include/arch/x86/vga.h"
 #include "../include/arch/x86/io.h"
+#include "../include/arch/x86/memlayout.h"
+#include "../include/brunix/stdlib.h"   // itoa
+
 
 // The VGA framebuffer starts at 0xB8000.
-volatile uint16_t *video_memory = (volatile uint16_t *)VIDEO_MEM_ADDR;
+static volatile uint16_t *video_memory = KERN_BASE + (volatile uint16_t *)VIDEO_MEM_ADDR;//TODO agregar KERN_BASE!
 // Stores the cursor position.
 uint8_t cursor_x = 0;
 uint8_t cursor_y = 0;

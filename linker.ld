@@ -13,7 +13,7 @@ ENTRY(_start)
 . = 0x00100000;
 
 SECTIONS {
-    kernel_start = .;
+    PROVIDE(kernel_start = .);
 
     .boot : {
         /* Ensure that the multiboot header is at the beginning */
@@ -22,6 +22,7 @@ SECTIONS {
     .text ALIGN(4096) : {
 	    *(.text)
     }
+    PROVIDE(etext = .);
     .rodata ALIGN(4096) : {
         *(.rodata)
         *(.rodata.*)
@@ -29,11 +30,13 @@ SECTIONS {
     .data ALIGN(4096) : {
     	*(.data)
     }
+
+	PROVIDE(edata = .);
     .bss ALIGN(4096) : {
         *(.bss)
     }
 
-    kernel_end = .;
+	PROVIDE(kernel_end = .);
 
     /DISCARD/ : {
         *(.eh_frame .note.GNU-stack)

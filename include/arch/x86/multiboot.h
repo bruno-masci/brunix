@@ -1,6 +1,6 @@
 /**
  * @author Bruno Masci
- * @brief Structures related to the Multiboot Standard interface.
+ * @brief Declarations related to the Multiboot Standard interface.
  * @see https://www.gnu.org/software/grub/manual/multiboot/multiboot.html
  */
 

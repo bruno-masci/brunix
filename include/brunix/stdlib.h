@@ -9,5 +9,7 @@
 
 char* itoa(int num, char* str, int base);
 
+long roundup_binary(long n);
+
 
 #endif /* __STDLIB_H__ */

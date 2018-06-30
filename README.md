@@ -135,6 +135,7 @@ TODO vEr esto: Since we haven't set up virtual memory yet, all virtual addresses
 
 References:
 
+* https://wiki.osdev.org/Serial_Ports
 * http://www.cse.iitd.ernet.in/os-lectures
 * https://wiki.osdev.org
 * https://wiki.osdev.org/Bare_Bones

@@ -26,7 +26,7 @@ $(OUTPUT_NAME).elf:
 run: run-qemu
 
 run-qemu:
-	qemu-system-i386 -cdrom os.iso -m 512M
+	qemu-system-i386 -cdrom os.iso -m 512M -serial mon:stdio
 
 run-bochs:
 	bochs

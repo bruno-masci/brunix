@@ -9,9 +9,15 @@
 
 #include <stdint.h>
 
-// Write a byte out to the specified port.
-inline static void outb(uint16_t port, uint8_t value) {
-    asm volatile("outb %1, %0" : : "dN"(port), "a"(value));
+inline static uint8_t inb(uint16_t port) {
+    uint8_t data;
+
+    asm volatile("in %1,%0" : "=a" (data) : "d" (port));
+    return data;
+}
+
+inline static void outb(uint16_t port, uint8_t data) {
+    asm volatile("out %0,%1" : : "a" (data), "d" (port));
 }
 
 
