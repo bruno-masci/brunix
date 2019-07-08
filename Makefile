@@ -1,12 +1,16 @@
 OUTPUT_NAME = brunix
 TOPDIR = $(shell pwd)
 SUBDIRS = kernel libkern
-AS = nasm
-ASFLAGS = -f elf32 -g
+AS = /home/bmasci/opt/cross/bin/i686-elf-gcc
+ASFLAGS = -ffreestanding -c -g -O2 -std=gnu99
 CROSS_CC = /home/bmasci/opt/cross/bin/i686-elf-gcc
 CROSS_OBJCOPY = /home/bmasci/opt/cross/bin/i686-elf-objcopy
 CFLAGS = -ffreestanding -c -g -O2 -std=gnu99 -Wall -Wextra -pedantic
+DFLAGS = -ffreestanding
 LDFLAGS = -T linker.ld -ffreestanding -O2 -nostdlib
+QEMU = qemu-system-i386
+QEMU_OPTS = -cdrom os.iso -m 512M -serial mon:stdio -gdb tcp\:\:26000
+
 
 default: compile
 
@@ -25,29 +29,30 @@ $(OUTPUT_NAME).elf:
 
 run: run-qemu
 
+gdb:
+	gdb -n -x .gdbinit
+
 run-qemu:
-	qemu-system-i386 -cdrom os.iso -m 512M -serial mon:stdio
+	$(QEMU) $(QEMU_OPTS)
 
 run-bochs:
 	bochs
 
 run-qemu-gdb:
-	qemu-system-i386 -cdrom os.iso \
-	-S -s & gdb  \
-	        -ex 'file $(OUTPUT_NAME).elf' \
-            -ex 'target remote localhost:1234' \
-            -ex 'layout regs' \
-            -ex 'layout asm' \
-            -ex 'break kmain'
+	@echo "***"
+	@echo "*** Now run 'make gdb'." 1>&2
+	@echo "***"
+	$(QEMU) $(QEMU_OPTS) -S
 
 %.o: %.c
 	@echo + cc $<
-	@$(CROSS_CC) $(CFLAGS) $< -o $@
-	@$(CROSS_CC) -M -MF $<.dep $(CFLAGS) $<
+	@$(CROSS_CC) $(CFLAGS) -isystem $(TOPDIR)/include/ $< -o $@
+	@$(CROSS_CC) $(DFLAGS) -isystem $(TOPDIR)/include/ -S $< -o $<.asm
+	@$(CROSS_CC) -isystem $(TOPDIR)/include/ -M -MF $<.dep $(CFLAGS) $<
 
-%.o: %.asm
+%.o: %.S
 	@echo + as $<
-	@$(AS) $(ASFLAGS) $< -o $@
+	@$(AS) $(ASFLAGS) -isystem $(TOPDIR)/include/ $< -o $@
 
 clean:
 	@echo Cleaning the rest...

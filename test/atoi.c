@@ -1,7 +1,7 @@
 #include <assert.h>
 #include <string.h>
 #include <stdio.h>
-#include "../include/brunix/stdlib.h"
+#include <brunix/string.h>
 
 
 int main(int argc, char **argv) {

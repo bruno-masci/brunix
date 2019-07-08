@@ -9,14 +9,11 @@
 #define __ARCH_PROCESSOR_H__
 
 
-#include "vga.h"
+#define cli() asm ("cli")
 
-#define cli()    asm ("cli")
-#define sti()    asm ("sti")
-
+//TODO explicar el while! NMI?
 #define halt()                      \
 do {                                \
-    vga_puts("System halted.");     \
     asm ("hlt");                    \
 } while (1)
 

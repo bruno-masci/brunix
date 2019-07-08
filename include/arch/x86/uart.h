@@ -1,5 +1,12 @@
-// Intel 8250 serial port (UART).
-// Based on https://github.com/guilleiguaran/xv6
+/**
+ * @author Bruno Masci
+ * @brief Intel 8250 serial port (UART). Based on https://github.com/guilleiguaran/xv6
+ * @see https://wiki.osdev.org/Serial_Ports
+ */
+
+#ifndef __ARCH_UART_H__
+#define __ARCH_UART_H__
+
 
 /***** Serial I/O code *****/
 
@@ -15,5 +22,11 @@
 #define COM_LSR_TXRDY	0x20	//   Transmit buffer avail
 
 
-void uart_init(void);
-void uart_putc(int c);
+// Initializes serial device
+void uart__init(void);
+
+// Sends a character through the first serial line (akka ttyS0)
+void uart__putc(int c);
+
+
+#endif /* !__ARCH_UART_H__ */

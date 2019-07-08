@@ -5,7 +5,7 @@
 
 #include <stdarg.h>
 
-#include "../include/brunix/stdio.h"
+#include <brunix/console.h>    // for vprintfmt() and cputchar()
 
 
 static void putch(int ch, int *cnt) {

@@ -1,83 +1,91 @@
 /**
  * @author Bruno Masci
- * @brief Defines the entry point to C kernel
+ * @brief Entry point to the C kernel
  *
  * This file contains the kernel's main program.
  */
 
 
-#include <stdint.h>
-#include "../include/brunix/stdio.h"
-#include "../include/brunix/stdlib.h"
-#include "../include/arch/x86/processor.h"
-#include "../include/arch/x86/multiboot.h"
-#include "../include/arch/x86/memlayout.h"
-#include "../include/arch/x86/uart.h"
+#include <stdint.h>                 // for uint32_t
+
+#include <brunix/defs.h>            // for PRIVATE, roundup_binary()
+#include <brunix/console.h>
+#include <brunix/kernel.h>
+
+#include <arch/x86/multiboot.h>
 
 
 /*
- * Note that linker symbols are not variables, they have no memory allocated for
- * maintaining a value, rather their address is their value. So, we have to use
- * the address (&) operator to get their address or location.
+ * Note that linker symbols are not variables; they have no memory allocated
+ * for maintaining a value, rather their address is their value. We have to use
+ * the address (&) operator to get their address or location. For that, we
+ * declare those symbols as char arrays and access them by its name, what is
+ * equivalent to do &symbol[0]. (see "linker.ld" file)
  */
-extern const uint32_t kernel_start;
-extern const uint32_t kernel_end;
-extern const uint32_t _start;
-extern const uint32_t etext;
-extern const uint32_t edata;
+extern const char kernel_start[];
+extern const char kernel_end[];
+extern const char _start[];
+extern const char etext[];
+extern const char edata[];
 
 
-static uint32_t initial_esp;
+void console_init(void);        // from kernel/console.c
 
 
-static void verify_loader(uint32_t magic);
-static void print_kernel_context_info(multiboot_info_t *mboot_info_ptr);
+// These two lines are here only for the purpose of demonstrating ELF
+// executable's sections such as TEXT, DATA and BSS.
+PRIVATE int unused_initialized_variable = 5;
+PRIVATE int unused_uninitialized_variable;
 
 
-int kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic, uint32_t initial_stack) {
+PRIVATE void verify_loader(uint32_t magic);
+PRIVATE void print_kernel_context_info(multiboot_info_t *mboot_info_ptr);
 
-    initial_esp = initial_stack;
 
-//	video_init();
+void kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic) {
     cprintf("Starting Brunix...\n\n");
 
     verify_loader(magic);
-    
-    uart_init();    // We send all the output to both the screen and the serial port (emulator)
 
+    console_init();
 
     print_kernel_context_info(mboot_info_ptr);
 
-/*    cprintf("Type 'help' for a list of commands.\n");
+    panic("Forcing kernel panic...");       // panic() DOES NOT return!
+}
 
-    while (1) {
-        buf = readline("K> ");
-        if (buf != NULL)
-            if (runcmd(buf, tf) < 0)
-                break;
+PRIVATE void verify_loader(uint32_t magic) {
+    if (magic != MBOOT_LOADER_MAGIC) {
+        panic("Invalid magic number! A Multiboot compatible loader is needed...");
     }
-*/
-	//panic_noargs("Nada mejor que hacer!");
-
-	return 0;	// We need to return something...
 }
 
-static void verify_loader(uint32_t magic) {
-	if (magic != MULTIBOOT_HEADER_MAGIC) {
-		panic_noargs("Invalid magic number! A Multiboot compatible loader is needed...");
-	}
-}
+PRIVATE void print_kernel_context_info(multiboot_info_t *mboot_info_ptr) {
+    info("Total RAM installed: %u MB", roundup_binary(mboot_info_ptr->mem_upper) / 1024);
 
-static void print_kernel_context_info(multiboot_info_t *mboot_info_ptr) {
+    /* TODO mover esto!! Check if the bit BIT in FLAGS is set. */
+#define CHECK_FLAG(flags,bit)   ((flags) & (1 << (bit)))
 
-    info("main", "Loading kernel with command line: %s", (char *)mboot_info_ptr->cmdline);
-    info("main", "Total RAM installed: %u MB", roundup_binary(mboot_info_ptr->mem_upper) / 1024);
-    debug("main", "Kernel size: %d KB; Bootstrap ESP: %x KB", (&kernel_end - &kernel_start) / 1024, initial_esp);
+    /* is the command-line defined? */
+#define MULTIBOOT_INFO_CMDLINE                  0x00000004
+
+    if (CHECK_FLAG(mboot_info_ptr->flags, 2)) {
+        if (strcmp(mboot_info_ptr->cmdline, "\0") != 0) {
+            debug("Loading kernel with command line: %s", (char *)mboot_info_ptr->cmdline);
+        }
+    }
+
+    debug("Kernel size: %d KB", (kernel_end - kernel_start) / 1024);
+
     cprintf("\nSpecial kernel symbols:\n");
-    cprintf("  _start                  %p (phys)\n", &_start);    // %08k
-    cprintf("  entry  %p (virt)  %p (phys)\n", &kernel_start, &kernel_start - KERN_BASE);
-    cprintf("  etext  %p (virt)  %p (phys)\n", &etext, &etext - KERN_BASE);
-    cprintf("  edata  %p (virt)  %p (phys)\n", &edata, &edata - KERN_BASE);
-    cprintf("  end    %p (virt)  %p (phys)\n", &kernel_end, &kernel_end - KERN_BASE);
-    cprintf("size: %d\n", cprintf("prueba: "));
+    cprintf("  _start                  %08x (phys)\n", _start);
+    cprintf("  entry  %08x (virt)  %08x (phys)\n", kernel_start, kernel_start);
+    cprintf("  etext  %08x (virt)  %08x (phys)\n", etext, etext);
+    cprintf("  edata  %08x (virt)  %08x (phys)\n", edata, edata);
+    cprintf("  end    %08x (virt)  %08x (phys)\n\n", kernel_end, kernel_end);
+
+    cprintf("\nSome symbol addresses by section:\n");
+    cprintf("  kmain()\t\t\t-> %p (text)\n", &kmain);
+    cprintf("  unused_initialized_variable\t-> %p (data)\n", &unused_initialized_variable);
+    cprintf("  unused_uninitialized_variable\t-> %p (bss)\n", &unused_uninitialized_variable);
 }

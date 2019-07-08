@@ -6,14 +6,13 @@
  * TODO ver vga.c de eduOS a ver si se puede mejorar algo.
  */
 
-#include "../include/arch/x86/vga.h"
-#include "../include/arch/x86/io.h"
-#include "../include/arch/x86/memlayout.h"
-#include "../include/brunix/stdlib.h"   // itoa
+#include <arch/x86/vga.h>
+#include <arch/x86/io.h>
+#include <brunix/console.h>
 
 
 // The VGA framebuffer starts at 0xB8000.
-static volatile uint16_t *video_memory = KERN_BASE + (volatile uint16_t *)VIDEO_MEM_ADDR;//TODO agregar KERN_BASE!
+static volatile uint16_t *video_memory = (volatile uint16_t *)VIDEO_MEM_ADDR;
 // Stores the cursor position.
 uint8_t cursor_x = 0;
 uint8_t cursor_y = 0;
@@ -22,7 +21,7 @@ uint8_t backColour = COLOR_BLACK;
 uint8_t foreColour = COLOR_WHITE;
 
 
-void vga_set_foreground_color(uint8_t colour) {
+void vga__set_foreground_color(uint8_t colour) {
 	foreColour = colour;
 }
 
@@ -71,12 +70,12 @@ static void scroll() {
     }
 }
 
-void vga_init() {
-    vga_clear();
+void vga__init() {
+    info_noargs("Initializing screen...");
 }
 
 // Writes a single character out to the screen.
-void vga_putc(char c) {
+void vga__putc(char c) {
     // The background colour is black (0), the foreground is white (15).
 
     // The attribute byte is made up of two nibbles - the lower being the
@@ -130,7 +129,7 @@ void vga_putc(char c) {
 
 
 // Clears the screen, by copying lots of spaces to the framebuffer.
-void vga_clear() {
+void vga__clear() {
     // Make an attribute byte for the default colours
     uint8_t attributeByte = (0 /*black*/ << 4) | (15 /*white*/ & 0x0F);
     uint16_t blank = 0x20 /* space */ | (attributeByte << 8);
@@ -144,29 +143,4 @@ void vga_clear() {
     cursor_x = 0;
     cursor_y = 0;
     move_cursor();
-}
-
-void vga_puts(char *str) {
-    for (int i = 0; str[i]; i++) {
-        vga_putc(str[i]);
-    }
-}
-
-static void vga_write_number(uint32_t n, int base) {
-    char str[64+1];
-    itoa(n, str, base);
-    vga_puts(str);
-}
-
-void vga_puthex(uint32_t n) {
-    vga_puts("0x");
-    vga_write_number(n, 16);
-}
-
-void vga_putdec(uint32_t n) {
-    vga_write_number(n, 10);
-}
-
-void vga_putbin(uint32_t n) {
-    vga_write_number(n, 2);
 }

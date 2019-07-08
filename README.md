@@ -1,3 +1,25 @@
+AGREGAR ESTOS LINKS EN MASTER!!
+
+https://pdos.csail.mit.edu/6.828
+https://wiki.osdev.org
+https://sourceware.org/binutils/
+https://github.com/torvalds/linux
+https://github.com/minix3/minix
+http://www.lemis.com/grog/Documentation/Lions/book.pdf
+https://0xax.gitbooks.io/linux-insides/content/
+https://littleosbook.github.io/
+https://en.wikipedia.org/wiki/Linux_Standard_Base
+https://en.wikipedia.org/wiki/POSIX
+https://wiki.osdev.org/User:H0bby1
+
+
+
+
+
+
+
+
+
 # brunix
 ## Small Unix-like 32-bits x86 OS for fun and learning (stage 0)
 
@@ -9,7 +31,7 @@ Before we start, please note that:
 * mtools
 * xorriso
 * grub
-* nasm
+* gas
 * A <b>proper</b> [cross-compiler](http://wiki.osdev.org/GCC_Cross-Compiler)
 
 ### Goals
@@ -64,7 +86,7 @@ IMPORTANT: If you are working on an amd64 platform (as in my case) you need to p
 
 When we run <i>"make"</i> or <i>"make compile"</i> (see "Makefile" file) from the project's top level directory,
 prior creation of the ISO file, all source code is compiled (using the GCC cross-compiler for C and
-[nasm](http://wiki.osdev.org/NASM) for ASM) into [relocatable ELF object files](http://wiki.osdev.org/Object_Files) that
+[gas](http://wiki.osdev.org/GAS) for ASM) into [relocatable ELF object files](http://wiki.osdev.org/Object_Files) that
 are linked together using ld (really using GCC as a linker) into a conclusive statically linked executable ELF file:
 
     $(CROSS_CC) $(LDFLAGS) -o $(OUTPUT_NAME).elf -Wl,-Map,System.map $^ -lgcc
@@ -94,7 +116,7 @@ is created by the ld linker. (see linker.ld file)
 
 ## How does the kernel start running?
 First thing first... our kernel image is ELF formatted and its inner structure is given by the ld linker directives and commands declared in the linker.ld file (see [Linker Scripts](http://wiki.osdev.org/Linker_Scripts)).
-When GRUB (or any Multiboot-compliant bootloader, for that matter) loads our kernel image, it needs to check whether the kernel is Multiboot-compliant looking for certain values to be stored at the beginning of the kernel image; that's why we have a "multiboot_header" section (see [multiboot_entry_point.asm](/kernel/multiboot_entry_point.asm)) at the very first position in the linker.ld file.
+When GRUB (or any Multiboot-compliant bootloader, for that matter) loads our kernel image, it needs to check whether the kernel is Multiboot-compliant looking for certain values to be stored at the beginning of the kernel image; that's why we have a "multiboot_header" section (see [multiboot_entry_point.S](/kernel/multiboot_entry_point.S)) at the very first position in the linker.ld file.
 Once GRUB has checked the image, it transfers the control to the kernel executing the code at the "_start" symbol.
 
 
@@ -114,6 +136,16 @@ Note that GRUB configures a stack but we can't trust its location, so we need to
 
 TODO vEr esto: Since we haven't set up virtual memory yet, all virtual addresses are identical to the physical ones.
 
+detalles sobre GCC/GAS:
+- Agregar lo de #ifndef __ASSEMBLER__ para headers compartidos con assembler!
+- __attribute__((packed))
+- __attribute__ ((noreturn))
+
+
+#include <stddef.h>     // for size_t
+#include <stdint.h> // for uint8_t, uint32_t, uintptr_t, etc.
+stdbool
+y stdarg // for va_list
 
 ## File structure
 
@@ -135,6 +167,7 @@ TODO vEr esto: Since we haven't set up virtual memory yet, all virtual addresses
 
 References:
 
+* https://css.csail.mit.edu/6.858/2014/readings/i386.pdf
 * https://wiki.osdev.org/Serial_Ports
 * http://www.cse.iitd.ernet.in/os-lectures
 * https://wiki.osdev.org
@@ -153,9 +186,11 @@ References:
 * //https://wiki.osdev.org/Global_Descriptor_Table
 * //https://wiki.osdev.org/Paging
 * http://wiki.osdev.org/Printing_To_Screen
+* http://www.brokenthorn.com/Resources/OSDevVga.html
 * http://wiki.osdev.org/Multiboot
+* https://www.gnu.org/software/grub/manual/multiboot/multiboot.html
 * http://www.jamesmolloy.co.uk/tutorial_html
 * http://www.osdever.net/bkerndev/index.php
-* http://www.jofre.de/?download=WritingAnOs.pdf
-* https://www.gnu.org/software/grub/manual/multiboot/multiboot.html
 * http://os.phil-opp.com/multiboot-kernel.html
+* https://wiki.osdev.org/Inline_Assembly
+* https://en.wikibooks.org/wiki/The_Linux_Kernel/System
