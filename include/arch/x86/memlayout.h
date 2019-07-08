@@ -1,3 +1,4 @@
+//TODO aun no se usa!
 /**
  * @author Bruno Masci
  * @brief x86 memory layout
