@@ -6,7 +6,7 @@ ASFLAGS = -ffreestanding -c -g -O2 -std=gnu99
 CROSS_CC = /home/bmasci/opt/cross/bin/i686-elf-gcc
 CROSS_OBJCOPY = /home/bmasci/opt/cross/bin/i686-elf-objcopy
 CFLAGS = -ffreestanding -c -g -O2 -std=gnu99 -Wall -Wextra -pedantic
-DFLAGS = -ffreestanding
+CFLAGS_ASM = -ffreestanding
 LDFLAGS = -T linker.ld -ffreestanding -O2 -nostdlib
 QEMU = qemu-system-i386
 QEMU_OPTS = -cdrom os.iso -m 512M -serial mon:stdio -gdb tcp\:\:26000
@@ -47,7 +47,7 @@ run-qemu-gdb:
 %.o: %.c
 	@echo + cc $<
 	@$(CROSS_CC) $(CFLAGS) -isystem $(TOPDIR)/include/ $< -o $@
-	@$(CROSS_CC) $(DFLAGS) -isystem $(TOPDIR)/include/ -S $< -o $<.asm
+	@$(CROSS_CC) $(CFLAGS_ASM) -isystem $(TOPDIR)/include/ -S $< -o $<.asm
 	@$(CROSS_CC) -isystem $(TOPDIR)/include/ -M -MF $<.dep $(CFLAGS) $<
 
 %.o: %.S
