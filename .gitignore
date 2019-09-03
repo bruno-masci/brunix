@@ -1,5 +1,6 @@
 .idea/
 CMakeLists.txt
+cmake-build-debug/
 bochsout.log
 *.o
 *.sym
@@ -7,4 +8,4 @@ bochsout.log
 *.iso
 System.map
 *.c.dep
-cmake-build-debug/
+*.c.asm

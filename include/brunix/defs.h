@@ -1,14 +1,16 @@
+/**
+ * @author Bruno Masci
+ * @brief Some common kernel definitions
+ */
+
 #ifndef __DEFS_H__
 #define __DEFS_H__
 
 
-//TODO no se usa aun
-#define OK  0
-
 #define PRIVATE static
 
 /* Extracted from https://graphics.stanford.edu/~seander/bithacks.html#RoundUpPowerOf2 */
-inline long roundup_binary(long n) {
+long roundup_binary(long n) {
     n--;
     n |= n >> 1;
     n |= n >> 2;

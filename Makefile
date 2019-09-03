@@ -1,63 +1,118 @@
+# Run 'make V=1' to turn on verbose commands, or 'make V=0' to turn them off.
+ifeq ($(V),1)
+override V =
+endif
+ifeq ($(V),0)
+override V = @
+endif
+
+-include conf/env.mk
+
+# try to generate a unique GDB port
+GDBPORT	:= $(shell expr `id -u` % 5000 + 25000)
+
+
+CROSS_COMPILER_PATH = /home/bmasci/opt/cross/bin
+AS =      $(CROSS_COMPILER_PATH)/i686-elf-gcc
+CC =      $(CROSS_COMPILER_PATH)/i686-elf-gcc
+OBJCOPY = $(CROSS_COMPILER_PATH)/i686-elf-objcopy
+NM =      $(CROSS_COMPILER_PATH)/i686-elf-nm
+
+## Compiler flags
+# Do not optimise for now with "-O1" and so on, so we can do some validations.
+CFLAGS = -ffreestanding -c -g -std=gnu99 -Wall -Wextra -pedantic
+
+# Add -fno-stack-protector if the option exists.
+CFLAGS += $(shell $(CC) -fno-stack-protector -E -x c /dev/null >/dev/null 2>&1 && echo -fno-stack-protector)
+
+
+## Assembler flags
+ASFLAGS = $(CFLAGS)
+
+# Common linker flags
+LDFLAGS = -T linker.ld -ffreestanding -nostdlib
+
+QEMU = qemu-system-i386
+QEMU_OPTS = -cdrom os.iso -m 512M -serial mon:stdio -gdb tcp::$(GDBPORT)
+IMAGES = $(OUTPUT_NAME).elf
+
 OUTPUT_NAME = brunix
 TOPDIR = $(shell pwd)
 SUBDIRS = kernel libkern
-AS = /home/bmasci/opt/cross/bin/i686-elf-gcc
-ASFLAGS = -ffreestanding -c -g -O2 -std=gnu99
-CROSS_CC = /home/bmasci/opt/cross/bin/i686-elf-gcc
-CROSS_OBJCOPY = /home/bmasci/opt/cross/bin/i686-elf-objcopy
-CFLAGS = -ffreestanding -c -g -O2 -std=gnu99 -Wall -Wextra -pedantic
-CFLAGS_ASM = -ffreestanding
-LDFLAGS = -T linker.ld -ffreestanding -O2 -nostdlib
-QEMU = qemu-system-i386
-QEMU_OPTS = -cdrom os.iso -m 512M -serial mon:stdio -gdb tcp\:\:26000
-
 
 default: compile
 
-full: clean $(OUTPUT_NAME).elf run
+full: clean $(OUTPUT_NAME).elf qemu
 
 compile: $(OUTPUT_NAME).elf
 
 $(OUTPUT_NAME).elf:
 	@echo Linking kernel into $(OUTPUT_NAME).elf file...
-	@$(CROSS_CC) $(LDFLAGS) -o $(OUTPUT_NAME).elf -Wl,-Map,System.map $^ -lgcc
-	@$(CROSS_OBJCOPY) --only-keep-debug $(OUTPUT_NAME).elf $(OUTPUT_NAME).sym
-	@$(CROSS_OBJCOPY) --strip-debug $(OUTPUT_NAME).elf $(OUTPUT_NAME)-nosym.elf
-	@cp $(OUTPUT_NAME)-nosym.elf iso/boot/$(OUTPUT_NAME).elf
+	$(V)$(CC) $(LDFLAGS) -o $(OUTPUT_NAME).elf -Wl,-Map,System.map $^ -lgcc
+	@echo Validating multiboot image...
+	$(V)./multiboot-checker.sh $(OUTPUT_NAME).elf
+	@cp $(OUTPUT_NAME).elf iso/boot/$(OUTPUT_NAME).elf
 	@echo Generating ISO image file...
-	@grub-mkrescue -d misc/grub/i386-pc -o os.iso iso/ 2>/dev/null # -d is needed for amd64 host platforms
+	$(V)grub-mkrescue -d misc/grub/i386-pc -o os.iso iso/ 2>/dev/null
 
-run: run-qemu
+#@$(CROSS_OBJCOPY) --only-keep-debug $(OUTPUT_NAME).elf $(OUTPUT_NAME).sym
+#@$(CROSS_OBJCOPY) --strip-debug $(OUTPUT_NAME).elf $(OUTPUT_NAME)-nosym.elf
+
+
+.gdbinit: .gdbinit.tmpl
+	sed "s/localhost:1234/localhost:$(GDBPORT)/" < $^ > $@
 
 gdb:
-	gdb -n -x .gdbinit
+	$(GDB)
 
-run-qemu:
+pre-qemu: .gdbinit
+
+qemu: compile pre-qemu
 	$(QEMU) $(QEMU_OPTS)
 
-run-bochs:
-	bochs
+qemu-nox: $(IMAGES) pre-qemu
+	@echo "***"
+	@echo "*** Use Ctrl-a x to exit qemu"
+	@echo "***"
+	$(QEMU) -nographic $(QEMU_OPTS)
 
-run-qemu-gdb:
+qemu-gdb: $(IMAGES) pre-qemu
 	@echo "***"
 	@echo "*** Now run 'make gdb'." 1>&2
 	@echo "***"
-	$(QEMU) $(QEMU_OPTS) -S
+	$(QEMU) $(QEMUOPTS) -S
+
+qemu-nox-gdb: $(IMAGES) pre-qemu
+	@echo "***"
+	@echo "*** Now run 'make gdb'." 1>&2
+	@echo "***"
+	$(QEMU) -nographic $(QEMU_OPTS) -S
+
+
+
+
+
+
+
+print-gdbport:
+	@echo $(GDBPORT)
+
 
 %.o: %.c
 	@echo + cc $<
-	@$(CROSS_CC) $(CFLAGS) -isystem $(TOPDIR)/include/ $< -o $@
-	@$(CROSS_CC) $(CFLAGS_ASM) -isystem $(TOPDIR)/include/ -S $< -o $<.asm
-	@$(CROSS_CC) -isystem $(TOPDIR)/include/ -M -MF $<.dep $(CFLAGS) $<
+	$(V)$(CC) $(CFLAGS) -isystem $(TOPDIR)/include/ $< -o $@
+	$(V)$(CC) $(ASFLAGS) -isystem $(TOPDIR)/include/ -S $< -o $<.asm
+	$(V)$(CC) -isystem $(TOPDIR)/include/ -M -MF $<.dep $(CFLAGS) $<
 
 %.o: %.S
 	@echo + as $<
-	@$(AS) $(ASFLAGS) -isystem $(TOPDIR)/include/ $< -o $@
+	$(V)$(AS) $(ASFLAGS) -isystem $(TOPDIR)/include/ $< -o $@
 
 clean:
 	@echo Cleaning the rest...
-	@rm -rf $(OUTPUT_NAME).elf $(OUTPUT_NAME)-nosym.elf $(OUTPUT_NAME).sym System.map
-	@rm -rf os.iso iso/boot/$(OUTPUT_NAME).elf
+	$(V)rm -rf $(OUTPUT_NAME).elf $(OUTPUT_NAME)-nosym.elf $(OUTPUT_NAME).sym $(OUTPUT_NAME).nm-sym System.map
+	$(V)rm -rf os.iso iso/boot/$(OUTPUT_NAME).elf
 
 
+# Include Makefrags for subdirectories
 include $(addsuffix /Makefile,$(SUBDIRS))

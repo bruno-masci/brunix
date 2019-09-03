@@ -101,3 +101,6 @@ _start:
     hlt
     jmp .hang
 .end:
+
+    // Note we don't have an exit() function here; there is no processes nor
+    // system calls. Instead we do:

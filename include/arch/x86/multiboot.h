@@ -9,16 +9,16 @@
 
 
 #define MBOOT_HEADER_MAGIC      0x1BADB002
-#define MBOOT_HEADER_FLAGS      0x00000000  // include info on available memory
-#define MBOOT_HEADER_CHECKSUM   -(MBOOT_HEADER_MAGIC \
+#define MBOOT_HEADER_FLAGS      0x00000000
+#define MBOOT_HEADER_CHECKSUM   -(MBOOT_HEADER_MAGIC    \
                                 + MBOOT_HEADER_FLAGS)
 
 
 #ifndef __ASSEMBLER__
 
-    #include <stdint.h>     // for uint32_t
+    #define MBOOT_LOADER_MAGIC  0x2BADB002
 
-    #define MBOOT_LOADER_MAGIC   0x2BADB002
+    #include <stdint.h>     // for uint32_t
 
     struct multiboot_info {
         uint32_t flags;
@@ -53,7 +53,7 @@
 
     typedef struct multiboot_info multiboot_info_t;
 
-#endif /* __ASSEMBLER__ */
+#endif /* !__ASSEMBLER__ */
 
 
 #endif /* __ARCH_MULTIBOOT_H__ */

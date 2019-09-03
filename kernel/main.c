@@ -8,11 +8,11 @@
 
 #include <stdint.h>                 // for uint32_t
 
-#include <brunix/defs.h>            // for PRIVATE, roundup_binary()
+#include <brunix/defs.h>            // for PRIVATE, MAX_STR_SIZE?, roundup_binary()
 #include <brunix/console.h>
 #include <brunix/kernel.h>
 
-#include <arch/x86/multiboot.h>
+#include <arch/x86/multiboot.h>     // for multiboot_info_t
 
 
 /*
@@ -31,9 +31,8 @@ extern const char edata[];
 
 void console_init(void);        // from kernel/console.c
 
-
-// These two lines are here only for the purpose of demonstrating ELF
-// executable's sections such as TEXT, DATA and BSS.
+// These two lines are here only for the purpose of demonstrating
+// ELF executable's sections such as DATA and BSS.
 PRIVATE int unused_initialized_variable = 5;
 PRIVATE int unused_uninitialized_variable;
 
@@ -42,6 +41,13 @@ PRIVATE void verify_loader(uint32_t magic);
 PRIVATE void print_kernel_context_info(multiboot_info_t *mboot_info_ptr);
 
 
+/**
+ * This is the main kernel function.
+ *
+ * @param mboot_info_ptr Contextual information given by the bootloader.
+ * @param magic Number representing the Multiboot bootloader magic number.
+ * @see multiboot_entry_point.S file
+ */
 void kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic) {
     cprintf("Starting Brunix...\n\n");
 
