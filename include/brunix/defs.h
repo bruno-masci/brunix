@@ -10,7 +10,7 @@
 #define PRIVATE static
 
 /* Extracted from https://graphics.stanford.edu/~seander/bithacks.html#RoundUpPowerOf2 */
-long roundup_binary(long n) {
+inline long roundup_binary(long n) {
     n--;
     n |= n >> 1;
     n |= n >> 2;

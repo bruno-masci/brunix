@@ -32,7 +32,7 @@ extern const char edata[];
 void console_init(void);        // from kernel/console.c
 
 // These two lines are here only for the purpose of demonstrating
-// ELF executable's sections such as DATA and BSS.
+// ELF executable's sections such as TEXT, DATA and BSS.
 PRIVATE int unused_initialized_variable = 5;
 PRIVATE int unused_uninitialized_variable;
 
