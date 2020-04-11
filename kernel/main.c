@@ -8,11 +8,17 @@
 
 #include <stdint.h>                 // for uint32_t
 
-#include <brunix/defs.h>            // for PRIVATE, MAX_STR_SIZE?, roundup_binary()
+#include <brunix/defs.h>            // for PRIVATE, MAX_STR_SIZE?, roundup_binary(), MB_TO_BYTES
+#include <brunix/string.h>
 #include <brunix/console.h>
 #include <brunix/kernel.h>
 
 #include <arch/x86/multiboot.h>     // for multiboot_info_t
+#include <arch/x86/memlayout.h>     // for PHYS_TO_VIRT
+#include <arch/x86/mmu.h>
+#include <arch/x86/types.h>
+
+#include "kalloc.h"
 
 
 /*
@@ -49,6 +55,13 @@ PRIVATE void print_kernel_context_info(multiboot_info_t *mboot_info_ptr);
  * @see multiboot_entry_point.S file
  */
 void kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic) {
+
+    // In case GRUB doesn't do this...
+    // Before doing anything else, complete the ELF loading process.
+    // Clear the uninitialized global data (BSS) section of our program.
+    // This ensures that all static/global variables start out zero.
+    memset(edata, 0, kernel_end - edata);
+
     cprintf("Starting Brunix...\n\n");
 
     verify_loader(magic);
@@ -56,6 +69,40 @@ void kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic) {
     console_init();
 
     print_kernel_context_info(mboot_info_ptr);
+
+
+    kinit1(kernel_end, PHYS_TO_VIRT(MB_TO_BYTES(4))); // phys page allocator
+
+
+    // test physical memory allocator
+    char *mem = kalloc();
+    if(mem == 0) {
+        panic("Out of memory. This should not happen...\n");
+    }
+    cprintf("kalloc() returned page address: %p (virt). Zeroing page...\n", mem);
+    if (mem != MB_TO_BYTES(4) - PAGE_SIZE) {
+        panic("Unexpected returned address by kalloc(): %p", mem);
+    }
+    for (int i = 0; i < 254; i++) {     // requesting PAGE_SIZE * 256 = 1 MBy of memory
+        mem = kalloc();
+        if(mem == 0) {
+            panic("Out of memory. This should not happen...\n");
+        }
+
+        memset(mem, 0, PAGE_SIZE);
+    }
+
+    mem = kalloc();
+    if(mem == 0) {
+        panic("Out of memory. This should not happen...\n");
+    }
+    cprintf("kalloc() returned page address: %p (virt). Zeroing page...\n", mem);
+    if (mem != MB_TO_BYTES(4) - MB_TO_BYTES(1)) {
+        panic("Unexpected returned address by kalloc(): %p", mem);
+    }
+
+
+//    kvmalloc();      // kernel page table
 
     panic("Forcing kernel panic...");       // panic() DOES NOT return!
 }
@@ -76,7 +123,7 @@ PRIVATE void print_kernel_context_info(multiboot_info_t *mboot_info_ptr) {
 #define MULTIBOOT_INFO_CMDLINE                  0x00000004
 
     if (CHECK_FLAG(mboot_info_ptr->flags, 2)) {
-        if (strcmp(mboot_info_ptr->cmdline, "\0") != 0) {
+        if (strcmp(((char *) mboot_info_ptr->cmdline), "\0") != 0) {
             debug("Loading kernel with command line: %s", (char *)mboot_info_ptr->cmdline);
         }
     }
@@ -95,3 +142,15 @@ PRIVATE void print_kernel_context_info(multiboot_info_t *mboot_info_ptr) {
     cprintf("  unused_initialized_variable\t-> %p (data)\n", &unused_initialized_variable);
     cprintf("  unused_uninitialized_variable\t-> %p (bss)\n", &unused_uninitialized_variable);
 }
+
+// Boot page table used in kernel/multiboot_entry_point.S.
+// Page directories (and page tables), must start on a page boundary,
+// hence the "__aligned__" attribute.
+// Use PTE_PS in page directory entry to enable 4Mbyte pages.
+__attribute__((__aligned__(PAGE_SIZE)))
+pde_t entrypgdir[NPDENTRIES] = {
+        // Map VA's [0, 4MB) to PA's [0, 4MB)
+        [0] = (0) | PTE_P | PTE_W | PTE_PS,
+        // Map VA's [KERNBASE, KERNBASE+4MB) to PA's [0, 4MB)
+//        [KERN_BASE>>PDXSHIFT] = (0) | PTE_P | PTE_W | PTE_PS,
+};

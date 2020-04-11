@@ -5,10 +5,10 @@
 
 #include <stdarg.h>
 
-#include <brunix/console.h>    // for vprintfmt() and cputchar()
+#include <brunix/console.h>     // for vprintfmt() and cputchar()
+#include <brunix/defs.h>        // for PRIVATE
 
-
-static void putch(int ch, int *cnt) {
+PRIVATE void putch(int ch, int *cnt) {
 	cputchar(ch);
     (*cnt)++;
 }

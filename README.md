@@ -1,24 +1,24 @@
-AGREGAR ESTOS LINKS EN MASTER!!
-
-https://pdos.csail.mit.edu/6.828
-https://wiki.osdev.org
-https://sourceware.org/binutils/
-https://github.com/torvalds/linux
-https://github.com/minix3/minix
-http://www.lemis.com/grog/Documentation/Lions/book.pdf
-https://0xax.gitbooks.io/linux-insides/content/
-https://littleosbook.github.io/
-https://en.wikipedia.org/wiki/Linux_Standard_Base
-https://en.wikipedia.org/wiki/POSIX
-https://wiki.osdev.org/User:H0bby1
 
 
 
 
 
 
+## File structure
 
-
+ * |── brunix.elf
+ * |── brunix-nosym.elf
+ * |── brunix.sym
+ * |── include
+   * |── **arch/x86**: x86 architecture-dependent header files.
+   * |── **brunix**: architecture-independent header files.
+ * |── **kernel**: kernel source code.
+ * |── **libkern**: custom libc (see https://wiki.osdev.org/C_Library) for the kernel.
+ * |── Makefile
+ * |── Makefile.inc
+ * |── **linker.ld**: linker script.
+ * |── os.iso
+ * |── System.map
 
 # brunix
 ## Small Unix-like 32-bits x86 OS for fun and learning (stage 0)
@@ -147,21 +147,7 @@ detalles sobre GCC/GAS:
 stdbool
 y stdarg // for va_list
 
-## File structure
 
- * |── brunix.elf
- * |── brunix-nosym.elf
- * |── brunix.sym
- * |── include
-   * |── **arch/x86**: x86 architecture-dependent header files.
-   * |── **brunix**: architecture-independent header files.
- * |── **kernel**: kernel source code.
- * |── **libkern**: custom libc (see https://wiki.osdev.org/C_Library) for the kernel.
- * |── Makefile
- * |── Makefile.inc
- * |── **linker.ld**: linker script.
- * |── os.iso
- * |── System.map
 
 
 
@@ -194,3 +180,9 @@ References:
 * http://os.phil-opp.com/multiboot-kernel.html
 * https://wiki.osdev.org/Inline_Assembly
 * https://en.wikibooks.org/wiki/The_Linux_Kernel/System
+
+
+https://pdos.csail.mit.edu/6.828/2014/readings/elf.pdf
+https://pdos.csail.mit.edu/6.828/2014/readings/pcasm-book.pdf
+
+https://gcc.gnu.org/onlinedocs/gcc-3.3/gcc/C-Extensions.html

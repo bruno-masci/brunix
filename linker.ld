@@ -12,7 +12,9 @@ ENTRY(_start)
 /* Here we specify that we want our kernel loaded at 1 MiB in physical memory
  * to avoid the "low memory" area (see http://wiki.osdev.org/Memory_Map_(x86))
  */
-. = 0x00100000;
+. = 0x00100000;     /* "." means the current address */
+                    /* See KERN_LINK, declared in "include/arch/x86/memlayout.h" */
+
 
 SECTIONS {
     PROVIDE(kernel_start = .);

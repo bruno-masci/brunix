@@ -51,3 +51,15 @@ char * itoa(int value, char *str, int base) {
     }
     return rc;
 }
+
+const void * memset(const void *v, int c, size_t n) {
+    char *p;
+    int m;
+
+    p = (void *) v;
+    m = n;
+    while (--m >= 0)
+        *p++ = c;
+
+    return v;
+}

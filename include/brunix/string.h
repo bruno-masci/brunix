@@ -9,5 +9,6 @@ int	strcmp(const char *s1, const char *s2);
 
 char * itoa(int value, char *str, int base);
 
+const void * memset(const void *from_addr, int value, size_t count);
 
 #endif /* __STRING_H__ */

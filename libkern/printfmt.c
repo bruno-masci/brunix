@@ -6,8 +6,11 @@
 
 #include <stdarg.h>
 #include <stddef.h> // for NULL
-#include <brunix/string.h>
+
 #include <arch/x86/types.h>
+
+#include <brunix/string.h>
+#include <brunix/defs.h>            // for PRIVATE
 
 
 void vprintfmt(void (*putch)(int, void *), void *putdat, const char *fmt, va_list ap);
@@ -21,7 +24,7 @@ void vprintfmt(void (*putch)(int, void *), void *putdat, const char *fmt, va_lis
  * Print a number (base <= 16) in reverse order, using specified putch function
  * and associated pointer putdat.
  */
-static void printnum(void (*putch)(int, void *), void *putdat,
+PRIVATE void printnum(void (*putch)(int, void *), void *putdat,
                      unsigned long long num, unsigned base,
                      int width, int padc) {
     // first recursively print all preceding (more significant) digits
@@ -39,7 +42,7 @@ static void printnum(void (*putch)(int, void *), void *putdat,
 
 // Get an unsigned int of various possible sizes from a varargs list,
 // depending on the lflag parameter.
-static unsigned long long getuint(va_list *ap, int lflag) {
+PRIVATE unsigned long long getuint(va_list *ap, int lflag) {
     if (lflag >= 2)
         return va_arg(*ap, unsigned long long);
     else if (lflag)
@@ -50,7 +53,7 @@ static unsigned long long getuint(va_list *ap, int lflag) {
 
 // Same as getuint but signed - can't use getuint
 // because of sign extension
-static long long getint(va_list *ap, int lflag) {
+PRIVATE long long getint(va_list *ap, int lflag) {
     if (lflag >= 2)
         return va_arg(*ap, long long);
     else if (lflag)

@@ -5,6 +5,8 @@
 
 
 #include <arch/x86/multiboot.h>
+#include <arch/x86/mmu.h>
+#include <arch/x86/memlayout.h>
 
 
 /* Here we declare the Multiboot header that marks the program as a kernel. The
@@ -51,11 +53,34 @@ stack_top:
 .section .text
 
 # By convention, the _start symbol specifies the ELF entry point.
-# TODO Since we haven't set up virtual memory yet, our entry point is
-# TODO the physical address of 'entry'.
+# Since we haven't set up virtual memory yet, our entry point is
+# the physical address of 'entry'.
 .globl _start
+_start = VIRT_TO_PHYS_WO(entry)
+
 # Entering kernel, with paging off.
-_start:
+.globl entry
+entry:
+    # Save eax (contains the Multiboot magic number used later)
+    movl    %eax, %ecx
+
+    # Turn on page size extension for 4Mbyte pages
+    movl    %cr4, %eax
+    orl     $MMU_CR4_PSE, %eax
+    movl    %eax, %cr4
+
+    # Set page directory
+    movl    $(VIRT_TO_PHYS_WO(entrypgdir)), %eax
+    movl    %eax, %cr3
+
+    # Turn on paging
+    movl    %cr0, %eax
+    orl     $(MMU_CR0_PG | MMU_CR0_WP), %eax
+    movl    %eax, %cr0
+
+    # Restore eax (Multiboot magic number)
+    movl    %ecx, %eax
+
     /* The bootloader has loaded us into 32-bit protected mode on a x86 machine.
      * Interrupts are disabled. Paging is disabled. The processor state is as
      * defined in the Multiboot standard. The kernel has full control of the
@@ -69,6 +94,14 @@ _start:
 	 * in assembly as languages such as C cannot function without a stack.
      */
     movl $stack_top, %esp
+
+#FIXME
+# Jump to main(), and switch to executing at
+  # high addresses. The indirect call is needed because
+  # the assembler produces a PC-relative instruction
+  # for a direct jump.
+#  mov $kmain, %eax
+#  jmp *%eax
 
 	/* Enter the high-level kernel. The ABI requires the stack is 16-byte
 	 * aligned at the time of the call instruction (which afterwards pushes the

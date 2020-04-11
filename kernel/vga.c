@@ -8,11 +8,14 @@
 
 #include <arch/x86/vga.h>
 #include <arch/x86/io.h>
+#include <arch/x86/memlayout.h>
+
 #include <brunix/console.h>
+#include <brunix/defs.h>            // for PRIVATE
 
 
 // The VGA framebuffer starts at 0xB8000.
-static volatile uint16_t *video_memory = (volatile uint16_t *)VIDEO_MEM_ADDR;
+PRIVATE volatile uint16_t *video_memory = KERN_BASE + (volatile uint16_t *)VIDEO_MEM_ADDR;
 // Stores the cursor position.
 uint8_t cursor_x = 0;
 uint8_t cursor_y = 0;
@@ -37,7 +40,7 @@ void vga__set_foreground_color(uint8_t colour) {
 
 
 // Updates the hardware cursor.
-static void move_cursor() {
+PRIVATE void move_cursor() {
     uint16_t cursorLocation = cursor_y * 80 + cursor_x;		// The screen is 80 characters wide...
     outb(FB_COMMAND_PORT, FB_HIGH_BYTE_COMMAND);			// Tell the VGA board we are setting the high cursor byte.
     outb(FB_DATA_PORT, cursorLocation >> 8);				// Send the high cursor byte.
@@ -46,7 +49,7 @@ static void move_cursor() {
 }
 
 // Scrolls the text on the screen up by one line.
-static void scroll() {
+PRIVATE void scroll() {
     // Get a space character with the default colour attributes.
     uint8_t attributeByte = (0 /*black*/ << 4) | (15 /*white*/ & 0x0F);
     uint16_t blank = 0x20 /* space */ | (attributeByte << 8);

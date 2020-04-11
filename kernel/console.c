@@ -1,8 +1,9 @@
 #include <brunix/console.h>
+#include <brunix/defs.h>            // for PRIVATE
 
-//static int toggle_echo()
+//PRIVATE int toggle_echo()
 
-static void console_putc(int c);
+PRIVATE void console_putc(int c);
 
 
 #define ORIG_VIDEO_COLS 	80
@@ -28,7 +29,7 @@ void set_fg_color(uint8_t color) {
 }
 
 // output a character to the console
-static void console_putc(int c) {
+PRIVATE void console_putc(int c) {
     vga__putc(c);
     uart__putc(c);
 }
