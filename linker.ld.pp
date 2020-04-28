@@ -6,29 +6,35 @@
  * here (see http://wiki.osdev.org/GCC_Cross-Compiler)
  */
 
+#define __ASSEMBLER__   // trick to avoid typedef, etc.
+#include <arch/x86/memlayout.h>     // for KERN_LINK, KERN_BASE
+#undef __ASSEMBLER__
+
+ONE_MB = 0x00100000;
+
 /* This declares the symbol where kernel execution begin */
+/* ahora este simbolo se refiere a la dir virtual higher half */
 ENTRY(_start)
 
-/* Here we specify that we want our kernel loaded at 1 MiB in physical memory
- * to avoid the "low memory" area (see http://wiki.osdev.org/Memory_Map_(x86))
- */
-. = 0x00100000;     /* "." means the current address */
-                    /* See KERN_LINK, declared in "include/arch/x86/memlayout.h" */
-
+. = ONE_MB;     /* "." means the current address */
 
 SECTIONS {
-    PROVIDE(kernel_start = .);
 
     .boot : {
         /* Ensure that the multiboot header is at the beginning */
         *(.multiboot_header)
     }
-    .text ALIGN(4096) : {
+
+    . = KERN_LINK;     /* "." means the current address */
+
+    PROVIDE(kernel_start = .);
+
+    .text ALIGN(4096) : AT (ADDR(.text) - KERN_BASE) {
 	    *(.text .stub .text.* .gnu.linkonce.t.*)
     }
     PROVIDE(etext = .);
 
-    .rodata ALIGN(4096) : {
+    .rodata ALIGN(4096) : AT (ADDR(.rodata) - KERN_BASE) {
         *(.rodata .rodata.* .gnu.linkonce.r.*)
     }
 
@@ -40,13 +46,13 @@ SECTIONS {
 	 * read-only rodata section between text and data. */
 	PROVIDE(data = .);
 
-    .data ALIGN(4096) : {
+    .data ALIGN(4096) : AT (ADDR(.data) - KERN_BASE) {
     	*(.data)
     }
 
 	PROVIDE(edata = .);
 
-    .bss ALIGN(4096) : {
+    .bss ALIGN(4096) : AT (ADDR(.bss) - KERN_BASE) {
         *(.bss)
     }
 

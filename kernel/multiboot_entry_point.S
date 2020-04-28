@@ -7,13 +7,18 @@
 #include <arch/x86/multiboot.h>
 #include <arch/x86/mmu.h>
 #include <arch/x86/memlayout.h>
+//#include <arch/x86/asm.h>
 
+
+///////////////////////////////////////////////////////////////////////////////
+// ********************* SECTION: multiboot_header ************************* //
+///////////////////////////////////////////////////////////////////////////////
 
 /* Here we declare the Multiboot header that marks the program as a kernel. The
  * bootloader will search for this header in the first 8 KiB of the kernel file.
  * This header must be longword (32-bit) aligned (".align 4"), and it is in
  * its own section so we can put it at the beginning of the kernel image file
- * (see "linker.ld" file).
+ * (see "linker.ld.pp" file).
  * Note that we need to force the flag "a" (allocatable) because this is not a
  * default text section (like .text or .rodata).
  */
@@ -23,6 +28,14 @@
     .long MBOOT_HEADER_FLAGS
     .long MBOOT_HEADER_CHECKSUM
 
+
+
+///////////////////////////////////////////////////////////////////////////////
+// **************************** SECTION: bss ******************************* //
+///////////////////////////////////////////////////////////////////////////////
+
+.section .bss @nobits
+.align 16
 
 /* The Multiboot standard doesn't define a value for the stack pointer register
  * (esp) so it is up to the kernel to provide a stack.
@@ -39,28 +52,30 @@
  */
 .set BOOTSTRAP_STACK_SIZE, 16384  # Size of stack in bytes (16 KiB).
 
-.section .bss @nobits
-.align 16
 stack_bottom:
     .skip BOOTSTRAP_STACK_SIZE
 stack_top:
 
 
-# The linker script (see "linker.ld" file) specifies _start as the entry point
+///////////////////////////////////////////////////////////////////////////////
+// *************************** SECTION: text ******************************* //
+///////////////////////////////////////////////////////////////////////////////
+
+# The linker script (see "linker.ld.pp" file) specifies _start as the entry point
 # to the kernel and the bootloader will jump to this position once the kernel
 # has been loaded. It doesn't make sense to return from this function as the
 # bootloader is gone.
 .section .text
 
 # By convention, the _start symbol specifies the ELF entry point.
-# Since we haven't set up virtual memory yet, our entry point is
-# the physical address of 'entry'.
-.globl _start
-_start = VIRT_TO_PHYS_WO(entry)
+# Given that GRUB needs the virtual address of the entry point and the physical and virtual address spaces does not match anymore,
+# we can get rid of the original entry point and reuse the '_start' symbol name.
 
 # Entering kernel, with paging off.
-.globl entry
-entry:
+.globl _start
+_start:
+    cli #
+
     # Save eax (contains the Multiboot magic number used later)
     movl    %eax, %ecx
 
@@ -100,8 +115,13 @@ entry:
   # high addresses. The indirect call is needed because
   # the assembler produces a PC-relative instruction
   # for a direct jump.
-#  mov $kmain, %eax
-#  jmp *%eax
+#  pushl %eax
+#  pushl %ebx
+#  pushl   %ebp
+#  mov    %esp,%ebp
+#  sub    $8,%esp
+  #mov $kmain, %edx
+  #jmp *%edx
 
 	/* Enter the high-level kernel. The ABI requires the stack is 16-byte
 	 * aligned at the time of the call instruction (which afterwards pushes the

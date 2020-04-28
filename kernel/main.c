@@ -26,11 +26,10 @@
  * for maintaining a value, rather their address is their value. We have to use
  * the address (&) operator to get their address or location. For that, we
  * declare those symbols as char arrays and access them by its name, what is
- * equivalent to do &symbol[0]. (see "linker.ld" file)
+ * equivalent to do &symbol[0]. (see "linker.ld.pp" file)
  */
 extern const char kernel_start[];
 extern const char kernel_end[];
-extern const char _start[];
 extern const char etext[];
 extern const char edata[];
 
@@ -47,6 +46,27 @@ PRIVATE void verify_loader(uint32_t magic);
 PRIVATE void print_kernel_context_info(multiboot_info_t *mboot_info_ptr);
 
 
+__attribute__((__aligned__(PAGE_SIZE)))
+pde_t highmem_entrypgdir[NPDENTRIES] = {
+        // Map VA's [0, 4MB) to PA's [0, 4MB)
+        [0] = (0) | PTE_P | PTE_W | PTE_PS,//FIXME por que no puedo sacar esto????
+        // Map VA's [KERNBASE, KERNBASE+4MB) to PA's [0, 4MB)
+        [KERN_BASE>>PDXSHIFT] = (0) | PTE_P | PTE_W | PTE_PS,
+};
+
+// Boot page table used in kernel/multiboot_entry_point.S.
+// Page directories (and page tables), must start on a page boundary,
+// hence the "__aligned__" attribute.
+// Use PTE_PS in page directory entry to enable 4Mbyte pages.
+__attribute__((__aligned__(PAGE_SIZE)))
+pde_t entrypgdir[NPDENTRIES] = {
+        // Map VA's [0, 4MB) to PA's [0, 4MB)
+        [0] = (0) | PTE_P | PTE_W | PTE_PS,
+        // Map VA's [KERNBASE, KERNBASE+4MB) to PA's [0, 4MB)
+        [KERN_BASE>>PDXSHIFT] = (0) | PTE_P | PTE_W | PTE_PS,
+};
+
+
 /**
  * This is the main kernel function.
  *
@@ -55,6 +75,9 @@ PRIVATE void print_kernel_context_info(multiboot_info_t *mboot_info_ptr);
  * @see multiboot_entry_point.S file
  */
 void kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic) {
+
+//    entrypgdir[0] = (0) | PTE_P | PTE_W | PTE_PS;
+//    asm volatile("movl %0,%%cr3" : : "r" (VIRT_TO_PHYS_WO(&entrypgdir)));
 
     // In case GRUB doesn't do this...
     // Before doing anything else, complete the ELF loading process.
@@ -70,7 +93,14 @@ void kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic) {
 
     print_kernel_context_info(mboot_info_ptr);
 
+    cprintf("Setting up GDT...\n");
+    gdt_init();
 
+    cprintf("Installing new page table %x (%x, %x)...\n", &highmem_entrypgdir, VIRT_TO_PHYS_WO(&highmem_entrypgdir), VIRT_TO_PHYS(&highmem_entrypgdir));
+//    asm volatile("movl %0,%%cr3" : : "r" (VIRT_TO_PHYS_WO(&entrypgdir)));
+    asm volatile("movl %0,%%cr3" : : "r" (0x00204000)); //FIXME
+
+    cprintf("Initializing physical page allocator...\n");
     kinit1(kernel_end, PHYS_TO_VIRT(MB_TO_BYTES(4))); // phys page allocator
 
 
@@ -80,9 +110,9 @@ void kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic) {
         panic("Out of memory. This should not happen...\n");
     }
     cprintf("kalloc() returned page address: %p (virt). Zeroing page...\n", mem);
-    if (mem != MB_TO_BYTES(4) - PAGE_SIZE) {
-        panic("Unexpected returned address by kalloc(): %p", mem);
-    }
+//    if (VIRT_TO_PHYS(mem) != MB_TO_BYTES(4) - PAGE_SIZE) {
+//        panic(">> Unexpected returned address by kalloc(): %p", mem);
+//    } temporal comment
     for (int i = 0; i < 254; i++) {     // requesting PAGE_SIZE * 256 = 1 MBy of memory
         mem = kalloc();
         if(mem == 0) {
@@ -97,9 +127,9 @@ void kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic) {
         panic("Out of memory. This should not happen...\n");
     }
     cprintf("kalloc() returned page address: %p (virt). Zeroing page...\n", mem);
-    if (mem != MB_TO_BYTES(4) - MB_TO_BYTES(1)) {
-        panic("Unexpected returned address by kalloc(): %p", mem);
-    }
+//    if (VIRT_TO_PHYS(mem) != MB_TO_BYTES(4) - MB_TO_BYTES(1)) {
+//        panic("Unexpected returned address by kalloc(): %p", mem);
+//    }temporal comment TODO
 
 
 //    kvmalloc();      // kernel page table
@@ -131,11 +161,10 @@ PRIVATE void print_kernel_context_info(multiboot_info_t *mboot_info_ptr) {
     debug("Kernel size: %d KB", (kernel_end - kernel_start) / 1024);
 
     cprintf("\nSpecial kernel symbols:\n");
-    cprintf("  _start                  %08x (phys)\n", _start);
-    cprintf("  entry  %08x (virt)  %08x (phys)\n", kernel_start, kernel_start);
-    cprintf("  etext  %08x (virt)  %08x (phys)\n", etext, etext);
-    cprintf("  edata  %08x (virt)  %08x (phys)\n", edata, edata);
-    cprintf("  end    %08x (virt)  %08x (phys)\n\n", kernel_end, kernel_end);
+    cprintf("  _start  %08x (virt)  %08x (phys)\n", kernel_start, VIRT_TO_PHYS_WO(kernel_start));
+    cprintf("  etext   %08x (virt)  %08x (phys)\n", etext, VIRT_TO_PHYS_WO(etext));
+    cprintf("  edata   %08x (virt)  %08x (phys)\n", edata, VIRT_TO_PHYS(edata));
+    cprintf("  end     %08x (virt)  %08x (phys)\n\n", kernel_end, kernel_end);
 
     cprintf("\nSome symbol addresses by section:\n");
     cprintf("  kmain()\t\t\t-> %p (text)\n", &kmain);
@@ -143,14 +172,3 @@ PRIVATE void print_kernel_context_info(multiboot_info_t *mboot_info_ptr) {
     cprintf("  unused_uninitialized_variable\t-> %p (bss)\n", &unused_uninitialized_variable);
 }
 
-// Boot page table used in kernel/multiboot_entry_point.S.
-// Page directories (and page tables), must start on a page boundary,
-// hence the "__aligned__" attribute.
-// Use PTE_PS in page directory entry to enable 4Mbyte pages.
-__attribute__((__aligned__(PAGE_SIZE)))
-pde_t entrypgdir[NPDENTRIES] = {
-        // Map VA's [0, 4MB) to PA's [0, 4MB)
-        [0] = (0) | PTE_P | PTE_W | PTE_PS,
-        // Map VA's [KERNBASE, KERNBASE+4MB) to PA's [0, 4MB)
-//        [KERN_BASE>>PDXSHIFT] = (0) | PTE_P | PTE_W | PTE_PS,
-};

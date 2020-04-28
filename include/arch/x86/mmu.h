@@ -13,8 +13,10 @@
 
 
 // TODO temporal: Control Register flags
+#define MMU_CR0_PE          0x00000001      // Protection Enable
 #define MMU_CR0_WP          0x00010000      // Write Protect
 #define MMU_CR0_PG          0x80000000      // Paging
+
 #define MMU_CR4_PSE         0x00000010      // Page size extension
 
 

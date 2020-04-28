@@ -25,6 +25,7 @@ CFLAGS = -ffreestanding -c -g -std=gnu99 -Wall -Wextra -pedantic
 # Add -fno-stack-protector if the option exists.
 CFLAGS += $(shell $(CC) -fno-stack-protector -E -x c /dev/null >/dev/null 2>&1 && echo -fno-stack-protector)
 
+CPPFLAGS = $(CFLAGS) -E -x c
 
 ## Assembler flags
 ASFLAGS = $(CFLAGS)
@@ -44,7 +45,7 @@ default: compile
 
 full: clean $(OUTPUT_NAME).elf qemu
 
-compile: $(OUTPUT_NAME).elf
+compile: linker.ld $(OUTPUT_NAME).elf
 
 $(OUTPUT_NAME).elf:
 	@echo Linking kernel into $(OUTPUT_NAME).elf file...
@@ -58,6 +59,9 @@ $(OUTPUT_NAME).elf:
 #@$(CROSS_OBJCOPY) --only-keep-debug $(OUTPUT_NAME).elf $(OUTPUT_NAME).sym
 #@$(CROSS_OBJCOPY) --strip-debug $(OUTPUT_NAME).elf $(OUTPUT_NAME)-nosym.elf
 
+linker.ld:
+	@echo Preprocessing linker script
+	$(CC) $(CPPFLAGS) -isystem $(TOPDIR)/include/ linker.ld.pp | grep -v '^#' > linker.ld
 
 .gdbinit: .gdbinit.tmpl
 	sed "s/localhost:1234/localhost:$(GDBPORT)/" < $^ > $@
@@ -110,7 +114,7 @@ print-gdbport:
 
 clean:
 	@echo Cleaning the rest...
-	$(V)rm -rf $(OUTPUT_NAME).elf $(OUTPUT_NAME)-nosym.elf $(OUTPUT_NAME).sym $(OUTPUT_NAME).nm-sym System.map
+	$(V)rm -rf $(OUTPUT_NAME).elf $(OUTPUT_NAME)-nosym.elf $(OUTPUT_NAME).sym $(OUTPUT_NAME).nm-sym System.map linker.ld
 	$(V)rm -rf os.iso iso/boot/$(OUTPUT_NAME).elf
 
 
