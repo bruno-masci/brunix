@@ -22,6 +22,7 @@ typedef uint32_t phys_addr_t;
 
 // Key addresses for address space layout (see kmap in vm.c for layout)
 #define KERN_BASE 0x80000000         //0x80000000         // First kernel virtual address
+//#define KERN_BASE 0x00000000         //0x80000000         // First kernel virtual address
 #define KERN_LINK (KERN_BASE + EXT_MEM_BASE)  // Address where kernel is linked at
 
 #define VIRT_TO_PHYS(a) ((phys_addr_t) (((uint32_t) (a)) - KERN_BASE))
@@ -29,7 +30,7 @@ typedef uint32_t phys_addr_t;
 #define P2V(a) ((void *)(((char *) (a)) + KERN_BASE))
 //
 #define VIRT_TO_PHYS_WO(x) ((x) - KERN_BASE)    // same as VIRT_TO_PHYS, but without casts
-//#define P2V_WO(x) ((x) + KERNBASE)    // same as P2V, but without casts
+#define PHYS_TO_VIRT_WO(x) ((x) + KERN_BASE)    // same as P2V, but without casts
 
 
 #endif /* __ARCH_MEMLAYOUT_H__ */

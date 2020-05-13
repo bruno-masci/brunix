@@ -17,6 +17,11 @@
 #include <arch/x86/memlayout.h>     // for PHYS_TO_VIRT
 #include <arch/x86/mmu.h>
 #include <arch/x86/types.h>
+#include <arch/x86/gdt.h>   //TODO
+#include <arch/x86/irq.h>   //TODO
+#include <arch/x86/timer.h>   //TODO
+#include <arch/x86/paging.h>   //TODO
+//#include <asm/irq.h>
 
 #include "kalloc.h"
 
@@ -28,11 +33,13 @@
  * declare those symbols as char arrays and access them by its name, what is
  * equivalent to do &symbol[0]. (see "linker.ld.pp" file)
  */
+extern const char _start[];
 extern const char kernel_start[];
 extern const char kernel_end[];
 extern const char etext[];
 extern const char edata[];
 
+extern void kbd_init(void);
 
 void console_init(void);        // from kernel/console.c
 
@@ -44,12 +51,14 @@ PRIVATE int unused_uninitialized_variable;
 
 PRIVATE void verify_loader(uint32_t magic);
 PRIVATE void print_kernel_context_info(multiboot_info_t *mboot_info_ptr);
+PRIVATE void print_segment_selectors(void);
+PRIVATE void print_timer_ticks(void);
 
 
 __attribute__((__aligned__(PAGE_SIZE)))
-pde_t highmem_entrypgdir[NPDENTRIES] = {
+pde_t entrypgdir2[NPDENTRIES] = {
         // Map VA's [0, 4MB) to PA's [0, 4MB)
-        [0] = (0) | PTE_P | PTE_W | PTE_PS,//FIXME por que no puedo sacar esto????
+//        [0] = (0) | PTE_P | PTE_W | PTE_PS,
         // Map VA's [KERNBASE, KERNBASE+4MB) to PA's [0, 4MB)
         [KERN_BASE>>PDXSHIFT] = (0) | PTE_P | PTE_W | PTE_PS,
 };
@@ -66,7 +75,32 @@ pde_t entrypgdir[NPDENTRIES] = {
         [KERN_BASE>>PDXSHIFT] = (0) | PTE_P | PTE_W | PTE_PS,
 };
 
+#pragma GCC diagnostic ignored "-Wpedantic" //TODO remove
+page_dir_t newentrypgdir = {
+    present_flag: true,
+    read_write_flag: true,
+    user_supervisor_flag: true
+//    page_table_base_address
+};
+/*
+struct page_dir_struct {
+    unsigned int present_flag : 1;
+    unsigned int read_write_flag : 1;
+    unsigned int user_supervisor_flag : 1;
+    unsigned int unused_flags : 9;
+    unsigned int page_table_base_address : 20;
+} __attribute__((packed));
+typedef struct page_dir_struct page_dir_t;
 
+struct page_table_struct {
+    unsigned int present_flag : 1;
+    unsigned int read_write_flag : 1;
+    unsigned int user_supervisor_flag : 1;
+    unsigned int unused_flags : 9;
+    unsigned int physical_page_address : 20;
+} __attribute__((packed));
+typedef struct page_table_struct page_table_t;
+*/
 /**
  * This is the main kernel function.
  *
@@ -74,10 +108,8 @@ pde_t entrypgdir[NPDENTRIES] = {
  * @param magic Number representing the Multiboot bootloader magic number.
  * @see multiboot_entry_point.S file
  */
-void kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic) {
-
-//    entrypgdir[0] = (0) | PTE_P | PTE_W | PTE_PS;
-//    asm volatile("movl %0,%%cr3" : : "r" (VIRT_TO_PHYS_WO(&entrypgdir)));
+int kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic, uint32_t *stack_top, uint32_t *esp) {
+//    print_segment_selectors();
 
     // In case GRUB doesn't do this...
     // Before doing anything else, complete the ELF loading process.
@@ -86,53 +118,46 @@ void kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic) {
     memset(edata, 0, kernel_end - edata);
 
     cprintf("Starting Brunix...\n\n");
+    debug("Kernel bootstrap stack: %p => %esp %p", stack_top, esp);
 
     verify_loader(magic);
 
+
+    cprintf("Setting up GDT... ");
+    gdt_init();
+
+    print_segment_selectors();
+
     console_init();
+
+    cprintf("IRQs...");
+    irq_init();
+    debug_noargs("Enabling interrupts...");
+    asm volatile("sti");
+
+//    timer_init(100); // Initialise timer to 100Hz
+    print_timer_ticks();
+
+//    cprintf("Keyboard...");
+//    kbd_init();
 
     print_kernel_context_info(mboot_info_ptr);
 
-    cprintf("Setting up GDT...\n");
-    gdt_init();
+//    cprintf("entrypgdir address: %p...\n", VIRT_TO_PHYS_WO(entrypgdir));
+    uint32_t addr = VIRT_TO_PHYS(&entrypgdir2);  //FIXME con esta anda; con _WO no!!
+    cprintf("addr address: %p...\n", addr);
+//    __load_page_directory(addr);
+//    __enable_paging();
 
-    cprintf("Installing new page table %x (%x, %x)...\n", &highmem_entrypgdir, VIRT_TO_PHYS_WO(&highmem_entrypgdir), VIRT_TO_PHYS(&highmem_entrypgdir));
-//    asm volatile("movl %0,%%cr3" : : "r" (VIRT_TO_PHYS_WO(&entrypgdir)));
-    asm volatile("movl %0,%%cr3" : : "r" (0x00204000)); //FIXME
+//	printk("\nSimulating CPU's exception number 0...\n");
+//	asm volatile ("int $0x0");
 
-    cprintf("Initializing physical page allocator...\n");
-    kinit1(kernel_end, PHYS_TO_VIRT(MB_TO_BYTES(4))); // phys page allocator
+//	printk("\nSimulating a syscall...\n");
+//	asm volatile ("int $0x80");
 
-
-    // test physical memory allocator
-    char *mem = kalloc();
-    if(mem == 0) {
-        panic("Out of memory. This should not happen...\n");
-    }
-    cprintf("kalloc() returned page address: %p (virt). Zeroing page...\n", mem);
-//    if (VIRT_TO_PHYS(mem) != MB_TO_BYTES(4) - PAGE_SIZE) {
-//        panic(">> Unexpected returned address by kalloc(): %p", mem);
-//    } temporal comment
-    for (int i = 0; i < 254; i++) {     // requesting PAGE_SIZE * 256 = 1 MBy of memory
-        mem = kalloc();
-        if(mem == 0) {
-            panic("Out of memory. This should not happen...\n");
-        }
-
-        memset(mem, 0, PAGE_SIZE);
-    }
-
-    mem = kalloc();
-    if(mem == 0) {
-        panic("Out of memory. This should not happen...\n");
-    }
-    cprintf("kalloc() returned page address: %p (virt). Zeroing page...\n", mem);
-//    if (VIRT_TO_PHYS(mem) != MB_TO_BYTES(4) - MB_TO_BYTES(1)) {
-//        panic("Unexpected returned address by kalloc(): %p", mem);
-//    }temporal comment TODO
-
-
-//    kvmalloc();      // kernel page table
+//    cprintf("\nGenerating a page fault...");
+//    uint32_t *ptr = (uint32_t *)0x400000;
+//    uint32_t do_page_fault = *ptr;
 
     panic("Forcing kernel panic...");       // panic() DOES NOT return!
 }
@@ -143,25 +168,36 @@ PRIVATE void verify_loader(uint32_t magic) {
     }
 }
 
+PRIVATE void print_segment_selectors(void) {
+    uint32_t cs;
+    uint32_t ds;
+    uint32_t ss;
+    asm("movl %%cs, %0" : "=r" (cs) ::);
+    asm("movl %%cs, %0" : "=r" (ds) ::);
+    asm("movl %%cs, %0" : "=r" (ss) ::);
+    cprintf("--- Segment Selectors: CS 0x%x, DS 0x%x, SS 0x%x\n", cs, ds, ss);
+}
+
 PRIVATE void print_kernel_context_info(multiboot_info_t *mboot_info_ptr) {
     info("Total RAM installed: %u MB", roundup_binary(mboot_info_ptr->mem_upper) / 1024);
-
-    /* TODO mover esto!! Check if the bit BIT in FLAGS is set. */
-#define CHECK_FLAG(flags,bit)   ((flags) & (1 << (bit)))
 
     /* is the command-line defined? */
 #define MULTIBOOT_INFO_CMDLINE                  0x00000004
 
-    if (CHECK_FLAG(mboot_info_ptr->flags, 2)) {
-        if (strcmp(((char *) mboot_info_ptr->cmdline), "\0") != 0) {
-            debug("Loading kernel with command line: %s", (char *)mboot_info_ptr->cmdline);
-        }
-    }
+    mboot_info_ptr = mboot_info_ptr + 0x80000000;//FIXME
+    cprintf("Loading kernel with command line: %p\n", mboot_info_ptr->cmdline);
+    //FIXME falla pq esta estructura esta en los 16Mb o por ahi!
+//    if (CHECK_FLAG(mboot_info_ptr->flags, 2)) {
+//        if (strcmp(((char *) mboot_info_ptr->cmdline), '\0') != 0) {
+//            debug("Loading kernel with command line: %s", (char *)mboot_info_ptr->cmdline);
+//        }
+//    }
 
     debug("Kernel size: %d KB", (kernel_end - kernel_start) / 1024);
 
     cprintf("\nSpecial kernel symbols:\n");
-    cprintf("  _start  %08x (virt)  %08x (phys)\n", kernel_start, VIRT_TO_PHYS_WO(kernel_start));
+    cprintf("  _start  %08x (phys)\n", _start);
+    cprintf("  text    %08x (virt)  %08x (phys)\n", kernel_start, VIRT_TO_PHYS_WO(kernel_start));
     cprintf("  etext   %08x (virt)  %08x (phys)\n", etext, VIRT_TO_PHYS_WO(etext));
     cprintf("  edata   %08x (virt)  %08x (phys)\n", edata, VIRT_TO_PHYS(edata));
     cprintf("  end     %08x (virt)  %08x (phys)\n\n", kernel_end, kernel_end);
@@ -172,3 +208,7 @@ PRIVATE void print_kernel_context_info(multiboot_info_t *mboot_info_ptr) {
     cprintf("  unused_uninitialized_variable\t-> %p (bss)\n", &unused_uninitialized_variable);
 }
 
+PRIVATE void print_timer_ticks() {
+    for (int i=0;i<10000000;i++);	// delay
+    debug("kmain", "Clock ticks: %u", get_clock_tick());
+}

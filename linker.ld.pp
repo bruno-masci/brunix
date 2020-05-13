@@ -25,6 +25,10 @@ SECTIONS {
         *(.multiboot_header)
     }
 
+    .init : {
+        *(.init)
+    }
+
     . = KERN_LINK;     /* "." means the current address */
 
     PROVIDE(kernel_start = .);

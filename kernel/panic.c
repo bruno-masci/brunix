@@ -19,7 +19,7 @@ void panic(const char *fmt, ...) {
     va_end(args);
 
     //	if (current == task[0])
-//		printk("In swapper task - not syncing\n\r");
+//		cprintf("In swapper task - not syncing\n\r");
 //	else
 //		sys_sync();
 

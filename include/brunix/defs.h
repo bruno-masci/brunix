@@ -20,6 +20,9 @@ static inline long roundup_binary(long n) {
     return ++n;
 }
 
+/* Check if the bit BIT in FLAGS is set. */
+#define CHECK_FLAG(flags,bit)   ((flags) & (1 << (bit)))
+
 #define MB_TO_BYTES(val) (val * 1024 * 1024)
 
 // FIXME: borrar. solo lo usa vm.c

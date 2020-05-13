@@ -6,12 +6,11 @@ memory: guest=24, host=24
 cpu: count=1, ips=50000000, reset_on_triple_fault=0
 
 # Dynamic processor features.
-cpuid: mmx=1, sep=1, sse=sse2, aes=0, movbe=0, xsave=0
+cpuid: sep=1, aes=0, movbe=0, xsave=0
 
 romimage: file="/usr/share/bochs/BIOS-bochs-latest", address=0xfffe0000
 vgaromimage: file="/usr/share/bochs/VGABIOS-lgpl-latest"
-vga_update_interval: 40000
-mouse: enabled=0, toggle=f12
+#mouse: enabled=0, toggle=f12
 
 ata0: enabled=1, ioaddr1=0x1f0, ioaddr2=0x3f0, irq=14
 ata1: enabled=1, ioaddr1=0x170, ioaddr2=0x370, irq=15
@@ -19,12 +18,11 @@ ata1: enabled=1, ioaddr1=0x170, ioaddr2=0x370, irq=15
 # CD-ROM image
 ata0-slave:  type=cdrom, path="os.iso", status=inserted
 boot: cdrom
-i440fxsupport: enabled=1
 
 
+com1: enabled=1, mode=file, dev=com1.out
 
-
-display_library: sdl
+display_library: x
 #sdl or x
 
 #debug: action=report
@@ -40,5 +38,3 @@ megs: 32
 #log: bochsout.txt
 #mouse: enabled=0
 #clock: sync=realtime
-
-com1: enabled=1, mode=file, dev=com1.out

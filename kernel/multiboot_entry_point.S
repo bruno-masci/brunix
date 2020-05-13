@@ -7,7 +7,7 @@
 #include <arch/x86/multiboot.h>
 #include <arch/x86/mmu.h>
 #include <arch/x86/memlayout.h>
-//#include <arch/x86/asm.h>
+#include <arch/x86/asm.h>
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -34,7 +34,7 @@
 // **************************** SECTION: bss ******************************* //
 ///////////////////////////////////////////////////////////////////////////////
 
-.section .bss @nobits
+.section .bss #@nobits
 .align 16
 
 /* The Multiboot standard doesn't define a value for the stack pointer register
@@ -50,34 +50,43 @@
  * the stack is properly aligned and failure to align the stack will result in
  * undefined behavior.
  */
-.set BOOTSTRAP_STACK_SIZE, 16384  # Size of stack in bytes (16 KiB).
+.set BOOTSTRAP_STACK_SIZE, 16384  # Size of bootstrap stack in bytes (16 KiB).
 
-stack_bottom:
-    .skip BOOTSTRAP_STACK_SIZE
-stack_top:
+.align 4
+#stack_bottom:
+#    .skip BOOTSTRAP_STACK_SIZE, 4
+#stack_top:
+.comm stack_top, BOOTSTRAP_STACK_SIZE
+//TODO puedo usar una de estas dos variantes, pero la de arriba sin @nobits, sino arranca desde addr 0 el simbolo.
 
 
-///////////////////////////////////////////////////////////////////////////////
-// *************************** SECTION: text ******************************* //
-///////////////////////////////////////////////////////////////////////////////
-
-# The linker script (see "linker.ld.pp" file) specifies _start as the entry point
-# to the kernel and the bootloader will jump to this position once the kernel
-# has been loaded. It doesn't make sense to return from this function as the
-# bootloader is gone.
-.section .text
-
-# By convention, the _start symbol specifies the ELF entry point.
-# Given that GRUB needs the virtual address of the entry point and the physical and virtual address spaces does not match anymore,
-# we can get rid of the original entry point and reuse the '_start' symbol name.
-
+// this sections has (LA 1 MiB - VA 1 MiB) + multiboot size
+.section .init, "ax"
 # Entering kernel, with paging off.
 .globl _start
 _start:
-    cli #
+    cli
+    #movl    $88, %edx
+    #movl    %edx, 0xB8000
+    #movl    %edx, 0xB8001
+
+    # Use a bootstrap GDT that makes virtual addresses map directly to physical
+    # addresses so that the effective memory map doesn't change during the
+    # transition.
+    #pushl $gdtdesc
+    #call VIRT_TO_PHYS_WO(__gdt_flush)
+    lgdt    gdtdesc
+
+
+    movl $stack_top, %esp
+
 
     # Save eax (contains the Multiboot magic number used later)
     movl    %eax, %ecx
+
+
+    #call __load_page_directory
+    #call __enable_paging
 
     # Turn on page size extension for 4Mbyte pages
     movl    %cr4, %eax
@@ -95,6 +104,48 @@ _start:
 
     # Restore eax (Multiboot magic number)
     movl    %ecx, %eax
+
+
+
+pushl %esp
+push $stack_top
+pushl %eax
+pushl %ebx
+call kmain
+
+# Bootstrap GDT
+#.p2align 2                                # force 4 byte alignment
+gdt:
+    SEG_NULLASM                             # null seg
+    SEG_ASM(STA_X | STA_R, 0x0, 0xffffffff)   # code seg
+    SEG_ASM(STA_W, 0x0, 0xffffffff)         # data seg
+
+gdtdesc:
+    .word   (gdtdesc - gdt - 1)             # sizeof(gdt) - 1
+    .long   gdt                             # address gdt
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+// *************************** SECTION: text ******************************* //
+///////////////////////////////////////////////////////////////////////////////
+
+# The linker script (see "linker.ld.pp" file) specifies _start as the entry point
+# to the kernel and the bootloader will jump to this position once the kernel
+# has been loaded. It doesn't make sense to return from this function as the
+# bootloader is gone.
+.section .text
+
+# By convention, the _start symbol specifies the ELF entry point.
+# Given that GRUB needs the virtual address of the entry point and the physical and virtual address spaces does not match anymore,
+# we can get rid of the original entry point and reuse the '_start' symbol name.
+
+
+
+
+
 
     /* The bootloader has loaded us into 32-bit protected mode on a x86 machine.
      * Interrupts are disabled. Paging is disabled. The processor state is as
@@ -135,7 +186,7 @@ _start:
                     # kernel/main.c)
 	pushl %ebx      # Save the 32-bit physical address of the Multiboot
 	                # information structure provided by the boot loader.
-	call kmain      # Call kmain (defined in C), passing in the multiboot info,
+	#call kmain      # Call kmain (defined in C), passing in the multiboot info,
 	                # magic number and stack pointer (see kernel/main.c) (see
 	                # https://wiki.osdev.org/Calling_Conventions).
 

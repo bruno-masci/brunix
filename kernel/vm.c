@@ -63,7 +63,7 @@ walkpgdir(pde_t *pgdir, const void *va, int alloc)
 // physical addresses starting at pa. va and size might not
 // be page-aligned.
 PRIVATE int
-mappages(pde_t *pgdir, void *va, uint32_t size, physaddr_t pa, int perm)
+mappages(pde_t *pgdir, void *va, uint32_t size, phys_addr_t pa, int perm)
 {
   char *a, *last;
   pte_t *pte;
@@ -109,8 +109,8 @@ mappages(pde_t *pgdir, void *va, uint32_t size, physaddr_t pa, int perm)
 // every process's page table.
 PRIVATE struct kmap {
   void *virt;
-  physaddr_t phys_start;
-  physaddr_t phys_end;
+  phys_addr_t phys_start;
+  phys_addr_t phys_end;
   int perm;
 } kmap[] = {
  { (void *) KERN_BASE, 0,                       EXT_MEM_BASE,       PTE_W }, // I/O space

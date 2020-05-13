@@ -82,14 +82,34 @@
  * - 20 bit limit
  */
 
+struct gdt_desc_access_struct {
+    // type section
+    uint8_t  accessed_flag : 1;
+    uint8_t  readable_flag : 1;
+    uint8_t  direction_flag : 1;
+    uint8_t  executable_flag : 1;
+
+    uint8_t  non_system_segment_flag : 1;
+    uint8_t  dpl : 2;   // descriptor privilege level (rings)
+    uint8_t  present_flag : 1;
+};// __attribute__((packed));
+
+struct gdt_desc_flags_struct {
+    uint8_t  reserved_unused : 2;
+    uint8_t  size_flag : 1;
+    uint8_t  granularity_flag : 1;
+};// __attribute__((packed));
+
 struct gdt_desc_struct {
     uint16_t limit_low;
     uint16_t base_low;
     uint8_t  base_middle;
-    uint8_t  access;				/* |P|DL|1|X|E|R|A| */
-    uint8_t  granularity;			/* |G|X|0|A|LIMT| */
+    uint8_t /*struct gdt_desc_access_struct*/ access;
+    uint16_t limit_high : 4;
+    uint8_t /*struct gdt_desc_flags_struct*/ flags : 4;
     uint8_t  base_high;
 } __attribute__((packed));
+
 typedef struct gdt_desc_struct gdt_desc_t;
 
 
@@ -102,8 +122,7 @@ typedef struct {
     /// Table limit: Size of the table in bytes (not the number of entries!)
     uint16_t limit;
     /// Linear base address: Address of the table (the address of the first gdt_entry_t struct)
-//    uint32_t base;
-    size_t base;
+    uint32_t base;
 } __attribute__ ((packed)) gdt_ptr_t;
 
 
@@ -132,7 +151,7 @@ typedef struct tss tss_t;
 
 
 //FIXME por que tengo que dejar las 4!!! solo quiero las del kernel
-#define GDT_ENTRIES	4+1
+#define GDT_ENTRIES	3//4+1
 
 
 

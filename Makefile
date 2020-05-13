@@ -9,7 +9,8 @@ endif
 -include conf/env.mk
 
 # try to generate a unique GDB port
-GDBPORT	:= $(shell expr `id -u` % 5000 + 25000)
+#GDBPORT	:= $(shell expr `id -u` % 5000 + 25000)
+GDBPORT	:= 26000
 
 
 CROSS_COMPILER_PATH = /home/bmasci/opt/cross/bin
@@ -34,7 +35,7 @@ ASFLAGS = $(CFLAGS)
 LDFLAGS = -T linker.ld -ffreestanding -nostdlib
 
 QEMU = qemu-system-i386
-QEMU_OPTS = -cdrom os.iso -m 512M -serial mon:stdio -gdb tcp::$(GDBPORT)
+QEMU_OPTS = -cdrom os.iso -m 512M -serial mon:stdio -gdb tcp::$(GDBPORT) -d int,cpu_reset -d int -no-reboot #-vga virtio
 IMAGES = $(OUTPUT_NAME).elf
 
 OUTPUT_NAME = brunix
@@ -55,19 +56,21 @@ $(OUTPUT_NAME).elf:
 	@cp $(OUTPUT_NAME).elf iso/boot/$(OUTPUT_NAME).elf
 	@echo Generating ISO image file...
 	$(V)grub-mkrescue -d misc/grub/i386-pc -o os.iso iso/ 2>/dev/null
+	objdump -D -S -l brunix.elf > brunix.asm
 
 #@$(CROSS_OBJCOPY) --only-keep-debug $(OUTPUT_NAME).elf $(OUTPUT_NAME).sym
 #@$(CROSS_OBJCOPY) --strip-debug $(OUTPUT_NAME).elf $(OUTPUT_NAME)-nosym.elf
 
 linker.ld:
 	@echo Preprocessing linker script
-	$(CC) $(CPPFLAGS) -isystem $(TOPDIR)/include/ linker.ld.pp | grep -v '^#' > linker.ld
+	$(V)$(CC) $(CPPFLAGS) -isystem $(TOPDIR)/include/ linker.ld.pp | grep -v '^#' > linker.ld
 
 .gdbinit: .gdbinit.tmpl
 	sed "s/localhost:1234/localhost:$(GDBPORT)/" < $^ > $@
 
-gdb:
-	$(GDB)
+#qemu-gdb: fs.img xv6.img .gdbinit
+#	@echo "*** Now run 'gdb'." 1>&2
+#	$(QEMU) -serial mon:stdio $(QEMUOPTS) -S $(QEMUGDB)
 
 pre-qemu: .gdbinit
 
@@ -84,7 +87,7 @@ qemu-gdb: $(IMAGES) pre-qemu
 	@echo "***"
 	@echo "*** Now run 'make gdb'." 1>&2
 	@echo "***"
-	$(QEMU) $(QEMUOPTS) -S
+	$(QEMU) $(QEMU_OPTS) -S
 
 qemu-nox-gdb: $(IMAGES) pre-qemu
 	@echo "***"
@@ -115,7 +118,7 @@ print-gdbport:
 clean:
 	@echo Cleaning the rest...
 	$(V)rm -rf $(OUTPUT_NAME).elf $(OUTPUT_NAME)-nosym.elf $(OUTPUT_NAME).sym $(OUTPUT_NAME).nm-sym System.map linker.ld
-	$(V)rm -rf os.iso iso/boot/$(OUTPUT_NAME).elf
+	$(V)rm -rf os.iso iso/boot/$(OUTPUT_NAME).elf brunix.asm
 
 
 # Include Makefrags for subdirectories

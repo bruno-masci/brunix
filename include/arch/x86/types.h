@@ -14,8 +14,8 @@
 // Pointers and addresses are 32 bits long.
 // We use pointer types to represent virtual addresses,
 // uintptr_t to represent the numerical values of virtual addresses,
-// and physaddr_t to represent physical addresses.
-typedef uint32_t physaddr_t;
+// and phys_addr_t to represent physical addresses.
+//typedef uint32_t physaddr_t;
 
 
 typedef uint32_t pde_t;
