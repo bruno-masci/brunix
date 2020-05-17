@@ -35,7 +35,7 @@ ASFLAGS = $(CFLAGS)
 LDFLAGS = -T linker.ld -ffreestanding -nostdlib
 
 QEMU = qemu-system-i386
-QEMU_OPTS = -cdrom os.iso -m 512M -serial mon:stdio -gdb tcp::$(GDBPORT) -d int,cpu_reset -d int -no-reboot #-vga virtio
+QEMU_OPTS = -cdrom os.iso -m 512M -serial mon:stdio -gdb tcp::$(GDBPORT) #-d int,cpu_reset -d int -no-reboot #-vga virtio
 IMAGES = $(OUTPUT_NAME).elf
 
 OUTPUT_NAME = brunix

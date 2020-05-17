@@ -24,7 +24,10 @@
 //#include <asm/irq.h>
 
 #include "kalloc.h"
-
+//dejar dos espacios
+struct mb {
+    char cmdline[256];
+};
 
 /*
  * Note that linker symbols are not variables; they have no memory allocated
@@ -38,6 +41,7 @@ extern const char kernel_start[];
 extern const char kernel_end[];
 extern const char etext[];
 extern const char edata[];
+extern const struct mb *multiboot_info_reserved;
 
 extern void kbd_init(void);
 
@@ -54,14 +58,6 @@ PRIVATE void print_kernel_context_info(multiboot_info_t *mboot_info_ptr);
 PRIVATE void print_segment_selectors(void);
 PRIVATE void print_timer_ticks(void);
 
-
-__attribute__((__aligned__(PAGE_SIZE)))
-pde_t entrypgdir2[NPDENTRIES] = {
-        // Map VA's [0, 4MB) to PA's [0, 4MB)
-//        [0] = (0) | PTE_P | PTE_W | PTE_PS,
-        // Map VA's [KERNBASE, KERNBASE+4MB) to PA's [0, 4MB)
-        [KERN_BASE>>PDXSHIFT] = (0) | PTE_P | PTE_W | PTE_PS,
-};
 
 // Boot page table used in kernel/multiboot_entry_point.S.
 // Page directories (and page tables), must start on a page boundary,
@@ -111,32 +107,40 @@ typedef struct page_table_struct page_table_t;
 int kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic, uint32_t *stack_top, uint32_t *esp) {
 //    print_segment_selectors();
 
+    char cmdline[222];
+
+//    char *pepe = strcpy(multiboot_info_reserved->cmdline, mboot_info_ptr->cmdline);
+//    cprintf("CMDLINE: %s\n", mboot_info_ptr->cmdline);
+//    cprintf("CMDLINE: %s\n", multiboot_info_reserved->cmdline);
+//    cprintf("CMDLINE pepe: %s\n", pepe);
+    char *pepe = strcpy(cmdline, mboot_info_ptr->cmdline);
+//    cprintf("CMDLINE: %s\n", cmdline);//FIXME check this
+
+
     // In case GRUB doesn't do this...
     // Before doing anything else, complete the ELF loading process.
     // Clear the uninitialized global data (BSS) section of our program.
     // This ensures that all static/global variables start out zero.
-    memset(edata, 0, kernel_end - edata);
+    memset(edata, 0, kernel_end - edata);//TODO check this
 
-    cprintf("Starting Brunix...\n\n");
-    debug("Kernel bootstrap stack: %p => %esp %p", stack_top, esp);
+//    cprintf("Starting Brunix...\n\n");
+//    debug("Kernel bootstrap stack: %p => %esp %p", stack_top, esp);
 
     verify_loader(magic);
 
 
-    cprintf("Setting up GDT... ");
-    gdt_init();
+//    cprintf("Setting up GDT... ");
+//    gdt_init();
 
-    print_segment_selectors();
+//    console_init();
 
-    console_init();
-
-    cprintf("IRQs...");
-    irq_init();
-    debug_noargs("Enabling interrupts...");
-    asm volatile("sti");
+//    cprintf("IRQs...");
+//    irq_init();
+//    debug_noargs("Enabling interrupts...");
+//    asm volatile("sti");
 
 //    timer_init(100); // Initialise timer to 100Hz
-    print_timer_ticks();
+//    print_timer_ticks();
 
 //    cprintf("Keyboard...");
 //    kbd_init();
@@ -144,8 +148,8 @@ int kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic, uint32_t *stack_top,
     print_kernel_context_info(mboot_info_ptr);
 
 //    cprintf("entrypgdir address: %p...\n", VIRT_TO_PHYS_WO(entrypgdir));
-    uint32_t addr = VIRT_TO_PHYS(&entrypgdir2);  //FIXME con esta anda; con _WO no!!
-    cprintf("addr address: %p...\n", addr);
+//    uint32_t addr = VIRT_TO_PHYS(&entrypgdir2);  //FIXME con esta anda; con _WO no!!
+//    cprintf("addr address: %p...\n", addr);
 //    __load_page_directory(addr);
 //    __enable_paging();
 
@@ -173,9 +177,9 @@ PRIVATE void print_segment_selectors(void) {
     uint32_t ds;
     uint32_t ss;
     asm("movl %%cs, %0" : "=r" (cs) ::);
-    asm("movl %%cs, %0" : "=r" (ds) ::);
-    asm("movl %%cs, %0" : "=r" (ss) ::);
-    cprintf("--- Segment Selectors: CS 0x%x, DS 0x%x, SS 0x%x\n", cs, ds, ss);
+    asm("movl %%ds, %0" : "=r" (ds) ::);
+    asm("movl %%ss, %0" : "=r" (ss) ::);
+    cprintf("-> Segment Selectors: CS 0x%x, DS 0x%x, SS 0x%x\n", cs, ds, ss);
 }
 
 PRIVATE void print_kernel_context_info(multiboot_info_t *mboot_info_ptr) {
@@ -184,14 +188,13 @@ PRIVATE void print_kernel_context_info(multiboot_info_t *mboot_info_ptr) {
     /* is the command-line defined? */
 #define MULTIBOOT_INFO_CMDLINE                  0x00000004
 
-    mboot_info_ptr = mboot_info_ptr + 0x80000000;//FIXME
-    cprintf("Loading kernel with command line: %p\n", mboot_info_ptr->cmdline);
+//    mboot_info_ptr = mboot_info_ptr + 0x80000000;//FIXME
     //FIXME falla pq esta estructura esta en los 16Mb o por ahi!
-//    if (CHECK_FLAG(mboot_info_ptr->flags, 2)) {
-//        if (strcmp(((char *) mboot_info_ptr->cmdline), '\0') != 0) {
-//            debug("Loading kernel with command line: %s", (char *)mboot_info_ptr->cmdline);
-//        }
-//    }
+    if (CHECK_FLAG(mboot_info_ptr->flags, 2)) {
+        if (strcmp(((char *) mboot_info_ptr->cmdline), '\0') != 0) {
+            debug("Loading kernel with command line: %s", (char *)mboot_info_ptr->cmdline);
+        }
+    }
 
     debug("Kernel size: %d KB", (kernel_end - kernel_start) / 1024);
 
@@ -206,6 +209,7 @@ PRIVATE void print_kernel_context_info(multiboot_info_t *mboot_info_ptr) {
     cprintf("  kmain()\t\t\t-> %p (text)\n", &kmain);
     cprintf("  unused_initialized_variable\t-> %p (data)\n", &unused_initialized_variable);
     cprintf("  unused_uninitialized_variable\t-> %p (bss)\n", &unused_uninitialized_variable);
+    cprintf("  multiboot_info_reserved\t-> %p (bss)\n", &multiboot_info_reserved);
 }
 
 PRIVATE void print_timer_ticks() {

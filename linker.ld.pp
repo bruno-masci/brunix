@@ -10,13 +10,11 @@
 #include <arch/x86/memlayout.h>     // for KERN_LINK, KERN_BASE
 #undef __ASSEMBLER__
 
-ONE_MB = 0x00100000;
-
 /* This declares the symbol where kernel execution begin */
 /* ahora este simbolo se refiere a la dir virtual higher half */
 ENTRY(_start)
 
-. = ONE_MB;     /* "." means the current address */
+. = KERN_LINK;     /* "." means the current address */
 
 SECTIONS {
 
@@ -28,8 +26,6 @@ SECTIONS {
     .init : {
         *(.init)
     }
-
-    . = KERN_LINK;     /* "." means the current address */
 
     PROVIDE(kernel_start = .);
 

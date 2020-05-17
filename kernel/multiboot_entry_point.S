@@ -1,6 +1,8 @@
 /* The kernel starts executing in this file. This file is linked with
  * the kernel C code, so it can refer to kernel symbols such as kmain().
- * (see https://www.gnu.org/software/grub/manual/multiboot/multiboot.html)
+ *
+ * @see https://www.gnu.org/software/grub/manual/multiboot/multiboot.html
+ * @see "linker.ld.pp" file.
  */
 
 
@@ -57,6 +59,8 @@
 #    .skip BOOTSTRAP_STACK_SIZE, 4
 #stack_top:
 .comm stack_top, BOOTSTRAP_STACK_SIZE
+.comm multiboot_info_reserved, 1024 # 1 KiB
+
 //TODO puedo usar una de estas dos variantes, pero la de arriba sin @nobits, sino arranca desde addr 0 el simbolo.
 
 
@@ -70,26 +74,53 @@ _start:
     #movl    %edx, 0xB8000
     #movl    %edx, 0xB8001
 
-    # Use a bootstrap GDT that makes virtual addresses map directly to physical
-    # addresses so that the effective memory map doesn't change during the
-    # transition.
-    #pushl $gdtdesc
-    #call VIRT_TO_PHYS_WO(__gdt_flush)
-    lgdt    gdtdesc
-
 
     movl $stack_top, %esp
 
-
     # Save eax (contains the Multiboot magic number used later)
-    movl    %eax, %ecx
+    # __gdt_flush and paging code below will overwrite eax
+#    movl    %eax, %ecx
+    pushl %eax
+
+
+    # Use a bootstrap GDT that makes virtual addresses map directly to physical
+    # addresses so that the effective memory map doesn't change during the
+    # transition.
+
+    pushl $0
+    pushl $0
+    pushl $0
+    pushl $myGdt
+    call VIRT_TO_PHYS_WO(gdt_set_desc)
+    addl $0x10, %esp
+    pushl $0x9ACF
+    pushl $0xFFFFFFFF
+    pushl $0
+    pushl $(myGdt + 8)
+    call VIRT_TO_PHYS_WO(gdt_set_desc)
+    addl $0x10, %esp
+    pushl $0x92CF
+    pushl $0xFFFFFFFF
+    pushl $0
+    pushl $(myGdt + 16)
+    call VIRT_TO_PHYS_WO(gdt_set_desc)
+    addl $0x10, %esp
+    pushl $gdtdesc
+    call VIRT_TO_PHYS_WO(__gdt_flush)
+    addl $0x4, %esp
+    
+#	gdt_set_desc(&gdt + 8, 0, 0xFFFFFFFF, 0x9a, 0xCF);
+#    gdt_set_desc(&gdt + 16, 0, 0xFFFFFFFF, 0x92, 0xCF);
+
+
+
 
 
     #call __load_page_directory
     #call __enable_paging
 
     # Turn on page size extension for 4Mbyte pages
-    movl    %cr4, %eax
+/*    movl    %cr4, %eax
     orl     $MMU_CR4_PSE, %eax
     movl    %eax, %cr4
 
@@ -101,28 +132,19 @@ _start:
     movl    %cr0, %eax
     orl     $(MMU_CR0_PG | MMU_CR0_WP), %eax
     movl    %eax, %cr0
-
+*/
     # Restore eax (Multiboot magic number)
-    movl    %ecx, %eax
-
+#    movl    %ecx, %eax
+    popl %eax
 
 
 pushl %esp
+push stack_top
 push $stack_top
 pushl %eax
 pushl %ebx
 call kmain
 
-# Bootstrap GDT
-#.p2align 2                                # force 4 byte alignment
-gdt:
-    SEG_NULLASM                             # null seg
-    SEG_ASM(STA_X | STA_R, 0x0, 0xffffffff)   # code seg
-    SEG_ASM(STA_W, 0x0, 0xffffffff)         # data seg
-
-gdtdesc:
-    .word   (gdtdesc - gdt - 1)             # sizeof(gdt) - 1
-    .long   gdt                             # address gdt
 
 
 
@@ -208,3 +230,19 @@ gdtdesc:
 
     // Note we don't have an exit() function here; there is no processes nor
     // system calls. Instead we do:
+
+
+
+# Bootstrap GDT
+#.p2align 2                                # force 4 byte alignment
+myGdt:
+    .skip 24    # = 8 * 3
+
+#gdt:
+#    SEG_NULLASM                             # null seg
+#    SEG_ASM(STA_X | STA_R, 0x0, 0xffffffff)   # code seg
+#    SEG_ASM(STA_W, 0x0, 0xffffffff)         # data seg
+
+gdtdesc:
+    .word   (gdtdesc - myGdt - 1)             # sizeof(gdt) - 1
+    .long   myGdt                             # address gdt
