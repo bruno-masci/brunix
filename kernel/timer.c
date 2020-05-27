@@ -3,8 +3,9 @@
 #include <arch/x86/isr.h>
 #include <arch/x86/irq.h>
 #include <arch/x86/io.h>
-//#include <brunix/stdio.h>
 #include <arch/x86/processor.h>
+
+#include <brunix/console.h>
 
 
 
@@ -27,7 +28,15 @@ uint64_t get_clock_tick(void) {
     return timer_ticks;
 }
 
-static void timer_callback(struct registers_t *regs) {
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+static void timer_callback(struct registers_t *regs_unused) {
+    if ((timer_ticks % 100) == 0) {
+        beep();
+        uint64_t time = timer_ticks;
+        uint32_t higher = time >> 32;
+        uint32_t lower = time & 0xFFFF;
+        cprintf("100x - TIMER interrupt: %d %d\n", higher, lower);
+    }
     timer_ticks++;
     //TODO switch_task ();
     //debug("Int. no: %d; Error code: %d; CS: %x; EIP: %x; EFLAGS = %b", regs->int_no, regs->err_code, regs->cs, regs->eip, regs->eflags);

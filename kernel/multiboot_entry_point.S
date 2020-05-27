@@ -59,7 +59,6 @@
 #    .skip BOOTSTRAP_STACK_SIZE, 4
 #stack_top:
 .comm stack_top, BOOTSTRAP_STACK_SIZE
-.comm multiboot_info_reserved, 1024 # 1 KiB
 
 //TODO puedo usar una de estas dos variantes, pero la de arriba sin @nobits, sino arranca desde addr 0 el simbolo.
 
@@ -90,27 +89,28 @@ _start:
     pushl $0
     pushl $0
     pushl $0
+    pushl $0
     pushl $myGdt
     call VIRT_TO_PHYS_WO(gdt_set_desc)
-    addl $0x10, %esp
-    pushl $0x9ACF
+    addl $0x14, %esp #IMPORTANT!
+    pushl $0xC
+    pushl $0x9A
     pushl $0xFFFFFFFF
     pushl $0
     pushl $(myGdt + 8)
     call VIRT_TO_PHYS_WO(gdt_set_desc)
-    addl $0x10, %esp
-    pushl $0x92CF
+    addl $0x14, %esp
+    pushl $0xC
+    pushl $0x92
     pushl $0xFFFFFFFF
     pushl $0
     pushl $(myGdt + 16)
     call VIRT_TO_PHYS_WO(gdt_set_desc)
-    addl $0x10, %esp
+    addl $0x14, %esp
     pushl $gdtdesc
     call VIRT_TO_PHYS_WO(__gdt_flush)
     addl $0x4, %esp
-    
-#	gdt_set_desc(&gdt + 8, 0, 0xFFFFFFFF, 0x9a, 0xCF);
-#    gdt_set_desc(&gdt + 16, 0, 0xFFFFFFFF, 0x92, 0xCF);
+
 
 
 
@@ -138,8 +138,6 @@ _start:
     popl %eax
 
 
-pushl %esp
-push stack_top
 push $stack_top
 pushl %eax
 pushl %ebx

@@ -21,13 +21,9 @@
 #include <arch/x86/irq.h>   //TODO
 #include <arch/x86/timer.h>   //TODO
 #include <arch/x86/paging.h>   //TODO
-//#include <asm/irq.h>
 
 #include "kalloc.h"
-//dejar dos espacios
-struct mb {
-    char cmdline[256];
-};
+
 
 /*
  * Note that linker symbols are not variables; they have no memory allocated
@@ -41,7 +37,6 @@ extern const char kernel_start[];
 extern const char kernel_end[];
 extern const char etext[];
 extern const char edata[];
-extern const struct mb *multiboot_info_reserved;
 
 extern void kbd_init(void);
 
@@ -56,8 +51,19 @@ PRIVATE int unused_uninitialized_variable;
 PRIVATE void verify_loader(uint32_t magic);
 PRIVATE void print_kernel_context_info(multiboot_info_t *mboot_info_ptr);
 PRIVATE void print_segment_selectors(void);
-PRIVATE void print_timer_ticks(void);
 
+
+struct required_multiboot_info brunix_multiboot_info;
+
+
+PRIVATE void dividebyzero(struct registers_t *regs) {
+    cprintf("catched DIVIDE BY ZERO!!");
+    for(;;);//TODO halt!
+}
+
+void copy_multiboot_info(multiboot_info_t *mboot_info_ptr) {
+    strcpy(brunix_multiboot_info.cmdline, (const char *) mboot_info_ptr->cmdline);
+}
 
 // Boot page table used in kernel/multiboot_entry_point.S.
 // Page directories (and page tables), must start on a page boundary,
@@ -68,7 +74,7 @@ pde_t entrypgdir[NPDENTRIES] = {
         // Map VA's [0, 4MB) to PA's [0, 4MB)
         [0] = (0) | PTE_P | PTE_W | PTE_PS,
         // Map VA's [KERNBASE, KERNBASE+4MB) to PA's [0, 4MB)
-        [KERN_BASE>>PDXSHIFT] = (0) | PTE_P | PTE_W | PTE_PS,
+//        [KERN_BASE>>PDXSHIFT] = (0) | PTE_P | PTE_W | PTE_PS,
 };
 
 #pragma GCC diagnostic ignored "-Wpedantic" //TODO remove
@@ -104,48 +110,46 @@ typedef struct page_table_struct page_table_t;
  * @param magic Number representing the Multiboot bootloader magic number.
  * @see multiboot_entry_point.S file
  */
-int kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic, uint32_t *stack_top, uint32_t *esp) {
-//    print_segment_selectors();
+int kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic, uint32_t *stack_top) {
+    print_segment_selectors();
 
-    char cmdline[222];
-
-//    char *pepe = strcpy(multiboot_info_reserved->cmdline, mboot_info_ptr->cmdline);
-//    cprintf("CMDLINE: %s\n", mboot_info_ptr->cmdline);
-//    cprintf("CMDLINE: %s\n", multiboot_info_reserved->cmdline);
-//    cprintf("CMDLINE pepe: %s\n", pepe);
-    char *pepe = strcpy(cmdline, mboot_info_ptr->cmdline);
-//    cprintf("CMDLINE: %s\n", cmdline);//FIXME check this
-
+    copy_multiboot_info(mboot_info_ptr);
+    cprintf("CMDLINE: %s\n", brunix_multiboot_info.cmdline);
 
     // In case GRUB doesn't do this...
     // Before doing anything else, complete the ELF loading process.
     // Clear the uninitialized global data (BSS) section of our program.
     // This ensures that all static/global variables start out zero.
-    memset(edata, 0, kernel_end - edata);//TODO check this
+//    memset(edata, 0, kernel_end - edata);//TODO check this
 
-//    cprintf("Starting Brunix...\n\n");
-//    debug("Kernel bootstrap stack: %p => %esp %p", stack_top, esp);
+    cprintf("Starting Brunix...\n\n");
+    debug("Kernel bootstrap stack: %p", stack_top);
 
     verify_loader(magic);
 
 
-//    cprintf("Setting up GDT... ");
-//    gdt_init();
+    cprintf("Setting up GDT...\n");
+    gdt_init();
+    print_segment_selectors();
 
-//    console_init();
+    console_init();
 
-//    cprintf("IRQs...");
-//    irq_init();
-//    debug_noargs("Enabling interrupts...");
-//    asm volatile("sti");
+    cprintf("IRQs...\n");
+    irq_init();
+    timer_init(30); // Initialise timer to 100Hz
+    register_interrupt_handler(0, &dividebyzero);
 
-//    timer_init(100); // Initialise timer to 100Hz
-//    print_timer_ticks();
+//    int f=1/0;
 
-//    cprintf("Keyboard...");
-//    kbd_init();
+    cprintf("Keyboard...");
+    kbd_init();
+    idt_flush();
 
-    print_kernel_context_info(mboot_info_ptr);
+    debug_noargs("Enabling interrupts...");
+    asm volatile("sti");
+
+
+//    print_kernel_context_info(mboot_info_ptr);
 
 //    cprintf("entrypgdir address: %p...\n", VIRT_TO_PHYS_WO(entrypgdir));
 //    uint32_t addr = VIRT_TO_PHYS(&entrypgdir2);  //FIXME con esta anda; con _WO no!!
@@ -163,7 +167,11 @@ int kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic, uint32_t *stack_top,
 //    uint32_t *ptr = (uint32_t *)0x400000;
 //    uint32_t do_page_fault = *ptr;
 
-    panic("Forcing kernel panic...");       // panic() DOES NOT return!
+    while(1) {
+//        cprintf("K# ");
+    }
+
+    //FIXME panic("Forcing kernel panic...");       // panic() DOES NOT return!
 }
 
 PRIVATE void verify_loader(uint32_t magic) {
@@ -209,10 +217,4 @@ PRIVATE void print_kernel_context_info(multiboot_info_t *mboot_info_ptr) {
     cprintf("  kmain()\t\t\t-> %p (text)\n", &kmain);
     cprintf("  unused_initialized_variable\t-> %p (data)\n", &unused_initialized_variable);
     cprintf("  unused_uninitialized_variable\t-> %p (bss)\n", &unused_uninitialized_variable);
-    cprintf("  multiboot_info_reserved\t-> %p (bss)\n", &multiboot_info_reserved);
-}
-
-PRIVATE void print_timer_ticks() {
-    for (int i=0;i<10000000;i++);	// delay
-    debug("kmain", "Clock ticks: %u", get_clock_tick());
 }

@@ -75,7 +75,7 @@ linker.ld:
 pre-qemu: .gdbinit
 
 qemu: compile pre-qemu
-	$(QEMU) $(QEMU_OPTS)
+	$(QEMU) $(QEMU_OPTS) -soundhw pcspk
 
 qemu-nox: $(IMAGES) pre-qemu
 	@echo "***"
@@ -117,7 +117,7 @@ print-gdbport:
 
 clean:
 	@echo Cleaning the rest...
-	$(V)rm -rf $(OUTPUT_NAME).elf $(OUTPUT_NAME)-nosym.elf $(OUTPUT_NAME).sym $(OUTPUT_NAME).nm-sym System.map linker.ld
+	$(V)rm -rf $(OUTPUT_NAME).elf $(OUTPUT_NAME)-nosym.elf $(OUTPUT_NAME).sym $(OUTPUT_NAME).nm-sym System.map linker.ld bochsout.log com1.out
 	$(V)rm -rf os.iso iso/boot/$(OUTPUT_NAME).elf brunix.asm
 
 

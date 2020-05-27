@@ -38,9 +38,9 @@ extern void isr28();
 extern void isr29();
 extern void isr30();
 extern void isr31();
-
+/*
 extern void isr0x80();
-
+*/
 
 
 /*!
@@ -49,10 +49,34 @@ extern void isr0x80();
  */
 struct registers_t
 {
-    uint32_t ds;                                        /*!< Data segment selector */
-    uint32_t edi, esi, ebp, esp, ebx, edx, ecx, eax;    /*!< Pushed by pusha */
-    uint32_t int_no, err_code;                          /*!< Interrupt number and error code (if applicable) */
-    uint32_t eip, cs, eflags, useresp, ss;              /*!< Pushed by the processor automatically */
+    /*!< Pushed by pushal */
+    uint32_t edi, esi, ebp,
+    oesp,    // useless & ignored
+    ebx, edx, ecx, eax;
+
+    // rest of trap frame
+    uint16_t gs;
+    uint16_t padding1;
+    uint16_t fs;
+    uint16_t padding2;
+    uint16_t es;
+    uint16_t padding3;
+    uint16_t ds;
+    uint16_t padding4;
+    uint32_t int_no;                          /*!< Interrupt number */
+
+    // below here defined by x86 hardware
+    /*!< Pushed by the processor automatically */
+    uint32_t err_code;   // (if applicable)
+    uint32_t eip;
+    uint16_t cs;
+    uint16_t padding5;
+    uint32_t eflags;
+
+    // extra pushed by the processor only when crossing rings, such as from user to kernel
+    uint32_t esp;
+    uint16_t ss;
+    uint16_t padding6;
 };
 
 typedef void (*isr_t)(struct registers_t *);
@@ -61,7 +85,7 @@ void register_interrupt_handler(uint8_t n, isr_t handler);
 
 void isr_install(void);
 
-void isr_handler(struct registers_t regs);
+void isr_handler(struct registers_t *regs);
 
 
 #endif /* #define __ARCH_ISR_H__ */

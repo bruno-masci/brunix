@@ -3,7 +3,7 @@
 #include <arch/x86/isr.h>
 #include <arch/x86/irq.h>
 #include <arch/x86/io.h>
-//#include <brunix/stdio.h>
+#include <brunix/console.h>
 
 
 
@@ -51,7 +51,8 @@ static unsigned char kbd_US[128] = {
         0,	/* All other keys are undefined */
 };
 
-static void kbd_callback(struct registers_t *regs) {
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+static void kbd_callback(struct registers_t *regs_UNUSED) {
     unsigned char scancode;
 
     /* Read from the keyboard's data buffer */

@@ -9,3 +9,5 @@ bochsout.log
 System.map
 *.c.dep
 *.c.asm
+bochsout.log
+com1.out

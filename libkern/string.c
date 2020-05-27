@@ -19,35 +19,11 @@ int strcmp(const char *p, const char *q) {
 	return (int) ((unsigned char) *p - (unsigned char) *q);
 }
 
-char *strcpy(char *dest, const char *src) {
-    int i = 0;
+char * strcpy(char *dest, const char *src) {
     char *orig = dest;
-    while (src[i] != '\0') {
-        dest[i] = src[i];
-        i++;
-    }
-    return orig;
-}
-char *strcpy3(char *dest, const char *src) {
-    char *orig = dest;
-    while((*dest++ = *src++)!= '\0')
-        ; // <<== Very important!!!
-    return orig;
-}
-char * strcpy1(char *destination, const char *source) {
-    while (*source != '\0') {
-        cprintf("CHAR1 %c\n", *source);
-//        cprintf("CHAR2 %c\n", *destination);
-        *destination++ = *source++;
-    }
-    return destination;
-}
-char *strcpy2(char *s1, const char *s2)
-{
-    char *s1_p = s1;
-    while (*s1++ = *s2++)
+    while((*dest++ = *src++) != '\0')
         ;
-    return s1_p;
+    return orig;
 }
 
 /* Extracted from http://wiki.osdev.org/Printing_To_Screen */

@@ -18,5 +18,6 @@
 #define STA_R     0x2       // Readable (executable segments)
 
 
-#define __KERNEL_CS 0x08
-#define __KERNEL_DS 0x10
+// Offsets in the GDT, respectively
+#define __KERNEL_CS_SELECTOR 0x08
+#define __KERNEL_DS_SELECTOR 0x10

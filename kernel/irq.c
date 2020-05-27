@@ -2,6 +2,7 @@
 #include <arch/x86/idt.h>
 #include <arch/x86/isr.h>
 #include <arch/x86/io.h>
+#include <arch/x86/asm.h>     // for __KERNEL_CS_SELECTOR. FIXME mover a mmu o un lugar mejor
 #include <brunix/console.h>
 #include <stddef.h>
 
@@ -16,14 +17,14 @@
 
 
 #pragma GCC diagnostic ignored "-Wpedantic"
-static isr_t irq_handlers[256] = {[0 ... 255] = {0, 0, 0, 0, 0, 0}};
+//static isr_t irq_handlers[256];//TODO revisar = {[0 ... 255] = {0, 0, 0, 0, 0, 0}};
 
 
 
 
 void register_irq_handler(uint8_t n, isr_t handler) {
     debug("Registering IRQ handler number %d (%d), handler %x!...", n - 32, n, handler);
-    irq_handlers[n] = handler;
+    register_interrupt_handler(n, handler);
 }
 
 // http://wiki.osdev.org/PIC
@@ -56,56 +57,36 @@ void irq_install(void) {
     debug_noargs("Remapping PIC...");
     pic_remap(0x20, 0x28);
 
-    idt_set_gate(IRQ0, (uint32_t) irq0, 0x08, 0x8E);
-    idt_set_gate(IRQ1, (uint32_t) irq1, 0x08, 0x8E);
-    idt_set_gate(IRQ2, (uint32_t) irq2, 0x08, 0x8E);
-    idt_set_gate(IRQ3, (uint32_t) irq3, 0x08, 0x8E);
-    idt_set_gate(IRQ4, (uint32_t) irq4, 0x08, 0x8E);
-    idt_set_gate(IRQ5, (uint32_t) irq5, 0x08, 0x8E);
-    idt_set_gate(IRQ6, (uint32_t) irq6, 0x08, 0x8E);
-    idt_set_gate(IRQ7, (uint32_t) irq7, 0x08, 0x8E);
-    idt_set_gate(IRQ8, (uint32_t) irq8, 0x08, 0x8E);
-    idt_set_gate(IRQ9, (uint32_t) irq9, 0x08, 0x8E);
-    idt_set_gate(IRQ10, (uint32_t) irq10, 0x08, 0x8E);
-    idt_set_gate(IRQ11, (uint32_t) irq11, 0x08, 0x8E);
-    idt_set_gate(IRQ12, (uint32_t) irq12, 0x08, 0x8E);
-    idt_set_gate(IRQ13, (uint32_t) irq13, 0x08, 0x8E);
-    idt_set_gate(IRQ14, (uint32_t) irq14, 0x08, 0x8E);
-    idt_set_gate(IRQ15, (uint32_t) irq15, 0x08, 0x8E);
+    idt_set_gate(IRQ0, (uint32_t) irq0, __KERNEL_CS_SELECTOR, 0);
+    idt_set_gate(IRQ1, (uint32_t) irq1, __KERNEL_CS_SELECTOR, 0);
+    idt_set_gate(IRQ2, (uint32_t) irq2, __KERNEL_CS_SELECTOR, 0);
+    idt_set_gate(IRQ3, (uint32_t) irq3, __KERNEL_CS_SELECTOR, 0);
+    idt_set_gate(IRQ4, (uint32_t) irq4, __KERNEL_CS_SELECTOR, 0);
+    idt_set_gate(IRQ5, (uint32_t) irq5, __KERNEL_CS_SELECTOR, 0);
+    idt_set_gate(IRQ6, (uint32_t) irq6, __KERNEL_CS_SELECTOR, 0);
+    idt_set_gate(IRQ7, (uint32_t) irq7, __KERNEL_CS_SELECTOR, 0);
+    idt_set_gate(IRQ8, (uint32_t) irq8, __KERNEL_CS_SELECTOR, 0);
+    idt_set_gate(IRQ9, (uint32_t) irq9, __KERNEL_CS_SELECTOR, 0);
+    idt_set_gate(IRQ10, (uint32_t) irq10, __KERNEL_CS_SELECTOR, 0);
+    idt_set_gate(IRQ11, (uint32_t) irq11, __KERNEL_CS_SELECTOR, 0);
+    idt_set_gate(IRQ12, (uint32_t) irq12, __KERNEL_CS_SELECTOR, 0);
+    idt_set_gate(IRQ13, (uint32_t) irq13, __KERNEL_CS_SELECTOR, 0);
+    idt_set_gate(IRQ14, (uint32_t) irq14, __KERNEL_CS_SELECTOR, 0);
+    idt_set_gate(IRQ15, (uint32_t) irq15, __KERNEL_CS_SELECTOR, 0);
 }
 
 void pic_acknowledge(uint32_t int_no) {
+//    cprintf("DDDDDDDDDDDDDd");
     if (int_no >= 40) {
         //debug("Resetting slave!", 0);
         outb (PIC2_COMMAND, PIC_EOI); /* Send reset signal to slave */
     }
     //debug("Resetting master!");
     outb (PIC1_COMMAND, PIC_EOI); /* Send reset signal to master. (As well as slave, if necessary). */
-
-
-    outb(0x61, inb(0x61) | 0x03); //speaker
-}
-
-/* Called from our ASM interrupt handler stub */
-void irq_handler(struct registers_t regs) {
-    if (regs.int_no != 32 && regs.int_no != 33) {
-        debug("Calling isr_handler() for IRQ %d!", regs.int_no - 32);
-    }
-
-    /* Send an EOI (end of interrupt) signal to the PICs. */
-    pic_acknowledge(regs.int_no);
-
-    if (irq_handlers[regs.int_no] != 0) {
-        isr_t handler = irq_handlers[regs.int_no];
-        handler(&regs);
-    }
 }
 
 void irq_init(void) {
-    cprintf("YA");
-    init_idt();
-    cprintf("PE");
-    isr_install();
-    cprintf("YU");
     irq_install();
+    isr_install();
+    init_idt();
 }

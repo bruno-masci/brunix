@@ -1,14 +1,11 @@
-mov %eax, %eax
+#include <arch/x86/asm.h>     // for __KERNEL_CS_SELECTOR. FIXME mover a mmu o un lugar mejor
 
 .macro ISR_NOERRCODE arg1  # define a macro, taking one parameter
 	.globl isr\arg1        # %1 accesses the first parameter.
   isr\arg1:
     cli                         # Disable interrupts firstly.
-    mov \arg1, %al
-    mov $0, %ah
-    push %ax
-#    pushw $0                 # Push a dummy error code.
-#    pushw $\arg1                    # Push the interrupt number.FIXME
+    pushl $0                    # Push a dummy error code.
+    pushl $\arg1                # Push the interrupt number.
     jmp isr_common_stub         # Go to our common handler code.
 .endm
 
@@ -17,9 +14,7 @@ mov %eax, %eax
   .globl isr\arg1
   isr\arg1:
     cli                         # Disable interrupts.
-    mov \arg1, %ah
-    push %ax
-#    push %1                     # Push the interrupt number
+    pushl $\arg1                # Push the interrupt number.
     jmp isr_common_stub
 .endm
 
@@ -29,10 +24,8 @@ mov %eax, %eax
 	.globl irq\arg1
   irq\arg1:
     cli
-    mov \arg2, %al
-    mov $0, %ah
-#    push byte 0
-#    push byte %2
+    pushl $0        # always push a dummy err code so that we can reuse the register_t struct
+    pushl $\arg2
     jmp irq_common_stub
 .endm
 
@@ -69,7 +62,7 @@ ISR_NOERRCODE 29
 ISR_NOERRCODE 30
 ISR_NOERRCODE 31
 
-ISR_NOERRCODE 0x80
+#ISR_NOERRCODE 0x80
 
 IRQ   0,    32
 IRQ   1,    33
@@ -88,34 +81,46 @@ IRQ  13,    45
 IRQ  14,    46
 IRQ  15,    47
 
-
 .extern isr_handler
 
 # This is our common ISR stub. It saves the processor state, sets
 # up for kernel mode segments, calls the C-level fault handler,
 # and finally restores the stack frame.
 isr_common_stub:
-    pusha                    # Pushes edi,esi,ebp,esp,ebx,edx,ecx,eax
+      pushl %ds
+      pushl %es
+      pushl %fs
+      pushl %gs
+    pushal                    # Pushes edi,esi,ebp,esp,ebx,edx,ecx,eax (see struct registers_t)
 
-    mov %ds, %ax                # Lower 16-bits of eax = ds.
-    push %eax                 # save the data segment descriptor
+#    movw %ds, %ax                # Lower 16-bits of eax = ds.
+#    pushw %ax                 # save the data segment descriptor
 
-    mov $0x10, %ax  # load the kernel data segment descriptor
-    mov %ax, %ds
-    mov %ax, %es
-    mov %ax, %fs
-    mov %ax, %gs
+    movw $__KERNEL_DS_SELECTOR, %ax  # load the kernel data segment descriptor
+    movw %ax, %ds
+    movw %ax, %es
+#    movw %ax, %fs
+#    movw %ax, %gs
 
+    pushl %esp
     call isr_handler
+    addl $4, %esp
 
-    pop %ebx        # reload the original data segment descriptor
-    mov %bx, %ds
-    mov %bx, %es
-    mov %bx, %fs
-    mov %bx, %gs
+#    popw %bx        # reload the original data segment descriptor
+#    mov %bx, %ds
+#    mov %bx, %es
+#    mov %bx, %fs
+#    mov %bx, %gs
 
-    popa                     # Pops edi,esi,ebp...
-    add $8, %esp     # Cleans up the pushed error code and pushed ISR number
+    # Return falls through to trapret...
+.globl trapret
+trapret:
+    popal                     # Pops edi,esi,ebp...
+    popl %gs
+    popl %fs
+    popl %es
+    popl %ds
+    addl $0x8, %esp     # Cleans up the pushed error code and pushed ISR number
     sti
     iret           # pops 5 things at once: CS, EIP, EFLAGS, SS, and ESP
 
@@ -125,26 +130,36 @@ isr_common_stub:
 # up for kernel mode segments, calls the C-level fault handler,
 # and finally restores the stack frame.
 irq_common_stub:
-    pusha                    # Pushes edi,esi,ebp,esp,ebx,edx,ecx,eax
+      pushl %ds
+      pushl %es
+      pushl %fs
+      pushl %gs
+    pushal                    # Pushes edi,esi,ebp,esp,ebx,edx,ecx,eax
 
-    mov %ds, %ax               # Lower 16-bits of eax = ds.
-    push %eax                 # save the data segment descriptor
+#    movw %ds, %ax               # Lower 16-bits of eax = ds.
+#    pushw %ax                 # save the data segment descriptor
 
-    mov $0x10, %ax  # load the kernel data segment descriptor
-    mov %ax, %ds
-    mov %ax, %es
-    mov %ax, %fs
-    mov %ax, %gs
+    movw $__KERNEL_DS_SELECTOR, %ax  # load the kernel data segment descriptor
+    movw %ax, %ds
+    movw %ax, %es
+#    movw %ax, %fs
+#    movw %ax, %gs
 
-    call irq_handler
+    pushl %esp
+    call isr_handler
+    addl $4, %esp
 
-    pop %ebx        # reload the original data segment descriptor
-    mov %bx, %ds
-    mov %bx, %es
-    mov %bx, %fs
-    mov %bx, %gs
+#    popw %bx        # reload the original data segment descriptor
+#    movw %bx, %ds
+#    movw %bx, %es
+#    movw %bx, %fs
+#    movw %bx, %gs
 
-    popa                    # Pops edi,esi,ebp...
-    add $8, %esp     # Cleans up the pushed error code and pushed ISR number
+    popal                    # Pops edi,esi,ebp...
+    popl %gs
+    popl %fs
+    popl %es
+    popl %ds
+    addl $0x8, %esp     # Cleans up the pushed error code and pushed ISR number
     sti
     iret           # pops 5 things at once: CS, EIP, EFLAGS, SS, and ESP

@@ -2,7 +2,7 @@
 #ifndef __ARCH_IRQ_H__
 #define __ARCH_IRQ_H__
 
-//#include <brunix/stddef.h>
+#include <arch/x86/isr.h>
 
 
 /* A few defines to make life a little easier */
@@ -50,12 +50,13 @@ extern void irq12(void);
 extern void irq13(void);
 extern void irq14(void);
 extern void irq15(void);
-//TODO eduOS tiene hasta irq23! ?
 
 #define MAX_HANDLERS	256
 
 
 void irq_init(void);
+
+void register_irq_handler(uint8_t n, isr_t handler);
 
 
 #endif /* #define __ARCH_IRQ_H__ */

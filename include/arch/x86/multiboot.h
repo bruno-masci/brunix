@@ -53,6 +53,10 @@
 
     typedef struct multiboot_info multiboot_info_t;
 
+    struct required_multiboot_info {
+        char cmdline[256];
+    };
+
 #endif /* !__ASSEMBLER__ */
 
 

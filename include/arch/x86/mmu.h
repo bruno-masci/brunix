@@ -6,6 +6,13 @@
 #include <stdbool.h>     // for bool
 #endif
 
+
+// System segment type bits
+//#define STS_T32A    0x9     // Available 32-bit TSS
+#define STS_IG32    0xE     // 32-bit Interrupt Gate
+#define STS_TG32    0xF     // 32-bit Trap Gate
+
+
 #define PAGE_SIZE          4096    // bytes mapped by a page
 
 #define PAGE_ROUND_UP(sz)  (((sz)+PAGE_SIZE-1) & ~(PAGE_SIZE-1))

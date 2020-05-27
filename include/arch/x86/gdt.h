@@ -101,13 +101,13 @@ struct gdt_desc_flags_struct {
 };// __attribute__((packed));
 
 struct gdt_desc_struct {
-    uint16_t limit_low;
-    uint16_t base_low;
-    uint8_t  base_middle;
-    uint8_t access;
-    uint16_t limit_high : 4;
-    uint8_t flags : 4;
-    uint8_t  base_high;
+    uint16_t limit_low_16;
+    uint16_t base_low_16;
+    uint8_t  base_middle_8;
+    uint8_t access_8;
+    uint16_t limit_high_4 : 4;
+    uint8_t flags_4 : 4;
+    uint8_t  base_high_8;
 } __attribute__((packed));
 
 typedef struct gdt_desc_struct gdt_desc_t;
@@ -150,8 +150,7 @@ typedef struct tss tss_t;
 
 
 
-//FIXME por que tengo que dejar las 4!!! solo quiero las del kernel
-#define GDT_ENTRIES	3//4+1
+#define GDT_ENTRIES	4   // = 3+1
 
 
 
