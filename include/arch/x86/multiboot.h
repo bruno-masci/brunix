@@ -54,8 +54,14 @@
     typedef struct multiboot_info multiboot_info_t;
 
     struct required_multiboot_info {
+        uint32_t mem_upper;
+        uint32_t flags;
         char cmdline[256];
     };
+
+    void save_multiboot_info(multiboot_info_t *mboot_info_ptr, struct required_multiboot_info *brunix_multiboot_info_ptr);
+
+    void verify_loader(uint32_t magic);
 
 #endif /* !__ASSEMBLER__ */
 

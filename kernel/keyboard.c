@@ -6,6 +6,9 @@
 #include <brunix/console.h>
 
 
+//
+static char buf[1024];
+static int buf_len = -1; //FIXME si le pongo 0, se comporta muy extranio
 
 /* KBDUS means US Keyboard Layout. This is a scancode table
  * used to layout a standard US keyboard. I have left some
@@ -51,8 +54,7 @@ static unsigned char kbd_US[128] = {
         0,	/* All other keys are undefined */
 };
 
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-static void kbd_callback(struct registers_t *regs_UNUSED) {
+static void kbd_callback(__attribute__((unused)) struct registers_t *regs) {
     unsigned char scancode;
 
     /* Read from the keyboard's data buffer */
@@ -60,13 +62,10 @@ static void kbd_callback(struct registers_t *regs_UNUSED) {
 
     /* If the top bit of the byte we read from the keyboard is
     *  set, that means that a key has just been released */
-    if (scancode & 0x80)
-    {
+    if (scancode & 0x80) {
         /* You can use this one to see if the user released the
         *  shift, alt, or control keys... */
-    }
-    else
-    {
+    } else {
         /* Here, a key was just pressed. Please note that if you
         *  hold a key down, you will get repeated key press
         *  interrupts. */
@@ -79,10 +78,26 @@ static void kbd_callback(struct registers_t *regs_UNUSED) {
         *  to the above layout to correspond to 'shift' being
         *  held. If shift is held using the larger lookup table,
         *  you would add 128 to the scancode when you look for it */
-        cprintf("%c", kbd_US[scancode]);
+        char character = kbd_US[scancode];
+        cprintf("%c", character);
+        if (character == '\n') {
+            buf_len = buf_len == -1 ? 0 : buf_len;//FIXME ver arriba
+            buf[buf_len] = '\0';
+//            debug("BUFFER = %s, LEN = %d\n", buf, buf_len);
+            handle_command(buf);
+            buf_len = 0;
+            cprintf(">> ");
+        } else {
+            buf[buf_len++] = character;
+            buf[buf_len] = '\0';
+        }
     }
 }
 
 void kbd_init(void) {
+    cprintf("KEYB INIT\n");
+    memset(buf, 0, 1024);
+//    buf[0] = '\0';
+//    buf_len = 0;
     register_irq_handler(IRQ1, &kbd_callback);
 }

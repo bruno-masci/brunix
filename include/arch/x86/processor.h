@@ -33,7 +33,7 @@ lcr3(uint32_t val)
  *
  * @return The 64 bit time stamp value
  */
-inline static uint64_t rdtsc(void)
+static inline uint64_t rdtsc(void)
 {
     uint64_t x;
     asm volatile ("rdtsc" : "=A" (x));

@@ -8,23 +8,6 @@
 #include <brunix/console.h>
 
 
-
-#define WAIT_SOME_TIME() do { uint64_t start = rdtsc(); \
-			      while(rdtsc() - start < 1000000) ; \
-			} while (0)
-#define LATCH(f)	((CLOCK_TICK_RATE + f/2) / f)
-#define TIMER_FREQ		100	/* in HZ */
-#define CLOCK_TICK_RATE		1193182	/* 8254 chip's internal oscillator frequency */
-
-
-volatile void wait_some_time() {
-    uint64_t start = rdtsc();
-	while (rdtsc() - start < 100000000)
-	    ;
-}
-
-
-
 ////
 //Play sound using built in speaker
 void play_sound(uint32_t nFrequence) {
@@ -52,12 +35,7 @@ void nosound() {
 
 //Make a beep
 void beep() {
-    cprintf("B");
     play_sound(1000);
-//    timer_wait(10);
-//    for(int i=0;i<9999;i++);
     wait_some_time();
-    cprintf("C");
     nosound();
-    //set_PIT_2(old_frequency);
 }

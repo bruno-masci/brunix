@@ -4,7 +4,7 @@
 
 
 
-#include <arch/x86/asm.h>
+#include <arch/x86/segment.h>
 
 
 

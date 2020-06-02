@@ -1,6 +1,6 @@
 #include <arch/x86/gdt.h>
 #include <arch/x86/memlayout.h>     // for VIRT_TO_PHYS
-#include <arch/x86/asm.h>     // for __KERNEL_DS_SELECTOR. FIXME mover a mmu o un lugar mejor
+#include <arch/x86/segment.h>     // for __KERNEL_DS_SELECTOR.
 
 #include <stddef.h>     // for size_t
 #include <stdint.h>     // for uint8_t, uint32_t, int32_t

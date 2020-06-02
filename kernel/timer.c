@@ -8,10 +8,6 @@
 #include <brunix/console.h>
 
 
-
-#define WAIT_SOME_TIME() do { uint64_t start = rdtsc(); \
-			      while(rdtsc() - start < 1000000) ; \
-			} while (0)
 #define LATCH(f)	((CLOCK_TICK_RATE + f/2) / f)
 #define TIMER_FREQ		100	/* in HZ */
 #define CLOCK_TICK_RATE		1193182	/* 8254 chip's internal oscillator frequency */
@@ -24,23 +20,25 @@
 static volatile uint64_t timer_ticks = 0;
 
 
-uint64_t get_clock_tick(void) {
+uint64_t get_clock_ticks(void) {
     return timer_ticks;
 }
 
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-static void timer_callback(struct registers_t *regs_unused) {
-    if ((timer_ticks % 100) == 0) {
-        beep();
-        uint64_t time = timer_ticks;
-        uint32_t higher = time >> 32;
-        uint32_t lower = time & 0xFFFF;
-        cprintf("100x - TIMER interrupt: %d %d\n", higher, lower);
-    }
+__attribute__((optimize("O0"))) void sleep(uint64_t ticks) {
+    uint64_t start = rdtsc();
+    while (rdtsc() - start < ticks)
+        ;
+}
+
+void wait_some_time(void) {
+    sleep(100000000);
+}
+
+static void timer_callback(__attribute__((unused)) struct registers_t *regs) {
     timer_ticks++;
     //TODO switch_task ();
-    //debug("Int. no: %d; Error code: %d; CS: %x; EIP: %x; EFLAGS = %b", regs->int_no, regs->err_code, regs->cs, regs->eip, regs->eflags);
-    //printk ("Tick: %d\n", timer_ticks);
+//    debug("Timer interrupt: 0x%x (error code: %d)\n", regs->int_no, regs->err_code);
+//    debug("CS: 0x%x; EIP: 0x%x; EFLAGS = %b", regs->cs, regs->eip, regs->eflags);
 }
 
 /*
@@ -57,7 +55,7 @@ void timer_init(uint32_t frequency) {
     // Send the command byte.
     outb(0x43, 0x36);
 
-    WAIT_SOME_TIME();
+    wait_some_time();
 
     // Divisor has to be sent byte-wise, so split here into upper/lower bytes.
     uint8_t l = (uint8_t)(divisor & 0xFF);
@@ -66,7 +64,7 @@ void timer_init(uint32_t frequency) {
     // Send the frequency divisor.
     outb(0x40, l);
 
-    WAIT_SOME_TIME();
+    wait_some_time();
 
     outb(0x40, h);
 }

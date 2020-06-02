@@ -39,6 +39,9 @@ extern const char etext[];
 extern const char edata[];
 
 extern void kbd_init(void);
+extern void idt_flush(void);
+
+struct required_multiboot_info brunix_multiboot_info;
 
 void console_init(void);        // from kernel/console.c
 
@@ -48,21 +51,22 @@ PRIVATE int unused_initialized_variable = 5;
 PRIVATE int unused_uninitialized_variable;
 
 
-PRIVATE void verify_loader(uint32_t magic);
-PRIVATE void print_kernel_context_info(multiboot_info_t *mboot_info_ptr);
+PRIVATE void print_kernel_context_info(uint32_t total_memory_kb);
 PRIVATE void print_segment_selectors(void);
 
 
-struct required_multiboot_info brunix_multiboot_info;
 
-
-PRIVATE void dividebyzero(struct registers_t *regs) {
-    cprintf("catched DIVIDE BY ZERO!!");
-    for(;;);//TODO halt!
-}
-
-void copy_multiboot_info(multiboot_info_t *mboot_info_ptr) {
-    strcpy(brunix_multiboot_info.cmdline, (const char *) mboot_info_ptr->cmdline);
+void handle_command(char *cmd) {
+//    cprintf("Received command: %s\n", cmd);
+    if (!strcmp("selectors", cmd)) {
+        print_segment_selectors();
+    } else if (!strcmp("info", cmd)) {
+        print_kernel_context_info(brunix_multiboot_info.mem_upper);
+    } else if (!strcmp("ticks", cmd)) {
+        cprintf("%d\n", get_clock_ticks());
+    } else if (!strcmp("bootargs", cmd)) {
+        cprintf("%s\n", brunix_multiboot_info.cmdline);
+    }
 }
 
 // Boot page table used in kernel/multiboot_entry_point.S.
@@ -84,25 +88,7 @@ page_dir_t newentrypgdir = {
     user_supervisor_flag: true
 //    page_table_base_address
 };
-/*
-struct page_dir_struct {
-    unsigned int present_flag : 1;
-    unsigned int read_write_flag : 1;
-    unsigned int user_supervisor_flag : 1;
-    unsigned int unused_flags : 9;
-    unsigned int page_table_base_address : 20;
-} __attribute__((packed));
-typedef struct page_dir_struct page_dir_t;
 
-struct page_table_struct {
-    unsigned int present_flag : 1;
-    unsigned int read_write_flag : 1;
-    unsigned int user_supervisor_flag : 1;
-    unsigned int unused_flags : 9;
-    unsigned int physical_page_address : 20;
-} __attribute__((packed));
-typedef struct page_table_struct page_table_t;
-*/
 /**
  * This is the main kernel function.
  *
@@ -110,36 +96,35 @@ typedef struct page_table_struct page_table_t;
  * @param magic Number representing the Multiboot bootloader magic number.
  * @see multiboot_entry_point.S file
  */
-int kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic, uint32_t *stack_top) {
-    print_segment_selectors();
-
-    copy_multiboot_info(mboot_info_ptr);
-    cprintf("CMDLINE: %s\n", brunix_multiboot_info.cmdline);
-
+int kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic, uint32_t stack_top) {
     // In case GRUB doesn't do this...
     // Before doing anything else, complete the ELF loading process.
     // Clear the uninitialized global data (BSS) section of our program.
     // This ensures that all static/global variables start out zero.
 //    memset(edata, 0, kernel_end - edata);//TODO check this
 
+//    verify_loader(magic);
+    struct required_multiboot_info brunix_multiboot_info2;
+//    save_multiboot_info(mboot_info_ptr, &brunix_multiboot_info2);
+    save_multiboot_info(mboot_info_ptr, &brunix_multiboot_info);
+
+    cprintf("MEMUPPER BRUNIX: %d\n", brunix_multiboot_info.mem_upper);
+
     cprintf("Starting Brunix...\n\n");
     debug("Kernel bootstrap stack: %p", stack_top);
-
-    verify_loader(magic);
-
+    extern uint32_t total_ram_memory;
+    cprintf("Total RAM memory: %d\n", total_ram_memory);
 
     cprintf("Setting up GDT...\n");
     gdt_init();
-    print_segment_selectors();
 
     console_init();
 
-    cprintf("IRQs...\n");
-    irq_init();
-    timer_init(30); // Initialise timer to 100Hz
-    register_interrupt_handler(0, &dividebyzero);
+    print_kernel_context_info(brunix_multiboot_info.mem_upper);
 
-//    int f=1/0;
+//    cprintf("IRQs...\n");
+    irq_init();
+    timer_init(30); // Initialise timer to 100Hz FIXME
 
     cprintf("Keyboard...");
     kbd_init();
@@ -149,7 +134,8 @@ int kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic, uint32_t *stack_top)
     asm volatile("sti");
 
 
-//    print_kernel_context_info(mboot_info_ptr);
+//    int f=1/0;
+
 
 //    cprintf("entrypgdir address: %p...\n", VIRT_TO_PHYS_WO(entrypgdir));
 //    uint32_t addr = VIRT_TO_PHYS(&entrypgdir2);  //FIXME con esta anda; con _WO no!!
@@ -157,52 +143,35 @@ int kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic, uint32_t *stack_top)
 //    __load_page_directory(addr);
 //    __enable_paging();
 
-//	printk("\nSimulating CPU's exception number 0...\n");
+//	cprintf("\nSimulating CPU's exception number 0...\n");
 //	asm volatile ("int $0x0");
 
-//	printk("\nSimulating a syscall...\n");
+//	cprintf("\nSimulating a syscall...\n");
 //	asm volatile ("int $0x80");
 
 //    cprintf("\nGenerating a page fault...");
 //    uint32_t *ptr = (uint32_t *)0x400000;
 //    uint32_t do_page_fault = *ptr;
 
-    while(1) {
-//        cprintf("K# ");
-    }
-
     //FIXME panic("Forcing kernel panic...");       // panic() DOES NOT return!
-}
-
-PRIVATE void verify_loader(uint32_t magic) {
-    if (magic != MBOOT_LOADER_MAGIC) {
-        panic("Invalid magic number! A Multiboot compatible loader is needed...");
-    }
+    cprintf(">> ");
+    for(;;);
 }
 
 PRIVATE void print_segment_selectors(void) {
     uint32_t cs;
     uint32_t ds;
+    uint32_t es;
     uint32_t ss;
     asm("movl %%cs, %0" : "=r" (cs) ::);
     asm("movl %%ds, %0" : "=r" (ds) ::);
+    asm("movl %%es, %0" : "=r" (es) ::);
     asm("movl %%ss, %0" : "=r" (ss) ::);
-    cprintf("-> Segment Selectors: CS 0x%x, DS 0x%x, SS 0x%x\n", cs, ds, ss);
+    cprintf("CS 0x%x, DS 0x%x, ES 0x%x, SS 0x%x\n", cs, ds, es, ss);
 }
 
-PRIVATE void print_kernel_context_info(multiboot_info_t *mboot_info_ptr) {
-    info("Total RAM installed: %u MB", roundup_binary(mboot_info_ptr->mem_upper) / 1024);
-
-    /* is the command-line defined? */
-#define MULTIBOOT_INFO_CMDLINE                  0x00000004
-
-//    mboot_info_ptr = mboot_info_ptr + 0x80000000;//FIXME
-    //FIXME falla pq esta estructura esta en los 16Mb o por ahi!
-    if (CHECK_FLAG(mboot_info_ptr->flags, 2)) {
-        if (strcmp(((char *) mboot_info_ptr->cmdline), '\0') != 0) {
-            debug("Loading kernel with command line: %s", (char *)mboot_info_ptr->cmdline);
-        }
-    }
+PRIVATE void print_kernel_context_info(uint32_t total_memory_kb) {
+    info("Total RAM installed: %u MiB", roundup_binary(total_memory_kb) / 1024);
 
     debug("Kernel size: %d KB", (kernel_end - kernel_start) / 1024);
 

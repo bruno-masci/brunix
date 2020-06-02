@@ -1,6 +1,6 @@
-//
-// assembler macros to create x86 segments
-//
+#ifndef __SEGMENT_H__
+#define __SEGMENT_H__
+
 
 #define SEG_NULLASM                                             \
         .word 0, 0;                                             \
@@ -21,3 +21,7 @@
 // Offsets in the GDT, respectively
 #define __KERNEL_CS_SELECTOR 0x08
 #define __KERNEL_DS_SELECTOR 0x10
+
+
+
+#endif /* __SEGMENT_H__ */

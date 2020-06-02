@@ -4,7 +4,12 @@
 
 #include <stdint.h>
 
-uint64_t get_clock_tick(void);
+uint64_t get_clock_ticks(void);
+
+void sleep(uint64_t ticks);
+
+void wait_some_time(void);
+
 
 void timer_init(uint32_t frequency);
 

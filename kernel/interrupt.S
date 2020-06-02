@@ -1,4 +1,4 @@
-#include <arch/x86/asm.h>     // for __KERNEL_CS_SELECTOR. FIXME mover a mmu o un lugar mejor
+#include <arch/x86/segment.h>     // for __KERNEL_CS_SELECTOR.
 
 .macro ISR_NOERRCODE arg1  # define a macro, taking one parameter
 	.globl isr\arg1        # %1 accesses the first parameter.

@@ -2,7 +2,7 @@
 #include <arch/x86/idt.h>
 #include <arch/x86/isr.h>
 #include <arch/x86/io.h>
-#include <arch/x86/asm.h>     // for __KERNEL_CS_SELECTOR. FIXME mover a mmu o un lugar mejor
+#include <arch/x86/segment.h>     // for __KERNEL_CS_SELECTOR.
 #include <brunix/console.h>
 #include <stddef.h>
 
@@ -76,7 +76,6 @@ void irq_install(void) {
 }
 
 void pic_acknowledge(uint32_t int_no) {
-//    cprintf("DDDDDDDDDDDDDd");
     if (int_no >= 40) {
         //debug("Resetting slave!", 0);
         outb (PIC2_COMMAND, PIC_EOI); /* Send reset signal to slave */

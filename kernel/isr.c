@@ -5,13 +5,18 @@
 //
 
 #include <arch/x86/isr.h>
-#include <arch/x86/asm.h>     // for __KERNEL_CS_SELECTOR. FIXME mover a mmu o un lugar mejor
+#include <arch/x86/segment.h>     // for __KERNEL_CS_SELECTOR.
 #include <brunix/console.h>
+#include <brunix/kernel.h>
 #include <arch/x86/idt.h>
 
+
+extern void pic_acknowledge(uint32_t int_no); //TODO revisar
+
+
 #pragma GCC diagnostic ignored "-Wpedantic"
-/*static */isr_t interrupt_handlers[256];//TODO revisar = {0, 0, 0, 0, 0, 0};
-//FIXME static
+static isr_t interrupt_handlers[256];//TODO revisar = {0, 0, 0, 0, 0, 0};
+
 
 void register_interrupt_handler(uint8_t n, isr_t handler) {
     debug("Registering interrupt handler number %d, handler %x!", n, handler);
@@ -36,8 +41,14 @@ void isr_handler(struct registers_t *regs) {
     }
     else {
         cprintf("*** Unhandled interrupt: 0x%x (error code: %d)\n", regs->int_no, regs->err_code);
+        debug("CS: 0x%x; EIP: 0x%x; EFLAGS = %b", regs->cs, regs->eip, regs->eflags);
     }
 }
+
+/*PRIVATE*/ void dividebyzero(__attribute__((unused)) struct registers_t *regs) {
+    panic("Processor exception: divide by zero!");
+}
+
 
 void isr_install(void) {
     /* exceptions */
@@ -76,4 +87,6 @@ void isr_install(void) {
 
     /* syscalls */
 //    idt_set_gate(0x80, (uint32_t)isr0x80, 0x08, 0x8E);
+
+    register_interrupt_handler(0, &dividebyzero);
 }

@@ -9,7 +9,7 @@
 #include <arch/x86/multiboot.h>
 #include <arch/x86/mmu.h>
 #include <arch/x86/memlayout.h>
-#include <arch/x86/asm.h>
+#include <arch/x86/segment.h>
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -79,40 +79,12 @@ _start:
     # Save eax (contains the Multiboot magic number used later)
     # __gdt_flush and paging code below will overwrite eax
 #    movl    %eax, %ecx
-    pushl %eax
+    //pushl %eax
 
 
     # Use a bootstrap GDT that makes virtual addresses map directly to physical
     # addresses so that the effective memory map doesn't change during the
     # transition.
-
-    pushl $0
-    pushl $0
-    pushl $0
-    pushl $0
-    pushl $myGdt
-    call VIRT_TO_PHYS_WO(gdt_set_desc)
-    addl $0x14, %esp #IMPORTANT!
-    pushl $0xC
-    pushl $0x9A
-    pushl $0xFFFFFFFF
-    pushl $0
-    pushl $(myGdt + 8)
-    call VIRT_TO_PHYS_WO(gdt_set_desc)
-    addl $0x14, %esp
-    pushl $0xC
-    pushl $0x92
-    pushl $0xFFFFFFFF
-    pushl $0
-    pushl $(myGdt + 16)
-    call VIRT_TO_PHYS_WO(gdt_set_desc)
-    addl $0x14, %esp
-    pushl $gdtdesc
-    call VIRT_TO_PHYS_WO(__gdt_flush)
-    addl $0x4, %esp
-
-
-
 
 
 
@@ -135,7 +107,7 @@ _start:
 */
     # Restore eax (Multiboot magic number)
 #    movl    %ecx, %eax
-    popl %eax
+    //popl %eax
 
 
 push $stack_top
