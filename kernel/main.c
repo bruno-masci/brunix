@@ -66,6 +66,8 @@ void handle_command(char *cmd) {
         cprintf("%d\n", get_clock_ticks());
     } else if (!strcmp("bootargs", cmd)) {
         cprintf("%s\n", brunix_multiboot_info.cmdline);
+    } else if (!strcmp("dani...", cmd)) {
+        cprintf("%s\n", "te amo!! :)");
     }
 }
 

@@ -1,10 +1,12 @@
+#include <arch/x86/processor.h>     // for lidt()
 #include <arch/x86/idt.h>
 #include <arch/x86/mmu.h>
 #include <arch/x86/memlayout.h>     // for VIRT_TO_PHYS
 
 
-extern void __idt_flush(uint32_t);
-
+void __idt_flush(uint32_t idtptr) {
+    lidt(idtptr);
+}
 
 //#pragma GCC diagnostic ignored "-Wpedantic"
 //__attribute__((__aligned__(4)))

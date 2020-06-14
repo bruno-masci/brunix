@@ -1,7 +1,6 @@
 #include <brunix/console.h>
 #include <brunix/defs.h>            // for PRIVATE
 
-//PRIVATE int toggle_echo()
 
 PRIVATE void console_putc(int c);
 

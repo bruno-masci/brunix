@@ -26,6 +26,24 @@ lcr3(uint32_t val)
     asm volatile("movl %0,%%cr3" : : "r" (val));
 }
 
+static inline void
+lgdt(void *p)
+{
+    asm volatile("lgdt (%0)" : : "r" (p));
+}
+
+static inline void
+lidt(void *p)
+{
+    asm volatile("lidt (%0)" : : "r" (p));
+}
+
+static inline void
+ltr(uint16_t sel)
+{
+    asm volatile("ltr %0" : : "r" (sel));
+}
+
 /** @brief Read out time stamp counter
  *
  * The rdtsc asm command puts a 64 bit time stamp value

@@ -1,14 +1,36 @@
+#include <arch/x86/processor.h>     // for lgdt(), ltr()
 #include <arch/x86/gdt.h>
 #include <arch/x86/memlayout.h>     // for VIRT_TO_PHYS
-#include <arch/x86/segment.h>     // for __KERNEL_DS_SELECTOR.
+#include <arch/x86/segment.h>     // for __KERNEL_DS_SELECTOR
+
+#include <brunix/defs.h>        // for PRIVATE
 
 #include <stddef.h>     // for size_t
 #include <stdint.h>     // for uint8_t, uint32_t, int32_t
-#include <stdbool.h>     // for uint8_t, uint32_t, int32_t
+#include <stdbool.h>    // for uint8_t, uint32_t, int32_t
 
-// PROTOTYPES
-extern void __gdt_flush(phys_addr_t);
-extern void __tss_flush();
+
+PRIVATE void __gdt_flush(phys_addr_t val) {
+    lgdt(val);
+
+    // The kernel uses DS, ES and SS.
+    asm volatile("movw %%ax,%%ds" : : "a" (__KERNEL_DS_SELECTOR));
+    asm volatile("movw %%ax,%%es" : : "a" (__KERNEL_DS_SELECTOR));
+    asm volatile("movw %%ax,%%ss" : : "a" (__KERNEL_DS_SELECTOR));
+
+    // The kernel never uses FS or GS, so we leave those set to
+    // zero until we suport user mode. // TODO ...the user data segment.
+    asm volatile("movw %%ax,%%fs" : : "a" (0)); //__USER_DS_SELECTOR | 3
+    asm volatile("movw %%ax,%%gs" : : "a" (0)); //__USER_DS_SELECTOR | 3
+
+    // Load the kernel text segment into CS with a long jump.
+    asm volatile("ljmp %0,$1f\n 1:\n" : : "i" (__KERNEL_CS_SELECTOR));
+}
+
+PRIVATE void __tss_flush(uint16_t selector) {
+    ltr(selector);
+}
+
 
 void gdt_set_desc(phys_addr_t, uint32_t, uint32_t, uint32_t, uint32_t);
 
@@ -32,25 +54,44 @@ static gdt_ptr_t gdt_ptr;
 void gdt_init(void) {
     gdt_ptr.limit = (sizeof(gdt_desc_t) * GDT_ENTRIES) - 1;
     gdt_ptr.base = (uint32_t) (VIRT_TO_PHYS_WO(&gdt));
+
 //    cprintf("base=%x, limit = %d\n", gdt_ptr.base, gdt_ptr.limit);
-//	gdt_ptr.base = &gdt;
 
-	gdt_set_desc((phys_addr_t) &gdt[0], 0, 0, 0, 0);   // Null Segment Descriptor (required)
-	gdt_set_desc((phys_addr_t) &gdt[__KERNEL_CS_SELECTOR >> 3], 0, 0xFFFFFFFF, 0x9A, 0xC);//0x9a, 0xCF);
-    gdt_set_desc((phys_addr_t) &gdt[__KERNEL_DS_SELECTOR >> 3], 0, 0xFFFFFFFF, 0x92, 0xC);//0x92, 0xCF);
+    // Null Segment Descriptor (required)
+	gdt_set_desc(
+	        (phys_addr_t) &gdt[0],
+	        0,
+	        0,
+	        0,
+	        0
+    );
+
+    // Kernel Mode Code Segment Descriptor
+	gdt_set_desc(
+	        (phys_addr_t) &gdt[__KERNEL_CS_SELECTOR >> 3],
+	        0,
+	        GDT_SEGMENT_LIMIT,
+            GDT_FLAG_RING0 | GDT_FLAG_SEGMENT | GDT_FLAG_CODESEG | GDT_FLAG_PRESENT,
+            0xC //GDT_FLAG_4K_GRAN | GDT_FLAG_32_BIT // es 0xC o 0xCF??
+    );
+
+    // Kernel Mode Data Segment Descriptor
+    gdt_set_desc(
+            (phys_addr_t) &gdt[__KERNEL_DS_SELECTOR >> 3],
+            0,
+            GDT_SEGMENT_LIMIT,
+            GDT_FLAG_RING0 | GDT_FLAG_SEGMENT | GDT_FLAG_DATASEG | GDT_FLAG_PRESENT, //            0x92,
+            0xC //FIXME GDT_FLAG_4K_GRAN | GDT_FLAG_32_BIT
+    );
+
 //    gdt_set_desc(&gdt[3], (uint32_t) &default_tss, &default_tss + sizeof(default_tss), 0xE9, 0x0);	/* TSS */
-
 //    memset(&default_tss, 0, sizeof(tss_t));
 
-//    __tss_flush();
+    uint16_t sel = 0x18;
+//    __tss_flush(sel);
 
     /* Flush out the old GDT and install the new changes! */
     __gdt_flush((uint32_t) (VIRT_TO_PHYS_WO(&gdt_ptr)));
-
-//    gdt_set_desc(1, 0, GDT_SEGMENT_LIMIT, GDT_FLAG_RING0 | GDT_FLAG_SEGMENT | GDT_FLAG_CODESEG | GDT_FLAG_PRESENT, GDT_FLAG_4K_GRAN | GDT_FLAG_32_BIT); // Kernel Mode Code Segment Descriptor TODO refactor access flags
-//	gdt_set_desc(2, 0, GDT_SEGMENT_LIMIT, GDT_FLAG_RING0 | GDT_FLAG_SEGMENT | GDT_FLAG_DATASEG | GDT_FLAG_PRESENT, GDT_FLAG_4K_GRAN | GDT_FLAG_32_BIT); // Kernel Mode Data segment Descriptor
-//	gdt_set_desc(3, 0, GDT_SEGMENT_LIMIT, GDT_FLAG_RING3 | GDT_FLAG_SEGMENT | GDT_FLAG_CODESEG | GDT_FLAG_PRESENT, GDT_FLAG_4K_GRAN | GDT_FLAG_32_BIT); // User Mode Code Segment Descriptor
-//	gdt_set_desc(4, 0, GDT_SEGMENT_LIMIT, GDT_FLAG_RING3 | GDT_FLAG_SEGMENT | GDT_FLAG_DATASEG | GDT_FLAG_PRESENT, GDT_FLAG_4K_GRAN | GDT_FLAG_32_BIT); // User Mode Data Segment Descriptor
 
 
 //	default_tss.debug_flag = 0x00;
