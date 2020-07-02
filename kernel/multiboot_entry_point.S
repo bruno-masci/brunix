@@ -7,9 +7,7 @@
 
 
 #include <arch/x86/multiboot.h>
-#include <arch/x86/mmu.h>
 #include <arch/x86/memlayout.h>
-#include <arch/x86/segment.h>
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -36,7 +34,7 @@
 // **************************** SECTION: bss ******************************* //
 ///////////////////////////////////////////////////////////////////////////////
 
-.section .bss #@nobits
+.section .data #@nobits
 .align 16
 
 /* The Multiboot standard doesn't define a value for the stack pointer register
@@ -55,12 +53,11 @@
 .set BOOTSTRAP_STACK_SIZE, 16384  # Size of bootstrap stack in bytes (16 KiB).
 
 .align 4
-#stack_bottom:
-#    .skip BOOTSTRAP_STACK_SIZE, 4
-#stack_top:
-.comm stack_top, BOOTSTRAP_STACK_SIZE
+stack_bottom:
+    .space BOOTSTRAP_STACK_SIZE
+stack_top:
 
-//TODO puedo usar una de estas dos variantes, pero la de arriba sin @nobits, sino arranca desde addr 0 el simbolo.
+#bootstacktop:
 
 
 // this sections has (LA 1 MiB - VA 1 MiB) + multiboot size
@@ -68,51 +65,19 @@
 # Entering kernel, with paging off.
 .globl _start
 _start:
-    cli
-    #movl    $88, %edx
-    #movl    %edx, 0xB8000
-    #movl    %edx, 0xB8001
+    # Remember that interrupts were disabled (by GRUB) >>>
 
+	# Clear the frame pointer register (EBP)
+	# so that once we get into debugging C code,
+	# stack backtraces will be terminated properly.
+	movl $0x0, %ebp			# nuke frame pointer
 
     movl $stack_top, %esp
 
-    # Save eax (contains the Multiboot magic number used later)
-    # __gdt_flush and paging code below will overwrite eax
-#    movl    %eax, %ecx
-    //pushl %eax
 
-
-    # Use a bootstrap GDT that makes virtual addresses map directly to physical
-    # addresses so that the effective memory map doesn't change during the
-    # transition.
-
-
-
-    #call __load_page_directory
-    #call __enable_paging
-
-    # Turn on page size extension for 4Mbyte pages
-/*    movl    %cr4, %eax
-    orl     $MMU_CR4_PSE, %eax
-    movl    %eax, %cr4
-
-    # Set page directory
-    movl    $(VIRT_TO_PHYS_WO(entrypgdir)), %eax
-    movl    %eax, %cr3
-
-    # Turn on paging
-    movl    %cr0, %eax
-    orl     $(MMU_CR0_PG | MMU_CR0_WP), %eax
-    movl    %eax, %cr0
-*/
-    # Restore eax (Multiboot magic number)
-#    movl    %ecx, %eax
-    //popl %eax
-
-
-push $stack_top
-pushl %eax
-pushl %ebx
+pushl $stack_top    # Bootstrap stack top
+pushl %eax          # Multiboot magic number
+pushl %ebx          # Multiboot info
 call kmain
 
 
@@ -173,10 +138,10 @@ call kmain
 	 * (pushed 0 bytes so far) and the alignment is thus preserved and the call
 	 * is well defined.
 	 */
-	pushl %eax      # Tell the OS it was loaded by a Multiboot-compliant
+	#pushl %eax      # Tell the OS it was loaded by a Multiboot-compliant
 	                # bootloader (see include/arch/x86/multiboot.h and
                     # kernel/main.c)
-	pushl %ebx      # Save the 32-bit physical address of the Multiboot
+	#pushl %ebx      # Save the 32-bit physical address of the Multiboot
 	                # information structure provided by the boot loader.
 	#call kmain      # Call kmain (defined in C), passing in the multiboot info,
 	                # magic number and stack pointer (see kernel/main.c) (see
@@ -197,22 +162,3 @@ call kmain
     hlt
     jmp .hang
 .end:
-
-    // Note we don't have an exit() function here; there is no processes nor
-    // system calls. Instead we do:
-
-
-
-# Bootstrap GDT
-#.p2align 2                                # force 4 byte alignment
-myGdt:
-    .skip 24    # = 8 * 3
-
-#gdt:
-#    SEG_NULLASM                             # null seg
-#    SEG_ASM(STA_X | STA_R, 0x0, 0xffffffff)   # code seg
-#    SEG_ASM(STA_W, 0x0, 0xffffffff)         # data seg
-
-gdtdesc:
-    .word   (gdtdesc - myGdt - 1)             # sizeof(gdt) - 1
-    .long   myGdt                             # address gdt

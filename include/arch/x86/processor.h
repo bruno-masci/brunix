@@ -20,6 +20,14 @@ do {                                \
 } while (1)
 
 
+static inline uint32_t
+read_ebp(void)
+{
+    uint32_t ebp;
+    asm volatile("movl %%ebp,%0" : "=r" (ebp));
+    return ebp;
+}
+
 static inline void
 lcr3(uint32_t val)
 {

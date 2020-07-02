@@ -1,3 +1,5 @@
+// pp IS FROM C PrePROCESSOR
+
 /* Simple linker script for the kernel.
  * See the GNU ld manual to learn the syntax.
  */
@@ -38,7 +40,24 @@ SECTIONS {
         *(.rodata .rodata.* .gnu.linkonce.r.*)
     }
 
-	/* Conventionally, Unix linkers provide pseudo-symbols
+
+    /* Include debugging information in kernel memory */
+    .stab : {
+        PROVIDE(__STAB_BEGIN__ = .);
+        *(.stab);
+        PROVIDE(__STAB_END__ = .);
+        BYTE(0)     /* Force the linker to allocate space for this section */
+    }
+
+    .stabstr : {
+        PROVIDE(__STABSTR_BEGIN__ = .);
+        *(.stabstr);
+        PROVIDE(__STABSTR_END__ = .);
+        BYTE(0)     /* Force the linker to allocate space for this section */
+    }
+
+
+/* Conventionally, Unix linkers provide pseudo-symbols
 	 * etext, edata, and end, at the end of the text, data, and bss.
 	 * For the kernel mapping, we need the address at the beginning
 	 * of the data section, but that's not one of the conventional

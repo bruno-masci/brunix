@@ -16,12 +16,13 @@ GDBPORT	:= 26000
 CROSS_COMPILER_PATH = /home/bmasci/opt/cross/bin
 AS =      $(CROSS_COMPILER_PATH)/i686-elf-gcc
 CC =      $(CROSS_COMPILER_PATH)/i686-elf-gcc
-OBJCOPY = $(CROSS_COMPILER_PATH)/i686-elf-objcopy
+CROSS_OBJCOPY = $(CROSS_COMPILER_PATH)/i686-elf-objcopy
 NM =      $(CROSS_COMPILER_PATH)/i686-elf-nm
 
 ## Compiler flags
 # Do not optimise for now with "-O1" and so on, so we can do some validations.
-CFLAGS = -ffreestanding -c -g -std=gnu99 -Wall -Wextra -pedantic
+CFLAGS = -ffreestanding -c -g -std=gnu99 -Wall -Wextra -pedantic -Wshadow -Wpointer-arith -Wcast-align -gstabs\
+	-fno-tree-ch -Wwrite-strings -Wredundant-decls -Wnested-externs -Winline -fno-omit-frame-pointer # -Wconversion -Wstrict-prototypes -Wmissing-declarations -Wmissing-prototypes
 
 # Add -fno-stack-protector if the option exists.
 CFLAGS += $(shell $(CC) -fno-stack-protector -E -x c /dev/null >/dev/null 2>&1 && echo -fno-stack-protector)
@@ -57,9 +58,11 @@ $(OUTPUT_NAME).elf:
 	@echo Generating ISO image file...
 	$(V)grub-mkrescue -d misc/grub/i386-pc -o os.iso iso/ 2>/dev/null
 	objdump -D -S -l brunix.elf > brunix.asm
+	@$(CROSS_OBJCOPY) --only-keep-debug $(OUTPUT_NAME).elf $(OUTPUT_NAME).sym
 
-#@$(CROSS_OBJCOPY) --only-keep-debug $(OUTPUT_NAME).elf $(OUTPUT_NAME).sym
 #@$(CROSS_OBJCOPY) --strip-debug $(OUTPUT_NAME).elf $(OUTPUT_NAME)-nosym.elf
+
+
 
 linker.ld:
 	@echo Preprocessing linker script
@@ -75,7 +78,7 @@ linker.ld:
 pre-qemu: .gdbinit
 
 qemu: compile pre-qemu
-	$(QEMU) $(QEMU_OPTS) -soundhw pcspk
+	$(QEMU) $(QEMU_OPTS)
 
 qemu-nox: $(IMAGES) pre-qemu
 	@echo "***"

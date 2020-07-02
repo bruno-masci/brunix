@@ -16,16 +16,9 @@
 #include <brunix/kernel.h>          // for panic()
 
 
-uint32_t total_ram_memory;
-
-
 void save_multiboot_info(multiboot_info_t *mboot_info_ptr, struct required_multiboot_info *brunix_multiboot_info_ptr) {
-    total_ram_memory = mboot_info_ptr->mem_upper;
-    cprintf("MBOOT RAM memory: %d\n", total_ram_memory);
-//    return;
 
-    debug("\nmboot mem %u, flags %b\n", mboot_info_ptr->mem_upper, mboot_info_ptr->flags);
-//    debug("\nmboot str %s, mem %u, flags %b\n", mboot_info_ptr->cmdline, mboot_info_ptr->mem_upper, mboot_info_ptr->flags);
+    debug("ORIG mboot str %s, mem %u, flags %b\n", mboot_info_ptr->cmdline, mboot_info_ptr->mem_upper, mboot_info_ptr->flags);
 
     /* is the command-line defined? */
 //#define MULTIBOOT_INFO_CMDLINE                  0x00000004
@@ -41,8 +34,7 @@ void save_multiboot_info(multiboot_info_t *mboot_info_ptr, struct required_multi
     brunix_multiboot_info_ptr->mem_upper = mboot_info_ptr->mem_upper;
     brunix_multiboot_info_ptr->flags = mboot_info_ptr->flags;
 
-
-    cprintf("\n\n\n\n\n\n\n\n\n\n\nmboot str %s, mem %u, flags %b\n", brunix_multiboot_info_ptr->cmdline, brunix_multiboot_info_ptr->mem_upper, brunix_multiboot_info_ptr->flags);
+//    cprintf("mboot str %s, mem %u, flags %b\n", brunix_multiboot_info_ptr->cmdline, brunix_multiboot_info_ptr->mem_upper, brunix_multiboot_info_ptr->flags);
 }
 
 void verify_loader(uint32_t magic) {

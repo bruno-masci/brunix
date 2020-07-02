@@ -4,10 +4,9 @@
 // used in common by printf, sprintf, fprintf, etc.
 
 
+#include <stdint.h> // for uintptr_t
 #include <stdarg.h>
 #include <stddef.h> // for NULL
-
-#include <arch/x86/types.h>
 
 #include <brunix/string.h>
 #include <brunix/defs.h>            // for PRIVATE
@@ -181,11 +180,9 @@ void vprintfmt(void (*putch)(int, void *), void *putdat, const char *fmt, va_lis
 
                 // (unsigned) octal
             case 'o':
-                // Replace this with your code.
-                putch('X', putdat);
-                putch('X', putdat);
-                putch('X', putdat);
-                break;
+                num = getuint(&ap, lflag);
+                base = 8;
+                goto number;
 
                 // pointer
             case 'p':

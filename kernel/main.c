@@ -12,17 +12,10 @@
 #include <brunix/string.h>
 #include <brunix/console.h>
 #include <brunix/kernel.h>
+#include <brunix/kdebug.h>
 
 #include <arch/x86/multiboot.h>     // for multiboot_info_t
 #include <arch/x86/memlayout.h>     // for PHYS_TO_VIRT
-#include <arch/x86/mmu.h>
-#include <arch/x86/types.h>
-#include <arch/x86/gdt.h>   //TODO
-#include <arch/x86/irq.h>   //TODO
-#include <arch/x86/timer.h>   //TODO
-#include <arch/x86/paging.h>   //TODO
-
-#include "kalloc.h"
 
 
 /*
@@ -38,10 +31,7 @@ extern const char kernel_end[];
 extern const char etext[];
 extern const char edata[];
 
-extern void kbd_init(void);
-extern void idt_flush(void);
-
-struct required_multiboot_info brunix_multiboot_info;
+//struct required_multiboot_info brunix_multiboot_info;
 
 void console_init(void);        // from kernel/console.c
 
@@ -54,42 +44,11 @@ PRIVATE int unused_uninitialized_variable;
 PRIVATE void print_kernel_context_info(uint32_t total_memory_kb);
 PRIVATE void print_segment_selectors(void);
 
-
-
-void handle_command(char *cmd) {
-//    cprintf("Received command: %s\n", cmd);
-    if (!strcmp("selectors", cmd)) {
-        print_segment_selectors();
-    } else if (!strcmp("info", cmd)) {
-        print_kernel_context_info(brunix_multiboot_info.mem_upper);
-    } else if (!strcmp("ticks", cmd)) {
-        cprintf("%d\n", get_clock_ticks());
-    } else if (!strcmp("bootargs", cmd)) {
-        cprintf("%s\n", brunix_multiboot_info.cmdline);
-    } else if (!strcmp("dani...", cmd)) {
-        cprintf("%s\n", "te amo!! :)");
-    }
+void recur1(int i) {
+    if (i==0) return;
+    stack_backtrace();
+    recur1(--i);
 }
-
-// Boot page table used in kernel/multiboot_entry_point.S.
-// Page directories (and page tables), must start on a page boundary,
-// hence the "__aligned__" attribute.
-// Use PTE_PS in page directory entry to enable 4Mbyte pages.
-__attribute__((__aligned__(PAGE_SIZE)))
-pde_t entrypgdir[NPDENTRIES] = {
-        // Map VA's [0, 4MB) to PA's [0, 4MB)
-        [0] = (0) | PTE_P | PTE_W | PTE_PS,
-        // Map VA's [KERNBASE, KERNBASE+4MB) to PA's [0, 4MB)
-//        [KERN_BASE>>PDXSHIFT] = (0) | PTE_P | PTE_W | PTE_PS,
-};
-
-#pragma GCC diagnostic ignored "-Wpedantic" //TODO remove
-page_dir_t newentrypgdir = {
-    present_flag: true,
-    read_write_flag: true,
-    user_supervisor_flag: true
-//    page_table_base_address
-};
 
 /**
  * This is the main kernel function.
@@ -99,65 +58,35 @@ page_dir_t newentrypgdir = {
  * @see multiboot_entry_point.S file
  */
 int kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic, uint32_t stack_top) {
-    // In case GRUB doesn't do this...
-    // Before doing anything else, complete the ELF loading process.
-    // Clear the uninitialized global data (BSS) section of our program.
-    // This ensures that all static/global variables start out zero.
-//    memset(edata, 0, kernel_end - edata);//TODO check this
+    stack_backtrace();
+//    cprintf("EBP %x\n", read_ebp());
+//    cprintf("ADDR %x\n", &stack_backtrace);
 
 //    verify_loader(magic);
-    struct required_multiboot_info brunix_multiboot_info2;
-//    save_multiboot_info(mboot_info_ptr, &brunix_multiboot_info2);
-    save_multiboot_info(mboot_info_ptr, &brunix_multiboot_info);
 
-    cprintf("MEMUPPER BRUNIX: %d\n", brunix_multiboot_info.mem_upper);
+//    print_segment_selectors();
+
+//    char a[264] = "\0";
+//    struct required_multiboot_info brunix_multiboot_info2;
+//    save_multiboot_info(mboot_info_ptr, &brunix_multiboot_info);
+
+//    cprintf("Total RAM memory: %d\n", brunix_multiboot_info.mem_upper);
 
     cprintf("Starting Brunix...\n\n");
     debug("Kernel bootstrap stack: %p", stack_top);
-    extern uint32_t total_ram_memory;
-    cprintf("Total RAM memory: %d\n", total_ram_memory);
-
-    cprintf("Setting up GDT...\n");
-    gdt_init();
 
     console_init();
 
-    print_kernel_context_info(brunix_multiboot_info.mem_upper);
+//    stack_backtrace();
+    recur1(3);
 
-//    cprintf("IRQs...\n");
-    irq_init();
-    timer_init(30); // Initialise timer to 100Hz FIXME
+    cprintf("6828 decimal is %o octal!\n", 6828);
 
-    cprintf("Keyboard...");
-    kbd_init();
-    idt_flush();
+    //    cprintf("mem upppperrrrrrrrrrrrrrrrrrrr: %d\n", brunix_multiboot_info.mem_upper);
+//    print_kernel_context_info(brunix_multiboot_info.mem_upper);
+    print_kernel_context_info(10);
 
-    debug_noargs("Enabling interrupts...");
-    asm volatile("sti");
-
-
-//    int f=1/0;
-
-
-//    cprintf("entrypgdir address: %p...\n", VIRT_TO_PHYS_WO(entrypgdir));
-//    uint32_t addr = VIRT_TO_PHYS(&entrypgdir2);  //FIXME con esta anda; con _WO no!!
-//    cprintf("addr address: %p...\n", addr);
-//    __load_page_directory(addr);
-//    __enable_paging();
-
-//	cprintf("\nSimulating CPU's exception number 0...\n");
-//	asm volatile ("int $0x0");
-
-//	cprintf("\nSimulating a syscall...\n");
-//	asm volatile ("int $0x80");
-
-//    cprintf("\nGenerating a page fault...");
-//    uint32_t *ptr = (uint32_t *)0x400000;
-//    uint32_t do_page_fault = *ptr;
-
-    //FIXME panic("Forcing kernel panic...");       // panic() DOES NOT return!
-    cprintf(">> ");
-    for(;;);
+    panic("Forcing kernel panic...");       // panic() DOES NOT return!
 }
 
 PRIVATE void print_segment_selectors(void) {
@@ -179,13 +108,13 @@ PRIVATE void print_kernel_context_info(uint32_t total_memory_kb) {
 
     cprintf("\nSpecial kernel symbols:\n");
     cprintf("  _start  %08x (phys)\n", _start);
-    cprintf("  text    %08x (virt)  %08x (phys)\n", kernel_start, VIRT_TO_PHYS_WO(kernel_start));
-    cprintf("  etext   %08x (virt)  %08x (phys)\n", etext, VIRT_TO_PHYS_WO(etext));
-    cprintf("  edata   %08x (virt)  %08x (phys)\n", edata, VIRT_TO_PHYS(edata));
+    cprintf("  text    %08x (virt)  %08x (phys)\n", kernel_start, kernel_start);
+    cprintf("  etext   %08x (virt)  %08x (phys)\n", etext, etext);
+    cprintf("  edata   %08x (virt)  %08x (phys)\n", edata, edata);
     cprintf("  end     %08x (virt)  %08x (phys)\n\n", kernel_end, kernel_end);
 
-    cprintf("\nSome symbol addresses by section:\n");
-    cprintf("  kmain()\t\t\t-> %p (text)\n", &kmain);
-    cprintf("  unused_initialized_variable\t-> %p (data)\n", &unused_initialized_variable);
-    cprintf("  unused_uninitialized_variable\t-> %p (bss)\n", &unused_uninitialized_variable);
+//    cprintf("\nSome symbol addresses by section:\n");
+//    cprintf("  kmain()\t\t\t-> %p (text)\n", &kmain);
+//    cprintf("  unused_initialized_variable\t-> %p (data)\n", &unused_initialized_variable);
+//    cprintf("  unused_uninitialized_variable\t-> %p (bss)\n", &unused_uninitialized_variable);
 }
