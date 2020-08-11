@@ -2,7 +2,7 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
-      <config projectName="sos" targetName="sos_kernel" />
+      <config projectName="brunix" targetName="brunix.elf" />
     </generated>
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
@@ -12,18 +12,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a767619-4670-46b4-915a-b5341b6c1a1b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/brunix.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/brunix.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile.inc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/Makefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/memory.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libkern/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/env.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multiboot-checker.sh" beforeDir="false" afterPath="$PROJECT_DIR$/multiboot-checker.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +49,7 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="sos_kernel" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="sos" TARGET_NAME="sos_kernel" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="sos" RUN_TARGET_NAME="sos_kernel">
+    <configuration name="brunix.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="brunix.elf" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="brunix" RUN_TARGET_NAME="brunix.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -77,7 +69,7 @@
       <workItem from="1595975650061" duration="6229000" />
       <workItem from="1596301761827" duration="5509000" />
       <workItem from="1597063277169" duration="11493000" />
-      <workItem from="1597104521571" duration="599000" />
+      <workItem from="1597104521571" duration="6183000" />
     </task>
     <servers />
   </component>
@@ -89,10 +81,14 @@
       <screen x="0" y="27" width="1920" height="1020" />
     </state>
     <state x="669" y="336" width="676" height="416" key="#com.intellij.fileTypes.FileTypeChooser/0.27.1920.1020@0.27.1920.1020" timestamp="1595978585098" />
-    <state x="50" y="27" width="1621" height="999" key="CommitChangelistDialog2" timestamp="1596303674591">
+    <state x="50" y="27" width="1621" height="999" key="CommitChangelistDialog2" timestamp="1597113907752">
       <screen x="0" y="27" width="1920" height="1020" />
     </state>
-    <state x="50" y="27" width="1621" height="999" key="CommitChangelistDialog2/0.27.1920.1020@0.27.1920.1020" timestamp="1596303674591" />
+    <state x="50" y="27" width="1621" height="999" key="CommitChangelistDialog2/0.27.1920.1020@0.27.1920.1020" timestamp="1597113907752" />
+    <state x="100" y="127" width="1720" height="820" key="DiffContextDialog" timestamp="1597114130656">
+      <screen x="0" y="27" width="1920" height="1020" />
+    </state>
+    <state x="100" y="127" width="1720" height="820" key="DiffContextDialog/0.27.1920.1020@0.27.1920.1020" timestamp="1597114130656" />
     <state width="1872" height="264" key="GridCell.Tab.0.bottom" timestamp="1596315827333">
       <screen x="0" y="27" width="1920" height="1020" />
     </state>
@@ -113,17 +109,17 @@
       <screen x="0" y="27" width="1920" height="1020" />
     </state>
     <state x="635" y="187" width="440" height="685" key="RollbackChangesDialog/0.27.1920.1020@0.27.1920.1020" timestamp="1595722117926" />
-    <state x="100" y="127" width="1720" height="820" key="ShowDiffWithBranchDialog" timestamp="1595976820128">
+    <state x="100" y="127" width="1720" height="820" key="ShowDiffWithBranchDialog" timestamp="1597114130656">
       <screen x="0" y="27" width="1920" height="1020" />
     </state>
-    <state x="100" y="127" width="1720" height="820" key="ShowDiffWithBranchDialog/0.27.1920.1020@0.27.1920.1020" timestamp="1595976820128" />
+    <state x="100" y="127" width="1720" height="820" key="ShowDiffWithBranchDialog/0.27.1920.1020@0.27.1920.1020" timestamp="1597114130656" />
     <state x="156" y="114" width="1544" height="846" key="find.popup" timestamp="1597081431266">
       <screen x="0" y="27" width="1920" height="1020" />
     </state>
     <state x="156" y="114" width="1544" height="846" key="find.popup/0.27.1920.1020@0.27.1920.1020" timestamp="1597081431266" />
-    <state x="623" y="251" width="672" height="678" key="search.everywhere.popup" timestamp="1597064534213">
+    <state x="623" y="251" width="672" height="678" key="search.everywhere.popup" timestamp="1597111070104">
       <screen x="0" y="27" width="1920" height="1020" />
     </state>
-    <state x="623" y="251" width="672" height="678" key="search.everywhere.popup/0.27.1920.1020@0.27.1920.1020" timestamp="1597064534213" />
+    <state x="623" y="251" width="672" height="678" key="search.everywhere.popup/0.27.1920.1020@0.27.1920.1020" timestamp="1597111070104" />
   </component>
 </project>
