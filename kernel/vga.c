@@ -21,11 +21,11 @@ PRIVATE volatile uint16_t *video_memory = (volatile uint16_t *)VIDEO_MEM_ADDR;
 uint8_t cursor_x = 1;
 uint8_t cursor_y = 1;
 
-uint8_t backColour = COLOR_DARK_GREY;
-uint8_t foreColour = COLOR_WHITE;
+uint8_t backColour = COLOR_BLACK;
+uint8_t foreColour = COLOR_LIGHT_GREY;
 
 
-void vga__set_foreground_color(uint8_t colour) {
+void vga_set_foreground_color(uint8_t colour) {
 	foreColour = colour;
 }
 
@@ -41,7 +41,7 @@ void vga__set_foreground_color(uint8_t colour) {
 
 
 // Updates the hardware cursor.
-PRIVATE void move_cursor() {
+PRIVATE void move_cursor(void) {
     uint16_t cursorLocation = cursor_y * 80 + cursor_x;		// The screen is 80 characters wide...
     outb(FB_COMMAND_PORT, FB_HIGH_BYTE_COMMAND);			// Tell the VGA board we are setting the high cursor byte.
     outb(FB_DATA_PORT, cursorLocation >> 8);				// Send the high cursor byte.
@@ -50,7 +50,7 @@ PRIVATE void move_cursor() {
 }
 
 // Scrolls the text on the screen up by one line.
-PRIVATE void scroll() {
+PRIVATE void scroll(void) {
     // Get a space character with the default colour attributes.
     uint8_t attributeByte = (0 /*black*/ << 4) | (15 /*white*/ & 0x0F);
     uint16_t blank = 0x20 /* space */ | (attributeByte << 8);
@@ -74,12 +74,12 @@ PRIVATE void scroll() {
     }
 }
 
-void vga__init() {
-    info_noargs("Initializing screen...");
+void vga_init() {
+    vga_clear();
 }
 
 // Writes a single character out to the screen.
-void vga__putc(char c) {
+void vga_putc(char c) {
     // The background colour is black (0), the foreground is white (15).
 
     // The attribute byte is made up of two nibbles - the lower being the
@@ -133,7 +133,7 @@ void vga__putc(char c) {
 
 
 // Clears the screen, by copying lots of spaces to the framebuffer.
-void vga__clear() {
+void vga_clear() {
     // Make an attribute byte for the default colours
     uint8_t attributeByte = (0 /*black*/ << 4) | (15 /*white*/ & 0x0F);
     uint16_t blank = 0x20 /* space */ | (attributeByte << 8);

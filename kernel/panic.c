@@ -8,22 +8,15 @@
 #include <arch/x86/processor.h>
 #include <brunix/console.h>
 
-void panic(const char *fmt, ...) {
+void __panic(const char *file_name, int file_line, const char *message) {
     set_fg_color(COLOR_RED);
-
-    va_list args;
-    va_start(args, fmt);
-    cprintf("Kernel panic (%s:%d): ", __FILE__, __LINE__);
-    cprintf(fmt, args);
-    cprintf("\nSystem halted!");
-    va_end(args);
-
-    //	if (current == task[0])
-//		cprintf("In swapper task - not syncing\n\r");
-//	else
-//		sys_sync();
-
-//    while (true);
+    cprintf("\nKernel panic: ");
+    set_fg_color(COLOR_LIGHT_GREY);
+    cprintf(message);
+    set_fg_color(COLOR_RED);
+    cprintf("\nat [%s:%d]", file_name, file_line);
+    set_fg_color(COLOR_LIGHT_CYAN);
+    cprintf("\n\nSystem halted!\n\n");
 
     cli();
     halt();

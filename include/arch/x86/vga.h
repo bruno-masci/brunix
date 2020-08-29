@@ -7,7 +7,8 @@
 #define __ARCH_VGA_H__
 
 
-#include <stdint.h>     // for uint8_t
+#include <stdint.h>         // for uint8_t
+#include <brunix/defs.h>    // for INIT
 
 
 #define COLOR_BLACK 			0x00
@@ -28,20 +29,20 @@
 #define COLOR_WHITE 			0x0F
 
 
-#define VIDEO_MEM_ADDR 0xB8000 // the video memory address
+#define VIDEO_MEM_ADDR 0xB8000 // the video start memory address
 
 
 // Initializes VGA output and clears the screen
-void vga__init();
+INIT void vga_init(void);
 
 // Sets text color
-void vga__set_foreground_color(uint8_t colour);
+void vga_set_foreground_color(uint8_t colour);
 
 // Clears the screen
-void vga__clear();
+void vga_clear(void);
 
 // Prints a character
-void vga__putc(char c);
+void vga_putc(char c);
 
 
 #endif /* __ARCH_VGA_H__ */

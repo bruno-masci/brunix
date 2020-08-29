@@ -7,10 +7,10 @@
 #define __KERNEL_H__
 
 
-void panic(const char *fmt, ...) __attribute__ ((noreturn));
+#define panic(message) __panic(__FILE__, __LINE__, message)
 
-//TODO no se usa aun
-#define ASSERT(c) if(!(c)) { panic("%s:%d: assert %s failed", __FILE__, __LINE__, #c); }
+
+void __panic(const char *file_name, int file_number, const char *message) __attribute__ ((noreturn));
 
 
 #endif /* __KERNEL_H__ */

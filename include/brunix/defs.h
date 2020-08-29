@@ -7,7 +7,9 @@
 #define __DEFS_H__
 
 
+#define INIT
 #define PRIVATE static
+
 
 /* Extracted from https://graphics.stanford.edu/~seander/bithacks.html#RoundUpPowerOf2 */
 static inline long roundup_binary(long n) {
@@ -19,15 +21,6 @@ static inline long roundup_binary(long n) {
     n |= n >> 16;
     return ++n;
 }
-
-/* Check if the bit BIT in FLAGS is set. */
-#define CHECK_FLAG(flags,bit)   ((flags) & (1 << (bit)))
-
-#define MB_TO_BYTES(val) (val * 1024 * 1024)
-
-// FIXME: borrar. solo lo usa vm.c
-// number of elements in fixed-size array
-#define NELEM(x) (sizeof(x)/sizeof((x)[0]))
 
 
 #endif /* !__DEFS_H__ */

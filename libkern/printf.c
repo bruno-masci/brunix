@@ -8,12 +8,16 @@
 #include <brunix/console.h>     // for vprintfmt() and cputchar()
 #include <brunix/defs.h>        // for PRIVATE
 
+
+PRIVATE int vcprintf(const char *fmt, va_list ap);
+
+
 PRIVATE void putch(int ch, int *cnt) {
 	cputchar(ch);
     (*cnt)++;
 }
 
-int vcprintf(const char *fmt, va_list ap) {
+PRIVATE int vcprintf(const char *fmt, va_list ap) {
 	int cnt = 0;
 
 	vprintfmt((void (*) (int, void *))putch, &cnt, fmt, ap);
