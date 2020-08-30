@@ -18,10 +18,8 @@ static inline void cli(void) {
 }
 
 // Halts the CPU, and keeps doing it in case some NMI event is generated
-static inline void __attribute__ ((noreturn)) halt(void) {
-    do {
-        asm ("hlt");
-    } while (true);
+static inline void halt(void) {
+    asm ("hlt");
 }
 
 

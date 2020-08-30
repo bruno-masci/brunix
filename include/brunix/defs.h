@@ -8,6 +8,8 @@
 
 
 #define INIT
+#define NORETURN
+#define EXPORT
 #define PRIVATE static
 
 

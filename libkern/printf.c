@@ -5,11 +5,11 @@
 
 #include <stdarg.h>
 
-#include <brunix/console.h>     // for vprintfmt() and cputchar()
-#include <brunix/defs.h>        // for PRIVATE
+#include <brunix/console.h>     // for vprintfmt(), cputchar()
+#include <brunix/defs.h>        // for PRIVATE, EXPORT
 
 
-PRIVATE int vcprintf(const char *fmt, va_list ap);
+EXPORT int vcprintf(const char *fmt, va_list ap);
 
 
 PRIVATE void putch(int ch, int *cnt) {
@@ -17,20 +17,9 @@ PRIVATE void putch(int ch, int *cnt) {
     (*cnt)++;
 }
 
-PRIVATE int vcprintf(const char *fmt, va_list ap) {
+int vcprintf(const char *fmt, va_list ap) {
 	int cnt = 0;
 
 	vprintfmt((void (*) (int, void *))putch, &cnt, fmt, ap);
-	return cnt;
-}
-
-int cprintf(const char *fmt, ...) {
-	va_list ap;
-	int cnt;
-
-	va_start(ap, fmt);
-	cnt = vcprintf(fmt, ap);
-	va_end(ap);
-
 	return cnt;
 }

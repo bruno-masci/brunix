@@ -53,35 +53,36 @@ PRIVATE void print_kernel_context_info(uint32_t total_memory_kb, uint32_t stack_
 int kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic, uint32_t stack_top) {
     video_init();
 
-    cprintf("Starting Brunix...\n\n");
+    printk("Starting Brunix...\n\n");
 
     verify_loader(magic);
 
     save_multiboot_info(mboot_info_ptr, &brunix_multiboot_info);
 
     if (strnlen(brunix_multiboot_info.cmdline, 43) > 0) {
-        cprintf("Invoking kernel with args: %s\n", brunix_multiboot_info.cmdline);
+        printk("Invoking kernel with args: %s\n", brunix_multiboot_info.cmdline);
     }
 
     print_kernel_context_info(brunix_multiboot_info.mem_upper, stack_top);
 
     panic("Forcing kernel panic...");       // panic() DOES NOT return!
+    return 0;
 }
 
 PRIVATE void print_kernel_context_info(uint32_t total_memory_kb, uint32_t stack_top) {
-    cprintf("RAM memory: %u MiB, kernel size: %d KiB\n", roundup_binary(total_memory_kb) / 1024, (kernel_end - kernel_start) / 1024);
+    printk("RAM memory: %u MiB, kernel size: %d KiB\n", roundup_binary(total_memory_kb) / 1024, (kernel_end - kernel_start) / 1024);
 
-    cprintf("Kernel bootstrap stack: %p\n", stack_top);
+    printk("Kernel bootstrap stack: %p\n", stack_top);
 
-    cprintf("\nSpecial kernel symbols:\n");
-    cprintf("  _start  %08x (phys)\n", _start);
-    cprintf("  text    %08x (virt)  %08x (phys)\n", kernel_start, kernel_start);
-    cprintf("  etext   %08x (virt)  %08x (phys)\n", etext, etext);
-    cprintf("  edata   %08x (virt)  %08x (phys)\n", edata, edata);
-    cprintf("  end     %08x (virt)  %08x (phys)\n", kernel_end, kernel_end);
+    printk("\nSpecial kernel symbols:\n");
+    printk("  _start  %08x (phys)\n", _start);
+    printk("  text    %08x (virt)  %08x (phys)\n", kernel_start, kernel_start);
+    printk("  etext   %08x (virt)  %08x (phys)\n", etext, etext);
+    printk("  edata   %08x (virt)  %08x (phys)\n", edata, edata);
+    printk("  end     %08x (virt)  %08x (phys)\n", kernel_end, kernel_end);
 
-    cprintf("\nSome symbol addresses by section:\n");
-    cprintf("  kmain()\t\t\t-> %p (text)\n", &kmain);
-    cprintf("  unused_initialized_variable\t-> %p (data)\n", &unused_initialized_variable);
-    cprintf("  unused_uninitialized_variable\t-> %p (bss)\n", &unused_uninitialized_variable);
+    printk("\nSome symbol addresses by section:\n");
+    printk("  kmain()\t\t\t-> %p (text)\n", &kmain);
+    printk("  unused_initialized_variable\t-> %p (data)\n", &unused_initialized_variable);
+    printk("  unused_uninitialized_variable\t-> %p (bss)\n", &unused_uninitialized_variable);
 }

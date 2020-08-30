@@ -142,7 +142,7 @@ detalles sobre GCC/GAS:
 - Agregar lo de #ifndef __ASSEMBLER__ para headers compartidos con assembler!
 - __attribute__((packed))
 - __attribute__ ((noreturn))
-
+        nombrar que no uso __atrib noreturn para que el codigo no cambie y poder debuggear
 
 #include <stddef.h>     // for size_t
 #include <stdint.h> // for uint8_t, uint32_t, uintptr_t, etc.

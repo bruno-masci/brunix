@@ -4,20 +4,23 @@
 
 #include <brunix/kernel.h>
 //#include <linux/sched.h>
-#include <stdarg.h>
 #include <arch/x86/processor.h>
 #include <brunix/console.h>
 
-void __panic(const char *file_name, int file_line, const char *message) {
+void _panic(const char *file_name, int file_line, const char *message) {
     set_fg_color(COLOR_RED);
-    cprintf("\nKernel panic: ");
+    printk("\nKernel panic: ");
     set_fg_color(COLOR_LIGHT_GREY);
-    cprintf(message);
+    printk(message);
     set_fg_color(COLOR_RED);
-    cprintf("\nat [%s:%d]", file_name, file_line);
+    printk("\nat [%s:%d]", file_name, file_line);
     set_fg_color(COLOR_LIGHT_CYAN);
-    cprintf("\n\nSystem halted!\n\n");
+    printk("\n\nSystem halted!\n\n");
 
     cli();
-    halt();
+
+    // Halts the CPU, and keeps doing it in case some NMI event is generated
+    do {
+        halt();
+    } while (true);
 }

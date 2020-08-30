@@ -7,10 +7,13 @@
 #define __KERNEL_H__
 
 
-#define panic(message) __panic(__FILE__, __LINE__, message)
+#include <brunix/defs.h>            // for NORETURN
 
 
-void __panic(const char *file_name, int file_number, const char *message) __attribute__ ((noreturn));
+int printk(const char *fmt, ...);
+
+#define panic(message) _panic(__FILE__, __LINE__, message)
+NORETURN void _panic(const char *file_name, int file_number, const char *message);
 
 
 #endif /* __KERNEL_H__ */

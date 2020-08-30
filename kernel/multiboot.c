@@ -11,7 +11,6 @@
 #include <arch/x86/multiboot.h>     // for multiboot_info_t, struct required_multiboot_info, MBOOT_LOADER_MAGIC
 
 #include <brunix/string.h>          // for strcpy()
-#include <brunix/console.h>         // for debug(), cprintf()
 #include <brunix/kernel.h>          // for panic()
 
 

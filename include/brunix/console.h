@@ -12,14 +12,11 @@
 #include <arch/x86/vga.h>
 
 
-int cprintf(const char *fmt, ...);
-
 // kernel/console.c
 void cputchar(int c);
 void set_fg_color(uint8_t color);
 
 // libkern/printfmt.c
-void printfmt(void (*putch)(int, void*), void *putdat, const char *fmt, ...);
 void vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list);
 
 
