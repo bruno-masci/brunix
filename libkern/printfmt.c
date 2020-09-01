@@ -9,10 +9,10 @@
 #include <stddef.h> // for NULL
 
 #include <brunix/string.h>
-#include <brunix/defs.h>            // for PRIVATE
+#include <brunix/defs.h>            // for PRIVATE, EXPORT
 
 
-void vprintfmt(void (*putch)(int, void *), void *putdat, const char *fmt, va_list ap);
+EXPORT void vprintfmt(void (*putch)(int, void *), void *putdat, const char *fmt, va_list ap);
 
 
 //=============================================================================

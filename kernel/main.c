@@ -8,7 +8,7 @@
 
 #include <stdint.h>                 // for uint32_t
 
-#include <brunix/defs.h>            // for PRIVATE, MAX_STR_SIZE?, roundup_binary()
+#include <brunix/defs.h>            // for PRIVATE, IMPORT, INIT_FUNC, MAX_STR_SIZE?, roundup_binary()
 #include <brunix/string.h>
 #include <brunix/console.h>
 #include <brunix/kernel.h>
@@ -23,15 +23,15 @@
  * declare those symbols as char arrays and access them by its name, what is
  * equivalent to do &symbol[0]. (see "linker.ld.pp" file)
  */
-extern const char _start[];
-extern const char kernel_start[];
-extern const char kernel_end[];
-extern const char etext[];
-extern const char edata[];
+IMPORT const char _start[];
+IMPORT const char kernel_start[];
+IMPORT const char kernel_end[];
+IMPORT const char etext[];
+IMPORT const char edata[];
 
 struct required_multiboot_info brunix_multiboot_info;
 
-void video_init(void);          // from kernel/console.c
+IMPORT void console_init(void);          // from kernel/console.c
 
 // These two lines are here only for the purpose of demonstrating
 // ELF executable's sections such as TEXT, DATA and BSS.
@@ -39,7 +39,7 @@ PRIVATE int unused_initialized_variable = 5;
 PRIVATE int unused_uninitialized_variable;
 
 
-INIT int kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic, uint32_t stack_top);
+INIT_FUNC int kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic, uint32_t stack_top);
 PRIVATE void print_kernel_context_info(uint32_t total_memory_kb, uint32_t stack_top);
 
 
@@ -51,7 +51,7 @@ PRIVATE void print_kernel_context_info(uint32_t total_memory_kb, uint32_t stack_
  * @see multiboot_entry_point.S file
  */
 int kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic, uint32_t stack_top) {
-    video_init();
+    console_init();
 
     printk("Starting Brunix...\n\n");
 

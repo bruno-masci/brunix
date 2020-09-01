@@ -21,17 +21,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a767619-4670-46b4-915a-b5341b6c1a1b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/kernel/printk.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pics/boot_args.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pics/booting.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/arch/x86/processor.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/arch/x86/processor.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/arch/x86/vga.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/arch/x86/vga.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/brunix/console.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/brunix/console.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/brunix/defs.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/brunix/defs.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/brunix/kernel.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/brunix/kernel.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/console.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/multiboot.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/multiboot.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/panic.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/panic.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/printk.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/printk.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libkern/printf.c" beforeDir="false" afterPath="$PROJECT_DIR$/libkern/printf.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libkern/printfmt.c" beforeDir="false" afterPath="$PROJECT_DIR$/libkern/printfmt.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +58,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/libkern" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pics" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -65,20 +67,21 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="Settings.Markdown" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/pics" />
+      <recent name="$PROJECT_DIR$/libkern" />
+      <recent name="$PROJECT_DIR$/kernel" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/config" />
       <recent name="$PROJECT_DIR$/emulators/bochs" />
       <recent name="$PROJECT_DIR$/emulators/qemu" />
       <recent name="$PROJECT_DIR$/multiboot" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/libkern" />
-      <recent name="$PROJECT_DIR$/kernel" />
-      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunManager" selected="CMake Application.brunix.elf">
@@ -139,6 +142,8 @@
       <workItem from="1598569229946" duration="5329000" />
       <workItem from="1598582942356" duration="5928000" />
       <workItem from="1598728195986" duration="16388000" />
+      <workItem from="1598814954484" duration="4333000" />
+      <workItem from="1598916964918" duration="1431000" />
     </task>
     <servers />
   </component>
@@ -236,16 +241,20 @@
     </state>
     <state width="1872" height="264" key="GridCell.Tab.0.right/0.27.1920.1020@0.27.1920.1020" timestamp="1596315827333" />
     <state width="1874" height="269" key="GridCell.Tab.0.right/0.28.1920.1024@0.28.1920.1024" timestamp="1598131815601" />
+    <state x="543" y="286" width="826" height="506" key="IDE.errors.dialog" timestamp="1598818192331">
+      <screen x="0" y="28" width="1920" height="1024" />
+    </state>
+    <state x="543" y="286" width="826" height="506" key="IDE.errors.dialog/0.28.1920.1024@0.28.1920.1024" timestamp="1598818192331" />
     <state x="635" y="189" width="465" height="631" key="RollbackChangesDialog" timestamp="1598759921868">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="635" y="170" width="336" height="605" key="RollbackChangesDialog/0.25.1920.925@0.25.1920.925" timestamp="1597705147021" />
     <state x="635" y="187" width="440" height="685" key="RollbackChangesDialog/0.27.1920.1020@0.27.1920.1020" timestamp="1595722117926" />
     <state x="635" y="189" width="465" height="631" key="RollbackChangesDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1598759921868" />
-    <state x="449" y="175" key="SettingsEditor" timestamp="1598131784892">
+    <state x="208" y="220" key="SettingsEditor" timestamp="1598917470729">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
-    <state x="449" y="175" key="SettingsEditor/0.28.1920.1024@0.28.1920.1024" timestamp="1598131784892" />
+    <state x="208" y="220" key="SettingsEditor/0.28.1920.1024@0.28.1920.1024" timestamp="1598917470729" />
     <state x="100" y="129" width="1720" height="824" key="ShowDiffWithBranchDialog" timestamp="1598314764758">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
@@ -256,19 +265,19 @@
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="741" y="455" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.28.1920.1024@0.28.1920.1024" timestamp="1598752225709" />
-    <state x="156" y="115" width="1544" height="850" key="find.popup" timestamp="1598761460729">
+    <state x="156" y="115" width="1544" height="850" key="find.popup" timestamp="1598820386828">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="156" y="114" width="1544" height="846" key="find.popup/0.27.1920.1020@0.27.1920.1020" timestamp="1597081431266" />
-    <state x="156" y="115" width="1544" height="850" key="find.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1598761460729" />
-    <state width="600" height="428" key="javadoc.popup" timestamp="1598486526794">
+    <state x="156" y="115" width="1544" height="850" key="find.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1598820386828" />
+    <state width="600" height="428" key="javadoc.popup" timestamp="1598818939998">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
-    <state width="600" height="428" key="javadoc.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1598486526794" />
-    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup" timestamp="1598761701113">
+    <state width="600" height="428" key="javadoc.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1598818939998" />
+    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup" timestamp="1598917477404">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="623" y="251" width="672" height="678" key="search.everywhere.popup/0.27.1920.1020@0.27.1920.1020" timestamp="1597111070104" />
-    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1598761701113" />
+    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1598917477404" />
   </component>
 </project>

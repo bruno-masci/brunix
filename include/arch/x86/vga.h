@@ -8,7 +8,7 @@
 
 
 #include <stdint.h>         // for uint8_t
-#include <brunix/defs.h>    // for INIT
+#include <brunix/defs.h>    // for INIT_FUNC
 
 
 #define COLOR_BLACK 			0x00
@@ -33,7 +33,7 @@
 
 
 // Initializes VGA output and clears the screen
-INIT void vga_init(void);
+INIT_FUNC void vga_init(void);
 
 // Sets text color
 void vga_set_foreground_color(uint8_t colour);

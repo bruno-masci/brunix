@@ -1,8 +1,8 @@
 #include <stdarg.h>
 #include <brunix/kernel.h>
+#include <brunix/defs.h>        // for IMPORT
 
-
-extern int vcprintf(const char *fmt, va_list args);
+IMPORT int vcprintf(const char *fmt, va_list args);
 
 
 int printk(const char *fmt, ...) {

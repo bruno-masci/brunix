@@ -36,6 +36,10 @@ Before we start, please note that:
 * gas
 * A <b>proper</b> [cross-compiler](http://wiki.osdev.org/GCC_Cross-Compiler)
 
+
+![Happy Christmas](pics/boot_args.png)
+![Happy Christmas](pics/booting.png)
+
 ### Goals
 
 In this very first stage we are going to outline and depict the project structure. The idea is to do incremental

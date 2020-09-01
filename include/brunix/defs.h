@@ -7,10 +7,11 @@
 #define __DEFS_H__
 
 
-#define INIT
-#define NORETURN
+#define INIT_FUNC
+#define NORET_FUNC
 #define EXPORT
 #define PRIVATE static
+#define IMPORT extern
 
 
 /* Extracted from https://graphics.stanford.edu/~seander/bithacks.html#RoundUpPowerOf2 */

@@ -1,8 +1,8 @@
 #include <brunix/console.h>
-#include <brunix/defs.h>            // for PRIVATE
+#include <brunix/defs.h>            // for PRIVATE, INIT_FUNC
 
 
-INIT void console_init(void);
+INIT_FUNC void console_init(void);
 PRIVATE void console_putc(int c);
 
 
@@ -13,7 +13,7 @@ PRIVATE void console_putc(int c);
 
 // We send all the output to both the screen and the serial port (emulator)
 
-void video_init(void) {
+INIT_FUNC void console_init(void) {
     vga_init();
 }
 
