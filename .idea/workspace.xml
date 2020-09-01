@@ -21,19 +21,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a767619-4670-46b4-915a-b5341b6c1a1b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/pics/boot_args.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pics/booting.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/arch/x86/vga.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/arch/x86/vga.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/brunix/console.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/brunix/console.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/brunix/defs.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/brunix/defs.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/brunix/kernel.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/brunix/kernel.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/console.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/printk.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/printk.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libkern/printf.c" beforeDir="false" afterPath="$PROJECT_DIR$/libkern/printf.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libkern/printfmt.c" beforeDir="false" afterPath="$PROJECT_DIR$/libkern/printfmt.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,11 +89,6 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="CMake Application.brunix.elf" />
       <item itemvalue="CMake Application.clean-all" />
@@ -143,7 +127,8 @@
       <workItem from="1598582942356" duration="5928000" />
       <workItem from="1598728195986" duration="16388000" />
       <workItem from="1598814954484" duration="4333000" />
-      <workItem from="1598916964918" duration="1431000" />
+      <workItem from="1598916964918" duration="3546000" />
+      <workItem from="1599001095632" duration="3095000" />
     </task>
     <servers />
   </component>
@@ -274,10 +259,10 @@
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state width="600" height="428" key="javadoc.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1598818939998" />
-    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup" timestamp="1598917477404">
+    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup" timestamp="1599001473664">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="623" y="251" width="672" height="678" key="search.everywhere.popup/0.27.1920.1020@0.27.1920.1020" timestamp="1597111070104" />
-    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1598917477404" />
+    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1599001473664" />
   </component>
 </project>

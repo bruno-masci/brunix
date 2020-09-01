@@ -1,27 +1,3 @@
-
-
-
-
-
-
-
-
-## File structure
-
- * |── brunix.elf
- * |── brunix-nosym.elf
- * |── brunix.sym
- * |── include
-   * |── **arch/x86**: x86 architecture-dependent header files.
-   * |── **brunix**: architecture-independent header files.
- * |── **kernel**: kernel source code.
- * |── **libkern**: custom libc (see https://wiki.osdev.org/C_Library) for the kernel.
- * |── Makefile
- * |── Makefile.inc
- * |── **linker.ld**: linker script.
- * |── os.iso
- * |── System.map
-
 # brunix
 ## Small Unix-like 32-bits x86 OS for fun and learning (stage 0)
 
@@ -29,16 +5,62 @@ Before we start, please note that:
 * the information here is complemented with that contained in the source code,
 * with x86 we mean 386+ architecture.
 
-### Pre-requisites
-* mtools
-* xorriso
-* grub
-* gas
-* A <b>proper</b> [cross-compiler](http://wiki.osdev.org/GCC_Cross-Compiler)
 
+
+## File structure
+
+ * |── CMakeLists.txt ------> *CMake*'s build specification.
+ * |── include/
+   * |── *arch/x86/* -------> x86 architecture-dependent header files.
+   * |── *brunix/* ----------> architecture-independent header files.
+ * |── *kernel/* ----------------> kernel source code.
+ * |── *libkern/* ---------------> custom libc (see https://wiki.osdev.org/C_Library) for the kernel.
+ * |── *linker.ld.pp* ----------> linker script for preprocessing.
+ * |── multiboot/ -----------> Multiboot booting related files.
+ * |── bochsrc.txt ----------> config file for Bochs.
+ * |── build/ -----------------> build dir for *CMake* (optional). 
+
+
+## Project building
+
+Is is recommended to build the project on a directory other than the source directory. We assume *build/* as the build directory, but we can use whichever we want.\
+After running the commands:
+
+	cmake ../
+	make
+
+from the *build/* directory, we will find the following files:
+
+ * |── build/ 
+   * |── Makefile: *make*'s build specification.
+   * |── *brunix.elf*: kernel's image.
+   * |── System.map: kernel's symbol table. 
+   * |── brunix.asm: disassembled kernel's image.
+   * |── brunix-nosym.elf: kernel's image without symbols/debug information.
+   * |── brunix.iso: bootable ISO image for the kernel.
+
+
+## Running the kernel
+
+### QEMU
+
+After executing:
+
+	make qemu
+	
+we can (optionally) edit the boot parameters, like this:
 
 ![Happy Christmas](pics/boot_args.png)
+
+After the system has booted up, something like this will appear:
+
 ![Happy Christmas](pics/booting.png)
+
+
+### QEMU
+
+
+
 
 ### Goals
 
