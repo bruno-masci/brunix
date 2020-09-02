@@ -42,7 +42,7 @@ and
 
 	make
 
-we will end up with:
+from the shell, we will end up with:
 
  * |── build/ 
    * |── Makefile -------------> *make*'s build specification.
@@ -56,16 +56,16 @@ we will end up with:
 ## Build target commands
 
 	make
-buids the kernel image,
+buids the kernel's image,
 
 	make qemu
-runs the kernel image on QEMU,
+runs the kernel's image on QEMU,
  
 	make bochs
-runs the kernel image on Bochs,
+runs the kernel's image on Bochs,
 
 	make clean
-removes the generated kernel image,
+removes the generated kernel's image,
 
 	make clean-all
 removes all generated files but *make*/*CMake*'s own files.
