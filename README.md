@@ -1,10 +1,19 @@
 # brunix
 ## Small Unix-like 32-bits x86 OS for fun and learning (stage 0)
 
-Before we start, please note that:
+Before starting, please note that:
 * the information here is complemented with that contained in the source code,
 * with x86 we mean 386+ architecture.
 
+
+### Goals
+
+In this very first stage we are going to outline and depict the project structure. The idea is to do incremental
+developments (stage0, stage1, ...) to tackle all the complexities in an easier way.
+
+For now, we'll just create a bare OS (if we even can call it that way) that include:
+* kernel loading (boot),
+* basic video management.
 
 
 ## File structure
@@ -18,37 +27,71 @@ Before we start, please note that:
  * |── *linker.ld.pp* ----------> linker script for preprocessing.
  * |── multiboot/ -----------> Multiboot booting related files.
  * |── bochsrc.txt ----------> config file for Bochs.
- * |── build/ -----------------> build dir for *CMake* (optional). 
+ * |── build/ -----------------> build dir for *CMake*. 
 
 
 ## Project building
 
-Is is recommended to build the project on a directory other than the source directory. We assume *build/* as the build directory, but we can use whichever we want.\
-After running the commands:
+Is is highly recommended to build the project on a directory other than the source directory. We assume *build/* as the build directory, but we can use whichever we want.\
+__Any command that appears below is assumed to be run from the *build/* directory.__
+
+After running:
 
 	cmake ../
+and
+
 	make
 
-from the *build/* directory, we will find the following files:
+we will end up with:
 
  * |── build/ 
-   * |── Makefile: *make*'s build specification.
-   * |── *brunix.elf*: kernel's image.
-   * |── System.map: kernel's symbol table. 
-   * |── brunix.asm: disassembled kernel's image.
-   * |── brunix-nosym.elf: kernel's image without symbols/debug information.
-   * |── brunix.iso: bootable ISO image for the kernel.
+   * |── Makefile -------------> *make*'s build specification.
+   * |── *brunix.elf* ------------> kernel's image.
+   * |── System.map --------> kernel's symbol table. 
+   * |── brunix.asm ----------> disassembled kernel's image.
+   * |── brunix-nosym.elf ---> kernel's image without symbols/debug information.
+   * |── brunix.iso ------------> bootable ISO image for the kernel.
+
+
+## Build target commands
+
+	make
+buids the kernel image,
+
+	make qemu
+runs the kernel image on QEMU,
+ 
+	make bochs
+runs the kernel image on Bochs,
+
+	make clean
+removes the generated kernel image,
+
+	make clean-all
+removes all generated files but *make*/*CMake*'s own files.
+
+- -
+- -
+
+We'll use [ELF](http://wiki.osdev.org/ELF) as the kernel image format, [ld](http://wiki.osdev.org/LD) linker from the
+cross-compiler just built (see "[Pre-requisites](#Pre-requisites)" section above) to produce an ELF-formatted kernel image,
+and [GRUB](https://wiki.osdev.org/GRUB) [bootloader](https://wiki.osdev.org/Bootloader) for booting the kernel.
 
 
 ## Running the kernel
 
-### QEMU
-
-After executing:
+We can run it with:
 
 	make qemu
 	
-we can (optionally) edit the boot parameters, like this:
+QEMU is faster than Bochs and also integrates well with GDB, so it have its place as the regular emulator.
+But, as the project evolves, it is a good idea to run it with Bochs from time to time:
+
+	make bochs
+
+given Bochs is way more accurate than QEMU on x86.
+
+At boot time we can edit the boot parameters, like this:
 
 ![Happy Christmas](pics/boot_args.png)
 
@@ -57,23 +100,6 @@ After the system has booted up, something like this will appear:
 ![Happy Christmas](pics/booting.png)
 
 
-### QEMU
-
-
-
-
-### Goals
-
-In this very first stage we are going to outline and depict the project structure. The idea is to do incremental
-developments (stage0, stage1, ...) to tackle all the complexities in an easier way.
-
-For now, we'll just create a bare OS (if we even can call it that way) that includes:
-* kernel loading (boot),
-* basic video management.
-
-We'll use [ELF](http://wiki.osdev.org/ELF) as the kernel image format, [ld](http://wiki.osdev.org/LD) linker from the
-cross-compiler just built (see "[Pre-requisites](#Pre-requisites)" section above) to produce an ELF-formatted kernel image,
-and [GRUB](https://wiki.osdev.org/GRUB) [bootloader](https://wiki.osdev.org/Bootloader) for booting the kernel.
 
 #### Why ELF?
 
