@@ -9,8 +9,8 @@
   </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
-      <config projectName="brunix" targetName="clean-all" />
       <config projectName="brunix" targetName="qemu" />
+      <config projectName="brunix" targetName="clean-all" />
       <config projectName="brunix" targetName="brunix.elf" />
     </generated>
   </component>
@@ -22,7 +22,8 @@
   <component name="ChangeListManager">
     <list default="true" id="6a767619-4670-46b4-915a-b5341b6c1a1b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/multiboot.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/multiboot.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bochsrc.txt" beforeDir="false" afterPath="$PROJECT_DIR$/bochsrc.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/multiboot_entry_point.S" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/multiboot_entry_point.S" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -75,6 +76,11 @@
     </key>
   </component>
   <component name="RunManager" selected="CMake Application.brunix.elf">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -137,7 +143,7 @@
       <workItem from="1599001095632" duration="3095000" />
       <workItem from="1599055245225" duration="5829000" />
       <workItem from="1599146039690" duration="14275000" />
-      <workItem from="1599245156151" duration="2379000" />
+      <workItem from="1599245156151" duration="10184000" />
     </task>
     <servers />
   </component>
@@ -205,12 +211,12 @@
     </state>
     <state x="50" y="25" width="769" height="874" key="CommitChangelistDialog2/0.25.1920.925@0.25.1920.925" timestamp="1597705094578" />
     <state x="50" y="27" width="1621" height="999" key="CommitChangelistDialog2/0.27.1920.1020@0.27.1920.1020" timestamp="1597113907752" />
-    <state x="137" y="130" width="1538" height="847" key="DiffContextDialog" timestamp="1599245286488">
+    <state x="137" y="130" width="1538" height="847" key="DiffContextDialog" timestamp="1599247711520">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="100" y="116" width="1538" height="765" key="DiffContextDialog/0.25.1920.925@0.25.1920.925" timestamp="1597705095400" />
     <state x="100" y="127" width="1720" height="820" key="DiffContextDialog/0.27.1920.1020@0.27.1920.1020" timestamp="1597114130656" />
-    <state x="137" y="130" width="1538" height="847" key="DiffContextDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1599245286488" />
+    <state x="137" y="130" width="1538" height="847" key="DiffContextDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1599247711520" />
     <state x="743" y="298" width="426" height="482" key="FileChooserDialogImpl" timestamp="1598753316190">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
@@ -259,19 +265,23 @@
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="741" y="455" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.28.1920.1024@0.28.1920.1024" timestamp="1598752225709" />
-    <state x="153" y="118" width="1544" height="850" key="find.popup" timestamp="1599171422009">
+    <state x="153" y="118" width="1544" height="850" key="find.popup" timestamp="1599260395108">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="156" y="114" width="1544" height="846" key="find.popup/0.27.1920.1020@0.27.1920.1020" timestamp="1597081431266" />
-    <state x="153" y="118" width="1544" height="850" key="find.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1599171422009" />
+    <state x="153" y="118" width="1544" height="850" key="find.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1599260395108" />
     <state width="600" height="428" key="javadoc.popup" timestamp="1598818939998">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state width="600" height="428" key="javadoc.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1598818939998" />
-    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup" timestamp="1599166134102">
+    <state x="623" y="248" key="run.anything.popup" timestamp="1599256713047">
+      <screen x="0" y="28" width="1920" height="1024" />
+    </state>
+    <state x="623" y="248" key="run.anything.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1599256713047" />
+    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup" timestamp="1599259941285">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="623" y="251" width="672" height="678" key="search.everywhere.popup/0.27.1920.1020@0.27.1920.1020" timestamp="1597111070104" />
-    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1599166134102" />
+    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1599259941285" />
   </component>
 </project>

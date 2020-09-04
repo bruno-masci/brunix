@@ -1,10 +1,13 @@
-/* The kernel starts executing in this file.
- * This file is linked with the kernel C code, so it can refer to kernel symbols such as kmain().
- *
- * @see https://www.gnu.org/software/grub/manual/multiboot/multiboot.html
+/**
+ * @author Bruno Masci
+ * @brief Multiboot entry point
  * @see linker.ld.pp
  * @see main.c
  * @see multiboot.c
+ * @see https://www.gnu.org/software/grub/manual/multiboot/multiboot.html
+ *
+ * The kernel starts executing in this file.
+ * This file is linked with the kernel C code, so it can refer to kernel symbols such as kmain().
  */
 
 
