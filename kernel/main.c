@@ -13,7 +13,7 @@
 #include <brunix/console.h>
 #include <brunix/kernel.h>
 
-#include <arch/x86/multiboot.h>     // for multiboot_info_t
+#include <arch/x86/multiboot.h>     // for struct std_multiboot_info, struct multiboot_info
 
 
 /*
@@ -29,7 +29,7 @@ IMPORT const char kernel_end[];
 IMPORT const char etext[];
 IMPORT const char edata[];
 
-struct required_multiboot_info brunix_multiboot_info;
+struct multiboot_info mboot_info;
 
 IMPORT void console_init(void);          // from kernel/console.c
 
@@ -39,31 +39,31 @@ PRIVATE int unused_initialized_variable = 5;
 PRIVATE int unused_uninitialized_variable;
 
 
-INIT_FUNC int kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic, uint32_t stack_top);
+INIT_FUNC int kmain(struct std_multiboot_info *std_mboot_info_ptr, uint32_t magic, uint32_t stack_top);
 PRIVATE void print_kernel_context_info(uint32_t total_memory_kb, uint32_t stack_top);
 
 
 /**
  * This is the main kernel function.
  *
- * @param mboot_info_ptr Contextual information given by the bootloader.
+ * @param std_mboot_info_ptr Contextual information given by the bootloader.
  * @param magic Number representing the Multiboot bootloader magic number.
  * @see multiboot_entry_point.S file
  */
-int kmain(multiboot_info_t *mboot_info_ptr, uint32_t magic, uint32_t stack_top) {
+int kmain(struct std_multiboot_info *std_mboot_info_ptr, uint32_t magic, uint32_t stack_top) {
     console_init();
 
     printk("Starting Brunix...\n\n");
 
     verify_loader(magic);
 
-    save_multiboot_info(mboot_info_ptr, &brunix_multiboot_info);
+    save_multiboot_info(std_mboot_info_ptr, &mboot_info);
 
-    if (strnlen(brunix_multiboot_info.cmdline, 43) > 0) {
-        printk("Invoking kernel with args: %s\n", brunix_multiboot_info.cmdline);
+    if (strnlen(mboot_info.cmdline, 43) > 0) {
+        printk("Invoking kernel with args: %s\n", mboot_info.cmdline);
     }
 
-    print_kernel_context_info(brunix_multiboot_info.mem_upper, stack_top);
+    print_kernel_context_info(mboot_info.mem_upper, stack_top);
 
     panic("Forcing kernel panic...");       // panic() DOES NOT return!
     return 0;

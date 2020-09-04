@@ -3,7 +3,6 @@
  * @brief VGA output related code
  *
  * Heavily based on Bran's kernel development tutorials, but rewritten for JamesM's kernel tutorials.
- * TODO ver vga.c de eduOS a ver si se puede mejorar algo.
  */
 
 #include <arch/x86/vga.h>
@@ -18,8 +17,8 @@
 //PRIVATE volatile uint16_t *video_memory = (volatile uint16_t *)VIDEO_MEM_ADDR;
 PRIVATE volatile uint16_t *video_memory = (volatile uint16_t *)VIDEO_MEM_ADDR;
 // Stores the cursor position.
-uint8_t cursor_x = 1;
-uint8_t cursor_y = 1;
+uint8_t cursor_x = 0;
+uint8_t cursor_y = 0;
 
 uint8_t backColour = COLOR_BLACK;
 uint8_t foreColour = COLOR_LIGHT_GREY;

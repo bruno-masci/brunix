@@ -13,7 +13,7 @@
 int printk(const char *fmt, ...);
 
 #define panic(message) _panic(__FILE__, __LINE__, message)
-NORET_FUNC void _panic(const char *file_name, int file_number, const char *message);
+NORET_FUNC void _panic(const char *file_name, int line_number, const char *message);
 
 
 #endif /* __KERNEL_H__ */

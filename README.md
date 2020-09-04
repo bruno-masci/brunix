@@ -84,8 +84,8 @@ We can run it with:
 
 	make qemu
 	
-QEMU is faster than Bochs and also integrates well with GDB, so it have its place as the regular emulator.
-But, as the project evolves, it is a good idea to run it with Bochs from time to time:
+QEMU is faster than Bochs and also integrates with GDB (more on this later), so it have its place as the regular emulator.
+But, as the project evolves, it is a good idea to run it on Bochs from time to time:
 
 	make bochs
 
@@ -100,6 +100,13 @@ After the system has booted up, something like this will appear:
 ![Happy Christmas](pics/booting.png)
 
 
+
+## How do pieces play together?
+
+### Kernel loading
+
+
+### FAQ
 
 #### Why ELF?
 
@@ -190,22 +197,17 @@ Note that GRUB configures a stack but we can't trust its location, so we need to
 
 TODO vEr esto: Since we haven't set up virtual memory yet, all virtual addresses are identical to the physical ones.
 
-detalles sobre GCC/GAS:
-- Agregar lo de #ifndef __ASSEMBLER__ para headers compartidos con assembler!
-- __attribute__((packed))
-- __attribute__ ((noreturn))
-        nombrar que no uso __atrib noreturn para que el codigo no cambie y poder debuggear
+## Some considerations about GCC/GAS
 
-#include <stddef.h>     // for size_t
-#include <stdint.h> // for uint8_t, uint32_t, uintptr_t, etc.
-stdbool
-y stdarg // for va_list
+* Default *includes* like `#include <stddef.h>` and `#include <stdint.h>` are __not__ from the [standard C library](https://wiki.osdev.org/C_Library) (we don't have one in kernel space) but from the compiler itself.
+* In the context of including header files, we use the `__ASSEMBLER__` macro (like in `#ifndef __ASSEMBLER__`) to include C Preprocessor's structures on GNU assembler source files while ignoring any C code (like structs or unions) that would end up included by default.
+* GCC's `__attribute__((packed))` is used to avoid paddings by the compiler: we need some structures' fields to be exactly on a particular location, at bit level.
+* Note we don't use GCC's `__attribute__ ((noreturn))` for functions that don't return, like *panic()*: this is to avoid optimizations by the compiler that would play against debugging. We only mark those functions as NORET_FUNC (see [defs.h](/include/brunix/defs.h)) for informational purposes only.
 
 
 
 
-
-References:
+##References:
 
 * https://css.csail.mit.edu/6.858/2014/readings/i386.pdf
 * https://wiki.osdev.org/Serial_Ports

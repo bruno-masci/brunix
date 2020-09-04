@@ -1,6 +1,7 @@
 /**
  * @author Bruno Masci
  * @brief Declarations related to the Multiboot Standard interface.
+ *
  * @see https://www.gnu.org/software/grub/manual/multiboot/multiboot.html
  * @see kernel/multiboot_entry_point.S
  */
@@ -13,6 +14,8 @@
 #define MBOOT_HEADER_FLAGS      0x00000000
 #define MBOOT_HEADER_CHECKSUM   -(MBOOT_HEADER_MAGIC + MBOOT_HEADER_FLAGS)
 
+#define MAX_CMDLINE_LEN 256
+
 
 #ifndef __ASSEMBLER__
 
@@ -20,7 +23,7 @@
 
     #include <stdint.h>     // for uint32_t
 
-    struct multiboot_info {
+    struct std_multiboot_info {
         uint32_t flags;
         uint32_t mem_lower;
         uint32_t mem_upper;
@@ -51,15 +54,13 @@
         } vbe;
     } __attribute__((packed));
 
-    typedef struct multiboot_info multiboot_info_t;
-
-    struct required_multiboot_info {
+    struct multiboot_info {
         uint32_t mem_upper;
         uint32_t flags;
-        char cmdline[256];
+        char cmdline[MAX_CMDLINE_LEN];
     };
 
-    void save_multiboot_info(multiboot_info_t *mboot_info_ptr, struct required_multiboot_info *brunix_multiboot_info_ptr);
+    void save_multiboot_info(struct std_multiboot_info *std_mboot_info_ptr, struct multiboot_info *mboot_info_ptr);
 
     void verify_loader(uint32_t magic);
 

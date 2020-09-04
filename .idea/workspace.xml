@@ -23,6 +23,16 @@
     <list default="true" id="6a767619-4670-46b4-915a-b5341b6c1a1b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/arch/x86/multiboot.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/arch/x86/multiboot.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/brunix/defs.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/brunix/defs.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/brunix/kernel.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/brunix/kernel.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/brunix/string.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/brunix/string.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/multiboot.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/multiboot.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/panic.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/panic.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/vga.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/vga.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libkern/printfmt.c" beforeDir="false" afterPath="$PROJECT_DIR$/libkern/printfmt.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libkern/string.c" beforeDir="false" afterPath="$PROJECT_DIR$/libkern/string.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,6 +99,11 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="CMake Application.brunix.elf" />
       <item itemvalue="CMake Application.clean-all" />
@@ -129,7 +144,8 @@
       <workItem from="1598814954484" duration="4333000" />
       <workItem from="1598916964918" duration="3546000" />
       <workItem from="1599001095632" duration="3095000" />
-      <workItem from="1599055245225" duration="5673000" />
+      <workItem from="1599055245225" duration="5829000" />
+      <workItem from="1599146039690" duration="14275000" />
     </task>
     <servers />
   </component>
@@ -197,12 +213,12 @@
     </state>
     <state x="50" y="25" width="769" height="874" key="CommitChangelistDialog2/0.25.1920.925@0.25.1920.925" timestamp="1597705094578" />
     <state x="50" y="27" width="1621" height="999" key="CommitChangelistDialog2/0.27.1920.1020@0.27.1920.1020" timestamp="1597113907752" />
-    <state x="137" y="130" width="1538" height="847" key="DiffContextDialog" timestamp="1598761940103">
+    <state x="137" y="130" width="1538" height="847" key="DiffContextDialog" timestamp="1599180286011">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="100" y="116" width="1538" height="765" key="DiffContextDialog/0.25.1920.925@0.25.1920.925" timestamp="1597705095400" />
     <state x="100" y="127" width="1720" height="820" key="DiffContextDialog/0.27.1920.1020@0.27.1920.1020" timestamp="1597114130656" />
-    <state x="137" y="130" width="1538" height="847" key="DiffContextDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1598761940103" />
+    <state x="137" y="130" width="1538" height="847" key="DiffContextDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1599180286011" />
     <state x="743" y="298" width="426" height="482" key="FileChooserDialogImpl" timestamp="1598753316190">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
@@ -251,19 +267,19 @@
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="741" y="455" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.28.1920.1024@0.28.1920.1024" timestamp="1598752225709" />
-    <state x="156" y="115" width="1544" height="850" key="find.popup" timestamp="1598820386828">
+    <state x="153" y="118" width="1544" height="850" key="find.popup" timestamp="1599171422009">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="156" y="114" width="1544" height="846" key="find.popup/0.27.1920.1020@0.27.1920.1020" timestamp="1597081431266" />
-    <state x="156" y="115" width="1544" height="850" key="find.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1598820386828" />
+    <state x="153" y="118" width="1544" height="850" key="find.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1599171422009" />
     <state width="600" height="428" key="javadoc.popup" timestamp="1598818939998">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state width="600" height="428" key="javadoc.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1598818939998" />
-    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup" timestamp="1599076584433">
+    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup" timestamp="1599166134102">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="623" y="251" width="672" height="678" key="search.everywhere.popup/0.27.1920.1020@0.27.1920.1020" timestamp="1597111070104" />
-    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1599076584433" />
+    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1599166134102" />
   </component>
 </project>

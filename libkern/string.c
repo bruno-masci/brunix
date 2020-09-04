@@ -9,12 +9,18 @@ int strnlen(const char *str, size_t size) {
 
 	for (n = 0; size > 0 && *str != '\0'; str++, size--)
 		n++;
+
 	return n;
 }
 
-char * strcpy(char *dst, const char *src) {
+char * strncpy(char *dst, const char *src, size_t size) {
     char *orig = dst;
-    while((*dst++ = *src++) != '\0')
-        ;
+
+    while (*src != '\0' && size > 0) {
+        *dst++ = *src++;
+        size--;
+    }
+
+    *dst = '\0';
     return orig;
 }
