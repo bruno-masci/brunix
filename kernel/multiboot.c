@@ -1,8 +1,8 @@
 /**
  * @author Bruno Masci
  * @brief Multiboot Standard related functions
- * @see kernel/main.c
- * @see kernel/multiboot_entry_point.S
+ * @see main.c
+ * @see multiboot_entry_point.S
  */
 
 

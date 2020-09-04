@@ -23,6 +23,7 @@
     <list default="true" id="6a767619-4670-46b4-915a-b5341b6c1a1b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/multiboot.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/multiboot.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/multiboot_entry_point.S" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/multiboot_entry_point.S" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,7 +137,7 @@
       <workItem from="1599001095632" duration="3095000" />
       <workItem from="1599055245225" duration="5829000" />
       <workItem from="1599146039690" duration="14275000" />
-      <workItem from="1599245156151" duration="1307000" />
+      <workItem from="1599245156151" duration="2379000" />
     </task>
     <servers />
   </component>
