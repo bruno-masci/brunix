@@ -1,14 +1,14 @@
 # brunix (stage 0)
-### *** Small Unix-like 32-bits x86 OS for fun and learning ***
+#### *** Small Unix-like 32-bits x86 OS for fun and learning ***
 
 Before starting, please note that:
 * the information here is complemented with that contained in the source code,
 * with x86 we mean 386+ architecture.
 
-
 ### Goals
 
-In this very first stage we are going to outline and depict the project structure. The idea is to do incremental developments (stage0, stage1, ...) to tackle all the complexities in an easier way.
+In this very first stage we are going to outline and depict the project structure. The idea is to do incremental 
+developments (stage0, stage1, ...) to tackle all the complexities in an easier way.
 
 For now, we'll just create a bare OS (if we even can call it that way) that include:
 * kernel loading (boot),
@@ -22,10 +22,11 @@ For now, we'll just create a bare OS (if we even can call it that way) that incl
    * |── *arch/x86/* -------> x86 architecture-dependent header files.
    * |── *brunix/* ----------> architecture-independent header files.
  * |── *kernel/* ----------------> kernel source code.
- * |── *libkern/* ---------------> custom [libc](https://wiki.osdev.org/C_Library) for the kernel.
+ * |── *libkern/* ---------------> custom C library for the kernel.
  * |── *linker.ld.pp* ----------> linker script for preprocessing.
- * |── multiboot/ -----------> Multiboot booting related files.
- * |── bochsrc.txt ----------> config file for Bochs.
+ * |── multiboot/ -----------> Multiboot related files.
+ * |── qemu.cfg.tmpl -----> config file for QEMU (template).
+ * |── bochs.cfg.tmpl -----> config file for Bochs (template).
  * |── build/ -----------------> build dir for *CMake*. 
 
 
@@ -34,9 +35,10 @@ For now, we'll just create a bare OS (if we even can call it that way) that incl
 Is is highly recommended to build the project on a directory other than the source directory. We assume *build/* as the build directory, but we can use whichever we want.\
 __Any command that appears below is assumed to be run from the *build/* directory.__
 
-After running:
+If we run:
 
 	cmake ../
+
 and then:
 
 	make
@@ -50,6 +52,8 @@ from the shell, we will end up with:
    * |── brunix.asm ----------> disassembled kernel's image.
    * |── brunix-nosym.elf ---> kernel's image without symbols/debug information.
    * |── brunix.iso ------------> bootable ISO image for the kernel.
+   * |── qemu.cfg -------------> resolved config file for QEMU.
+   * |── bochs.cfg ------------> resolved config file for Bochs.
 
 
 ## Build target

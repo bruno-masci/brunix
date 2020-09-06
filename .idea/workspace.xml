@@ -9,8 +9,9 @@
   </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
-      <config projectName="brunix" targetName="clean-all" />
       <config projectName="brunix" targetName="qemu" />
+      <config projectName="brunix" targetName="clean-all" />
+      <config projectName="brunix" targetName="bochs" />
       <config projectName="brunix" targetName="brunix.elf" />
     </generated>
   </component>
@@ -21,7 +22,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a767619-4670-46b4-915a-b5341b6c1a1b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/bochs.cfg.tmpl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/qemu.cfg.tmpl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bochsrc.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,6 +83,11 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="bochs" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="bochs" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="brunix.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="brunix.elf" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="brunix" RUN_TARGET_NAME="brunix.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -93,7 +103,13 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <list>
+      <item itemvalue="CMake Application.bochs" />
       <item itemvalue="CMake Application.brunix.elf" />
       <item itemvalue="CMake Application.clean-all" />
       <item itemvalue="CMake Application.qemu" />
@@ -136,7 +152,7 @@
       <workItem from="1599055245225" duration="5829000" />
       <workItem from="1599146039690" duration="14275000" />
       <workItem from="1599245156151" duration="10877000" />
-      <workItem from="1599358962400" duration="285000" />
+      <workItem from="1599358962400" duration="5635000" />
     </task>
     <servers />
   </component>
@@ -186,11 +202,11 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="669" y="338" width="588" height="394" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1598589151631">
+    <state x="669" y="338" width="633" height="394" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1599362577456">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="669" y="336" width="676" height="416" key="#com.intellij.fileTypes.FileTypeChooser/0.27.1920.1020@0.27.1920.1020" timestamp="1595978585098" />
-    <state x="669" y="338" width="588" height="394" key="#com.intellij.fileTypes.FileTypeChooser/0.28.1920.1024@0.28.1920.1024" timestamp="1598589151631" />
+    <state x="669" y="338" width="633" height="394" key="#com.intellij.fileTypes.FileTypeChooser/0.28.1920.1024@0.28.1920.1024" timestamp="1599362577456" />
     <state x="956" y="279" width="526" height="500" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1598584811361">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
@@ -258,11 +274,11 @@
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="741" y="455" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.28.1920.1024@0.28.1920.1024" timestamp="1598752225709" />
-    <state x="153" y="118" width="1544" height="850" key="find.popup" timestamp="1599260395108">
+    <state x="153" y="118" width="1544" height="850" key="find.popup" timestamp="1599362621592">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="156" y="114" width="1544" height="846" key="find.popup/0.27.1920.1020@0.27.1920.1020" timestamp="1597081431266" />
-    <state x="153" y="118" width="1544" height="850" key="find.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1599260395108" />
+    <state x="153" y="118" width="1544" height="850" key="find.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1599362621592" />
     <state width="600" height="428" key="javadoc.popup" timestamp="1598818939998">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
@@ -271,10 +287,10 @@
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="623" y="248" key="run.anything.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1599256713047" />
-    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup" timestamp="1599259941285">
+    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup" timestamp="1599362871080">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="623" y="251" width="672" height="678" key="search.everywhere.popup/0.27.1920.1020@0.27.1920.1020" timestamp="1597111070104" />
-    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1599259941285" />
+    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1599362871080" />
   </component>
 </project>
