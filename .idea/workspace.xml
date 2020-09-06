@@ -9,8 +9,8 @@
   </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
-      <config projectName="brunix" targetName="qemu" />
       <config projectName="brunix" targetName="clean-all" />
+      <config projectName="brunix" targetName="qemu" />
       <config projectName="brunix" targetName="brunix.elf" />
     </generated>
   </component>
@@ -20,7 +20,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a767619-4670-46b4-915a-b5341b6c1a1b" name="Default Changelist" comment="" />
+    <list default="true" id="6a767619-4670-46b4-915a-b5341b6c1a1b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -134,6 +136,7 @@
       <workItem from="1599055245225" duration="5829000" />
       <workItem from="1599146039690" duration="14275000" />
       <workItem from="1599245156151" duration="10877000" />
+      <workItem from="1599358962400" duration="155000" />
     </task>
     <servers />
   </component>
