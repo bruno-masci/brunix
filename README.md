@@ -8,8 +8,7 @@ Before starting, please note that:
 
 ### Goals
 
-In this very first stage we are going to outline and depict the project structure. The idea is to do incremental
-developments (stage0, stage1, ...) to tackle all the complexities in an easier way.
+In this very first stage we are going to outline and depict the project structure. The idea is to do incremental developments (stage0, stage1, ...) to tackle all the complexities in an easier way.
 
 For now, we'll just create a bare OS (if we even can call it that way) that include:
 * kernel loading (boot),
