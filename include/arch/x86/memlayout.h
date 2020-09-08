@@ -1,6 +1,7 @@
 /**
  * @author Bruno Masci
  * @brief x86 memory layout
+ * @see /linker.ld.pp
  */
 
 #ifndef __ARCH_MEMLAYOUT_H__

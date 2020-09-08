@@ -6,9 +6,7 @@
  * here (see http://wiki.osdev.org/GCC_Cross-Compiler)
  */
 
-#define __ASSEMBLER__   // trick to avoid typedef, etc.
 #include <arch/x86/memlayout.h>     // for KERN_LINK, KERN_BASE
-#undef __ASSEMBLER__
 
 /* This declares the symbol where kernel execution begin */
 /* ahora este simbolo se refiere a la dir virtual higher half */

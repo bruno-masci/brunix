@@ -1,5 +1,8 @@
 # brunix (stage 0)
-#### *** Small Unix-like 32-bits x86 OS for fun and learning ***
+##### *** Small Unix-like 32-bits x86 OS for fun and learning ***
+
+## Project layout and Multiboot-compliant executable
+
 
 Before starting, please note that:
 * the information here is complemented with that contained in the source code,
@@ -10,9 +13,8 @@ Before starting, please note that:
 In this very first stage we are going to outline and depict the project structure. The idea is to do incremental 
 developments (stage0, stage1, ...) to tackle all the complexities in an easier way.
 
-For now, we'll just create a bare OS (if we even can call it that way) that include:
-* kernel loading (boot),
-* basic video management.
+For now, we'll just create a bootable ELF executable and check it is a valid Multiboot-compliant executable.\
+In order to achieve that, we need to add the Multiboot header at the beginning of the executable and set a desired entry point where the control is transferred to by the bootloader.
 
 
 ## File structure
@@ -20,13 +22,9 @@ For now, we'll just create a bare OS (if we even can call it that way) that incl
  * |── CMakeLists.txt ------> *CMake*'s build specification.
  * |── include/
    * |── *arch/x86/* -------> x86 architecture-dependent header files.
-   * |── *brunix/* ----------> architecture-independent header files.
  * |── *kernel/* ----------------> kernel source code.
- * |── *libkern/* ---------------> custom C library for the kernel.
  * |── *linker.ld.pp* ----------> linker script for preprocessing.
  * |── multiboot/ -----------> Multiboot related files.
- * |── qemu.cfg.tmpl -----> config file for QEMU (template).
- * |── bochs.cfg.tmpl -----> config file for Bochs (template).
  * |── build/ -----------------> build dir for *CMake*. 
 
 
@@ -48,12 +46,12 @@ from the shell, we will end up with:
  * |── build/ 
    * |── Makefile -------------> *make*'s build specification.
    * |── *brunix.elf* ------------> kernel's image.
+   * |── *linker.ld* --------------> kernel's image.
    * |── System.map --------> kernel's symbol table. 
    * |── brunix.asm ----------> disassembled kernel's image.
    * |── brunix-nosym.elf ---> kernel's image without symbols/debug information.
    * |── brunix.iso ------------> bootable ISO image for the kernel.
-   * |── qemu.cfg -------------> resolved config file for QEMU.
-   * |── bochs.cfg ------------> resolved config file for Bochs.
+   * |── iso/ --------------------> *grub-mkrescue*'s expected directory layout for creating an ISO file.
 
 
 ## Build target
@@ -63,11 +61,8 @@ from the shell, we will end up with:
 	make
 (this is the default) buids the kernel's image,
 
-	make qemu
-runs the kernel's image on QEMU,
- 
-	make bochs
-runs the kernel's image on Bochs,
+	make check
+checks whether the kernel's image is a Multiboot-compliant executable,
 
 	make clean
 removes the generated kernel's image,
@@ -91,20 +86,14 @@ are linked together using ld (actually using GCC as a linker) into a conclusive 
 The "-Map,System.map" option creates a file called "System.map" containing all the symbols from the ELF image.\
 Regarding the "-lgcc" library inclusion, see [Libgcc](https://wiki.osdev.org/Libgcc).
 
-#### *qemu* target
+#### *check* target
 
 Runs QEMU emulator simulating that the OS image (brunix.iso, an ISO file) is inserted in the CD-ROM drive of a machine 
 with 512 MiB of RAM memory:
 
 	qemu-system-i386 -cdrom brunix.iso -m 512M
+	../multiboot/multiboot-checker.sh brunix.elf
 
-#### *bochs* target
-
-Like *qemu*, but reading the configuration from the "bochsrc.txt" file.
-
-	megs: 512
-	ata0-slave:  type=cdrom, path="brunix.iso", status=inserted
-    boot: cdrom
 
 
 - -
@@ -115,51 +104,23 @@ and [GRUB](https://wiki.osdev.org/GRUB) [bootloader](https://wiki.osdev.org/Boot
 
 
 
-## Running the kernel
+## Image building and validation
 
-We can run it with:
+From the *build/* directory, we must run:
 
-	make qemu
-	
-or:
+	make
 
-	make bochs
+and expect to see something like:
 
-See #FAQs!
-
-At boot time we can edit the boot parameters, like this:
-
-![boot_args](pics/boot_args.png)
-
-After the system has booted up, something like this will appear:
-
-![booting](pics/booting.png)
-
+[100%] Built target brunix.elf
 
 
 ## How do pieces play together?
 
 ### Kernel loading
 
-Affected files:
-* linker.ld.pp
-* kernel/multiboot_entry_point.S
-* kernel/multiboot.c
-* kernel/main.c
 
 Let's see what happen when we try to boot from  a CD containing a bootable ISO file:
-
-##### Ancient ages
-
-When the computer is turned on (see [Initialization](http://wiki.osdev.org/System_Initialization_(x86))), the CPU starts
-in the so called Real Mode for compatibility reasons. In order to get all the power from an x86 CPU, we need to enable
-the so called Protected Mode.\
-So far, we have an ISO file containing both GRUB code (for booting) and the ELF kernel image.\
-Once system initialization has been concluded, the ISO file is read from the CD-ROM drive and GRUB code gets executed.\
-GRUB knows where the kernel is in the storage (see "iso/boot/grub/grub.cfg" file) and where to load it in physical RAM
-memory for execution - 1 MiB, in this case - (see "linker.ld" file).
-Just before jumping to the kernel, GRUB switches the CPU to Protected Mode with a full 4 GiB addressing space (32 bits),
-and [Paging](https://wiki.osdev.org/Paging) and [Interrupts](https://wiki.osdev.org/Interrupts) disabled (more on this later).
 
 
 ### How is the brunix.iso file created?
@@ -167,7 +128,7 @@ and [Paging](https://wiki.osdev.org/Paging) and [Interrupts](https://wiki.osdev.
 When we run <i>"make"</i> or <i>"make compile"</i> (see "Makefile" file) from the project's top level directory, once
 "brunix.elf" file gets created and put into "iso" directory, an ISO image is constructed with:
 
-	grub-mkrescue -d misc/grub/i386-pc -o os.iso iso/
+	grub-mkrescue -d multiboot/misc/grub/i386-pc -o os.iso iso/
 
 IMPORTANT: If you are working on an amd64 platform (as in my case) you need to provide the "-d" option to the command above.
 
@@ -204,39 +165,6 @@ GRUB save us from all the pain of switching from [Real Mode](http://wiki.osdev.o
 [Protected Mode](http://wiki.osdev.org/Protected_Mode), as it handles all the unpleasant details. Also, GRUB helps us
 avoid having to call [BIOS](https://wiki.osdev.org/BIOS) services.
 
-#### Why both QEMU and Bochs?
-
-QEMU is faster than Bochs and also integrates with GDB (more on this later), so it have its place as the regular emulator.
-But, as the project evolves, it is a good idea to run it on Bochs from time to time given Bochs is way more accurate than 
-QEMU on x86.\
-
-TODO VER ESTO!!!!\
-In other regards, Bochs don't support command line configuration and QEMU accept both command line configuration and
-configuration file. We stick to the command line configuration for QEMU for debugging reasons: 
-
-
-## NO STANDARD LIBRARY
-
-In the kernel ... .. There's no standard library..!
-
-
-## MULTIBOOT SPEC / GRUB
-
-Aside,
-EBX contains a pointer to the Multiboot information structure
-EAX contains the value 0x2BADB002
-Note that GRUB configures a stack but we can't trust its location, so we need to define ours.
-
-
-
-TODO vEr esto: Since we haven't set up virtual memory yet, all virtual addresses are identical to the physical ones.
-
-## Some considerations about GCC/GAS
-
-* Default *includes* like `#include <stddef.h>` and `#include <stdint.h>` are __not__ from the [standard C library](https://wiki.osdev.org/C_Library) (we don't have one in kernel space) but from the compiler itself.
-* In the context of including header files, we use the `__ASSEMBLER__` macro (like in `#ifndef __ASSEMBLER__`) to include C Preprocessor's structures on GNU assembler source files while ignoring any C code (like structs or unions) that would end up included by default.
-* GCC's `__attribute__((packed))` is used to avoid paddings by the compiler: we need some structures' fields to be exactly on a particular location, at bit level.
-* Note we don't use GCC's `__attribute__ ((noreturn))` for functions that don't return, like *panic()*: this is to avoid optimizations by the compiler that would play against debugging. We only mark those functions as NORET_FUNC (see [defs.h](/include/brunix/defs.h)) for informational purposes only.
 
 
 
@@ -244,7 +172,6 @@ TODO vEr esto: Since we haven't set up virtual memory yet, all virtual addresses
 ##References:
 
 * https://css.csail.mit.edu/6.858/2014/readings/i386.pdf
-* https://wiki.osdev.org/Serial_Ports
 * http://www.cse.iitd.ernet.in/os-lectures
 * https://wiki.osdev.org
 * https://wiki.osdev.org/Bare_Bones
@@ -252,8 +179,6 @@ TODO vEr esto: Since we haven't set up virtual memory yet, all virtual addresses
 * http://wiki.osdev.org/Why_do_I_need_a_Cross_Compiler%3F
 * http://wiki.osdev.org/LD
 * https://wiki.osdev.org/System_V_ABI (en duda)
-* https://wiki.osdev.org/Calling_Conventions (en duda)
-* http://wiki.osdev.org/System_Initialization_(x86)
 * http://wiki.osdev.org/Memory_Map_(x86)
 * //https://wiki.osdev.org/Interrupts
 * //https://wiki.osdev.org/Non_Maskable_Interrupt
