@@ -1,0 +1,43 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD CMakeFiles/brunix.elf.dir/kernel/multiboot_entry_point.S.o
+                0x0000000000100000                . = 0x100000
+
+.boot           0x0000000000100000        0xc
+ *(.multiboot_header)
+ .multiboot_header
+                0x0000000000100000        0xc CMakeFiles/brunix.elf.dir/kernel/multiboot_entry_point.S.o
+
+.init           0x000000000010000c        0x0
+ *(.init)
+ .init          0x000000000010000c        0x0 CMakeFiles/brunix.elf.dir/kernel/multiboot_entry_point.S.o
+                [!provide]                        PROVIDE (kernel_start, .)
+
+.text           0x0000000000101000        0x5
+ *(.text .stub .text.* .gnu.linkonce.t.*)
+ .text          0x0000000000101000        0x5 CMakeFiles/brunix.elf.dir/kernel/multiboot_entry_point.S.o
+                [!provide]                        PROVIDE (etext, .)
+
+.rodata
+ *(.rodata .rodata.* .gnu.linkonce.r.*)
+                [!provide]                        PROVIDE (data, .)
+
+.data           0x0000000000102000        0x0
+ *(.data)
+ .data          0x0000000000102000        0x0 CMakeFiles/brunix.elf.dir/kernel/multiboot_entry_point.S.o
+                [!provide]                        PROVIDE (edata, .)
+
+.bss            0x0000000000102000        0x0
+ *(.bss)
+ .bss           0x0000000000102000        0x0 CMakeFiles/brunix.elf.dir/kernel/multiboot_entry_point.S.o
+                [!provide]                        PROVIDE (kernel_end, .)
+
+/DISCARD/
+ *(.eh_frame .note.GNU-stack)
+OUTPUT(brunix.elf elf32-i386)

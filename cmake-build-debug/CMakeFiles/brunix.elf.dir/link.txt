@@ -1,0 +1,1 @@
+/home/phrack/osdev/opt/cross/bin/i686-elf-gcc -g  -T linker.ld -ffreestanding -nostdlib -Wl,-Map,System.map CMakeFiles/brunix.elf.dir/kernel/multiboot_entry_point.S.o  -o brunix.elf 

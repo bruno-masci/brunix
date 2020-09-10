@@ -1,0 +1,1 @@
+/usr/bin/cc -g  -rdynamic CMakeFiles/brunix.dir/arch/x86/kernel/gdt.c.o CMakeFiles/brunix.dir/arch/x86/kernel/isr.c.o CMakeFiles/brunix.dir/arch/x86/kernel/vga.c.o CMakeFiles/brunix.dir/libkern/stdlib.c.o CMakeFiles/brunix.dir/libkern/string.c.o CMakeFiles/brunix.dir/kernel/main.c.o  -o brunix 
