@@ -8,10 +8,7 @@
     <select />
   </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
-    <generated>
-      <config projectName="brunix" targetName="clean-all" />
-      <config projectName="brunix" targetName="brunix.elf" />
-    </generated>
+    <generated />
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
     <configurations>
@@ -20,30 +17,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a767619-4670-46b4-915a-b5341b6c1a1b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bochs.cfg.tmpl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/arch/x86/io.h" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/include/arch/x86/memlayout.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/arch/x86/memlayout.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/arch/x86/multiboot.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/arch/x86/multiboot.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/arch/x86/processor.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/arch/x86/vga.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/brunix/console.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/brunix/defs.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/brunix/kernel.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/brunix/string.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/console.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/main.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/multiboot.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/multiboot_entry_point.S" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/multiboot_entry_point.S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/panic.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/printk.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/vga.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libkern/printf.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libkern/printfmt.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libkern/string.c" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/linker.ld.pp" beforeDir="false" afterPath="$PROJECT_DIR$/linker.ld.pp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/qemu.cfg.tmpl" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +30,6 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -94,15 +70,10 @@
       <recent name="$PROJECT_DIR$/multiboot" />
     </key>
   </component>
-  <component name="RunManager" selected="CMake Application.brunix.elf">
-    <configuration name="brunix.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="brunix.elf" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="brunix" RUN_TARGET_NAME="brunix.elf">
+  <component name="RunManager">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="clean-all" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="clean-all" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
     <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
@@ -110,10 +81,6 @@
         <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <list>
-      <item itemvalue="CMake Application.brunix.elf" />
-      <item itemvalue="CMake Application.clean-all" />
-    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -221,12 +188,12 @@
     </state>
     <state x="50" y="25" width="769" height="874" key="CommitChangelistDialog2/0.25.1920.925@0.25.1920.925" timestamp="1597705094578" />
     <state x="50" y="27" width="1621" height="999" key="CommitChangelistDialog2/0.27.1920.1020@0.27.1920.1020" timestamp="1597113907752" />
-    <state x="137" y="130" width="1538" height="847" key="DiffContextDialog" timestamp="1599247711520">
+    <state x="137" y="130" width="1538" height="847" key="DiffContextDialog" timestamp="1599945318345">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="100" y="116" width="1538" height="765" key="DiffContextDialog/0.25.1920.925@0.25.1920.925" timestamp="1597705095400" />
     <state x="100" y="127" width="1720" height="820" key="DiffContextDialog/0.27.1920.1020@0.27.1920.1020" timestamp="1597114130656" />
-    <state x="137" y="130" width="1538" height="847" key="DiffContextDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1599247711520" />
+    <state x="137" y="130" width="1538" height="847" key="DiffContextDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1599945318345" />
     <state x="743" y="298" width="426" height="482" key="FileChooserDialogImpl" timestamp="1598753316190">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
@@ -275,11 +242,11 @@
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="741" y="455" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.28.1920.1024@0.28.1920.1024" timestamp="1598752225709" />
-    <state x="153" y="118" width="1544" height="850" key="find.popup" timestamp="1599525601690">
+    <state x="153" y="118" width="1544" height="850" key="find.popup" timestamp="1599944886536">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="156" y="114" width="1544" height="846" key="find.popup/0.27.1920.1020@0.27.1920.1020" timestamp="1597081431266" />
-    <state x="153" y="118" width="1544" height="850" key="find.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1599525601690" />
+    <state x="153" y="118" width="1544" height="850" key="find.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1599944886536" />
     <state width="600" height="428" key="javadoc.popup" timestamp="1598818939998">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
@@ -288,10 +255,10 @@
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="623" y="248" key="run.anything.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1599256713047" />
-    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup" timestamp="1599525521603">
+    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup" timestamp="1599945275344">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="623" y="251" width="672" height="678" key="search.everywhere.popup/0.27.1920.1020@0.27.1920.1020" timestamp="1597111070104" />
-    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1599525521603" />
+    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1599945275344" />
   </component>
 </project>
