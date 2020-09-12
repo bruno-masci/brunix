@@ -28,6 +28,7 @@ You can compare two adjacent branches to see exactly what changed. The idea here
 
 * [stage0-multiboot](https://github.com/bruno-masci/brunix/tree/stage0-posta)
 * [stage1-emulator_and_vga](https://github.com/bruno-masci/brunix/tree/stage0-multiboot)
+* [stage2-kernel_debugging]() (in progress)
 
 
 ## References
