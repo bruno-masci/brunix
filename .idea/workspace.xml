@@ -16,7 +16,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09916d8b-a51c-45d5-9e44-a908d6f2453e" name="Default" comment="Added printk(). Some changes.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -129,7 +128,7 @@
       <updated>1455128451610</updated>
       <workItem from="1527566519210" duration="96000" />
       <workItem from="1599825876149" duration="2761000" />
-      <workItem from="1599939960803" duration="1222000" />
+      <workItem from="1599939960803" duration="1317000" />
     </task>
     <task id="LOCAL-00001" summary="Added printk(). Some changes.">
       <created>1457640309517</created>
