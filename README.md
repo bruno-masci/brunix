@@ -30,7 +30,7 @@ You can compare two adjacent branches to see exactly what changed. The idea here
 * [stage1-emulator_and_vga](https://github.com/bruno-masci/brunix/tree/stage0-multiboot)
 
 
-## References:
+## References
 
 * https://wiki.osdev.org
 * http://www.cse.iitd.ernet.in/os-lectures
