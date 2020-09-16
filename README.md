@@ -66,6 +66,7 @@ Please complement this section by looking at the "CMakeLists.txt" file.
 
 #### 'default' target
 
+(repetido)
 Using the preconfigured* GCC cross-compiler, it compiles all C and ASM ([GAS](http://wiki.osdev.org/GAS)) source code into [relocatable ELF object files](http://wiki.osdev.org/Object_Files) that
 are linked together using ld (actually using GCC as a linker) into a conclusive statically linked ELF executable file:
 
@@ -78,7 +79,7 @@ Regarding the "-lgcc" library inclusion, see [Libgcc](https://wiki.osdev.org/Lib
 
 
 
-- -
+- - (repetido)
 We'll use [ELF](http://wiki.osdev.org/ELF) as the kernel image format, [ld](http://wiki.osdev.org/LD) linker from the
 cross-compiler just built (see "[Pre-requisites](#Pre-requisites)" section above) to produce an ELF-formatted kernel image,
 and [GRUB](https://wiki.osdev.org/GRUB) [bootloader](https://wiki.osdev.org/Bootloader) for booting the kernel.
@@ -105,7 +106,7 @@ and expect to see something like:
 Let's see what happen when we try to boot from  a CD containing a bootable ISO file:
 
 
-### How is the brunix.iso file created?
+### How is the brunix.iso file created? (repetido)
 
 When we run <i>"make"</i> or <i>"make compile"</i> (see "Makefile" file) from the project's top level directory, once
 "brunix.elf" file gets created and put into "iso" directory, an ISO image is constructed with:
@@ -117,7 +118,7 @@ IMPORTANT: If you are working on an amd64 platform (as in my case) you need to p
 
 
 
-## How does GRUB load the ELF-formatted kernel?
+## How does GRUB load the ELF-formatted kernel? (repetido)
 
 In order for GRUB to get the kernel loaded, it needs to know where in RAM
 memory we want the kernel to be loaded, which is the entry point of the kernel,
@@ -125,7 +126,7 @@ and so on. It gets this information from the ELF headers contained in the
 image. And the image
 is created by the ld linker. (see linker.ld file)
 
-## How does the kernel start running?
+## How does the kernel start running? (repetido)
 First thing first... our kernel image is ELF formatted and its inner structure is given by the ld linker directives and commands declared in the linker.ld file (see [Linker Scripts](http://wiki.osdev.org/Linker_Scripts)).
 When GRUB (or any Multiboot-compliant bootloader, for that matter) loads our kernel image, it needs to check whether the kernel is Multiboot-compliant looking for certain values to be stored at the beginning of the kernel image; that's why we have a "multiboot_header" section (see [multiboot_entry_point.S](/kernel/multiboot_entry_point.S)) at the very first position in the linker.ld file.
 Once GRUB has checked the image, it transfers the control to the kernel executing the code at the "_start" symbol.
@@ -133,13 +134,13 @@ Once GRUB has checked the image, it transfers the control to the kernel executin
 
 ### FAQ
 
-#### Why ELF?
+#### Why ELF? (repetido)
 
 ELF is a very flexible, well supported and documented file format, that distinguish between TEXT, DATA and BSS sections.
 Besides, ELF supports separate load and execution addresses, vital for a
 [Higher Half Kernel](https://wiki.osdev.org/Higher_Half_Kernel) (more on this later).
 
-#### Why GRUB?
+#### Why GRUB? (repetido)
 
 GRUB, which adheres to the [Multiboot](http://wiki.osdev.org/Multiboot) specification, is very powerful and natively
 supports loading ELF files.\
