@@ -1,0 +1,1 @@
+/usr/bin/cc   -ffreestanding -nostdlib -T linker.ld -Wl,-Map,System.map CMakeFiles/brunix.elf.dir/kernel/multiboot_entry_point.S.o  -o brunix.elf 

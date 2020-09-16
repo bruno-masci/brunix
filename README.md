@@ -1,17 +1,12 @@
 # brunix (stage 0)
 ##### *** Small Unix-like 32-bits x86 OS for fun and learning ***
 
-## Project layout and Multiboot-compliant executable
+## Stage 0 - Project layout and Multiboot-compliant executable
 
 
-Before starting, please note that:
-* the information here is complemented with that contained in the source code,
-* with x86 we mean 386+ architecture.
+If you didn't yet, please read the main [README.md](https://github.com/bruno-masci/brunix/blob/master/README.md) document first.
 
 ### Goals
-
-In this very first stage we are going to outline and depict the project structure. The idea is to do incremental 
-developments (stage0, stage1, ...) to tackle all the complexities in an easier way.
 
 For now, we'll just create a bootable ELF executable and check it is a valid Multiboot-compliant executable.\
 In order to achieve that, we need to add the Multiboot header at the beginning of the executable and set a desired entry point where the control is transferred to by the bootloader.
@@ -30,44 +25,38 @@ In order to achieve that, we need to add the Multiboot header at the beginning o
 
 ## Project building
 
-Is is highly recommended to build the project on a directory other than the source directory. We assume *build/* as the build directory, but we can use whichever we want.\
-__Any command that appears below is assumed to be run from the *build/* directory.__
+Is is highly recommended to build the project on a directory other than the source directory. We assume *build/* as the build directory but any other will work too.\
+__Any command that appears below is assumed to be run from the *build/* directory__ (the $ symbol indicates the shell prompt).
 
-If we run:
+For building the kernel, we need to run (this will create a *Makefile* file):
 
-	cmake ../
+	$ cmake ../
 
 and then:
 
-	make
+	$ make
 
-from the shell, we will end up with:
+we will end up with:
 
  * |── build/ 
    * |── Makefile -------------> *make*'s build specification.
    * |── *brunix.elf* ------------> kernel's image.
-   * |── *linker.ld* --------------> kernel's image.
+   * |── *linker.ld* --------------> kernel's preprocessed linker script.
    * |── System.map --------> kernel's symbol table. 
-   * |── brunix.asm ----------> disassembled kernel's image.
-   * |── brunix-nosym.elf ---> kernel's image without symbols/debug information.
+   * |── brunix.asm ----------> kernel's disassembled image.
    * |── brunix.iso ------------> bootable ISO image for the kernel.
    * |── iso/ --------------------> *grub-mkrescue*'s expected directory layout for creating an ISO file.
 
 
-## Build target
+## Build targets (*make*)
 
-### Supported build commands
+	<<default>>
+(i.e.: just "*make*") builds the kernel's image,
 
-	make
-(this is the default) buids the kernel's image,
-
-	make check
-checks whether the kernel's image is a Multiboot-compliant executable,
-
-	make clean
+	clean
 removes the generated kernel's image,
 
-	make clean-all
+	clean-all
 removes all generated files but *make*/*CMake*'s own files.
 
 
@@ -77,8 +66,8 @@ Please complement this section by looking at the "CMakeLists.txt" file.
 
 #### 'default' target
 
-Using the preconfigured GCC cross-compiler, it compiles all C and ASM ([GAS](http://wiki.osdev.org/GAS)) source code into [relocatable ELF object files](http://wiki.osdev.org/Object_Files) that
-are linked together using ld (actually using GCC as a linker) into a conclusive statically linked executable ELF file:
+Using the preconfigured* GCC cross-compiler, it compiles all C and ASM ([GAS](http://wiki.osdev.org/GAS)) source code into [relocatable ELF object files](http://wiki.osdev.org/Object_Files) that
+are linked together using ld (actually using GCC as a linker) into a conclusive statically linked ELF executable file:
 
     CMAKE_EXE_LINKER_FLAGS:   ${LDFLAGS} -Wl,-Map,${SYSTEM_MAP_NAME}
     CMAKE_C_LINK_EXECUTABLE:  ${CMAKE_C_COMPILER} <CMAKE_C_LINK_FLAGS> <LINK_FLAGS> -o <TARGET> <OBJECTS> -lgcc
@@ -86,13 +75,6 @@ are linked together using ld (actually using GCC as a linker) into a conclusive 
 The "-Map,System.map" option creates a file called "System.map" containing all the symbols from the ELF image.\
 Regarding the "-lgcc" library inclusion, see [Libgcc](https://wiki.osdev.org/Libgcc).
 
-#### *check* target
-
-Runs QEMU emulator simulating that the OS image (brunix.iso, an ISO file) is inserted in the CD-ROM drive of a machine 
-with 512 MiB of RAM memory:
-
-	qemu-system-i386 -cdrom brunix.iso -m 512M
-	../multiboot/multiboot-checker.sh brunix.elf
 
 
 
@@ -108,11 +90,11 @@ and [GRUB](https://wiki.osdev.org/GRUB) [bootloader](https://wiki.osdev.org/Boot
 
 From the *build/* directory, we must run:
 
-	make
+	$ make
 
 and expect to see something like:
 
-[100%] Built target brunix.elf
+    [100%] Built target brunix.elf
 
 
 ## How do pieces play together?
@@ -172,30 +154,18 @@ avoid having to call [BIOS](https://wiki.osdev.org/BIOS) services.
 ##References:
 
 * https://css.csail.mit.edu/6.858/2014/readings/i386.pdf
-* http://www.cse.iitd.ernet.in/os-lectures
-* https://wiki.osdev.org
 * https://wiki.osdev.org/Bare_Bones
 * http://wiki.osdev.org/GCC_Cross-Compiler
 * http://wiki.osdev.org/Why_do_I_need_a_Cross_Compiler%3F
 * http://wiki.osdev.org/LD
-* https://wiki.osdev.org/System_V_ABI (en duda)
 * http://wiki.osdev.org/Memory_Map_(x86)
 * //https://wiki.osdev.org/Interrupts
 * //https://wiki.osdev.org/Non_Maskable_Interrupt
-* http://wiki.osdev.org/Real_Mode
-* http://wiki.osdev.org/Protected_Mode
-* //https://wiki.osdev.org/Global_Descriptor_Table
-* //https://wiki.osdev.org/Paging
-* http://wiki.osdev.org/Printing_To_Screen
-* http://www.brokenthorn.com/Resources/OSDevVga.html
 * http://wiki.osdev.org/Multiboot
 * https://www.gnu.org/software/grub/manual/multiboot/multiboot.html
-* http://www.jamesmolloy.co.uk/tutorial_html
-* http://www.osdever.net/bkerndev/index.php
 * http://os.phil-opp.com/multiboot-kernel.html
-* https://wiki.osdev.org/Inline_Assembly
 * https://en.wikibooks.org/wiki/The_Linux_Kernel/System
-
+* https://wiki.osdev.org/Libgcc
 
 https://pdos.csail.mit.edu/6.828/2014/readings/elf.pdf
 https://pdos.csail.mit.edu/6.828/2014/readings/pcasm-book.pdf

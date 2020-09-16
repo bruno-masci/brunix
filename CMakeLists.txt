@@ -23,7 +23,6 @@ set(CMAKE_C_FLAGS "-ffreestanding -c -fno-omit-frame-pointer \
 # Source files and other input files
 #########################################################################
 file(GLOB_RECURSE   ASM_SRCS                    "kernel/*.S")
-file(GLOB_RECURSE   C_SRCS                      "kernel/*.c")
 
 file(GLOB           UNPROCESSED_LINKER_SCRIPT   "linker.ld.pp")
 file(GLOB           KERNEL_INCLUDE_DIR          "include")
@@ -53,7 +52,7 @@ set(CMAKE_C_LINK_EXECUTABLE "${CMAKE_C_COMPILER} <CMAKE_C_LINK_FLAGS> <LINK_FLAG
 #########################################################################
 # Executable creation
 #########################################################################
-add_executable(${BIN_NAME} ${ASM_SRCS} ${C_SRCS})
+add_executable(${BIN_NAME} ${ASM_SRCS})
 target_include_directories(${BIN_NAME} PUBLIC include)
 
 # ------------------------------ PRE BUILD ------------------------------

@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/arch/x86/memlayout.h
+
+../include/arch/x86/multiboot.h
+
+/home/phrack/osdev/workspace/brunix/kernel/multiboot_entry_point.S
+arch/x86/multiboot.h
+-
+arch/x86/memlayout.h
+-
+

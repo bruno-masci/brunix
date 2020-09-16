@@ -19,10 +19,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a767619-4670-46b4-915a-b5341b6c1a1b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="09916d8b-a51c-45d5-9e44-a908d6f2453e" name="Default" comment="Added printk(). Some changes.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linker.ld.pp" beforeDir="false" afterPath="$PROJECT_DIR$/linker.ld.pp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -260,19 +261,19 @@
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="741" y="455" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.28.1920.1024@0.28.1920.1024" timestamp="1598752225709" />
-    <state x="153" y="118" width="1544" height="850" key="find.popup" timestamp="1599946393330">
+    <state x="153" y="118" width="1544" height="850" key="find.popup" timestamp="1600226457120">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="156" y="114" width="1544" height="846" key="find.popup/0.27.1920.1020@0.27.1920.1020" timestamp="1597081431266" />
-    <state x="153" y="118" width="1544" height="850" key="find.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1599946393330" />
+    <state x="153" y="118" width="1544" height="850" key="find.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1600226457120" />
     <state width="600" height="428" key="javadoc.popup" timestamp="1598818939998">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state width="600" height="428" key="javadoc.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1598818939998" />
-    <state x="623" y="248" key="run.anything.popup" timestamp="1599256713047">
+    <state x="623" y="248" key="run.anything.popup" timestamp="1600226901003">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
-    <state x="623" y="248" key="run.anything.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1599256713047" />
+    <state x="623" y="248" key="run.anything.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1600226901003" />
     <state x="623" y="253" width="672" height="681" key="search.everywhere.popup" timestamp="1600225021808">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>

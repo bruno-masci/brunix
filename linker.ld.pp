@@ -8,7 +8,7 @@
  *
  * This file is actually a template for the linker script. We apply the C preprocessor on this file so we can include
  * some constants (instead of duplicating them) and use C-style comments.
- * The ".pp" suffix in this file name is for "PreProcessor".
+ * The ".pp" suffix in this file name stands for "PreProcessor".
  */
 
 
