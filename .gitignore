@@ -1,4 +1,4 @@
 .idea/workspace.xml
-CMakeLists.txt
 bochsout.log
 *.o
+/cmake-build-debug/

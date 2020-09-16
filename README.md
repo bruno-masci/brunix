@@ -1,6 +1,9 @@
-# brunix
-##### *** Small Unix-like 32-bits x86 OS for fun and learning (in progress) ***
+# brunix (in progress)
+##### *** Small Unix-like 32-bits x86 OS for fun and learning ***
 
+Before starting, please note that:
+* the information here is complemented with that contained in the source code,
+* with x86 we mean 386+ architecture.
 
 ## Overview
 
