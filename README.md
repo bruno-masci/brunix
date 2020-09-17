@@ -1,6 +1,14 @@
 # brunix (in progress)
 ##### *** Small Unix-like 32-bits x86 OS for fun and learning ***
 
+### Pre-requisites
+* A <b>proper</b> [cross-compiler](http://wiki.osdev.org/GCC_Cross-Compiler)
+* cmake
+* make
+* bash
+* grub
+* xorriso library (for creating the ISO image)
+
 Before starting, please note that:
 * the information here is complemented with that contained in the source code,
 * with x86 we mean 386+ architecture.
@@ -20,7 +28,7 @@ My hope is that this guide helps others to follow a logical path towards the bui
 learning about the important concepts and details in the process.
 
 Once I finish the development of the OS, this page will contain general information about building and using it.
-Apart from that, you can go step by step and grasp some concepts as needed.
+Apart from that, you can go step by step and grasp some concepts as needed. You will find a lot more of information and details there.
 
 ## Step by step through the stages
 
