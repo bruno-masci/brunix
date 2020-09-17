@@ -67,7 +67,7 @@ Please complement this section by looking at the "CMakeLists.txt" file.
 #### 'default' target
 
 (repetido)
-Using the preconfigured* GCC cross-compiler, it compiles all C and ASM ([GAS](http://wiki.osdev.org/GAS)) source code into [relocatable ELF object files](http://wiki.osdev.org/Object_Files) that
+Using the preconfigured GCC cross-compiler (see "[Pre-requisites](https://github.com/bruno-masci/brunix/tree/master#pre-requisites)"), it compiles all C and ASM ([GAS](http://wiki.osdev.org/GAS)) source code into [relocatable ELF object files](http://wiki.osdev.org/Object_Files) that
 are linked together using ld (actually using GCC as a linker) into a conclusive statically linked ELF executable file:
 
     CMAKE_EXE_LINKER_FLAGS:   ${LDFLAGS} -Wl,-Map,${SYSTEM_MAP_NAME}
