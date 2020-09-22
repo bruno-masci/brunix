@@ -11,3 +11,4 @@ System.map
 /cmake_install.cmake
 /CMakeCache.txt
 /cmake-build-debug/
+/build/

@@ -15,7 +15,7 @@
 #include <arch/x86/memlayout.h>     // for KERN_LINK, KERN_BASE
 
 
-/* <<< DISCLAIMER >>>
+/* >>>>> DISCLAIMER <<<<<
  * We don't specify neither OUTPUT_FORMAT nor OUTPUT_ARCH commands here (see http://wiki.osdev.org/GCC_Cross-Compiler)
  */
 
@@ -31,10 +31,6 @@ SECTIONS {
     .boot : {
         // Ensure that the multiboot header is at the beginning of the generated image
         *(.multiboot_header)
-    }
-
-    .init : {
-        *(.init)
     }
 
     .text ALIGN(4096) : AT (ADDR(.text) - KERN_BASE) {
@@ -56,11 +52,5 @@ SECTIONS {
 
     .bss ALIGN(4096) : AT (ADDR(.bss) - KERN_BASE) {
         *(.bss)
-    }
-
-	PROVIDE(kernel_end = .);
-
-    /DISCARD/ : {
-        *(.eh_frame .note.GNU-stack)
     }
 }
