@@ -1,4 +1,0 @@
-/home/phrack/osdev/workspace/brunix/build/CMakeFiles/rebuild_cache.dir
-/home/phrack/osdev/workspace/brunix/build/CMakeFiles/edit_cache.dir
-/home/phrack/osdev/workspace/brunix/build/CMakeFiles/clean-all.dir
-/home/phrack/osdev/workspace/brunix/build/CMakeFiles/brunix.elf.dir
