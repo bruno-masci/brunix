@@ -2,3 +2,4 @@
 bochsout.log
 *.o
 /cmake-build-debug/
+/build/
