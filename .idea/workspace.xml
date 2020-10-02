@@ -20,37 +20,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09916d8b-a51c-45d5-9e44-a908d6f2453e" name="Default" comment="Added printk(). Some changes.">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeCache.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.16.3/CMakeASMCompiler.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.16.3/CMakeCCompiler.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.16.3/CMakeDetermineCompilerABI_C.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.16.3/CMakeSystem.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.16.3/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.16.3/CompilerIdC/a.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/CMakeOutput.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/CMakeRuleHashes.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/Makefile.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/Makefile2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/TargetDirectories.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/brunix.elf.dir/ASM.includecache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/brunix.elf.dir/DependInfo.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/brunix.elf.dir/build.make" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/brunix.elf.dir/cmake_clean.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/brunix.elf.dir/depend.internal" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/brunix.elf.dir/depend.make" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/brunix.elf.dir/flags.make" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/brunix.elf.dir/link.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/brunix.elf.dir/progress.make" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/clean-all.dir/DependInfo.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/clean-all.dir/build.make" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/clean-all.dir/cmake_clean.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/clean-all.dir/progress.make" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/cmake.check_cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/progress.marks" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/Makefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/cmake_install.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/arch/x86/memlayout.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/arch/x86/memlayout.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/arch/x86/multiboot.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/arch/x86/multiboot.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/multiboot_entry_point.S" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/multiboot_entry_point.S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linker.ld.pp" beforeDir="false" afterPath="$PROJECT_DIR$/linker.ld.pp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +51,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/pics" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/CMakeLists.txt" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -167,7 +143,12 @@
       <workItem from="1599519569498" duration="5927000" />
       <workItem from="1600211509829" duration="3966000" />
       <workItem from="1600299685385" duration="470000" />
-      <workItem from="1600816465444" duration="538000" />
+      <workItem from="1600816465444" duration="3506000" />
+      <workItem from="1601001956663" duration="1258000" />
+      <workItem from="1601003244613" duration="5824000" />
+      <workItem from="1601234624561" duration="8844000" />
+      <workItem from="1601510284835" duration="4956000" />
+      <workItem from="1601594602817" duration="3434000" />
     </task>
     <servers />
   </component>
@@ -235,12 +216,12 @@
     </state>
     <state x="50" y="25" width="769" height="874" key="CommitChangelistDialog2/0.25.1920.925@0.25.1920.925" timestamp="1597705094578" />
     <state x="50" y="27" width="1621" height="999" key="CommitChangelistDialog2/0.27.1920.1020@0.27.1920.1020" timestamp="1597113907752" />
-    <state x="137" y="130" width="1538" height="847" key="DiffContextDialog" timestamp="1600816637684">
+    <state x="137" y="130" width="1538" height="847" key="DiffContextDialog" timestamp="1601597798648">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="100" y="116" width="1538" height="765" key="DiffContextDialog/0.25.1920.925@0.25.1920.925" timestamp="1597705095400" />
     <state x="100" y="127" width="1720" height="820" key="DiffContextDialog/0.27.1920.1020@0.27.1920.1020" timestamp="1597114130656" />
-    <state x="137" y="130" width="1538" height="847" key="DiffContextDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1600816637684" />
+    <state x="137" y="130" width="1538" height="847" key="DiffContextDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1601597798648" />
     <state x="743" y="298" width="426" height="482" key="FileChooserDialogImpl" timestamp="1599945775998">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
@@ -285,27 +266,31 @@
     <state x="100" y="116" width="1720" height="744" key="ShowDiffWithBranchDialog/0.25.1920.925@0.25.1920.925" timestamp="1597704677626" />
     <state x="100" y="127" width="1720" height="820" key="ShowDiffWithBranchDialog/0.27.1920.1020@0.27.1920.1020" timestamp="1597114130656" />
     <state x="100" y="129" width="1720" height="824" key="ShowDiffWithBranchDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1600228296164" />
+    <state x="555" y="276" width="802" height="526" key="Vcs.Push.Dialog.v2" timestamp="1601596615096">
+      <screen x="0" y="28" width="1920" height="1024" />
+    </state>
+    <state x="555" y="276" width="802" height="526" key="Vcs.Push.Dialog.v2/0.28.1920.1024@0.28.1920.1024" timestamp="1601596615096" />
     <state x="741" y="455" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1598752225709">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="741" y="455" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.28.1920.1024@0.28.1920.1024" timestamp="1598752225709" />
-    <state x="153" y="118" width="1544" height="850" key="find.popup" timestamp="1600816756605">
+    <state x="221" y="134" width="1544" height="850" key="find.popup" timestamp="1601596072736">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="156" y="114" width="1544" height="846" key="find.popup/0.27.1920.1020@0.27.1920.1020" timestamp="1597081431266" />
-    <state x="153" y="118" width="1544" height="850" key="find.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1600816756605" />
+    <state x="221" y="134" width="1544" height="850" key="find.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1601596072736" />
     <state width="600" height="428" key="javadoc.popup" timestamp="1598818939998">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state width="600" height="428" key="javadoc.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1598818939998" />
-    <state x="623" y="248" key="run.anything.popup" timestamp="1600816849853">
+    <state x="623" y="248" width="672" height="677" key="run.anything.popup" timestamp="1601514620320">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
-    <state x="623" y="248" key="run.anything.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1600816849853" />
-    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup" timestamp="1600225021808">
+    <state x="623" y="248" width="672" height="677" key="run.anything.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1601514620320" />
+    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup" timestamp="1601514602465">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="623" y="251" width="672" height="678" key="search.everywhere.popup/0.27.1920.1020@0.27.1920.1020" timestamp="1597111070104" />
-    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1600225021808" />
+    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1601514602465" />
   </component>
 </project>

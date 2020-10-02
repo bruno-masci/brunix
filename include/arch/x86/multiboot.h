@@ -2,7 +2,7 @@
  * @author Bruno Masci
  * @brief Declarations related to the Multiboot Standard interface.
  * @see /kernel/multiboot_entry_point.S
- * @see https://www.gnu.org/software/grub/manual/multiboot/multiboot.html
+ * @see http://wiki.osdev.org/Multiboot
  */
 
 #ifndef __ARCH_MULTIBOOT_H__

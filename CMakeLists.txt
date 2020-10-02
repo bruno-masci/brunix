@@ -5,15 +5,17 @@ project(brunix LANGUAGES ASM C)
 #########################################################################
 # Compiler & Assembler config
 #########################################################################
-set(CROSS_COMPILER_BIN_PATH /home/phrack/osdev/opt/cross/bin)
+terset(CROSS_COMPILER_BIN_PATH /home/osdev/opt/cross/bin)
 set(CMAKE_C_COMPILER        ${CROSS_COMPILER_BIN_PATH}/i686-elf-gcc)
+set(CMAKE_ASM_COMPILER      ${CMAKE_C_COMPILER})
+set(CMAKE_LINKER            ${CROSS_COMPILER_BIN_PATH}/i686-elf-ld)
 
 set(CMAKE_C_STANDARD 99)
 
 set(C_PREPROCESSOR_FLAGS -E -x c)
 
 # Do not optimise for now with "-O1", "-O2"... and so on, so we can do some validations.
-# Note also the use of "-fno-omit-frame-pointer" option below.
+# Note also the use of "-fno-omit-frame-pointer" option below (for debugging purposes).
 set(CMAKE_C_FLAGS "-ffreestanding -c -fno-omit-frame-pointer \
     -pedantic -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-align -Wwrite-strings -Wredundant-decls -Wnested-externs \
     -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wconversion")
@@ -44,7 +46,7 @@ set(PREPROCESSED_LINKER_SCRIPT linker.ld)
 #########################################################################
 # Linking config
 #########################################################################
-set(LDFLAGS "-ffreestanding -nostdlib -T ${PREPROCESSED_LINKER_SCRIPT}")
+set(LDFLAGS "-ffreestanding -nostdlib -n -T ${PREPROCESSED_LINKER_SCRIPT}")
 set(CMAKE_EXE_LINKER_FLAGS "${LDFLAGS} -Wl,-Map,${SYSTEM_MAP_NAME}")
 set(CMAKE_C_LINK_EXECUTABLE "${CMAKE_C_COMPILER} <CMAKE_C_LINK_FLAGS> <LINK_FLAGS> -o <TARGET> <OBJECTS> -lgcc")
 
