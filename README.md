@@ -5,7 +5,7 @@
 
 
 If you didn't yet, please read the main [README.md](https://github.com/bruno-masci/brunix/blob/master/README.md) 
-document first, and specially the [Pre-requisites](https://github.com/bruno-masci/brunix/tree/master#pre-requisites).
+document first, and specially the [Pre-requisites](https://github.com/bruno-masci/brunix/tree/master#-pre-requisites).
 
 ## # Goals
 
