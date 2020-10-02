@@ -1,3 +1,3 @@
-/home/phrack/osdev/workspace/brunix/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/phrack/osdev/workspace/brunix/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/phrack/osdev/workspace/brunix/cmake-build-debug/CMakeFiles/brunix.dir
+/home/osdev/workspace/brunix/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/osdev/workspace/brunix/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/osdev/workspace/brunix/cmake-build-debug/CMakeFiles/brunix.dir

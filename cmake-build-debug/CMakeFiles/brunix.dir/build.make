@@ -63,10 +63,10 @@ RM = /home/phrack/dev/C/IDEs/clion-2020.2/bin/cmake/linux/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/phrack/osdev/workspace/brunix
+CMAKE_SOURCE_DIR = /home/osdev/workspace/brunix
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/phrack/osdev/workspace/brunix/cmake-build-debug
+CMAKE_BINARY_DIR = /home/osdev/workspace/brunix/cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/brunix.dir/depend.make
@@ -79,81 +79,81 @@ include CMakeFiles/brunix.dir/flags.make
 
 CMakeFiles/brunix.dir/arch/x86/kernel/gdt.c.o: CMakeFiles/brunix.dir/flags.make
 CMakeFiles/brunix.dir/arch/x86/kernel/gdt.c.o: ../arch/x86/kernel/gdt.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/phrack/osdev/workspace/brunix/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/brunix.dir/arch/x86/kernel/gdt.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/brunix.dir/arch/x86/kernel/gdt.c.o   -c /home/phrack/osdev/workspace/brunix/arch/x86/kernel/gdt.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/osdev/workspace/brunix/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/brunix.dir/arch/x86/kernel/gdt.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/brunix.dir/arch/x86/kernel/gdt.c.o   -c /home/osdev/workspace/brunix/arch/x86/kernel/gdt.c
 
 CMakeFiles/brunix.dir/arch/x86/kernel/gdt.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/brunix.dir/arch/x86/kernel/gdt.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/phrack/osdev/workspace/brunix/arch/x86/kernel/gdt.c > CMakeFiles/brunix.dir/arch/x86/kernel/gdt.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/osdev/workspace/brunix/arch/x86/kernel/gdt.c > CMakeFiles/brunix.dir/arch/x86/kernel/gdt.c.i
 
 CMakeFiles/brunix.dir/arch/x86/kernel/gdt.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/brunix.dir/arch/x86/kernel/gdt.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/phrack/osdev/workspace/brunix/arch/x86/kernel/gdt.c -o CMakeFiles/brunix.dir/arch/x86/kernel/gdt.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/osdev/workspace/brunix/arch/x86/kernel/gdt.c -o CMakeFiles/brunix.dir/arch/x86/kernel/gdt.c.s
 
 CMakeFiles/brunix.dir/arch/x86/kernel/isr.c.o: CMakeFiles/brunix.dir/flags.make
 CMakeFiles/brunix.dir/arch/x86/kernel/isr.c.o: ../arch/x86/kernel/isr.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/phrack/osdev/workspace/brunix/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/brunix.dir/arch/x86/kernel/isr.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/brunix.dir/arch/x86/kernel/isr.c.o   -c /home/phrack/osdev/workspace/brunix/arch/x86/kernel/isr.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/osdev/workspace/brunix/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/brunix.dir/arch/x86/kernel/isr.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/brunix.dir/arch/x86/kernel/isr.c.o   -c /home/osdev/workspace/brunix/arch/x86/kernel/isr.c
 
 CMakeFiles/brunix.dir/arch/x86/kernel/isr.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/brunix.dir/arch/x86/kernel/isr.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/phrack/osdev/workspace/brunix/arch/x86/kernel/isr.c > CMakeFiles/brunix.dir/arch/x86/kernel/isr.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/osdev/workspace/brunix/arch/x86/kernel/isr.c > CMakeFiles/brunix.dir/arch/x86/kernel/isr.c.i
 
 CMakeFiles/brunix.dir/arch/x86/kernel/isr.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/brunix.dir/arch/x86/kernel/isr.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/phrack/osdev/workspace/brunix/arch/x86/kernel/isr.c -o CMakeFiles/brunix.dir/arch/x86/kernel/isr.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/osdev/workspace/brunix/arch/x86/kernel/isr.c -o CMakeFiles/brunix.dir/arch/x86/kernel/isr.c.s
 
 CMakeFiles/brunix.dir/arch/x86/kernel/vga.c.o: CMakeFiles/brunix.dir/flags.make
 CMakeFiles/brunix.dir/arch/x86/kernel/vga.c.o: ../arch/x86/kernel/vga.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/phrack/osdev/workspace/brunix/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/brunix.dir/arch/x86/kernel/vga.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/brunix.dir/arch/x86/kernel/vga.c.o   -c /home/phrack/osdev/workspace/brunix/arch/x86/kernel/vga.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/osdev/workspace/brunix/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/brunix.dir/arch/x86/kernel/vga.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/brunix.dir/arch/x86/kernel/vga.c.o   -c /home/osdev/workspace/brunix/arch/x86/kernel/vga.c
 
 CMakeFiles/brunix.dir/arch/x86/kernel/vga.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/brunix.dir/arch/x86/kernel/vga.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/phrack/osdev/workspace/brunix/arch/x86/kernel/vga.c > CMakeFiles/brunix.dir/arch/x86/kernel/vga.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/osdev/workspace/brunix/arch/x86/kernel/vga.c > CMakeFiles/brunix.dir/arch/x86/kernel/vga.c.i
 
 CMakeFiles/brunix.dir/arch/x86/kernel/vga.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/brunix.dir/arch/x86/kernel/vga.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/phrack/osdev/workspace/brunix/arch/x86/kernel/vga.c -o CMakeFiles/brunix.dir/arch/x86/kernel/vga.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/osdev/workspace/brunix/arch/x86/kernel/vga.c -o CMakeFiles/brunix.dir/arch/x86/kernel/vga.c.s
 
 CMakeFiles/brunix.dir/libkern/stdlib.c.o: CMakeFiles/brunix.dir/flags.make
 CMakeFiles/brunix.dir/libkern/stdlib.c.o: ../libkern/stdlib.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/phrack/osdev/workspace/brunix/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/brunix.dir/libkern/stdlib.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/brunix.dir/libkern/stdlib.c.o   -c /home/phrack/osdev/workspace/brunix/libkern/stdlib.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/osdev/workspace/brunix/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/brunix.dir/libkern/stdlib.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/brunix.dir/libkern/stdlib.c.o   -c /home/osdev/workspace/brunix/libkern/stdlib.c
 
 CMakeFiles/brunix.dir/libkern/stdlib.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/brunix.dir/libkern/stdlib.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/phrack/osdev/workspace/brunix/libkern/stdlib.c > CMakeFiles/brunix.dir/libkern/stdlib.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/osdev/workspace/brunix/libkern/stdlib.c > CMakeFiles/brunix.dir/libkern/stdlib.c.i
 
 CMakeFiles/brunix.dir/libkern/stdlib.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/brunix.dir/libkern/stdlib.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/phrack/osdev/workspace/brunix/libkern/stdlib.c -o CMakeFiles/brunix.dir/libkern/stdlib.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/osdev/workspace/brunix/libkern/stdlib.c -o CMakeFiles/brunix.dir/libkern/stdlib.c.s
 
 CMakeFiles/brunix.dir/libkern/string.c.o: CMakeFiles/brunix.dir/flags.make
 CMakeFiles/brunix.dir/libkern/string.c.o: ../libkern/string.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/phrack/osdev/workspace/brunix/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/brunix.dir/libkern/string.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/brunix.dir/libkern/string.c.o   -c /home/phrack/osdev/workspace/brunix/libkern/string.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/osdev/workspace/brunix/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/brunix.dir/libkern/string.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/brunix.dir/libkern/string.c.o   -c /home/osdev/workspace/brunix/libkern/string.c
 
 CMakeFiles/brunix.dir/libkern/string.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/brunix.dir/libkern/string.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/phrack/osdev/workspace/brunix/libkern/string.c > CMakeFiles/brunix.dir/libkern/string.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/osdev/workspace/brunix/libkern/string.c > CMakeFiles/brunix.dir/libkern/string.c.i
 
 CMakeFiles/brunix.dir/libkern/string.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/brunix.dir/libkern/string.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/phrack/osdev/workspace/brunix/libkern/string.c -o CMakeFiles/brunix.dir/libkern/string.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/osdev/workspace/brunix/libkern/string.c -o CMakeFiles/brunix.dir/libkern/string.c.s
 
 CMakeFiles/brunix.dir/kernel/main.c.o: CMakeFiles/brunix.dir/flags.make
 CMakeFiles/brunix.dir/kernel/main.c.o: ../kernel/main.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/phrack/osdev/workspace/brunix/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/brunix.dir/kernel/main.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/brunix.dir/kernel/main.c.o   -c /home/phrack/osdev/workspace/brunix/kernel/main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/osdev/workspace/brunix/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/brunix.dir/kernel/main.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/brunix.dir/kernel/main.c.o   -c /home/osdev/workspace/brunix/kernel/main.c
 
 CMakeFiles/brunix.dir/kernel/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/brunix.dir/kernel/main.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/phrack/osdev/workspace/brunix/kernel/main.c > CMakeFiles/brunix.dir/kernel/main.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/osdev/workspace/brunix/kernel/main.c > CMakeFiles/brunix.dir/kernel/main.c.i
 
 CMakeFiles/brunix.dir/kernel/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/brunix.dir/kernel/main.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/phrack/osdev/workspace/brunix/kernel/main.c -o CMakeFiles/brunix.dir/kernel/main.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/osdev/workspace/brunix/kernel/main.c -o CMakeFiles/brunix.dir/kernel/main.c.s
 
 # Object files for target brunix
 brunix_OBJECTS = \
@@ -175,7 +175,7 @@ brunix: CMakeFiles/brunix.dir/libkern/string.c.o
 brunix: CMakeFiles/brunix.dir/kernel/main.c.o
 brunix: CMakeFiles/brunix.dir/build.make
 brunix: CMakeFiles/brunix.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/phrack/osdev/workspace/brunix/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking C executable brunix"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/osdev/workspace/brunix/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking C executable brunix"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/brunix.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -188,6 +188,6 @@ CMakeFiles/brunix.dir/clean:
 .PHONY : CMakeFiles/brunix.dir/clean
 
 CMakeFiles/brunix.dir/depend:
-	cd /home/phrack/osdev/workspace/brunix/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/phrack/osdev/workspace/brunix /home/phrack/osdev/workspace/brunix /home/phrack/osdev/workspace/brunix/cmake-build-debug /home/phrack/osdev/workspace/brunix/cmake-build-debug /home/phrack/osdev/workspace/brunix/cmake-build-debug/CMakeFiles/brunix.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/osdev/workspace/brunix/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/osdev/workspace/brunix /home/osdev/workspace/brunix /home/osdev/workspace/brunix/cmake-build-debug /home/osdev/workspace/brunix/cmake-build-debug /home/osdev/workspace/brunix/cmake-build-debug/CMakeFiles/brunix.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/brunix.dir/depend
 

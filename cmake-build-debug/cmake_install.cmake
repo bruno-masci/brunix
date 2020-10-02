@@ -1,4 +1,4 @@
-# Install script for directory: /home/phrack/osdev/workspace/brunix
+# Install script for directory: /home/osdev/workspace/brunix
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/phrack/osdev/workspace/brunix/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/osdev/workspace/brunix/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

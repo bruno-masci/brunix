@@ -4,12 +4,12 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/phrack/osdev/workspace/brunix/arch/x86/kernel/gdt.c" "/home/phrack/osdev/workspace/brunix/cmake-build-debug/CMakeFiles/brunix.dir/arch/x86/kernel/gdt.c.o"
-  "/home/phrack/osdev/workspace/brunix/arch/x86/kernel/isr.c" "/home/phrack/osdev/workspace/brunix/cmake-build-debug/CMakeFiles/brunix.dir/arch/x86/kernel/isr.c.o"
-  "/home/phrack/osdev/workspace/brunix/arch/x86/kernel/vga.c" "/home/phrack/osdev/workspace/brunix/cmake-build-debug/CMakeFiles/brunix.dir/arch/x86/kernel/vga.c.o"
-  "/home/phrack/osdev/workspace/brunix/kernel/main.c" "/home/phrack/osdev/workspace/brunix/cmake-build-debug/CMakeFiles/brunix.dir/kernel/main.c.o"
-  "/home/phrack/osdev/workspace/brunix/libkern/stdlib.c" "/home/phrack/osdev/workspace/brunix/cmake-build-debug/CMakeFiles/brunix.dir/libkern/stdlib.c.o"
-  "/home/phrack/osdev/workspace/brunix/libkern/string.c" "/home/phrack/osdev/workspace/brunix/cmake-build-debug/CMakeFiles/brunix.dir/libkern/string.c.o"
+  "/home/osdev/workspace/brunix/arch/x86/kernel/gdt.c" "/home/osdev/workspace/brunix/cmake-build-debug/CMakeFiles/brunix.dir/arch/x86/kernel/gdt.c.o"
+  "/home/osdev/workspace/brunix/arch/x86/kernel/isr.c" "/home/osdev/workspace/brunix/cmake-build-debug/CMakeFiles/brunix.dir/arch/x86/kernel/isr.c.o"
+  "/home/osdev/workspace/brunix/arch/x86/kernel/vga.c" "/home/osdev/workspace/brunix/cmake-build-debug/CMakeFiles/brunix.dir/arch/x86/kernel/vga.c.o"
+  "/home/osdev/workspace/brunix/kernel/main.c" "/home/osdev/workspace/brunix/cmake-build-debug/CMakeFiles/brunix.dir/kernel/main.c.o"
+  "/home/osdev/workspace/brunix/libkern/stdlib.c" "/home/osdev/workspace/brunix/cmake-build-debug/CMakeFiles/brunix.dir/libkern/stdlib.c.o"
+  "/home/osdev/workspace/brunix/libkern/string.c" "/home/osdev/workspace/brunix/cmake-build-debug/CMakeFiles/brunix.dir/libkern/string.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

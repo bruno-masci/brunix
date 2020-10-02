@@ -8,38 +8,38 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/home/phrack/osdev/workspace/brunix/cmake-build-debug"/>
+				<Option working_dir="/home/osdev/workspace/brunix/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/phrack/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/phrack/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/phrack/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/phrack/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/home/phrack/osdev/workspace/brunix/cmake-build-debug"/>
+				<Option working_dir="/home/osdev/workspace/brunix/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/phrack/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/phrack/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/phrack/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/phrack/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/home/phrack/osdev/workspace/brunix/cmake-build-debug"/>
+				<Option working_dir="/home/osdev/workspace/brunix/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/phrack/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/phrack/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/phrack/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/phrack/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="brunix">
-				<Option output="/home/phrack/osdev/workspace/brunix/cmake-build-debug/brunix" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/phrack/osdev/workspace/brunix/cmake-build-debug"/>
+				<Option output="/home/osdev/workspace/brunix/cmake-build-debug/brunix" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/osdev/workspace/brunix/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -53,15 +53,15 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/phrack/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 brunix"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/phrack/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/phrack/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/phrack/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 brunix"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="brunix/fast">
-				<Option output="/home/phrack/osdev/workspace/brunix/cmake-build-debug/brunix" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/phrack/osdev/workspace/brunix/cmake-build-debug"/>
+				<Option output="/home/osdev/workspace/brunix/cmake-build-debug/brunix" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/osdev/workspace/brunix/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -75,71 +75,71 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/phrack/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 brunix/fast"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/phrack/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/phrack/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/phrack/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 brunix/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/osdev/workspace/brunix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/phrack/osdev/workspace/brunix/CMakeLists.txt">
+		<Unit filename="/home/osdev/workspace/brunix/CMakeLists.txt">
 			<Option target="brunix"/>
 		</Unit>
-		<Unit filename="/home/phrack/osdev/workspace/brunix/Makefile">
+		<Unit filename="/home/osdev/workspace/brunix/Makefile">
 			<Option target="brunix"/>
 		</Unit>
-		<Unit filename="/home/phrack/osdev/workspace/brunix/README.md">
+		<Unit filename="/home/osdev/workspace/brunix/README.md">
 			<Option target="brunix"/>
 		</Unit>
-		<Unit filename="/home/phrack/osdev/workspace/brunix/arch/x86/include/asm/gdt.h">
+		<Unit filename="/home/osdev/workspace/brunix/arch/x86/include/asm/gdt.h">
 			<Option target="brunix"/>
 		</Unit>
-		<Unit filename="/home/phrack/osdev/workspace/brunix/arch/x86/include/asm/io.h">
+		<Unit filename="/home/osdev/workspace/brunix/arch/x86/include/asm/io.h">
 			<Option target="brunix"/>
 		</Unit>
-		<Unit filename="/home/phrack/osdev/workspace/brunix/arch/x86/include/asm/isr.h">
+		<Unit filename="/home/osdev/workspace/brunix/arch/x86/include/asm/isr.h">
 			<Option target="brunix"/>
 		</Unit>
-		<Unit filename="/home/phrack/osdev/workspace/brunix/arch/x86/include/asm/stddef.h">
+		<Unit filename="/home/osdev/workspace/brunix/arch/x86/include/asm/stddef.h">
 			<Option target="brunix"/>
 		</Unit>
-		<Unit filename="/home/phrack/osdev/workspace/brunix/arch/x86/include/asm/vga.h">
+		<Unit filename="/home/osdev/workspace/brunix/arch/x86/include/asm/vga.h">
 			<Option target="brunix"/>
 		</Unit>
-		<Unit filename="/home/phrack/osdev/workspace/brunix/arch/x86/kernel/gdt.c">
+		<Unit filename="/home/osdev/workspace/brunix/arch/x86/kernel/gdt.c">
 			<Option target="brunix"/>
 		</Unit>
-		<Unit filename="/home/phrack/osdev/workspace/brunix/arch/x86/kernel/isr.c">
+		<Unit filename="/home/osdev/workspace/brunix/arch/x86/kernel/isr.c">
 			<Option target="brunix"/>
 		</Unit>
-		<Unit filename="/home/phrack/osdev/workspace/brunix/arch/x86/kernel/vga.c">
+		<Unit filename="/home/osdev/workspace/brunix/arch/x86/kernel/vga.c">
 			<Option target="brunix"/>
 		</Unit>
-		<Unit filename="/home/phrack/osdev/workspace/brunix/bochsrc.txt">
+		<Unit filename="/home/osdev/workspace/brunix/bochsrc.txt">
 			<Option target="brunix"/>
 		</Unit>
-		<Unit filename="/home/phrack/osdev/workspace/brunix/include/brunix/stdlib.h">
+		<Unit filename="/home/osdev/workspace/brunix/include/brunix/stdlib.h">
 			<Option target="brunix"/>
 		</Unit>
-		<Unit filename="/home/phrack/osdev/workspace/brunix/include/brunix/string.h">
+		<Unit filename="/home/osdev/workspace/brunix/include/brunix/string.h">
 			<Option target="brunix"/>
 		</Unit>
-		<Unit filename="/home/phrack/osdev/workspace/brunix/iso/boot/grub/grub.cfg">
+		<Unit filename="/home/osdev/workspace/brunix/iso/boot/grub/grub.cfg">
 			<Option target="brunix"/>
 		</Unit>
-		<Unit filename="/home/phrack/osdev/workspace/brunix/kernel/main.c">
+		<Unit filename="/home/osdev/workspace/brunix/kernel/main.c">
 			<Option target="brunix"/>
 		</Unit>
-		<Unit filename="/home/phrack/osdev/workspace/brunix/libkern/stdlib.c">
+		<Unit filename="/home/osdev/workspace/brunix/libkern/stdlib.c">
 			<Option target="brunix"/>
 		</Unit>
-		<Unit filename="/home/phrack/osdev/workspace/brunix/libkern/string.c">
+		<Unit filename="/home/osdev/workspace/brunix/libkern/string.c">
 			<Option target="brunix"/>
 		</Unit>
-		<Unit filename="/home/phrack/osdev/workspace/brunix/linker.ld">
+		<Unit filename="/home/osdev/workspace/brunix/linker.ld">
 			<Option target="brunix"/>
 		</Unit>
-		<Unit filename="/home/phrack/osdev/workspace/brunix/CMakeLists.txt">
+		<Unit filename="/home/osdev/workspace/brunix/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>
