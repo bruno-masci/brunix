@@ -12,26 +12,15 @@ document first, and specially the [Pre-requisites](https://github.com/bruno-masc
 For now, we'll just create a bootable ELF executable and check it is a valid Multiboot-compliant executable.\
 In order to achieve that, we need to add the Multiboot header at the beginning of the executable and set the desired entry point where the control is transferred to by the bootloader.
 
-## # Building internals 
+## # Project building 
 
 (Please complement this section by looking at the "CMakeLists.txt" file)
 
-### Kernel image generation
-
-When we fire the image generation process, *GCC* compiles all C and ASM source code into [relocatable ELF object files](http://wiki.osdev.org/Object_Files) that
-are linked together using *LD* into a statically-linked ELF executable file:
-
-    CMAKE_EXE_LINKER_FLAGS:   ${LDFLAGS} -Wl,-Map,System.map
-    CMAKE_C_LINK_EXECUTABLE:  ${CMAKE_C_COMPILER} <CMAKE_C_LINK_FLAGS> <LINK_FLAGS> -o <TARGET> <OBJECTS> -lgcc
-
-The "-Map,System.map" option creates a file called "System.map" containing all the symbols from the object files.\
-Regarding the "-lgcc" library inclusion, see [Libgcc](https://wiki.osdev.org/Libgcc).
-
-## Image building and validation
+### Image building and validation
 
 __Any command that appears below in this document is assumed to be run from the *build/* directory__ (the *$* symbol indicates the shell prompt).
 
-From the *build/* directory, we must run:
+To do that, we must run:
 
 	$ make
 
@@ -44,6 +33,17 @@ We can check the expected 32-bit executable was created:
     $ file brunix.elf 
 [output:]\
 *brunix.elf: __ELF 32-bit LSB executable__, __Intel 80386__, version 1 (SYSV), __statically linked__, not stripped*
+
+### Building internals
+
+When we fire the image generation process, *GCC* compiles all C and ASM source code into [relocatable ELF object files](http://wiki.osdev.org/Object_Files) that
+are linked together using *LD* into a statically-linked ELF executable file:
+
+    CMAKE_EXE_LINKER_FLAGS:   ${LDFLAGS} -Wl,-Map,System.map
+    CMAKE_C_LINK_EXECUTABLE:  ${CMAKE_C_COMPILER} <CMAKE_C_LINK_FLAGS> <LINK_FLAGS> -o <TARGET> <OBJECTS> -lgcc
+
+The "-Map,System.map" option creates a file called "System.map" containing all the symbols from the object files.\
+Regarding the "-lgcc" library inclusion, see [Libgcc](https://wiki.osdev.org/Libgcc).
 
 ## How do pieces play together?
 
@@ -82,7 +82,8 @@ Once GRUB has checked the image, it transfers the control to the kernel executin
 ## BLE
 
     $ /home/osdev/opt/cross/bin/i686-elf-objdump -x brunix.elf 
-######(partial output...)
+[partial output:]\
+    
     start address 0x00101000
     
     Program Header:
@@ -105,7 +106,8 @@ Once GRUB has checked the image, it transfers the control to the kernel executin
 ZZZ
 
     $ /home/osdev/opt/cross/bin/i686-elf-objdump -D brunix.elf 
-######(partial output...)
+[partial output:]\
+
     Disassembly of section .boot:
     
     00100000 <.boot>:
@@ -126,7 +128,8 @@ ZZZ
 SSSSSS
 
     $ /home/osdev/opt/cross/bin/i686-elf-readelf -a brunix.elf 
-######(partial output...)    
+[partial output:]\
+   
     Section Headers:
       [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
       [ 0]                   NULL            00000000 000000 000000 00      0   0  0
