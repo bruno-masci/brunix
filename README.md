@@ -18,27 +18,36 @@ In order to achieve that, we need to add the Multiboot header at the beginning o
 
 ### Image building and validation
 
-__Any command that appears below in this document is assumed to be run from the *build/* directory__ (the *$* symbol indicates the shell prompt).
+(The *$* symbol indicates the shell prompt)
 
-To do that, we must run:
+To build the image, we must run:
 
-	$ make
+	build$ make
 
 and expect to see something like:
+[output:]\
 
     [100%] Built target brunix.elf
 
-We can check the expected 32-bit executable was created:
+Then, we can check the expected 32-bit executable was created:
 
-    $ file brunix.elf 
+    build$ file brunix.elf 
 [output:]\
 *brunix.elf: __ELF 32-bit LSB executable__, __Intel 80386__, version 1 (SYSV), __statically linked__, not stripped*
 
 ### Building internals
 
-When we fire the image generation process, *GCC* compiles all C and ASM source code into [relocatable ELF object files](http://wiki.osdev.org/Object_Files) that
-are linked together using *LD* into a statically-linked ELF executable file:
+Our cross-compiler is set as follows:
 
+    CROSS_COMPILER_BIN_PATH:  /home/osdev/opt/cross/bin
+    CMAKE_C_COMPILER:         ${CROSS_COMPILER_BIN_PATH}/i686-elf-gcc
+    CMAKE_ASM_COMPILER:       ${CMAKE_C_COMPILER}
+    
+
+When we fire the image generation process, *GCC* compiles all C and ASM source code into [relocatable ELF object files](http://wiki.osdev.org/Object_Files) that
+are linked together, using *LD*, into a statically-linked ELF executable file:
+
+    CMAKE_LINKER:             ${CROSS_COMPILER_BIN_PATH}/i686-elf-ld
     CMAKE_EXE_LINKER_FLAGS:   ${LDFLAGS} -Wl,-Map,System.map
     CMAKE_C_LINK_EXECUTABLE:  ${CMAKE_C_COMPILER} <CMAKE_C_LINK_FLAGS> <LINK_FLAGS> -o <TARGET> <OBJECTS> -lgcc
 
@@ -47,42 +56,15 @@ Regarding the "-lgcc" library inclusion, see [Libgcc](https://wiki.osdev.org/Lib
 
 ## How do pieces play together?
 
-### Kernel loading
+https://wiki.osdev.org/Memory_Map_(x86)
 
 
-Let's see what happen when we try to boot from  a CD containing a bootable ISO file:
-
-
-### How is the brunix.iso file created? (repetido)
-
-When we run <i>"make"</i> or <i>"make compile"</i> (see "Makefile" file) from the project's top level directory, once
-"brunix.elf" file gets created and put into "iso" directory, an ISO image is constructed with:
-
-	grub-mkrescue -d multiboot/misc/grub/i386-pc -o os.iso iso/
-
-IMPORTANT: If you are working on an amd64 platform (as in my case) you need to provide the "-d" option to the command above.
-
-
-
-
-## How does GRUB load the ELF-formatted kernel? (repetido)
-
-In order for GRUB to get the kernel loaded, it needs to know where in RAM
-memory we want the kernel to be loaded, which is the entry point of the kernel,
-and so on. It gets this information from the ELF headers contained in the
-image. And the image
-is created by the ld linker. (see linker.ld file)
-
-## How does the kernel start running? (repetido)
-First thing first... our kernel image is ELF formatted and its inner structure is given by the ld linker directives and commands declared in the linker.ld file (see [Linker Scripts](http://wiki.osdev.org/Linker_Scripts)).
-When GRUB (or any Multiboot-compliant bootloader, for that matter) loads our kernel image, it needs to check whether the kernel is Multiboot-compliant looking for certain values to be stored at the beginning of the kernel image; that's why we have a "multiboot_header" section (see [multiboot_entry_point.S](/kernel/multiboot_entry_point.S)) at the very first position in the linker.ld file.
-Once GRUB has checked the image, it transfers the control to the kernel executing the code at the "_start" symbol.
 
 
 ## BLE
 
-    $ /home/osdev/opt/cross/bin/i686-elf-objdump -x brunix.elf 
-[partial output:]\
+    /home/osdev/opt/cross/bin$ i686-elf-objdump -x brunix.elf 
+[partial output:]
     
     start address 0x00101000
     
@@ -105,8 +87,8 @@ Once GRUB has checked the image, it transfers the control to the kernel executin
 
 ZZZ
 
-    $ /home/osdev/opt/cross/bin/i686-elf-objdump -D brunix.elf 
-[partial output:]\
+    /home/osdev/opt/cross/bin$ i686-elf-objdump -D brunix.elf 
+[partial output:]
 
     Disassembly of section .boot:
     
@@ -127,8 +109,8 @@ ZZZ
 
 SSSSSS
 
-    $ /home/osdev/opt/cross/bin/i686-elf-readelf -a brunix.elf 
-[partial output:]\
+    /home/osdev/opt/cross/bin$ i686-elf-readelf -a brunix.elf 
+[partial output:]
    
     Section Headers:
       [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
@@ -151,25 +133,21 @@ ssssaaa
 
 ### FAQ
 
-#### Why ELF? (repetido)
+#### Why ELF?
 
 ELF is a very flexible, well supported and documented file format, that distinguish between TEXT, DATA and BSS sections.
 Besides, ELF supports separate load and execution addresses, vital for a
 [Higher Half Kernel](https://wiki.osdev.org/Higher_Half_Kernel) (more on this later).
 
-#### Why GRUB? (repetido)
+#### Why CMake?
 
-GRUB, which adheres to the [Multiboot](http://wiki.osdev.org/Multiboot) specification, is very powerful and natively
-supports loading ELF files.\
-GRUB save us from all the pain of switching from [Real Mode](http://wiki.osdev.org/Real_Mode) to
-[Protected Mode](http://wiki.osdev.org/Protected_Mode), as it handles all the unpleasant details. Also, GRUB helps us
-avoid having to call [BIOS](https://wiki.osdev.org/BIOS) services.
+On the one hand, CMake has a great expressive power and allows for easy setup and management of multi-directory projects.
+Plus, it integrates very well with Jetbrains' CLion, the IDE I use for developing.
+On the other hand, it offers different output artifact formats, Makefile included (the one I use). 
 
 
 
-
-
-## References
+## # References
 
 * https://en.wikipedia.org/wiki/Mebibyte
 * https://wiki.osdev.org/Bare_Bones

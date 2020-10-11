@@ -8,7 +8,10 @@
     <select />
   </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
-    <generated />
+    <generated>
+      <config projectName="brunix" targetName="clean-all" />
+      <config projectName="brunix" targetName="brunix.elf" />
+    </generated>
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
     <configurations>
@@ -17,8 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09916d8b-a51c-45d5-9e44-a908d6f2453e" name="Default" comment="Added printk(). Some changes.">
+      <change afterPath="$PROJECT_DIR$/pics/physical_layout.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pics/boot_args.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pics/booting.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +35,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -42,7 +50,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/CMakeLists.txt" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pics" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -68,12 +76,26 @@
       <recent name="$PROJECT_DIR$/multiboot" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+  <component name="RunManager" selected="CMake Application.brunix.elf">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="brunix.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="brunix.elf" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="brunix" RUN_TARGET_NAME="brunix.elf">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="clean-all" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="clean-all" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="CMake Application.brunix.elf" />
+      <item itemvalue="CMake Application.clean-all" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -121,7 +143,9 @@
       <workItem from="1601234624561" duration="8844000" />
       <workItem from="1601510284835" duration="4956000" />
       <workItem from="1601594602817" duration="3434000" />
-      <workItem from="1602115335165" duration="2518000" />
+      <workItem from="1602115335165" duration="3228000" />
+      <workItem from="1602158941313" duration="4696000" />
+      <workItem from="1602456480193" duration="3531000" />
     </task>
     <servers />
   </component>
@@ -189,12 +213,12 @@
     </state>
     <state x="50" y="25" width="769" height="874" key="CommitChangelistDialog2/0.25.1920.925@0.25.1920.925" timestamp="1597705094578" />
     <state x="50" y="27" width="1621" height="999" key="CommitChangelistDialog2/0.27.1920.1020@0.27.1920.1020" timestamp="1597113907752" />
-    <state x="137" y="130" width="1538" height="847" key="DiffContextDialog" timestamp="1601597798648">
+    <state x="137" y="130" width="1538" height="847" key="DiffContextDialog" timestamp="1602209097842">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="100" y="116" width="1538" height="765" key="DiffContextDialog/0.25.1920.925@0.25.1920.925" timestamp="1597705095400" />
     <state x="100" y="127" width="1720" height="820" key="DiffContextDialog/0.27.1920.1020@0.27.1920.1020" timestamp="1597114130656" />
-    <state x="137" y="130" width="1538" height="847" key="DiffContextDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1601597798648" />
+    <state x="137" y="130" width="1538" height="847" key="DiffContextDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1602209097842" />
     <state x="743" y="298" width="426" height="482" key="FileChooserDialogImpl" timestamp="1599945775998">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
@@ -247,11 +271,11 @@
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="741" y="455" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.28.1920.1024@0.28.1920.1024" timestamp="1598752225709" />
-    <state x="221" y="134" width="1544" height="850" key="find.popup" timestamp="1601596072736">
+    <state x="221" y="134" width="1544" height="850" key="find.popup" timestamp="1602457951566">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="156" y="114" width="1544" height="846" key="find.popup/0.27.1920.1020@0.27.1920.1020" timestamp="1597081431266" />
-    <state x="221" y="134" width="1544" height="850" key="find.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1601596072736" />
+    <state x="221" y="134" width="1544" height="850" key="find.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1602457951566" />
     <state width="600" height="428" key="javadoc.popup" timestamp="1598818939998">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
