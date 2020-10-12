@@ -58,7 +58,9 @@ Regarding the "-lgcc" library inclusion, see [Libgcc](https://wiki.osdev.org/Lib
 
 https://wiki.osdev.org/Memory_Map_(x86)
 
+![boot_args](pics/physical_layout.png)
 
+[Figure: Kernel physical layout]
 
 
 ## BLE
