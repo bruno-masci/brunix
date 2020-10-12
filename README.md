@@ -79,8 +79,8 @@ The [x86 memory model](https://wiki.osdev.org/Memory_Map_(x86)) reserves some ph
 (physical memory is *not* the same as RAM memory).\
 The region that starts at 0xC0000000 (3 GiB) contains some memory-mapped devices.\
 The region that extends through the first MiB of physical memory does contain the BIOS routines, the memory-mapped video 
-display, etc. It also contains some free memory slots we choose to ignore for simplicity. Let's place the kernel 
-at 1 MiB, instead. But... 1 MiB of what?
+display, etc. It also contains some free memory slots we choose to ignore for simplicity. So let's place the kernel 
+at 1 MiB, but... 1 MiB of what?
 
 ### Linker's VIRTUAL vs LOAD address
 
