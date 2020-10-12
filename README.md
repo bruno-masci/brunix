@@ -54,13 +54,49 @@ are linked together, using *LD*, into a statically-linked ELF executable file:
 The "-Map,System.map" option creates a file called "System.map" containing all the symbols from the object files.\
 Regarding the "-lgcc" library inclusion, see [Libgcc](https://wiki.osdev.org/Libgcc).
 
+## x86 memory types
+
+On an x86 PC we have two kind of addresses: [virtual/logical and physical](https://www.geeksforgeeks.org/logical-and-physical-address-in-operating-system/)
+(assume virtual and logical is the same here).\
+Virtual addresses are the ones a program uses. A program cannot directly access a physical address!\
+Physical addresses are the ones that can be accessed by the hardware, like RAM memory, devices, BIOS, and so on.\
+
+On the one hand, an x86 machine has a 32-bit CPU and so it can address up to 4 GiB of *virtual* address.\
+On the other hand, there is a physical address space that doesn't need to be the same size. It includes the RAM memory but
+also memory-mapped devices, the BIOS routines and hardwired addresses like the one used for booting up the computer.
+
+The x86 CPU only knows about virtual addresses (don't confuse it with [virtual memory](https://en.wikipedia.org/wiki/Virtual_memory)),
+so no program (even the kernel) can directly access a physical address.\
+XXX
+XXXX
+XXXXX
+
+...
+
+
+32-bit code.
+virtual physical address
+
 ## How do pieces play together?
 
-https://wiki.osdev.org/Memory_Map_(x86)
+The [x86 memory model](https://wiki.osdev.org/Memory_Map_(x86)) reserves some physical memory regions for special uses
+(physical memory is *not* the same as RAM memory).\
+The region that starts at 0xC0000000 (3 GiB) contains some memory-mapped devices.\
+The region that extends through the first MiB of physical memory does contain the BIOS routines, the memory-mapped video 
+display, etc. It also contains some free memory slots we choose to ignore for simplicity. Let's place the kernel 
+at 1 MiB, instead. But... 1 MiB of what?
+
+### Linker's VIRTUAL vs LOAD address
+
+The linker differentiates between the address a given section runs at (the virtual address) and the address that section
+is loaded -or programmed, or flashed- at (the load address).\
+For now let both addresses to match, so the kernel "think" it runs at 1 MiB virtual address and the bootloader loads the 
+kernel's image at 1 MiB of physical memory. In later stages we will benefit from this feature while switching to a more
+flexible memory layout.
 
 ![boot_args](pics/physical_layout.png)
 
-[Figure: Kernel physical layout]
+[Figure: Kernel physical memory layout]
 
 
 ## BLE
@@ -153,11 +189,15 @@ On the other hand, it offers different output artifact formats, Makefile include
 
 * https://en.wikipedia.org/wiki/Mebibyte
 * https://wiki.osdev.org/Bare_Bones
+* https://os.phil-opp.com/multiboot-kernel/
 * http://wiki.osdev.org/Why_do_I_need_a_Cross_Compiler%3F
 * http://wiki.osdev.org/GCC_Cross-Compiler
 * https://wiki.osdev.org/Libgcc
 * http://wiki.osdev.org/LD
+* https://ravikiranb.com/articles/linker-script/
 * http://wiki.osdev.org/Memory_Map_(x86)
+* https://en.wikipedia.org/wiki/Virtual_memory
+* https://www.geeksforgeeks.org/logical-and-physical-address-in-operating-system/
 * https://wiki.osdev.org/Interrupts
 * https://wiki.osdev.org/Non_Maskable_Interrupt
 * http://wiki.osdev.org/Multiboot
