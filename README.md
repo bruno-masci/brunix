@@ -5,12 +5,13 @@
 
 
 If you didn't yet, please read the main [README.md](https://github.com/bruno-masci/brunix/blob/master/README.md) 
-document first, and specially the [Pre-requisites](https://github.com/bruno-masci/brunix/tree/master#-pre-requisites).
+document first, and specially the [Pre-requisites](https://github.com/bruno-masci/brunix/tree/master#-pre-requisites) section.
 
 ## # Goals
 
 For now, we'll just create a bootable ELF executable and check it is a valid Multiboot-compliant executable.\
-In order to achieve that, we need to add the Multiboot header at the beginning of the executable and set the desired entry point where the control is transferred to by the bootloader.
+In order to achieve that, we need to add the Multiboot header at the beginning of the executable and set the desired entry 
+point where the control will be transferred to by the bootloader.
 
 ## # Project building 
 
@@ -56,16 +57,17 @@ Regarding the "-lgcc" library inclusion, see [Libgcc](https://wiki.osdev.org/Lib
 
 ## x86 memory types
 
-On an x86 PC we have two kind of addresses: [virtual/logical and physical](https://www.geeksforgeeks.org/logical-and-physical-address-in-operating-system/)
-(assume virtual and logical is the same here).\
-Virtual addresses are the ones a program uses. A program cannot directly access a physical address!\
-Physical addresses are the ones that can be accessed by the hardware, like RAM memory, devices, BIOS, and so on.
+On an x86 PC we have [two kind of addresses](https://www.geeksforgeeks.org/logical-and-physical-address-in-operating-system/):
+*virtual/logical* and *physical* (assume *virtual* and *logical* is the same here).\
+Virtual addresses are the ones a program uses, while physical addresses are the ones that can be accessed by the hardware,
+like RAM memory chips, memory-mapped devices, BIOS routines, and so on.
 
-On the one hand, an x86 machine has a 32-bit CPU and so it can address up to 4 GiB of *virtual* address.\
-On the other hand, there is a physical address space that doesn't need to be the same size as the virtual address space. 
+On the one hand, an x86 machine has a 32-bit CPU and so it can address up to 4 GiB _of_ __virtual__ address. On the other hand, 
+there is a physical address space that can be 32-bit or 36-bit addressable. 
 It includes the RAM memory but also memory-mapped devices, the BIOS routines and hardwired addresses like the one used 
 for booting up the computer.
 
+A program cannot directly access a physical address!\
 The x86 CPU only knows about virtual addresses (don't confuse it with [virtual memory](https://en.wikipedia.org/wiki/Virtual_memory)),
 so no program (even the kernel) can directly access a physical address.\
 XXX
