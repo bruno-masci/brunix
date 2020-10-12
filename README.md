@@ -59,11 +59,12 @@ Regarding the "-lgcc" library inclusion, see [Libgcc](https://wiki.osdev.org/Lib
 On an x86 PC we have two kind of addresses: [virtual/logical and physical](https://www.geeksforgeeks.org/logical-and-physical-address-in-operating-system/)
 (assume virtual and logical is the same here).\
 Virtual addresses are the ones a program uses. A program cannot directly access a physical address!\
-Physical addresses are the ones that can be accessed by the hardware, like RAM memory, devices, BIOS, and so on.\
+Physical addresses are the ones that can be accessed by the hardware, like RAM memory, devices, BIOS, and so on.
 
 On the one hand, an x86 machine has a 32-bit CPU and so it can address up to 4 GiB of *virtual* address.\
-On the other hand, there is a physical address space that doesn't need to be the same size. It includes the RAM memory but
-also memory-mapped devices, the BIOS routines and hardwired addresses like the one used for booting up the computer.
+On the other hand, there is a physical address space that doesn't need to be the same size as the virtual address space. 
+It includes the RAM memory but also memory-mapped devices, the BIOS routines and hardwired addresses like the one used 
+for booting up the computer.
 
 The x86 CPU only knows about virtual addresses (don't confuse it with [virtual memory](https://en.wikipedia.org/wiki/Virtual_memory)),
 so no program (even the kernel) can directly access a physical address.\
@@ -71,11 +72,6 @@ XXX
 XXXX
 XXXXX
 
-...
-
-
-32-bit code.
-virtual physical address
 
 ## How do pieces play together?
 
