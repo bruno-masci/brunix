@@ -55,25 +55,25 @@ are linked together, using *LD*, into a statically-linked ELF executable file:
 The "-Map,System.map" option creates a file called "System.map" containing all the symbols from the object files.\
 Regarding the "-lgcc" library inclusion, see [Libgcc](https://wiki.osdev.org/Libgcc).
 
-## x86 memory types
+## Some words about x86 address spaces
 
 On an x86 PC we have [two kind of addresses](https://www.geeksforgeeks.org/logical-and-physical-address-in-operating-system/):
 *virtual/logical* and *physical* (assume *virtual* and *logical* is the same here).\
 Virtual addresses are the ones a program uses, while physical addresses are the ones that can be accessed by the hardware,
 like RAM memory chips, memory-mapped devices, BIOS routines, and so on.
 
-On the one hand, an x86 machine has a 32-bit CPU and so it can address up to 4 GiB _of_ __virtual__ address. On the other hand, 
-there is a physical address space that can be 32-bit or 36-bit addressable. 
-It includes the RAM memory but also memory-mapped devices, the BIOS routines and hardwired addresses like the one used 
-for booting up the computer.
+On the one hand, an x86 machine has a 32-bit CPU and so the CPU can address up to 4 GiB of __virtual__ address. On the 
+other hand, there is a physical address space that can be 32-bit or 36-bit sized (I point this out to emphasize both
+address spaces are completely different).
 
-A program cannot directly access a physical address!\
 The x86 CPU only knows about virtual addresses (don't confuse it with [virtual memory](https://en.wikipedia.org/wiki/Virtual_memory)),
 so no program (even the kernel) can directly access a physical address.\
-XXX
-XXXX
-XXXXX
-
+The bridge between those address spaces are x86's segmentation and the pagination mechanisms, that translate virtual addresses
+emitted by the CPU to physical addresses. In that translation process, there is a component called the MMU that handles 
+the virtual->physical mappings. The MMU is invisible to the CPU and so, to the programs and to the system programmers.\
+What we can do, for example, is to identity map an address or address region so some __virtual__ address *A* is mapped to
+the __physical__ address *A*, effectively hiding the translation mechanisms. That way, a program can *appear* to
+be directly accessing the __physical__ address *A*.
 
 ## How do pieces play together?
 
@@ -91,6 +91,8 @@ is loaded -or programmed, or flashed- at (the load address).\
 For now let both addresses to match, so the kernel "think" it runs at 1 MiB virtual address and the bootloader loads the 
 kernel's image at 1 MiB of physical memory. In later stages we will benefit from this feature while switching to a more
 flexible memory layout.
+
+### Kernel physical memory layout
 
 ![boot_args](pics/physical_layout.png)
 
