@@ -12,36 +12,18 @@ For now, we'll just create a bootable ELF executable and check it is a valid Mul
 In order to achieve that, we need to add the Multiboot header at the beginning of the executable and set the desired entry 
 point where the control will be transferred to by the bootloader.
 
-# Project building 
+# Kernel building 
 
 * please complement this section by looking at the "CMakeLists.txt" file,
 * the *$* symbol indicates the shell prompt
 
-### Image building and validation
 
-To build the image, we must run:
-
-	build$ make
-
-and expect to see something like:
-[output:]\
-
-    [100%] Built target brunix.elf
-
-Then, we can check the expected 32-bit executable was created:
-
-    build$ file brunix.elf 
-[output:]\
-*brunix.elf: __ELF 32-bit LSB executable__, __Intel 80386__, version 1 (SYSV), __statically linked__, not stripped*
-
-### ~~Building internals~~
-
+### Compiler and linker setup
 Our cross-compiler is set as follows:
 
     CROSS_COMPILER_BIN_PATH:  /home/osdev/opt/cross/bin
     CMAKE_C_COMPILER:         ${CROSS_COMPILER_BIN_PATH}/i686-elf-gcc
     CMAKE_ASM_COMPILER:       ${CMAKE_C_COMPILER}
-    
 
 When we fire the image generation process, *GCC* compiles all C and ASM source code into [relocatable ELF object files](http://wiki.osdev.org/Object_Files) that
 are linked together, using *LD*, into a statically-linked ELF executable file:
@@ -53,52 +35,83 @@ are linked together, using *LD*, into a statically-linked ELF executable file:
 The "-Map,System.map" option creates a file called "System.map" containing all the symbols from the object files.\
 Regarding the "-lgcc" library inclusion, see [Libgcc](https://wiki.osdev.org/Libgcc).
 
-## Some words about x86 address spaces
+
+### Image validation
+
+We can check the expected 32-bit executable was created:
+
+    build$ file brunix.elf 
+[output:]\
+*brunix.elf: __ELF 32-bit LSB executable__, __Intel 80386__, version 1 (SYSV), __statically linked__, not stripped*
+
+
+# x86 architecture overview
+
+### Address spaces
 
 On an x86 PC we have [two kind of addresses](https://www.geeksforgeeks.org/logical-and-physical-address-in-operating-system/):
 *virtual/logical* and *physical* (assume *virtual* and *logical* is the same here).\
-Virtual addresses are the ones a program uses, while physical addresses are the ones that can be accessed by the hardware,
-like RAM memory chips, memory-mapped devices, BIOS routines, and so on.
+Virtual addresses (don't confuse it with [virtual memory](https://en.wikipedia.org/wiki/Virtual_memory)) are the ones the
+CPU understand and programs use, while physical addresses are the ones that can be accessed by the hardware, like RAM 
+memory chips, memory-mapped devices, BIOS routines, and so on.
 
 On the one hand, an x86 machine has a 32-bit CPU and so the CPU can address up to 4 GiB of __virtual__ address. On the 
-other hand, there is a physical address space that can be 32-bit or 36-bit sized (I point this out to emphasize both
-address spaces are completely different).
+other hand, there is a physical address space that could be larger than 4 GiB
+(see [PAE](https://wiki.osdev.org/Physical_Address_Extension)). I point this out to emphasize both address spaces are 
+completely different.
 
-The x86 CPU only knows about virtual addresses (don't confuse it with [virtual memory](https://en.wikipedia.org/wiki/Virtual_memory)),
-so no program (even the kernel) can directly access a physical address.\
+__The CPU only knows about virtual addresses__, so no program (even the kernel) can directly access a physical address.\
 x86 provides some mechanisms that act as the bridge between those address spaces (more on this later). Those mechanisms
-let programs to map the virtual addresses emitted by the CPU to physical addresses.\
-What we can do, for example, is to identity map a __virtual__ address (or region)  *A* to
-the __physical__ address *A*, effectively hiding the translation mechanisms and creating the illusion be directly accessing 
-the __physical__ address *A* (note that we said "__a__ virtual address" and "__the__ physical address")
+let programs to flexibly map the virtual addresses emitted by the CPU to physical addresses.\
+What we can do, for example, is to map a __virtual__ address (or region) *A* to the __physical__ address *A*, effectively
+hiding the translation mechanisms and creating the illusion of being directly accessing the __physical__ address *A* (note
+that we said "__a__ virtual address" and "__the__ physical address")
 
-## How do pieces play together?
+### Physical memory layout
 
 The [x86 memory model](https://wiki.osdev.org/Memory_Map_(x86)) reserves some physical memory regions for special uses
 (physical memory is *not* the same as RAM memory).\
-The region that starts at 0xC0000000 (3 GiB) contains some memory-mapped devices.\
-The region that extends through the first MiB of physical memory does contain the BIOS routines, the memory-mapped video 
-display, etc. It also contains some free memory slots we choose to ignore for simplicity. So let's place the kernel 
-at 1 MiB, but... 1 MiB of what?
+The region that extends between 0xC0000000 (3 GiB) and 0xFFFFFFFF (4 GiB) contains some memory-mapped devices.\
+The region that extends through the first MiB does contain the BIOS routines, the memory-mapped video display, etc. Also
+in this region there are some scattered free (RAM) memory slots we choose to ignore for simplicity. 
 
 ### Linker's VIRTUAL vs LOAD address
 
+(Although this is not particular to x86, let's keep this section here)
+
 The linker differentiates between the address a given section runs at (the virtual address) and the address that section
 is loaded -or programmed, or flashed- at (the load address).\
-For now let both addresses to match, so the kernel "think" it runs at 1 MiB virtual address and the bootloader loads the 
-kernel's image at 1 MiB of physical memory. In later stages we will benefit from this feature while switching to a more
-flexible memory layout.
+In our particular case, the load address would be the RAM memory address where a section is loaded at:
+* by the bootloader, in the case of the kernel,
+* by the kernel, in the case of a regular program.
 
-### Kernel physical memory layout
+Let's assume both addresses (numerically) match for our first model. In later stages we will benefit from this feature 
+while switching to a more flexible memory layout for executing regular (user mode) programs.
 
+# Kernel layout
+
+Based on the previous discussion let's place the kernel at 1 MiB, but... 1 MiB of what? For now, let both virtual and load
+addresses to be 1 MiB.\
+In this case that means that:
+1. the kernel instructions are going to start __from__ *virtual* address 1 MiB (*KERN_LINK* in "linker.ld.pp" file),
+2. the bootloader will load the kernel's image __at__ 1 MiB of physical (RAM) memory.
+
+Why 1 MiB of physical memory? That location is just a ~~convention~~ choice; it could have been any other location given
+there is actual (and free) RAM memory in there.
+ 
 ![boot_args](pics/physical_layout.png)
 
-[Figure: Kernel physical memory layout]
+[Figure 1 - Kernel layout in physical memory]
+\
+\
+\
+The *_start* symbol in the figure represents the entry point of the kernel's image (see next section); that is, the address
+of the first kernel's instruction to be executed by the bootloader once the bootloader has loaded the kernel into physical memory.
 
+### Digging into kernel's ELF file
 
-## BLE
+    build$ /home/osdev/opt/cross/bin/i686-elf-objdump -x brunix.elf 
 
-    /home/osdev/opt/cross/bin$ i686-elf-objdump -x brunix.elf 
 [partial output:]
     
     start address 0x00101000
@@ -163,10 +176,8 @@ SSSSSS
       Segment Sections...
        00     .boot .text 
 
-ssssaaa
-    
 
-### FAQ
+# FAQ
 
 #### Why ELF?
 
@@ -182,7 +193,7 @@ On the other hand, it offers different output artifact formats, Makefile include
 
 
 
-## References
+# References
 
 * https://en.wikipedia.org/wiki/Mebibyte
 * https://wiki.osdev.org/Bare_Bones
