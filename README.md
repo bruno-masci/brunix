@@ -1,5 +1,5 @@
 # brunix (in progress)
-##### *** Small Unix-like 32-bits x86 OS for fun and learning ***
+##### =>> Small Unix-like 32-bits x86 OS for fun and learning <<=
 
 Before starting, please note that:
 * the information here is complemented with that contained in the source code,
@@ -7,7 +7,7 @@ Before starting, please note that:
 * with x86 we mean 386+ architecture.
 
 
-## # Pre-requisites
+# Pre-requisites
 * A <b>proper</b> [cross-compiler](http://wiki.osdev.org/GCC_Cross-Compiler)
 * cmake
 * make
@@ -16,7 +16,7 @@ Before starting, please note that:
 * xorriso library (for creating the ISO image)
 
 
-## # Overview
+# Overview
 
 This is a very simple x86 operating system I have been working on for years. 
 Through all these years I have been researching, learning, testing about different aspects of operating systems and also
@@ -34,7 +34,7 @@ Once I have finished the development of the OS, this page will contain general i
 Apart from that, you can go step by step and grasp some concepts as needed (see below).
 
 
-## # Using this guide
+# Using this guide
 
 I have split the development in different Git branches, starting from the branch *stage0* to some branch *stageN*, following
 a logical path for that organization.
@@ -47,7 +47,7 @@ You can compare two adjacent branches to see exactly what changed. The idea here
 * ...
 
 
-## # Toolchain specs
+# Toolchain specs
  * Kernel image format: [ELF](http://wiki.osdev.org/ELF),
  * C compiler: [GCC](http://wiki.osdev.org/GCC)
  * Assembler: GCC/[GAS](http://wiki.osdev.org/GAS),
@@ -55,7 +55,7 @@ You can compare two adjacent branches to see exactly what changed. The idea here
  * [Bootloader](https://wiki.osdev.org/Bootloader): [GRUB](https://wiki.osdev.org/GRUB).
 
 
-## # File structure
+# File structure
 
  * |── CMakeLists.txt ------> *CMake*'s build specification.
  * |── include/
@@ -66,7 +66,7 @@ You can compare two adjacent branches to see exactly what changed. The idea here
  * |── build/ -----------------> build dir for *CMake*.
 
 
-## # Project building
+# Project building
 
 ### Build targets (*make*)
 
@@ -81,17 +81,22 @@ removes all generated files but *make*/*CMake*'s own files.
 
 ### Building the kernel
 Is is highly recommended to build the project on a directory other than the source directory. We assume *build/* as the build directory but any other will work too.\
-__Any command that appears below in this document is assumed to be run from the *build/* directory__ (the *$* symbol indicates the shell prompt).
+(the *$* symbol indicates the shell prompt)
 
-For building the kernel, we need to run:
+To build the kernel, we need to:
+1. build the CMake project => this will create a *Makefile* file,
+2. build the Make project from the generated *Makefile* file
 
-	$ cmake ../
 
-for creating the *Makefile* file, and then:
+	build$ cmake ../
 
-	$ make
+	build$ make
 
-After that, we will end up with:
+[output:]
+
+    [100%] Built target brunix.elf
+    
+If everything went well, we should end up with this layout:
 
  * |── build/ 
    * |── Makefile -------------> *make*'s build specification.
@@ -104,12 +109,10 @@ After that, we will end up with:
 
 
 
-
-## References
+# References
 
 * https://wiki.osdev.org
 * http://www.cse.iitd.ernet.in/os-lectures
 * http://www.jamesmolloy.co.uk/tutorial_html
 * http://www.osdever.net/bkerndev/index.php
-
-(a lot more on the different stages)
+* (a lot more on the different stages)
