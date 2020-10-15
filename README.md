@@ -1,25 +1,23 @@
-# brunix (stage 0)
-##### *** Small Unix-like 32-bits x86 OS for fun and learning ***
+# brunix
+##### =>> Small Unix-like 32-bits x86 OS for fun and learning <<=
 
-### =>>> Multiboot-compliant executable <<<=
-
+### Stage 0: Multiboot-compliant executable
 
 If you didn't yet, please read the main [README.md](https://github.com/bruno-masci/brunix/blob/master/README.md) 
-document first, and specially the [Pre-requisites](https://github.com/bruno-masci/brunix/tree/master#-pre-requisites) section.
+document first, and specially the [Prerequisites](https://github.com/bruno-masci/brunix/tree/master#pre-requisites) section.
 
-## # Goals
+# Goals
 
 For now, we'll just create a bootable ELF executable and check it is a valid Multiboot-compliant executable.\
 In order to achieve that, we need to add the Multiboot header at the beginning of the executable and set the desired entry 
 point where the control will be transferred to by the bootloader.
 
-## # Project building 
+# Project building 
 
-(Please complement this section by looking at the "CMakeLists.txt" file)
+* please complement this section by looking at the "CMakeLists.txt" file,
+* the *$* symbol indicates the shell prompt
 
 ### Image building and validation
-
-(The *$* symbol indicates the shell prompt)
 
 To build the image, we must run:
 
@@ -36,7 +34,7 @@ Then, we can check the expected 32-bit executable was created:
 [output:]\
 *brunix.elf: __ELF 32-bit LSB executable__, __Intel 80386__, version 1 (SYSV), __statically linked__, not stripped*
 
-### Building internals
+### ~~Building internals~~
 
 Our cross-compiler is set as follows:
 
@@ -68,12 +66,11 @@ address spaces are completely different).
 
 The x86 CPU only knows about virtual addresses (don't confuse it with [virtual memory](https://en.wikipedia.org/wiki/Virtual_memory)),
 so no program (even the kernel) can directly access a physical address.\
-The bridge between those address spaces are x86's segmentation and the pagination mechanisms, that translate virtual addresses
-emitted by the CPU to physical addresses. In that translation process, there is a component called the MMU that handles 
-the virtual->physical mappings. The MMU is invisible to the CPU and so, to the programs and to the system programmers.\
-What we can do, for example, is to identity map an address or address region so some __virtual__ address *A* is mapped to
-the __physical__ address *A*, effectively hiding the translation mechanisms. That way, a program can *appear* to
-be directly accessing the __physical__ address *A*.
+x86 provides some mechanisms that act as the bridge between those address spaces (more on this later). Those mechanisms
+let programs to map the virtual addresses emitted by the CPU to physical addresses.\
+What we can do, for example, is to identity map a __virtual__ address (or region)  *A* to
+the __physical__ address *A*, effectively hiding the translation mechanisms and creating the illusion be directly accessing 
+the __physical__ address *A* (note that we said "__a__ virtual address" and "__the__ physical address")
 
 ## How do pieces play together?
 
@@ -185,7 +182,7 @@ On the other hand, it offers different output artifact formats, Makefile include
 
 
 
-## # References
+## References
 
 * https://en.wikipedia.org/wiki/Mebibyte
 * https://wiki.osdev.org/Bare_Bones
