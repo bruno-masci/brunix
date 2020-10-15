@@ -42,7 +42,7 @@ Each branch extends the previous one, adding functionalities and explanations. \
 You can compare two adjacent branches to see exactly what changed. The idea here is that you complement both the source code and the README.md file while comparing. You will find a lot more of information and details in the other branches.
 
 * [stage0-multiboot](https://github.com/bruno-masci/brunix/tree/stage0-multiboot)
-* [stage1-emulator_and_vga](https://github.com/bruno-masci/brunix/tree/stage0-emulator_and_vga)
+* [stage1-emulator_and_vga](https://github.com/bruno-masci/brunix/tree/stage1-emulator_and_vga)
 * [stage2-kernel_debugging]() (in progress)
 * ...
 
