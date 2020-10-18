@@ -201,8 +201,11 @@ On the other hand, it offers different output artifact formats, Makefile include
 * http://wiki.osdev.org/Why_do_I_need_a_Cross_Compiler%3F
 * http://wiki.osdev.org/GCC_Cross-Compiler
 * https://wiki.osdev.org/Libgcc
+* https://learning.oreilly.com/library/view/programming-embedded-systems/0596009836/ch04.html
+* https://0xax.gitbooks.io/linux-insides/content/
 * http://wiki.osdev.org/LD
 * https://ravikiranb.com/articles/linker-script/
+* https://www.linuxjournal.com/article/6463
 * http://wiki.osdev.org/Memory_Map_(x86)
 * https://en.wikipedia.org/wiki/Virtual_memory
 * https://www.geeksforgeeks.org/logical-and-physical-address-in-operating-system/
