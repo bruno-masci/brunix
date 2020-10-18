@@ -12,32 +12,20 @@ In this stage we are going to create a bare OS (if we even can call it that way)
 * kernel loading (boot),
 * basic video management.
 
-## File structure (project root)
+## File structure (added files)
 
  * |── ...
  * |── include/
    * |── ...
    * |── *brunix/* ----------> architecture-independent header files.
  * |── *libkern/* ---------------> custom C library for the kernel.
- * |── qemu.cfg.tmpl -----> config file for QEMU (template).
- * |── bochs.cfg.tmpl -----> config file for Bochs (template).
-####[only added files showed]
-
-## File structure (build/ directory)
-
+ * |── bochs.cfg.tmpl ------> config file for Bochs (template).
+ * |── ...
  * |── build/ 
    * |── ...
    * |── brunix.iso ------------> bootable ISO image for the kernel.
-   * |── qemu.cfg -------------> resolved config file for QEMU.
    * |── bochs.cfg ------------> resolved config file for Bochs.
-####[only added files showed]
 
-
-- -
-We'll use [ELF](http://wiki.osdev.org/ELF) as the kernel image format, [ld](http://wiki.osdev.org/LD) linker from the
-cross-compiler just built (see "[Pre-requisites](#Pre-requisites)" section above) to produce an ELF-formatted kernel image,
-and [GRUB](https://wiki.osdev.org/GRUB) [bootloader](https://wiki.osdev.org/Bootloader) for booting the kernel.
-- -
 
 ## Build target
 

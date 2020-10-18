@@ -24,11 +24,13 @@ set(CMAKE_C_FLAGS "-ffreestanding -c -fno-omit-frame-pointer \
 #########################################################################
 # Source files and other input files
 #########################################################################
-file(GLOB_RECURSE   ASM_SRCS                    "kernel/*.S")
+file(GLOB_RECURSE   C_SRCS                          "kernel/*.c" "libkern/*.c")
+file(GLOB_RECURSE   ASM_SRCS                        "kernel/*.S")
 
-file(GLOB           UNPROCESSED_LINKER_SCRIPT   "linker.ld.pp")
-file(GLOB           KERNEL_INCLUDE_DIR          "include")
-file(GLOB           MULTIBOOT_DIR               "multiboot")
+file(GLOB           UNPROCESSED_LINKER_SCRIPT       "linker.ld.pp")
+file(GLOB           KERNEL_INCLUDE_DIR              "include")
+file(GLOB           MULTIBOOT_DIR                   "multiboot")
+file(GLOB           UNPROCESSED_BOCHS_CONF          "bochs.cfg.tmpl")
 
 
 #########################################################################
@@ -36,11 +38,12 @@ file(GLOB           MULTIBOOT_DIR               "multiboot")
 #########################################################################
 set(OUTPUT_NAME brunix)
 set(BIN_NAME ${OUTPUT_NAME}.elf)
+set(ISO_NAME ${OUTPUT_NAME}.iso)
 set(DISASSEMBLED_BIN_NAME ${OUTPUT_NAME}.asm)
 set(SYSTEM_MAP_NAME System.map)
 
 set(PREPROCESSED_LINKER_SCRIPT linker.ld)
-
+set(BOCHS_CONF bochs.cfg)
 
 #########################################################################
 # Linking config
@@ -53,7 +56,7 @@ set(CMAKE_C_LINK_EXECUTABLE "${CMAKE_C_COMPILER} <CMAKE_C_LINK_FLAGS> <LINK_FLAG
 #########################################################################
 # Executable creation
 #########################################################################
-add_executable(${BIN_NAME} ${ASM_SRCS})
+add_executable(${BIN_NAME} ${C_SRCS} ${ASM_SRCS})
 target_include_directories(${BIN_NAME} PUBLIC include)
 
 # ------------------------------ PRE BUILD ------------------------------
@@ -71,6 +74,15 @@ add_custom_command(TARGET ${BIN_NAME} POST_BUILD
         COMMAND ${MULTIBOOT_DIR}/multiboot-checker.sh ${BIN_NAME}
         MAIN_DEPENDENCY ${BIN_NAME})
 
+# create kernel's bootable ISO image
+add_custom_command(TARGET ${BIN_NAME} POST_BUILD
+        COMMENT "Generating ISO image file..."
+        COMMAND mkdir -p iso/boot/grub/
+        COMMAND cp ${MULTIBOOT_DIR}/grub.cfg iso/boot/grub/
+        COMMAND cp ${BIN_NAME} iso/boot/${BIN_NAME}
+        COMMAND grub-mkrescue -d ${MULTIBOOT_DIR}/misc/grub/i386-pc -o ${ISO_NAME} iso/ 2>/dev/null
+        MAIN_DEPENDENCY ${BIN_NAME})
+
 # disassemble the kernel image
 add_custom_command(TARGET ${BIN_NAME} POST_BUILD
         COMMENT "Disassembling kernel image..."
@@ -81,7 +93,23 @@ add_custom_command(TARGET ${BIN_NAME} POST_BUILD
 #########################################################################
 # CMake's custom targets
 #########################################################################
+set(RAM_MEMORY_MiB 512)
+
+add_custom_target(qemu
+        COMMENT "Starting QEMU with ${RAM_MEMORY_MiB} MiB of RAM memory..."
+        COMMAND qemu-system-i386 -cdrom ${ISO_NAME} -m ${RAM_MEMORY_MiB}M)
+
+add_custom_target(bochs
+        COMMENT "Starting Bochs with ${RAM_MEMORY_MiB} MiB of RAM memory..."
+        COMMAND sed s/RAM_SIZE_MiB_PLACEHOLDER/${RAM_MEMORY_MiB}/ ${UNPROCESSED_BOCHS_CONF} > ${BOCHS_CONF}
+        COMMAND sed s/ISO_NAME_PLACEHOLDER/${ISO_NAME}/ -i ${BOCHS_CONF}
+        COMMAND bochs -f ${BOCHS_CONF})
+
 add_custom_target(clean-all
         COMMENT "Cleaning all (but make/Cmake's own files)..."
         COMMAND rm -rf ${BIN_NAME} ${SYSTEM_MAP_NAME} ${PREPROCESSED_LINKER_SCRIPT}
         COMMAND rm -rf ${DISASSEMBLED_BIN_NAME})
+
+
+#qemu-system-i386 --readconfig qemu.cfg2 -vga virtio
+#qemu-system-i386 -cdrom brunix.iso -m 512M -gdb tcp::46555 -d int -no-reboot -serial mon:stdio -vga virtio  --writeconfig qemu.cfg2

@@ -42,7 +42,7 @@ SECTIONS {
     }
     PROVIDE(etext = .);
 
-    .rodata ALIGN(4096) : AT (ADDR(.rodata) - KERN_BASE) {
+    .rodata ALIGN(4096) : {
         *(.rodata)
     }
 
@@ -51,13 +51,13 @@ SECTIONS {
      * conventional symbols (the convention started before there was a read-only rodata section between text and data). */
 	PROVIDE(data = .);
 
-    .data ALIGN(4096) : AT (ADDR(.data) - KERN_BASE) {
+    .data ALIGN(4096) : {
     	*(.data)
     }
 
 	PROVIDE(edata = .);
 
-    .bss ALIGN(4096) : AT (ADDR(.bss) - KERN_BASE) {
+    .bss ALIGN(4096) : {
         *(.bss)
     }
 
