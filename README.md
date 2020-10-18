@@ -62,11 +62,11 @@ You can compare two adjacent branches to see exactly what changed. The idea here
    * |── *arch/x86/* -------> x86 architecture-dependent header files.
    * |── *brunix/* ----------> architecture-independent header files.
  * |── *kernel/* ----------------> kernel source code.
- * |── *libkern/* ---------------> custom C library for the kernel.
- * |── *linker.ld.pp* ----------> linker script for preprocessing.
- * |── multiboot/ -----------> Multiboot related files.
- * |── bochs.cfg.tmpl -----> config file for Bochs (template).
- * |── build/ -----------------> build dir for *CMake*.
+ * |── *libkern/* ----------------> custom C library for the kernel.
+ * |── *linker.ld.pp* -----------> linker script for preprocessing.
+ * |── multiboot/ ------------> Multiboot related files.
+ * |── bochs.cfg.tmpl ------> config file for Bochs (template).
+ * |── build/ ------------------> build dir for *CMake*.
 
 
 # Project building
@@ -108,9 +108,9 @@ To build the kernel, we need to:
 If everything went well, we should end up with this layout:
 
  * |── build/ 
-   * |── Makefile -------------> *make*'s build specification.
-   * |── *brunix.elf* ------------> kernel's image.
-   * |── *linker.ld* --------------> kernel's preprocessed linker script.
+   * |── Makefile --------------> *make*'s build specification.
+   * |── *brunix.elf* -------------> kernel's image.
+   * |── *linker.ld* ---------------> kernel's preprocessed linker script.
    * |── System.map --------> kernel's symbol table. 
    * |── brunix.asm ----------> kernel's disassembled image.
    * |── brunix.iso ------------> bootable ISO image for the kernel.
