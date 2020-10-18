@@ -13,7 +13,9 @@
  */
 
 
+#define __ASSEMBLER__   // trick to avoid typedef, etc.
 #include <arch/x86/memlayout.h>     // for KERN_LINK
+#undef __ASSEMBLER__
 
 
 /* >>>>> DISCLAIMER:
@@ -33,7 +35,32 @@ SECTIONS {
         *(.multiboot_header)
     }
 
+    PROVIDE(kernel_start = .);
+
     .text ALIGN(4096) : {
 	    *(.text)
     }
+    PROVIDE(etext = .);
+
+    .rodata ALIGN(4096) : AT (ADDR(.rodata) - KERN_BASE) {
+        *(.rodata)
+    }
+
+    /* Conventionally, Unix linkers provide pseudo-symbols etext, edata, and end, at the end of the text, data, and bss.
+	 * For the kernel mapping, we need the address at the beginning of the data section, but that's not one of the
+     * conventional symbols (the convention started before there was a read-only rodata section between text and data). */
+	PROVIDE(data = .);
+
+    .data ALIGN(4096) : AT (ADDR(.data) - KERN_BASE) {
+    	*(.data)
+    }
+
+	PROVIDE(edata = .);
+
+    .bss ALIGN(4096) : AT (ADDR(.bss) - KERN_BASE) {
+        *(.bss)
+    }
+
+	PROVIDE(kernel_end = .);
+
 }

@@ -1,11 +1,13 @@
 .idea/
 .idea/workspace.xml
 cmake-build-debug/
+bochsout.log
 *.o
 *.sym
 *.elf
 *.iso
 System.map
+com1.out
 /CMakeFiles/
 /brunix.cbp
 /cmake_install.cmake
