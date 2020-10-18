@@ -38,12 +38,14 @@ SECTIONS {
     PROVIDE(kernel_start = .);
 
     .text ALIGN(4096) : {
-	    *(.text)
+	    *(.text .stub)
+//*(.text .stub .text.* .gnu.linkonce.t.*)
     }
     PROVIDE(etext = .);
 
     .rodata ALIGN(4096) : {
         *(.rodata)
+//*(.rodata .rodata.* .gnu.linkonce.r.*)
     }
 
     /* Conventionally, Unix linkers provide pseudo-symbols etext, edata, and end, at the end of the text, data, and bss.
@@ -63,4 +65,7 @@ SECTIONS {
 
 	PROVIDE(kernel_end = .);
 
+    /DISCARD/ : {
+        *(.eh_frame .note.GNU-stack)
+    }
 }

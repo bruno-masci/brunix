@@ -17,7 +17,7 @@ static inline void cli(void) {
     asm ("cli");
 }
 
-// Halts the CPU, and keeps doing it in case some NMI event is generated
+// Halts the CPU
 static inline void halt(void) {
     asm ("hlt");
 }

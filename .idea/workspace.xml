@@ -23,13 +23,8 @@
   <component name="ChangeListManager">
     <list default="true" id="09916d8b-a51c-45d5-9e44-a908d6f2453e" name="Default" comment="Added printk(). Some changes.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bochs.cfg.tmpl" beforeDir="false" afterPath="$PROJECT_DIR$/bochs.cfg.tmpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/multiboot_entry_point.S" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/multiboot_entry_point.S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/arch/x86/processor.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/arch/x86/processor.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/linker.ld.pp" beforeDir="false" afterPath="$PROJECT_DIR$/linker.ld.pp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pics/physical_layout.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/qemu.cfg.tmpl" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -176,7 +171,7 @@
       <workItem from="1602633540921" duration="3106000" />
       <workItem from="1602719371605" duration="1862000" />
       <workItem from="1602767207757" duration="12063000" />
-      <workItem from="1603053682204" duration="2021000" />
+      <workItem from="1603053682204" duration="2575000" />
     </task>
     <servers />
   </component>
@@ -244,12 +239,12 @@
     </state>
     <state x="50" y="25" width="769" height="874" key="CommitChangelistDialog2/0.25.1920.925@0.25.1920.925" timestamp="1597705094578" />
     <state x="50" y="27" width="1621" height="999" key="CommitChangelistDialog2/0.27.1920.1020@0.27.1920.1020" timestamp="1597113907752" />
-    <state x="9" y="133" width="1892" height="847" key="DiffContextDialog" timestamp="1602998710178">
+    <state x="9" y="133" width="1892" height="847" key="DiffContextDialog" timestamp="1603056186335">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="100" y="116" width="1538" height="765" key="DiffContextDialog/0.25.1920.925@0.25.1920.925" timestamp="1597705095400" />
     <state x="100" y="127" width="1720" height="820" key="DiffContextDialog/0.27.1920.1020@0.27.1920.1020" timestamp="1597114130656" />
-    <state x="9" y="133" width="1892" height="847" key="DiffContextDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1602998710178" />
+    <state x="9" y="133" width="1892" height="847" key="DiffContextDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1603056186335" />
     <state x="743" y="298" width="426" height="482" key="FileChooserDialogImpl" timestamp="1599945775998">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
@@ -288,12 +283,12 @@
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="208" y="220" key="SettingsEditor/0.28.1920.1024@0.28.1920.1024" timestamp="1598917470729" />
-    <state x="100" y="129" width="1720" height="824" key="ShowDiffWithBranchDialog" timestamp="1602998710178">
+    <state x="100" y="129" width="1720" height="824" key="ShowDiffWithBranchDialog" timestamp="1603056118946">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="100" y="116" width="1720" height="744" key="ShowDiffWithBranchDialog/0.25.1920.925@0.25.1920.925" timestamp="1597704677626" />
     <state x="100" y="127" width="1720" height="820" key="ShowDiffWithBranchDialog/0.27.1920.1020@0.27.1920.1020" timestamp="1597114130656" />
-    <state x="100" y="129" width="1720" height="824" key="ShowDiffWithBranchDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1602998710178" />
+    <state x="100" y="129" width="1720" height="824" key="ShowDiffWithBranchDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1603056118946" />
     <state x="555" y="276" width="802" height="526" key="Vcs.Push.Dialog.v2" timestamp="1601596615096">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
