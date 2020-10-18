@@ -12,6 +12,21 @@ For now, we'll just create a bootable ELF executable and check it is a valid Mul
 In order to achieve that, we need to add the Multiboot header at the beginning of the executable and set the desired entry 
 point where the control will be transferred to by the bootloader.
 
+# File structure
+
+ * |── CMakeLists.txt ------> *CMake*'s build specification.
+ * |── include/
+   * |── *arch/x86/* -------> x86 architecture-dependent header files.
+ * |── *kernel/* ----------------> kernel source code.
+ * |── *linker.ld.pp* -----------> linker script for preprocessing.
+ * |── multiboot/ ------------> Multiboot related files.
+ * |── build/ ------------------> build dir for *CMake*.
+   * |── Makefile --------------> *make*'s build specification.
+   * |── *brunix.elf* -------------> kernel's image.
+   * |── *linker.ld* ---------------> kernel's preprocessed linker script.
+   * |── System.map ---------> kernel's symbol table. 
+   * |── brunix.asm -----------> kernel's disassembled image.
+
 # Kernel building 
 
 * please complement this section by looking at the "CMakeLists.txt" file,

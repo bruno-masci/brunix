@@ -78,9 +78,9 @@
     </key>
   </component>
   <component name="RunManager" selected="CMake Application.brunix.elf">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="brunix.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="brunix.elf" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="brunix" RUN_TARGET_NAME="brunix.elf">
@@ -223,12 +223,12 @@
     </state>
     <state x="50" y="25" width="769" height="874" key="CommitChangelistDialog2/0.25.1920.925@0.25.1920.925" timestamp="1597705094578" />
     <state x="50" y="27" width="1621" height="999" key="CommitChangelistDialog2/0.27.1920.1020@0.27.1920.1020" timestamp="1597113907752" />
-    <state x="137" y="130" width="1538" height="847" key="DiffContextDialog" timestamp="1602209097842">
+    <state x="137" y="130" width="1538" height="847" key="DiffContextDialog" timestamp="1603057267938">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="100" y="116" width="1538" height="765" key="DiffContextDialog/0.25.1920.925@0.25.1920.925" timestamp="1597705095400" />
     <state x="100" y="127" width="1720" height="820" key="DiffContextDialog/0.27.1920.1020@0.27.1920.1020" timestamp="1597114130656" />
-    <state x="137" y="130" width="1538" height="847" key="DiffContextDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1602209097842" />
+    <state x="137" y="130" width="1538" height="847" key="DiffContextDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1603057267938" />
     <state x="743" y="298" width="426" height="482" key="FileChooserDialogImpl" timestamp="1599945775998">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
@@ -267,12 +267,12 @@
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="208" y="220" key="SettingsEditor/0.28.1920.1024@0.28.1920.1024" timestamp="1598917470729" />
-    <state x="100" y="129" width="1720" height="824" key="ShowDiffWithBranchDialog" timestamp="1600228296164">
+    <state x="100" y="129" width="1720" height="824" key="ShowDiffWithBranchDialog" timestamp="1603057267938">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="100" y="116" width="1720" height="744" key="ShowDiffWithBranchDialog/0.25.1920.925@0.25.1920.925" timestamp="1597704677626" />
     <state x="100" y="127" width="1720" height="820" key="ShowDiffWithBranchDialog/0.27.1920.1020@0.27.1920.1020" timestamp="1597114130656" />
-    <state x="100" y="129" width="1720" height="824" key="ShowDiffWithBranchDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1600228296164" />
+    <state x="100" y="129" width="1720" height="824" key="ShowDiffWithBranchDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1603057267938" />
     <state x="555" y="276" width="802" height="526" key="Vcs.Push.Dialog.v2" timestamp="1601596615096">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
