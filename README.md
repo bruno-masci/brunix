@@ -60,9 +60,12 @@ You can compare two adjacent branches to see exactly what changed. The idea here
  * |── CMakeLists.txt ------> *CMake*'s build specification.
  * |── include/
    * |── *arch/x86/* -------> x86 architecture-dependent header files.
+   * |── *brunix/* ----------> architecture-independent header files.
  * |── *kernel/* ----------------> kernel source code.
+ * |── *libkern/* ---------------> custom C library for the kernel.
  * |── *linker.ld.pp* ----------> linker script for preprocessing.
  * |── multiboot/ -----------> Multiboot related files.
+ * |── bochs.cfg.tmpl -----> config file for Bochs (template).
  * |── build/ -----------------> build dir for *CMake*.
 
 
@@ -78,6 +81,12 @@ removes the generated kernel's image,
 
 	clean-all
 removes all generated files but *make*/*CMake*'s own files.
+
+	make qemu
+runs the kernel's image on QEMU,
+ 
+	make bochs
+runs the kernel's image on Bochs,
 
 ### Building the kernel
 Is is highly recommended to build the project on a directory other than the source directory. We assume *build/* as the build directory but any other will work too.\
@@ -106,7 +115,7 @@ If everything went well, we should end up with this layout:
    * |── brunix.asm ----------> kernel's disassembled image.
    * |── brunix.iso ------------> bootable ISO image for the kernel.
    * |── iso/ --------------------> *grub-mkrescue*'s expected directory layout for creating an ISO file.
-
+   * |── bochs.cfg ------------> resolved config file for Bochs.
 
 
 # References
