@@ -10,6 +10,7 @@
 #include <stdarg.h>                 // for va_list
 #include <arch/x86/processor.h>
 #include <arch/x86/vga.h>
+#include <arch/x86/uart.h>
 
 
 void cputchar(int c);

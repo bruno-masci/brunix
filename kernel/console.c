@@ -15,6 +15,7 @@ PRIVATE void console_putc(int c);
 
 INIT_FUNC void console_init(void) {
     vga_init();
+    uart_init();
 }
 
 // `High'-level console I/O.  Used by readline and cprintf.
@@ -29,4 +30,5 @@ void set_fg_color(uint8_t color) {
 // output a character to the console
 PRIVATE void console_putc(int c) {
     vga_putc(c);
+    uart_putc(c);
 }
