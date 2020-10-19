@@ -43,7 +43,7 @@ You can compare two adjacent branches to see exactly what changed. The idea here
 
 * [stage0](https://github.com/bruno-masci/brunix/tree/stage0-multiboot): Multiboot-compliant executable
 * [stage1](https://github.com/bruno-masci/brunix/tree/stage1-emulator_and_vga): Running the kernel on QEMU (basic VGA video)
-* [stage2](https://github.com/bruno-masci/brunix/tree/stage2-kernel-debugging): Kernel debugging (in progress)
+* [stage2](https://github.com/bruno-masci/brunix/tree/stage2-kernel_debugging): Kernel debugging (in progress)
 * ...
 
 
