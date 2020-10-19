@@ -41,9 +41,9 @@ a logical path for that organization.
 Each branch extends the previous one, adding functionalities and explanations. \
 You can compare two adjacent branches to see exactly what changed. The idea here is that you complement both the source code and the README.md file while comparing. You will find a lot more of information and details in the other branches.
 
-* [stage0-multiboot](https://github.com/bruno-masci/brunix/tree/stage0-multiboot)
-* [stage1-emulator_and_vga](https://github.com/bruno-masci/brunix/tree/stage1-emulator_and_vga)
-* [stage2-kernel_debugging]() (in progress)
+* [stage0](https://github.com/bruno-masci/brunix/tree/stage0-multiboot): Multiboot-compliant executable
+* [stage1](https://github.com/bruno-masci/brunix/tree/stage1-emulator_and_vga): Running the kernel on QEMU (basic VGA video)
+* [stage2](https://github.com/bruno-masci/brunix/tree/stage2-kernel-debugging): Kernel debugging (in progress)
 * ...
 
 
