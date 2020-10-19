@@ -16,7 +16,7 @@ set(C_PREPROCESSOR_FLAGS -E -x c)
 
 # Do not optimise for now with "-O1", "-O2"... and so on, so we can do some validations. Note also the use
 # of "-fno-omit-frame-pointer" option below (for debugging purposes).
-set(CMAKE_C_FLAGS "-ffreestanding -c -fno-omit-frame-pointer \
+set(CMAKE_C_FLAGS "-ffreestanding -c -g -gstabs -fno-omit-frame-pointer \
     -pedantic -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-align -Wwrite-strings -Wredundant-decls -Wnested-externs \
     -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wconversion")
 
@@ -31,7 +31,7 @@ file(GLOB           UNPROCESSED_LINKER_SCRIPT       "linker.ld.pp")
 file(GLOB           KERNEL_INCLUDE_DIR              "include")
 file(GLOB           MULTIBOOT_DIR                   "multiboot")
 file(GLOB           UNPROCESSED_BOCHS_CONF          "bochs.cfg.tmpl")
-
+file(GLOB           GDB_INIT_TEMPLATE               ".gdbinit.tmpl")
 
 #########################################################################
 # Intermediate and output files
@@ -56,7 +56,7 @@ set(CMAKE_C_LINK_EXECUTABLE "${CMAKE_C_COMPILER} <CMAKE_C_LINK_FLAGS> <LINK_FLAG
 #########################################################################
 # Executable creation
 #########################################################################
-add_executable(${BIN_NAME} ${C_SRCS} ${ASM_SRCS})
+add_executable(${BIN_NAME} ${C_SRCS} ${ASM_SRCS} include/brunix/kdebug.h include/brunix/stab.h kernel/kdebug.c)
 target_include_directories(${BIN_NAME} PUBLIC include)
 
 # ------------------------------ PRE BUILD ------------------------------
@@ -94,10 +94,33 @@ add_custom_command(TARGET ${BIN_NAME} POST_BUILD
 # CMake's custom targets
 #########################################################################
 set(RAM_MEMORY_MiB 512)
+set(QEMU_BIN qemu-system-i386)
+set(GDB_PORT 26000)
+
+set(QEMU_OPTS -cdrom ${ISO_NAME} -m ${RAM_MEMORY_MiB}M -serial mon:stdio -gdb tcp::${GDB_PORT})
+
+
+add_custom_target(print-gdbport
+        COMMAND @echo ${GDB_PORT}
+        "Final Message")
+
+
+add_custom_target(pre-qemu
+        DEPENDS ${BIN_NAME}
+        COMMAND @echo Setting up .gdbinit file...
+        COMMAND sed "s/PORT_PLACEHOLDER/${GDB_PORT}/" ${GDB_INIT_TEMPLATE} > .gdbinit
+        COMMAND sed -i "s/BIN_NAME_PLACEHOLDER/${BIN_NAME}/" .gdbinit)
 
 add_custom_target(qemu
         COMMENT "Starting QEMU with ${RAM_MEMORY_MiB} MiB of RAM memory..."
-        COMMAND qemu-system-i386 -cdrom ${ISO_NAME} -m ${RAM_MEMORY_MiB}M)
+        COMMAND ${QEMU_BIN} ${QEMU_OPTS})
+
+add_custom_target(qemu-nox-gdb
+        DEPENDS pre-qemu
+        COMMAND @echo "* * *"
+        COMMAND @echo "* * * Now run \\'make gdb\\'"
+        COMMAND @echo "* * *"
+        COMMAND ${QEMU_BIN} -nographic ${QEMU_OPTS} -S)
 
 add_custom_target(bochs
         COMMENT "Starting Bochs with ${RAM_MEMORY_MiB} MiB of RAM memory..."

@@ -12,6 +12,7 @@
 #include <brunix/string.h>
 #include <brunix/console.h>
 #include <brunix/kernel.h>
+#include <brunix/kdebug.h>
 
 #include <arch/x86/multiboot.h>     // for struct std_multiboot_info, struct multiboot_info
 
@@ -42,6 +43,15 @@ PRIVATE int unused_uninitialized_variable;
 INIT_FUNC int kmain(struct std_multiboot_info *std_mboot_info_ptr, uint32_t magic, uint32_t stack_top);
 PRIVATE void print_kernel_context_info(uint32_t total_memory_kb, uint32_t stack_top);
 
+void recur1(int i) {
+    if (i == 0) {
+        stack_backtrace();
+        return;
+    }
+
+    printk("CALLING RECURSIVELY...\n\n");
+    recur1(--i);
+}
 
 /**
  * This is the main kernel function.
@@ -56,6 +66,11 @@ int kmain(struct std_multiboot_info *std_mboot_info_ptr, uint32_t magic, uint32_
     printk("Starting Brunix...\n\n");
 
     verify_loader(magic);
+
+    printk("GOING RECURRRRRRRRRRR\n\n");
+    recur1(3);
+
+    printk("6828 decimal is %o octal!\n", 6828);
 
     save_multiboot_info(std_mboot_info_ptr, &mboot_info);
 

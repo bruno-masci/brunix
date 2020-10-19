@@ -19,6 +19,7 @@
 /*
  * Extracted from https://graphics.stanford.edu/~seander/bithacks.html#RoundUpPowerOf2
  * NOTE: It only works for 32-bits numbers!
+ * CORREGIR Si no es exaxtamente multiplo de 2
  */
 static inline long roundup_binary(uint32_t n) {
     n--;

@@ -24,3 +24,14 @@ char * strncpy(char *dst, const char *src, size_t size) {
     *dst = '\0';
     return orig;
 }
+
+// Return a pointer to the first occurrence of 'c' in 's',
+// or a pointer to the string-ending null character if the string has no 'c'.
+char *
+strfind(const char *s, char c)
+{
+    for (; *s; s++)
+        if (*s == c)
+            break;
+    return (char *) s;
+}

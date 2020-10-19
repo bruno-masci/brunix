@@ -9,10 +9,13 @@
   </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
+      <config projectName="brunix" targetName="print-gdbport" />
       <config projectName="brunix" targetName="qemu" />
-      <config projectName="brunix" targetName="clean-all" />
-      <config projectName="brunix" targetName="bochs" />
       <config projectName="brunix" targetName="brunix.elf" />
+      <config projectName="brunix" targetName="bochs" />
+      <config projectName="brunix" targetName="pre-qemu" />
+      <config projectName="brunix" targetName="clean-all" />
+      <config projectName="brunix" targetName="qemu-nox-gdb" />
     </generated>
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
@@ -22,14 +25,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09916d8b-a51c-45d5-9e44-a908d6f2453e" name="Default" comment="Added printk(). Some changes.">
-      <change afterPath="$PROJECT_DIR$/.gdbinit" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gdbinit.tmpl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/include/arch/x86/uart.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kernel/uart.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/include/brunix/kdebug.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/include/brunix/stab.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kernel/kdebug.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/gradelib.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/qemu-tests.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/arch/x86/io.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/arch/x86/io.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/brunix/console.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/brunix/console.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/console.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/brunix/defs.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/brunix/defs.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/brunix/string.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/brunix/string.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libkern/string.c" beforeDir="false" afterPath="$PROJECT_DIR$/libkern/string.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linker.ld.pp" beforeDir="false" afterPath="$PROJECT_DIR$/linker.ld.pp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +47,13 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
@@ -59,7 +73,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/pics" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../brunix_stage1.2" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -69,28 +83,24 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="Settings.Markdown" />
+    <property name="two.files.diff.last.used.folder" value="$PROJECT_DIR$/../brunix_stage1.2" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/config" />
-      <recent name="$PROJECT_DIR$/emulators/bochs" />
-      <recent name="$PROJECT_DIR$/emulators/qemu" />
-      <recent name="$PROJECT_DIR$/multiboot" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/pics" />
       <recent name="$PROJECT_DIR$/libkern" />
       <recent name="$PROJECT_DIR$/kernel" />
       <recent name="$PROJECT_DIR$" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/include/brunix" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/config" />
+      <recent name="$PROJECT_DIR$/emulators/bochs" />
+      <recent name="$PROJECT_DIR$/emulators/qemu" />
+    </key>
   </component>
   <component name="RunManager" selected="CMake Application.brunix.elf">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="bochs" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="bochs" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -102,6 +112,21 @@
       </method>
     </configuration>
     <configuration name="clean-all" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="clean-all" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="pre-qemu" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="pre-qemu" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="print-gdbport" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="print-gdbport" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="qemu-nox-gdb" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="qemu-nox-gdb" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -120,6 +145,9 @@
       <item itemvalue="CMake Application.bochs" />
       <item itemvalue="CMake Application.brunix.elf" />
       <item itemvalue="CMake Application.clean-all" />
+      <item itemvalue="CMake Application.pre-qemu" />
+      <item itemvalue="CMake Application.print-gdbport" />
+      <item itemvalue="CMake Application.qemu-nox-gdb" />
       <item itemvalue="CMake Application.qemu" />
     </list>
   </component>
@@ -177,6 +205,7 @@
       <workItem from="1602719371605" duration="1862000" />
       <workItem from="1602767207757" duration="12063000" />
       <workItem from="1603053682204" duration="2575000" />
+      <workItem from="1603142132565" duration="893000" />
     </task>
     <servers />
   </component>
@@ -244,16 +273,16 @@
     </state>
     <state x="50" y="25" width="769" height="874" key="CommitChangelistDialog2/0.25.1920.925@0.25.1920.925" timestamp="1597705094578" />
     <state x="50" y="27" width="1621" height="999" key="CommitChangelistDialog2/0.27.1920.1020@0.27.1920.1020" timestamp="1597113907752" />
-    <state x="9" y="133" width="1892" height="847" key="DiffContextDialog" timestamp="1603067668970">
+    <state x="9" y="133" width="1892" height="847" key="DiffContextDialog" timestamp="1603074032410">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="100" y="116" width="1538" height="765" key="DiffContextDialog/0.25.1920.925@0.25.1920.925" timestamp="1597705095400" />
     <state x="100" y="127" width="1720" height="820" key="DiffContextDialog/0.27.1920.1020@0.27.1920.1020" timestamp="1597114130656" />
-    <state x="9" y="133" width="1892" height="847" key="DiffContextDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1603067668970" />
-    <state x="743" y="298" width="426" height="482" key="FileChooserDialogImpl" timestamp="1599945775998">
+    <state x="9" y="133" width="1892" height="847" key="DiffContextDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1603074032410" />
+    <state x="743" y="298" width="426" height="482" key="FileChooserDialogImpl" timestamp="1603075573747">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
-    <state x="743" y="298" width="426" height="482" key="FileChooserDialogImpl/0.28.1920.1024@0.28.1920.1024" timestamp="1599945775998" />
+    <state x="743" y="298" width="426" height="482" key="FileChooserDialogImpl/0.28.1920.1024@0.28.1920.1024" timestamp="1603075573747" />
     <state width="1874" height="269" key="GridCell.Tab.0.bottom" timestamp="1598131815601">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
@@ -302,11 +331,11 @@
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="741" y="455" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.28.1920.1024@0.28.1920.1024" timestamp="1598752225709" />
-    <state x="221" y="134" width="1544" height="850" key="find.popup" timestamp="1603067792585">
+    <state x="221" y="134" width="1544" height="850" key="find.popup" timestamp="1603077257059">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="156" y="114" width="1544" height="846" key="find.popup/0.27.1920.1020@0.27.1920.1020" timestamp="1597081431266" />
-    <state x="221" y="134" width="1544" height="850" key="find.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1603067792585" />
+    <state x="221" y="134" width="1544" height="850" key="find.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1603077257059" />
     <state width="600" height="428" key="javadoc.popup" timestamp="1598818939998">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
@@ -315,10 +344,10 @@
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="623" y="248" width="672" height="677" key="run.anything.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1602719625345" />
-    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup" timestamp="1603065997184">
+    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup" timestamp="1603076954077">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="623" y="251" width="672" height="678" key="search.everywhere.popup/0.27.1920.1020@0.27.1920.1020" timestamp="1597111070104" />
-    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1603065997184" />
+    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1603076954077" />
   </component>
 </project>
