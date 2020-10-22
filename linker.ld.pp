@@ -30,20 +30,20 @@ ENTRY(_start)
 
 SECTIONS {
 
-    .boot ALIGN(4096) : {
+    .boot : {
         // Ensure that the multiboot header is at the beginning of the generated image
         *(.multiboot_header)
     }
 
     PROVIDE(kernel_start = .);
 
-    .text ALIGN(4096) : {
+    .text : {
 	    *(.text .stub)
 //*(.text .stub .text.* .gnu.linkonce.t.*)
     }
     PROVIDE(etext = .);
 
-    .rodata ALIGN(4096) : {
+    .rodata : {
         *(.rodata)
 //*(.rodata .rodata.* .gnu.linkonce.r.*)
     }
@@ -69,7 +69,7 @@ SECTIONS {
      * conventional symbols (the convention started before there was a read-only rodata section between text and data). */
 	PROVIDE(data = .);
 
-    .data ALIGN(4096) : {
+    .data : {
     	*(.data)
     }
 

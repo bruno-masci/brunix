@@ -34,23 +34,22 @@ struct multiboot_info mboot_info;
 
 IMPORT void console_init(void);          // from kernel/console.c
 
-// These two lines are here only for the purpose of demonstrating
-// ELF executable's sections such as TEXT, DATA and BSS.
-PRIVATE int unused_initialized_variable = 5;
-PRIVATE int unused_uninitialized_variable;
-
 
 INIT_FUNC int kmain(struct std_multiboot_info *std_mboot_info_ptr, uint32_t magic, uint32_t stack_top);
 PRIVATE void print_kernel_context_info(uint32_t total_memory_kb, uint32_t stack_top);
 
-void recur1(int i) {
+void recur2(int i) {
     if (i == 0) {
         stack_backtrace();
         return;
     }
 
     printk("CALLING RECURSIVELY...\n\n");
-    recur1(--i);
+    recur2(--i);
+}
+
+void recur1(int i) {
+    recur2(i);
 }
 
 /**
@@ -65,12 +64,16 @@ int kmain(struct std_multiboot_info *std_mboot_info_ptr, uint32_t magic, uint32_
 
     printk("Starting Brunix...\n\n");
 
+//    stack_backtrace();
+
     verify_loader(magic);
 
-    printk("GOING RECURRRRRRRRRRR\n\n");
+    printk("kmain()'s address: %x\n", &kmain);
+
+//    printk("GOING RECURRRRRRRRRRR\n\n");
     recur1(3);
 
-    printk("6828 decimal is %o octal!\n", 6828);
+//    printk("6828 decimal is %o octal!\n", 6828);
 
     save_multiboot_info(std_mboot_info_ptr, &mboot_info);
 
@@ -88,16 +91,4 @@ PRIVATE void print_kernel_context_info(uint32_t total_memory_kb, uint32_t stack_
     printk("RAM memory: %u MiB, kernel size: %d KiB\n", roundup_binary(total_memory_kb) / 1024, (kernel_end - kernel_start) / 1024);
 
     printk("Kernel bootstrap stack: %p\n", stack_top);
-
-    printk("\nSpecial kernel symbols:\n");
-    printk("  _start  %08x (phys)\n", _start);
-    printk("  text    %08x (virt)  %08x (phys)\n", kernel_start, kernel_start);
-    printk("  etext   %08x (virt)  %08x (phys)\n", etext, etext);
-    printk("  edata   %08x (virt)  %08x (phys)\n", edata, edata);
-    printk("  end     %08x (virt)  %08x (phys)\n", kernel_end, kernel_end);
-
-    printk("\nSome symbol addresses by section:\n");
-    printk("  kmain()\t\t\t-> %p (text)\n", &kmain);
-    printk("  unused_initialized_variable\t-> %p (data)\n", &unused_initialized_variable);
-    printk("  unused_uninitialized_variable\t-> %p (bss)\n", &unused_uninitialized_variable);
 }

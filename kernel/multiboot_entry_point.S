@@ -37,20 +37,17 @@
 // **************************** SECTION: data ****************************** //
 ///////////////////////////////////////////////////////////////////////////////
 
-.section .data #@nobits
-.align 16
+.section .data
 
 /* The Multiboot standard doesn't define a value for the stack pointer register (esp) so it is up to the kernel to provide a stack.
  * Here we allocate room for a small temporal stack by creating a symbol at the bottom of it, then allocating BOOTSTRAP_STACK_SIZE
  * bytes for it, and finally creating a symbol at the top of it. Please note that the stack grows downwards on x86.
- * This stack is in its own section so it can be marked 'nobits', which means the kernel file is smaller because it
- * doesn't contain an uninitialized stack.
  * The stack on x86/GCC must be 16-byte aligned according to the System V ABI standard (see https://wiki.osdev.org/System_V_ABI).
  * The compiler will assume the stack is properly aligned and failure to align the stack will result in undefined behavior.
  */
 .set BOOTSTRAP_STACK_SIZE, 16384  # Size of bootstrap stack in bytes (16 KiB).
 
-.align 4
+.align 16
 stack_bottom:
     .space BOOTSTRAP_STACK_SIZE
 stack_top:
