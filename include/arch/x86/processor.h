@@ -9,15 +9,12 @@
 #define __ARCH_PROCESSOR_H__
 
 
-#include <stdbool.h>    // for true
-
-
 // Clears (maskable) interrupts
 static inline void cli(void) {
     asm ("cli");
 }
 
-// Halts the CPU, and keeps doing it in case some NMI event is generated
+// Halts the CPU
 static inline void halt(void) {
     asm ("hlt");
 }

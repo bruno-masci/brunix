@@ -175,8 +175,8 @@ configuration file. We stick to the command line configuration for QEMU for debu
 # References (cont.)
 
 * https://wiki.osdev.org/Bare_Bones
-* https://wiki.osdev.org/System_V_ABI (en duda)
-* https://wiki.osdev.org/Calling_Conventions (en duda)
+* https://wiki.osdev.org/System_V_ABI
+* https://wiki.osdev.org/Calling_Conventions
 * http://wiki.osdev.org/System_Initialization_(x86)
 * https://learning.oreilly.com/library/view/programming-embedded-systems/0596009836/ch04.html
 * https://0xax.gitbooks.io/linux-insides/content/

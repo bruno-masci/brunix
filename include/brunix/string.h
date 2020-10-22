@@ -1,3 +1,8 @@
+/**
+ * @author Bruno Masci
+ * @brief Some general kernel functions
+ */
+
 #ifndef __STRING_H__
 #define __STRING_H__
 

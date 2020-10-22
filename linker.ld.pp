@@ -13,9 +13,7 @@
  */
 
 
-#define __ASSEMBLER__   // trick to avoid typedef, etc.
 #include <arch/x86/memlayout.h>     // for KERN_LINK
-#undef __ASSEMBLER__
 
 
 /* >>>>> DISCLAIMER:

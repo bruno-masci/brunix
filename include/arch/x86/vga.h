@@ -1,6 +1,6 @@
 /**
  * @author Bruno Masci
- * @brief VGA output related code
+ * @brief VGA operations
  */
 
 #ifndef __ARCH_VGA_H__

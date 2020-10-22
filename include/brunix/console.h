@@ -1,14 +1,13 @@
 /**
  * @author Bruno Masci
- * @brief Stream related functions.
+ * @brief Console management
  */
 
 #ifndef __CONSOLE_H__
 #define __CONSOLE_H__
 
 
-#include <stdarg.h>                 // for va_list
-#include <arch/x86/processor.h>
+#include <stdint.h>                 // for uint8_t
 #include <arch/x86/vga.h>
 
 

@@ -2,6 +2,8 @@
  * This function is used throughout the kernel to indicate a major problem.
  */
 
+#include <stdbool.h>                // for true
+
 #include <brunix/kernel.h>
 #include <arch/x86/processor.h>     // for cli(), halt()
 #include <brunix/console.h>

@@ -30,7 +30,7 @@ file(GLOB_RECURSE   ASM_SRCS                        "kernel/*.S")
 file(GLOB           UNPROCESSED_LINKER_SCRIPT       "linker.ld.pp")
 file(GLOB           KERNEL_INCLUDE_DIR              "include")
 file(GLOB           MULTIBOOT_DIR                   "multiboot")
-file(GLOB           UNPROCESSED_BOCHS_CONF          "bochs.cfg.tmpl")
+file(GLOB           BOCHS_CONF_TEMPLATE             "bochs.cfg.tmpl")
 
 
 #########################################################################
@@ -94,14 +94,17 @@ add_custom_command(TARGET ${BIN_NAME} POST_BUILD
 # CMake's custom targets
 #########################################################################
 set(RAM_MEMORY_MiB 512)
+set(QEMU_BIN qemu-system-i386)
+
+set(QEMU_OPTS -cdrom ${ISO_NAME} -m ${RAM_MEMORY_MiB}M)
 
 add_custom_target(qemu
         COMMENT "Starting QEMU with ${RAM_MEMORY_MiB} MiB of RAM memory..."
-        COMMAND qemu-system-i386 -cdrom ${ISO_NAME} -m ${RAM_MEMORY_MiB}M)
+        COMMAND ${QEMU_BIN} ${QEMU_OPTS})
 
 add_custom_target(bochs
         COMMENT "Starting Bochs with ${RAM_MEMORY_MiB} MiB of RAM memory..."
-        COMMAND sed s/RAM_SIZE_MiB_PLACEHOLDER/${RAM_MEMORY_MiB}/ ${UNPROCESSED_BOCHS_CONF} > ${BOCHS_CONF}
+        COMMAND sed s/RAM_SIZE_MiB_PLACEHOLDER/${RAM_MEMORY_MiB}/ ${BOCHS_CONF_TEMPLATE} > ${BOCHS_CONF}
         COMMAND sed s/ISO_NAME_PLACEHOLDER/${ISO_NAME}/ -i ${BOCHS_CONF}
         COMMAND bochs -f ${BOCHS_CONF})
 
