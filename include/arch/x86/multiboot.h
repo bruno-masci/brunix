@@ -59,7 +59,7 @@
         char cmdline[MAX_CMDLINE_LEN];
     };
 
-    void save_multiboot_info(struct std_multiboot_info *std_mboot_info_ptr, struct multiboot_info *mboot_info_ptr);
+    void save_multiboot_info(struct std_multiboot_info *std_mboot_info, struct multiboot_info *mboot_info);
 
     void verify_loader(uint32_t magic);
 

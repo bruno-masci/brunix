@@ -10,5 +10,6 @@ char * strncpy(char *dst, const char *src, size_t size);
 
 char *strfind(const char *s, char c);
 
+int strstr(const char *in, const char *str);
 
 #endif /* __STRING_H__ */

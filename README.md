@@ -196,3 +196,10 @@ configuration file. We stick to the command line configuration for QEMU for debu
 
 * https://wiki.osdev.org/Serial_Ports ??|
 * //https://wiki.osdev.org/Global_Descriptor_Table ??
+
+http://wwwcdf.pd.infn.it/localdoc/stabs.pdf
+https://www.danlj.org/mkj/lad/info/stabs.html
+https://www.math.utah.edu/docs/info/stabs_1.html
+
+https://www.eecs.umich.edu/courses/eecs588/static/stack_smashing.pdf
+https://web.mit.edu/gnu/doc/html/gdb_8.html

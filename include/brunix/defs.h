@@ -21,7 +21,7 @@
  * NOTE: It only works for 32-bits numbers!
  * CORREGIR Si no es exaxtamente multiplo de 2
  */
-static inline long roundup_binary(uint32_t n) {
+static inline uint32_t roundup_binary(uint32_t n) {
     n--;
     n |= n >> 1;
     n |= n >> 2;

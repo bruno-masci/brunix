@@ -56,7 +56,7 @@ set(CMAKE_C_LINK_EXECUTABLE "${CMAKE_C_COMPILER} <CMAKE_C_LINK_FLAGS> <LINK_FLAG
 #########################################################################
 # Executable creation
 #########################################################################
-add_executable(${BIN_NAME} ${C_SRCS} ${ASM_SRCS} include/brunix/kdebug.h include/brunix/stab.h kernel/kdebug.c)
+add_executable(${BIN_NAME} ${C_SRCS} ${ASM_SRCS})
 target_include_directories(${BIN_NAME} PUBLIC include)
 
 # ------------------------------ PRE BUILD ------------------------------

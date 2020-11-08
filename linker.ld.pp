@@ -81,6 +81,8 @@ SECTIONS {
 
 	PROVIDE(kernel_end = .);
 
+    // https://stackoverflow.com/questions/26300819/why-gcc-compiled-c-program-needs-eh-frame-section#26302715
+
     /DISCARD/ : {
         *(.eh_frame .note.GNU-stack)
     }

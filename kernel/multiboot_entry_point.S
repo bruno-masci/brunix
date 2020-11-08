@@ -15,6 +15,10 @@
 #include <arch/x86/multiboot.h>     // for BOOT_HEADER_MAGIC, MBOOT_HEADER_FLAGS, MBOOT_HEADER_CHECKSUM
 
 
+// hand-made stab for the stack backtrace (see /kernel/kdebug.c)
+.stabs	"/kernel/multiboot_entry_point.S",100,0,0,.text
+
+
 ///////////////////////////////////////////////////////////////////////////////
 // ********************* SECTION: multiboot_header ************************* //
 ///////////////////////////////////////////////////////////////////////////////

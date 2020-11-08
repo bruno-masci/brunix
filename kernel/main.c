@@ -24,58 +24,34 @@
  * declare those symbols as char arrays and access them by its name, what is
  * equivalent to do &symbol[0]. (see "linker.ld.pp" file)
  */
-IMPORT const char _start[];
 IMPORT const char kernel_start[];
 IMPORT const char kernel_end[];
-IMPORT const char etext[];
-IMPORT const char edata[];
 
 struct multiboot_info mboot_info;
 
 IMPORT void console_init(void);          // from kernel/console.c
 
 
-INIT_FUNC int kmain(struct std_multiboot_info *std_mboot_info_ptr, uint32_t magic, uint32_t stack_top);
+INIT_FUNC int kmain(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint32_t stack_top);
 PRIVATE void print_kernel_context_info(uint32_t total_memory_kb, uint32_t stack_top);
-
-void recur2(int i) {
-    if (i == 0) {
-        stack_backtrace();
-        return;
-    }
-
-    printk("CALLING RECURSIVELY...\n\n");
-    recur2(--i);
-}
-
-void recur1(int i) {
-    recur2(i);
-}
 
 /**
  * This is the main kernel function.
  *
- * @param std_mboot_info_ptr Contextual information given by the bootloader.
+ * @param std_mboot_info Contextual information given by the bootloader.
  * @param magic Number representing the Multiboot bootloader magic number.
  * @see multiboot_entry_point.S file
  */
-int kmain(struct std_multiboot_info *std_mboot_info_ptr, uint32_t magic, uint32_t stack_top) {
+int kmain(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint32_t stack_top) {
     console_init();
 
     printk("Starting Brunix...\n\n");
 
-//    stack_backtrace();
-
     verify_loader(magic);
-
-    printk("kmain()'s address: %x\n", &kmain);
-
-//    printk("GOING RECURRRRRRRRRRR\n\n");
-    recur1(3);
 
 //    printk("6828 decimal is %o octal!\n", 6828);
 
-    save_multiboot_info(std_mboot_info_ptr, &mboot_info);
+    save_multiboot_info(std_mboot_info, &mboot_info);
 
     if (strnlen(mboot_info.cmdline, 43) > 0) {
         printk("Invoking kernel with args: %s\n", mboot_info.cmdline);

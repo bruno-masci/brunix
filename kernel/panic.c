@@ -5,6 +5,7 @@
 #include <brunix/kernel.h>
 #include <arch/x86/processor.h>     // for cli(), halt()
 #include <brunix/console.h>
+#include <brunix/kdebug.h>
 
 void _panic(const char *file_name, int line_number, const char *message) {
     set_fg_color(COLOR_RED);
@@ -13,6 +14,10 @@ void _panic(const char *file_name, int line_number, const char *message) {
     printk(message);
     set_fg_color(COLOR_RED);
     printk("\nat [%s:%d]", file_name, line_number);
+
+    set_fg_color(COLOR_LIGHT_GREY);
+    print_stack_backtrace(false);
+
     set_fg_color(COLOR_LIGHT_CYAN);
     printk("\n\nSystem halted!\n\n");
 

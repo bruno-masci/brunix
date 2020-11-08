@@ -65,7 +65,8 @@ void vprintfmt(void (*putch)(int, void *), void *putdat, const char *fmt, va_lis
     const char *p;
     int ch;
     unsigned long long num;
-    int base, lflag, width, precision, altflag;
+    int lflag, width, precision, altflag;
+    unsigned int base;
     char padc;
 
     while (1) {
@@ -145,7 +146,7 @@ void vprintfmt(void (*putch)(int, void *), void *putdat, const char *fmt, va_lis
                 if ((p = va_arg(ap, char *)) == NULL)
                 p = "(null)";
                 if (width > 0 && padc != '-')
-                    for (width -= strnlen(p, precision); width > 0; width--)
+                    for (width -= strnlen(p, (size_t) precision); width > 0; width--)
                         putch(padc, putdat);
                 for (; (ch = *p++) != '\0' && (precision < 0 || --precision >= 0); width--)
                     if (altflag && (ch < ' ' || ch > '~'))
@@ -161,7 +162,7 @@ void vprintfmt(void (*putch)(int, void *), void *putdat, const char *fmt, va_lis
                 num = getint(&ap, lflag);
                 if ((long long) num < 0) {
                     putch('-', putdat);
-                    num = -(long long) num;
+                    num = -num;
                 }
                 base = 10;
                 goto number;

@@ -35,3 +35,13 @@ strfind(const char *s, char c)
             break;
     return (char *) s;
 }
+
+int strstr(const char *in, const char *str) {
+    while (*in != '\0' && *str != '\0') {
+        if (*str++ != *in++)
+            return 0;
+    }
+    if (*in != '\0')
+        return 0;
+    return 1;
+}
