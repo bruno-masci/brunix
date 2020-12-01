@@ -25,24 +25,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09916d8b-a51c-45d5-9e44-a908d6f2453e" name="Default" comment="Added printk(). Some changes.">
-      <change afterPath="$PROJECT_DIR$/include/arch/x86/gdt.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/include/arch/x86/mmu.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/include/arch/x86/paging.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/include/arch/x86/segment.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kernel/gdt.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kernel/paging.S" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kernel/paging.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/arch/x86/memlayout.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/arch/x86/memlayout.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/arch/x86/processor.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/arch/x86/processor.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/arch/x86/io.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/arch/x86/io.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/arch/x86/uart.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/arch/x86/uart.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/arch/x86/vga.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/arch/x86/vga.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/brunix/kernel.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/brunix/kernel.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/uart.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/uart.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/vga.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/vga.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linker.ld.pp" beforeDir="false" afterPath="$PROJECT_DIR$/linker.ld.pp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/console.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/multiboot.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/multiboot.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -235,7 +222,7 @@
       <workItem from="1605046675912" duration="7331000" />
       <workItem from="1605140797168" duration="4035000" />
       <workItem from="1606254065489" duration="7000" />
-      <workItem from="1606859760802" duration="3063000" />
+      <workItem from="1606859760802" duration="3473000" />
     </task>
     <servers />
   </component>
@@ -297,10 +284,10 @@
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="695" y="393" width="521" height="292" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.28.1920.1024@0.28.1920.1024" timestamp="1598760839302" />
-    <state x="9" y="133" width="1892" height="846" key="DiffContextDialog" timestamp="1606863815510">
+    <state x="9" y="133" width="1892" height="846" key="DiffContextDialog" timestamp="1606864226211">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
-    <state x="9" y="133" width="1892" height="846" key="DiffContextDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1606863815510" />
+    <state x="9" y="133" width="1892" height="846" key="DiffContextDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1606864226211" />
     <state x="743" y="298" width="426" height="482" key="FileChooserDialogImpl" timestamp="1604024924455">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
@@ -333,10 +320,10 @@
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="208" y="220" key="SettingsEditor/0.28.1920.1024@0.28.1920.1024" timestamp="1598917470729" />
-    <state x="100" y="129" width="1720" height="824" key="ShowDiffWithBranchDialog" timestamp="1605142633951">
+    <state x="100" y="129" width="1720" height="824" key="ShowDiffWithBranchDialog" timestamp="1606864130943">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
-    <state x="100" y="129" width="1720" height="824" key="ShowDiffWithBranchDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1605142633951" />
+    <state x="100" y="129" width="1720" height="824" key="ShowDiffWithBranchDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1606864130943" />
     <state x="555" y="276" width="802" height="526" key="Vcs.Push.Dialog.v2" timestamp="1601596615096">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
