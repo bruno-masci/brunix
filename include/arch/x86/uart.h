@@ -24,9 +24,6 @@
 #define COM_LSR_TXRDY	0x20	//   Transmit buffer avail
 
 
-// Initializes serial device
-INIT_FUNC void uart_init(void);
-
 // Sends a character through the first serial line (akka ttyS0)
 void uart_putc(char c);
 

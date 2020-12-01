@@ -21,6 +21,7 @@ PRIVATE inline void config_line(void) {
     outb(COM1+COM_LCR, COM_LCR_WLEN8 & ~COM_LCR_DLAB);
 }
 
+// Initializes serial device
 void uart_init(void) {
 //    info_noargs("Initializing serial port...");
 

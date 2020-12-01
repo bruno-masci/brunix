@@ -14,7 +14,7 @@
 
 
 #define __ASSEMBLER__   // trick to avoid typedef, etc.
-#include <arch/x86/memlayout.h>     // for KERN_LINK
+#include <arch/x86/memlayout.h>     // for KERN_LINK, KERN_BASE
 #undef __ASSEMBLER__
 
 
@@ -37,27 +37,25 @@ SECTIONS {
 
     PROVIDE(kernel_start = .);
 
-    .text : {
+    .text : AT (ADDR(.text) - KERN_BASE) {
 	    *(.text .stub)
-//*(.text .stub .text.* .gnu.linkonce.t.*)
     }
     PROVIDE(etext = .);
 
-    .rodata : {
+    .rodata : AT (ADDR(.rodata) - KERN_BASE) {
         *(.rodata)
-//*(.rodata .rodata.* .gnu.linkonce.r.*)
     }
 
 
     /* Include debugging information in kernel memory */
-    .stab : {
+    .stab : AT (ADDR(.stab) - KERN_BASE) {
         PROVIDE(__STAB_BEGIN__ = .);
         *(.stab);
         PROVIDE(__STAB_END__ = .);
         BYTE(0)     /* Force the linker to allocate space for this section */
     }
 
-    .stabstr : {
+    .stabstr : AT (ADDR(.stabstr) - KERN_BASE) {
         PROVIDE(__STABSTR_BEGIN__ = .);
         *(.stabstr);
         PROVIDE(__STABSTR_END__ = .);
@@ -69,13 +67,13 @@ SECTIONS {
      * conventional symbols (the convention started before there was a read-only rodata section between text and data). */
 	PROVIDE(data = .);
 
-    .data : {
+    .data : AT (ADDR(.data) - KERN_BASE) {
     	*(.data)
     }
 
 	PROVIDE(edata = .);
 
-    .bss ALIGN(4096) : {
+    .bss ALIGN(4096) : AT (ADDR(.bss) - KERN_BASE) {
         *(.bss)
     }
 

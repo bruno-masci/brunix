@@ -32,9 +32,6 @@
 #define VIDEO_MEM_ADDR 0xB8000 // the video start memory address
 
 
-// Initializes VGA output and clears the screen
-INIT_FUNC void vga_init(void);
-
 // Sets text color
 void vga_set_foreground_color(uint8_t colour);
 

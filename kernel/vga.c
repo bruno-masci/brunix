@@ -73,6 +73,7 @@ PRIVATE void scroll(void) {
     }
 }
 
+// Initializes VGA output and clears the screen
 void vga_init() {
     vga_clear();
 }
