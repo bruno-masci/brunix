@@ -28,12 +28,12 @@ ENTRY(_start)
 
 SECTIONS {
 
-    .boot ALIGN(4096) : {
+    .boot : {
         // Ensure that the multiboot header is at the beginning of the generated image
         *(.multiboot_header)
     }
 
-    .text ALIGN(4096) : {
+    .text : {
 	    *(.text)
     }
 }
