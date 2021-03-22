@@ -2,6 +2,8 @@
 #include <brunix/defs.h>            // for PRIVATE, INIT_FUNC
 
 
+INIT_FUNC void vga_init(void);
+INIT_FUNC void uart_init();
 INIT_FUNC void console_init(void);
 PRIVATE void console_putc(int c);
 
@@ -29,6 +31,6 @@ void set_fg_color(uint8_t color) {
 
 // output a character to the console
 PRIVATE void console_putc(int c) {
-    vga_putc(c);
-    uart_putc(c);
+    vga_putc((char) c);
+    uart_putc((char) c);
 }

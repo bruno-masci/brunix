@@ -20,30 +20,30 @@
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
     <configurations>
-      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" ENABLED="true" />
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="09916d8b-a51c-45d5-9e44-a908d6f2453e" name="Default" comment="Added printk(). Some changes.">
-      <change afterPath="$PROJECT_DIR$/include/brunix/stdlib.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libkern/stdlib.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pics/panic_debug.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pics/recur_stacktrace.png" afterDir="false" />
+    <list default="true" id="09916d8b-a51c-45d5-9e44-a908d6f2453e" name="Default" comment="Added GDT, etc.">
+      <change afterPath="$PROJECT_DIR$/include/arch/x86/gdt.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/include/arch/x86/segment.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kernel/gdt.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/arch/x86/multiboot.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/arch/x86/multiboot.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/brunix/console.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/brunix/console.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/arch/x86/io.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/arch/x86/io.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/arch/x86/memlayout.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/arch/x86/memlayout.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/arch/x86/processor.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/arch/x86/processor.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/arch/x86/vga.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/arch/x86/vga.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/brunix/defs.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/brunix/defs.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/brunix/kdebug.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/brunix/kdebug.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/brunix/kernel.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/brunix/kernel.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/brunix/string.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/brunix/string.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/kdebug.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/kdebug.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/console.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/main.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/multiboot.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/multiboot.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/multiboot_entry_point.S" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/multiboot_entry_point.S" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/panic.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/panic.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/vga.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/vga.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libkern/printfmt.c" beforeDir="false" afterPath="$PROJECT_DIR$/libkern/printfmt.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libkern/string.c" beforeDir="false" afterPath="$PROJECT_DIR$/libkern/string.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/linker.ld.pp" beforeDir="false" afterPath="$PROJECT_DIR$/linker.ld.pp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -70,6 +70,14 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="1fCUeZkHajbq0vu5erDtf0udthY" />
   <component name="ProjectViewState">
@@ -111,47 +119,42 @@
     </key>
   </component>
   <component name="RunManager" selected="CMake Application.brunix.elf">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="bochs" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="bochs" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="bochs" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="bochs" CONFIG_NAME="Debug">
+    <configuration name="brunix.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="brunix.elf" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="brunix" RUN_TARGET_NAME="brunix.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="brunix.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="brunix.elf" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="brunix" RUN_TARGET_NAME="brunix.elf">
+    <configuration name="clean-all" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="clean-all" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="clean-all" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="clean-all" CONFIG_NAME="Debug">
+    <configuration name="pre-qemu" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="pre-qemu" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="pre-qemu" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="pre-qemu" CONFIG_NAME="Debug">
+    <configuration name="print-gdbport" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="print-gdbport" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="print-gdbport" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="print-gdbport" CONFIG_NAME="Debug">
+    <configuration name="qemu-nox-gdb" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="qemu-nox-gdb" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="qemu-nox-gdb" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="qemu-nox-gdb" CONFIG_NAME="Debug">
+    <configuration name="qemu" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="qemu" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="qemu" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="qemu" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -241,6 +244,7 @@
       <workItem from="1604700413451" duration="9446000" />
       <workItem from="1604779050491" duration="3651000" />
       <workItem from="1604801840447" duration="1102000" />
+      <workItem from="1616454139794" duration="826000" />
     </task>
     <servers />
   </component>
@@ -289,106 +293,8 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
-  <component name="WindowStateProjectService">
-    <state x="669" y="338" width="633" height="394" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1604025260942">
-      <screen x="0" y="28" width="1920" height="1024" />
-    </state>
-    <state x="669" y="338" width="633" height="394" key="#com.intellij.fileTypes.FileTypeChooser/0.28.1920.1024@0.28.1920.1024" timestamp="1604025260942" />
-    <state x="956" y="279" width="526" height="500" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1602460893010">
-      <screen x="0" y="28" width="1920" height="1024" />
-    </state>
-    <state x="956" y="279" width="526" height="500" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1602460893010" />
-    <state x="695" y="393" width="521" height="292" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1598760839302">
-      <screen x="0" y="28" width="1920" height="1024" />
-    </state>
-    <state x="695" y="393" width="521" height="292" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.28.1920.1024@0.28.1920.1024" timestamp="1598760839302" />
-    <state x="50" y="25" width="769" height="874" key="CommitChangelistDialog2" timestamp="1597705094578">
-      <screen x="0" y="25" width="1920" height="925" />
-    </state>
-    <state x="50" y="25" width="769" height="874" key="CommitChangelistDialog2/0.25.1920.925@0.25.1920.925" timestamp="1597705094578" />
-    <state x="50" y="27" width="1621" height="999" key="CommitChangelistDialog2/0.27.1920.1020@0.27.1920.1020" timestamp="1597113907752" />
-    <state x="9" y="133" width="1892" height="846" key="DiffContextDialog" timestamp="1604802930569">
-      <screen x="0" y="28" width="1920" height="1024" />
-    </state>
-    <state x="100" y="116" width="1538" height="765" key="DiffContextDialog/0.25.1920.925@0.25.1920.925" timestamp="1597705095400" />
-    <state x="100" y="127" width="1720" height="820" key="DiffContextDialog/0.27.1920.1020@0.27.1920.1020" timestamp="1597114130656" />
-    <state x="9" y="133" width="1892" height="846" key="DiffContextDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1604802930569" />
-    <state x="743" y="298" width="426" height="482" key="FileChooserDialogImpl" timestamp="1604024924455">
-      <screen x="0" y="28" width="1920" height="1024" />
-    </state>
-    <state x="743" y="298" width="426" height="482" key="FileChooserDialogImpl/0.28.1920.1024@0.28.1920.1024" timestamp="1604024924455" />
-    <state width="1874" height="269" key="GridCell.Tab.0.bottom" timestamp="1603383322091">
-      <screen x="0" y="28" width="1920" height="1024" />
-    </state>
-    <state width="1872" height="264" key="GridCell.Tab.0.bottom/0.27.1920.1020@0.27.1920.1020" timestamp="1596315827333" />
-    <state width="1874" height="269" key="GridCell.Tab.0.bottom/0.28.1920.1024@0.28.1920.1024" timestamp="1603383322091" />
-    <state width="1874" height="269" key="GridCell.Tab.0.center" timestamp="1603383322090">
-      <screen x="0" y="28" width="1920" height="1024" />
-    </state>
-    <state width="1872" height="264" key="GridCell.Tab.0.center/0.27.1920.1020@0.27.1920.1020" timestamp="1596315827333" />
-    <state width="1874" height="269" key="GridCell.Tab.0.center/0.28.1920.1024@0.28.1920.1024" timestamp="1603383322090" />
-    <state width="1874" height="269" key="GridCell.Tab.0.left" timestamp="1603383322089">
-      <screen x="0" y="28" width="1920" height="1024" />
-    </state>
-    <state width="1872" height="264" key="GridCell.Tab.0.left/0.27.1920.1020@0.27.1920.1020" timestamp="1596315827333" />
-    <state width="1874" height="269" key="GridCell.Tab.0.left/0.28.1920.1024@0.28.1920.1024" timestamp="1603383322089" />
-    <state width="1874" height="269" key="GridCell.Tab.0.right" timestamp="1603383322090">
-      <screen x="0" y="28" width="1920" height="1024" />
-    </state>
-    <state width="1872" height="264" key="GridCell.Tab.0.right/0.27.1920.1020@0.27.1920.1020" timestamp="1596315827333" />
-    <state width="1874" height="269" key="GridCell.Tab.0.right/0.28.1920.1024@0.28.1920.1024" timestamp="1603383322090" />
-    <state x="543" y="286" width="826" height="506" key="IDE.errors.dialog" timestamp="1598818192331">
-      <screen x="0" y="28" width="1920" height="1024" />
-    </state>
-    <state x="543" y="286" width="826" height="506" key="IDE.errors.dialog/0.28.1920.1024@0.28.1920.1024" timestamp="1598818192331" />
-    <state x="635" y="189" width="465" height="631" key="RollbackChangesDialog" timestamp="1603410822206">
-      <screen x="0" y="28" width="1920" height="1024" />
-    </state>
-    <state x="635" y="170" width="336" height="605" key="RollbackChangesDialog/0.25.1920.925@0.25.1920.925" timestamp="1597705147021" />
-    <state x="635" y="189" width="465" height="631" key="RollbackChangesDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1603410822206" />
-    <state x="208" y="220" key="SettingsEditor" timestamp="1598917470729">
-      <screen x="0" y="28" width="1920" height="1024" />
-    </state>
-    <state x="208" y="220" key="SettingsEditor/0.28.1920.1024@0.28.1920.1024" timestamp="1598917470729" />
-    <state x="100" y="129" width="1720" height="824" key="ShowDiffWithBranchDialog" timestamp="1603769247547">
-      <screen x="0" y="28" width="1920" height="1024" />
-    </state>
-    <state x="100" y="116" width="1720" height="744" key="ShowDiffWithBranchDialog/0.25.1920.925@0.25.1920.925" timestamp="1597704677626" />
-    <state x="100" y="127" width="1720" height="820" key="ShowDiffWithBranchDialog/0.27.1920.1020@0.27.1920.1020" timestamp="1597114130656" />
-    <state x="100" y="129" width="1720" height="824" key="ShowDiffWithBranchDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1603769247547" />
-    <state x="555" y="276" width="802" height="526" key="Vcs.Push.Dialog.v2" timestamp="1601596615096">
-      <screen x="0" y="28" width="1920" height="1024" />
-    </state>
-    <state x="555" y="276" width="802" height="526" key="Vcs.Push.Dialog.v2/0.28.1920.1024@0.28.1920.1024" timestamp="1601596615096" />
-    <state x="99" y="128" width="1722" height="825" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1604182904558">
-      <screen x="0" y="28" width="1920" height="1024" />
-    </state>
-    <state x="99" y="128" width="1722" height="825" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1604182904558" />
-    <state x="741" y="455" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1598752225709">
-      <screen x="0" y="28" width="1920" height="1024" />
-    </state>
-    <state x="741" y="455" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.28.1920.1024@0.28.1920.1024" timestamp="1598752225709" />
-    <state x="308" y="116" width="1544" height="850" key="find.popup" timestamp="1604802564136">
-      <screen x="0" y="28" width="1920" height="1024" />
-    </state>
-    <state x="156" y="114" width="1544" height="846" key="find.popup/0.27.1920.1020@0.27.1920.1020" timestamp="1597081431266" />
-    <state x="308" y="116" width="1544" height="850" key="find.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1604802564136" />
-    <state width="600" height="428" key="javadoc.popup" timestamp="1604183857369">
-      <screen x="0" y="28" width="1920" height="1024" />
-    </state>
-    <state width="542" height="208" key="javadoc.popup.new" timestamp="1604782722034">
-      <screen x="0" y="28" width="1920" height="1024" />
-    </state>
-    <state width="542" height="208" key="javadoc.popup.new/0.28.1920.1024@0.28.1920.1024" timestamp="1604782722034" />
-    <state width="600" height="428" key="javadoc.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1604183857369" />
-    <state x="623" y="248" width="672" height="677" key="run.anything.popup" timestamp="1604199166338">
-      <screen x="0" y="28" width="1920" height="1024" />
-    </state>
-    <state x="623" y="248" width="672" height="677" key="run.anything.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1604199166338" />
-    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup" timestamp="1604705591995">
-      <screen x="0" y="28" width="1920" height="1024" />
-    </state>
-    <state x="623" y="251" width="672" height="678" key="search.everywhere.popup/0.27.1920.1020@0.27.1920.1020" timestamp="1597111070104" />
-    <state x="623" y="253" width="672" height="681" key="search.everywhere.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1604705591995" />
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added GDT, etc." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added GDT, etc." />
   </component>
 </project>

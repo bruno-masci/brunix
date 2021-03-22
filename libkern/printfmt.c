@@ -159,7 +159,7 @@ void vprintfmt(void (*putch)(int, void *), void *putdat, const char *fmt, va_lis
 
                 // (signed) decimal
             case 'd':
-                num = getint(&ap, lflag);
+                num = (long long unsigned int) getint(&ap, lflag);
                 if ((long long) num < 0) {
                     putch('-', putdat);
                     num = -num;

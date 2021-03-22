@@ -1,3 +1,8 @@
+/**
+ * @author Bruno Masci
+ * @brief String manipulation routines
+ */
+
 #ifndef __STRING_H__
 #define __STRING_H__
 
@@ -8,8 +13,5 @@
 int	strnlen(const char *str, size_t size);
 char * strncpy(char *dst, const char *src, size_t size);
 
-char *strfind(const char *s, char c);
-
-int strstr(const char *in, const char *str);
 
 #endif /* __STRING_H__ */

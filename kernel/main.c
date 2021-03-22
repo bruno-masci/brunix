@@ -32,8 +32,11 @@ struct multiboot_info mboot_info;
 IMPORT void console_init(void);          // from kernel/console.c
 
 
+INIT_FUNC void gdt_init(void);
 INIT_FUNC int kmain(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint32_t stack_top);
 PRIVATE void print_kernel_context_info(uint32_t total_memory_kb, uint32_t stack_top);
+
+PRIVATE void print_segment_selectors(void);
 
 /**
  * This is the main kernel function.
@@ -49,7 +52,15 @@ int kmain(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint32_t st
 
     verify_loader(magic);
 
-//    printk("6828 decimal is %o octal!\n", 6828);
+    printk("Segment selectors (bootloader) -> ");
+    print_segment_selectors();
+
+    printk("Setting up GDT...\n");
+    gdt_init();
+
+    printk("Segment selectors (brunix) -> ");
+    print_segment_selectors();
+    printk("\n");
 
     save_multiboot_info(std_mboot_info, &mboot_info);
 
@@ -61,6 +72,18 @@ int kmain(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint32_t st
 
     panic("Forcing kernel panic...");       // panic() DOES NOT return!
     return 0;
+}
+
+PRIVATE void print_segment_selectors(void) {
+    uint32_t cs;
+    uint32_t ds;
+    uint32_t es;
+    uint32_t ss;
+    asm("movl %%cs, %0" : "=r" (cs) ::);
+    asm("movl %%ds, %0" : "=r" (ds) ::);
+    asm("movl %%es, %0" : "=r" (es) ::);
+    asm("movl %%ss, %0" : "=r" (ss) ::);
+    printk("CS 0x%x, DS 0x%x, ES 0x%x, SS 0x%x\n", cs, ds, es, ss);
 }
 
 PRIVATE void print_kernel_context_info(uint32_t total_memory_kb, uint32_t stack_top) {

@@ -30,7 +30,7 @@ file(GLOB_RECURSE   ASM_SRCS                        "kernel/*.S")
 file(GLOB           UNPROCESSED_LINKER_SCRIPT       "linker.ld.pp")
 file(GLOB           KERNEL_INCLUDE_DIR              "include")
 file(GLOB           MULTIBOOT_DIR                   "multiboot")
-file(GLOB           UNPROCESSED_BOCHS_CONF          "bochs.cfg.tmpl")
+file(GLOB           BOCHS_CONF_TEMPLATE             "bochs.cfg.tmpl")
 file(GLOB           GDB_INIT_TEMPLATE               ".gdbinit.tmpl")
 
 #########################################################################
@@ -124,7 +124,7 @@ add_custom_target(qemu-nox-gdb
 
 add_custom_target(bochs
         COMMENT "Starting Bochs with ${RAM_MEMORY_MiB} MiB of RAM memory..."
-        COMMAND sed s/RAM_SIZE_MiB_PLACEHOLDER/${RAM_MEMORY_MiB}/ ${UNPROCESSED_BOCHS_CONF} > ${BOCHS_CONF}
+        COMMAND sed s/RAM_SIZE_MiB_PLACEHOLDER/${RAM_MEMORY_MiB}/ ${BOCHS_CONF_TEMPLATE} > ${BOCHS_CONF}
         COMMAND sed s/ISO_NAME_PLACEHOLDER/${ISO_NAME}/ -i ${BOCHS_CONF}
         COMMAND bochs -f ${BOCHS_CONF})
 

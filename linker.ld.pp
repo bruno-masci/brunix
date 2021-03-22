@@ -39,15 +39,12 @@ SECTIONS {
 
     .text : {
 	    *(.text .stub)
-//*(.text .stub .text.* .gnu.linkonce.t.*)
     }
     PROVIDE(etext = .);
 
     .rodata : {
         *(.rodata)
-//*(.rodata .rodata.* .gnu.linkonce.r.*)
     }
-
 
     /* Include debugging information in kernel memory */
     .stab : {
@@ -75,7 +72,7 @@ SECTIONS {
 
 	PROVIDE(edata = .);
 
-    .bss ALIGN(4096) : {
+    .bss : {
         *(.bss)
     }
 

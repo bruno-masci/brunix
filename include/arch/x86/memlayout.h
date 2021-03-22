@@ -9,6 +9,14 @@
 #define __ARCH_MEMLAYOUT_H__
 
 
+#ifndef __ASSEMBLER__
+
+#include <stdint.h>     // for uintptr_t
+typedef uintptr_t phys_addr_t;
+
+#endif  /* ! __ASSEMBLER__ */
+
+
 #define EXT_MEM_BASE    0x00100000          // Start of physical "extended" memory (1 MiB)
 
 #define KERN_LINK       EXT_MEM_BASE        // Address where kernel is linked at

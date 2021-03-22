@@ -9,8 +9,12 @@
 #define __ARCH_PROCESSOR_H__
 
 
-#include <stdbool.h>    // for true
+#include <arch/x86/memlayout.h> // for phys_addr_t
 
+
+static inline void lgdt(phys_addr_t addr) {
+    asm volatile("lgdt (%0)" : : "r" (addr));
+}
 
 // Clears (maskable) interrupts
 static inline void cli(void) {
