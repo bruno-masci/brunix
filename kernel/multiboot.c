@@ -21,10 +21,10 @@
  * We can't trust its location (in this case, GRUB chooses that location) and maybe at some time we unintentionally overwrite
  * it. It is better to move that to a location we manage!
  */
-void save_multiboot_info(struct std_multiboot_info *std_mboot_info_ptr, struct multiboot_info *mboot_info_ptr) {
-    strncpy(mboot_info_ptr->cmdline, (const char *) std_mboot_info_ptr->cmdline, MAX_CMDLINE_LEN);
-    mboot_info_ptr->mem_upper = std_mboot_info_ptr->mem_upper;
-    mboot_info_ptr->flags = std_mboot_info_ptr->flags;
+void save_multiboot_info(struct std_multiboot_info *std_mboot_info, struct multiboot_info *mboot_info) {
+    strncpy(mboot_info->cmdline, (const char *) std_mboot_info->cmdline, MAX_CMDLINE_LEN);
+    mboot_info->mem_upper = std_mboot_info->mem_upper;
+    mboot_info->flags = std_mboot_info->flags;
 }
 
 /**

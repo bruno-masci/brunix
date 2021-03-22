@@ -39,25 +39,37 @@ PRIVATE int unused_initialized_variable = 5;
 PRIVATE int unused_uninitialized_variable;
 
 
-INIT_FUNC int kmain(struct std_multiboot_info *std_mboot_info_ptr, uint32_t magic, uint32_t stack_top);
+INIT_FUNC void gdt_init(void);
+INIT_FUNC int kmain(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint32_t stack_top);
 PRIVATE void print_kernel_context_info(uint32_t total_memory_kb, uint32_t stack_top);
 
+PRIVATE void print_segment_selectors(void);
 
 /**
  * This is the main kernel function.
  *
- * @param std_mboot_info_ptr Contextual information given by the bootloader.
+ * @param std_mboot_info Contextual information given by the bootloader.
  * @param magic Number representing the Multiboot bootloader magic number.
  * @see multiboot_entry_point.S file
  */
-int kmain(struct std_multiboot_info *std_mboot_info_ptr, uint32_t magic, uint32_t stack_top) {
+int kmain(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint32_t stack_top) {
     console_init();
 
     printk("Starting Brunix...\n\n");
 
     verify_loader(magic);
 
-    save_multiboot_info(std_mboot_info_ptr, &mboot_info);
+    printk("Segment selectors (bootloader) -> ");
+    print_segment_selectors();
+
+    printk("Setting up GDT...\n");
+    gdt_init();
+
+    printk("Segment selectors (brunix) -> ");
+    print_segment_selectors();
+    printk("\n");
+
+    save_multiboot_info(std_mboot_info, &mboot_info);
 
     if (strnlen(mboot_info.cmdline, 43) > 0) {
         printk("Invoking kernel with args: %s\n", mboot_info.cmdline);
@@ -67,6 +79,18 @@ int kmain(struct std_multiboot_info *std_mboot_info_ptr, uint32_t magic, uint32_
 
     panic("Forcing kernel panic...");       // panic() DOES NOT return!
     return 0;
+}
+
+PRIVATE void print_segment_selectors(void) {
+    uint32_t cs;
+    uint32_t ds;
+    uint32_t es;
+    uint32_t ss;
+    asm("movl %%cs, %0" : "=r" (cs) ::);
+    asm("movl %%ds, %0" : "=r" (ds) ::);
+    asm("movl %%es, %0" : "=r" (es) ::);
+    asm("movl %%ss, %0" : "=r" (ss) ::);
+    printk("CS 0x%x, DS 0x%x, ES 0x%x, SS 0x%x\n", cs, ds, es, ss);
 }
 
 PRIVATE void print_kernel_context_info(uint32_t total_memory_kb, uint32_t stack_top) {

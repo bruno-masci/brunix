@@ -1,6 +1,6 @@
 /**
  * @author Bruno Masci
- * @brief Some general kernel functions
+ * @brief String manipulation routines
  */
 
 #ifndef __STRING_H__
