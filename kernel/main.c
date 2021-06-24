@@ -53,12 +53,6 @@ PRIVATE void process_boot_args(const char *boot_args);
 // hence the "__aligned__" attribute.
 // Use PTE_PS in page directory entry to enable 4Mbyte pages.
 __attribute__((__aligned__(PAGE_SIZE)))
-//pde_t entrypgdir[NPDENTRIES] = {
-//        // Map VA's [0, 4MB) to PA's [0, 4MB)
-//        [0] = (0) | PTE_P | PTE_W | PTE_PS,
-//        // Map VA's [KERNBASE, KERNBASE+4MB) to PA's [0, 4MB)
-////        [KERN_BASE>>PDXSHIFT] = (0) | PTE_P | PTE_W | PTE_PS,
-//};
 struct page_dir_struct entrypgdir[NPDENTRIES];
 
 /**
@@ -96,12 +90,14 @@ int kmain(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint32_t st
     entrypgdir[0].read_write_flag = 1;
     entrypgdir[0].user_supervisor_flag = 0;
     entrypgdir[0].zero_flag = 0;
-    entrypgdir[0].page_size_flag = 1;   // big pages
-    entrypgdir[0].page_table_base_address = 0;
+    entrypgdir[0].page_size_flag = 1;   // enable 'big' (4 MiB) pages
+    entrypgdir[0].page_table_base_address = 0;  // map VA's [0, 4MB) to PA's [0, 4MB)
 
 //    for (int i = 1; i < NPDENTRIES; ++i) {
 //        entrypgdir[i].present_flag = 0;
 //    }
+
+//    entrypgdir[KERN_BASE>>PDXSHIFT].page_table_base_address = 0;  // map VA's [0, 4MB) to PA's [0, 4MB)
 
     printk("entrypgdir address: %p...\n", VIRT_TO_PHYS_WO(entrypgdir));
     phys_addr_t addr = (phys_addr_t) VIRT_TO_PHYS_WO(&entrypgdir);  //FIXME con esta anda; con _WO no!!
