@@ -1,6 +1,6 @@
 /**
  * @author Bruno Masci
- * @brief Inline functions for processor's I/O operations.
+ * @brief Processor's I/O operations
  * @see https://wiki.osdev.org/I/O_Ports
  */
 

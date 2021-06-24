@@ -29,7 +29,8 @@ struct Eipdebuginfo {
     struct FunctionParam fn_params[10];
 };
 
-int stack_backtrace(struct Eipdebuginfo info[]);
+//int stack_backtrace(struct Eipdebuginfo info[]);
+int stack_backtrace(void);
 void print_stack_backtrace(bool ptr_as_string);
 
 #endif

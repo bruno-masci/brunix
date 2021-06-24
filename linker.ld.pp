@@ -46,7 +46,6 @@ SECTIONS {
         *(.rodata)
     }
 
-
     /* Include debugging information in kernel memory */
     .stab : AT (ADDR(.stab) - KERN_BASE) {
         PROVIDE(__STAB_BEGIN__ = .);

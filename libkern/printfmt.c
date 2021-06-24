@@ -12,7 +12,7 @@
 #include <brunix/defs.h>            // for PRIVATE, EXPORT
 
 
-EXPORT void vprintfmt(void (*putch)(int, void *), void *putdat, const char *fmt, va_list ap);
+EXPORT void vprintfmt(void (*putch)(char, void *), void *putdat, const char *fmt, va_list ap);
 
 
 //=============================================================================
@@ -23,7 +23,7 @@ EXPORT void vprintfmt(void (*putch)(int, void *), void *putdat, const char *fmt,
  * Print a number (base <= 16) in reverse order, using specified putch function
  * and associated pointer putdat.
  */
-PRIVATE void printnum(void (*putch)(int, void *), void *putdat,
+PRIVATE void printnum(void (*putch)(char, void *), void *putdat,
                      unsigned long long num, unsigned base,
                      int width, int padc) {
     // first recursively print all preceding (more significant) digits
@@ -32,7 +32,7 @@ PRIVATE void printnum(void (*putch)(int, void *), void *putdat,
     } else {
         // print any needed pad characters before first digit
         while (--width > 0)
-            putch(padc, putdat);
+            putch((char) padc, putdat);
     }
 
     // then print this (the least significant) digit
@@ -61,16 +61,16 @@ PRIVATE long long getint(va_list *ap, int lflag) {
         return va_arg(*ap, int);
 }
 
-void vprintfmt(void (*putch)(int, void *), void *putdat, const char *fmt, va_list ap) {
+void vprintfmt(void (*putch)(char, void *), void *putdat, const char *fmt, va_list ap) {
     const char *p;
-    int ch;
+    char ch;
     unsigned long long num;
     int lflag, width, precision, altflag;
     unsigned int base;
     char padc;
 
     while (1) {
-        while ((ch = *(unsigned char *) fmt++) != '%') {
+        while ((ch = *( char *) fmt++) != '%') {
             if (ch == '\0')
                 return;
             putch(ch, putdat);
@@ -83,7 +83,7 @@ void vprintfmt(void (*putch)(int, void *), void *putdat, const char *fmt, va_lis
         lflag = 0;
         altflag = 0;
         reswitch:
-        switch (ch = *(unsigned char *) fmt++) {
+        switch (ch = *(char *) fmt++) {
 
             // flag to pad on the right
             case '-':
@@ -138,7 +138,7 @@ void vprintfmt(void (*putch)(int, void *), void *putdat, const char *fmt, va_lis
 
                 // character
             case 'c':
-                putch(va_arg(ap, int), putdat);
+                putch((char) (va_arg(ap, int)), putdat);
                 break;
 
                 // string
@@ -159,7 +159,7 @@ void vprintfmt(void (*putch)(int, void *), void *putdat, const char *fmt, va_lis
 
                 // (signed) decimal
             case 'd':
-                num = getint(&ap, lflag);
+                num = (long long unsigned int) getint(&ap, lflag);
                 if ((long long) num < 0) {
                     putch('-', putdat);
                     num = -num;

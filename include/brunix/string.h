@@ -8,7 +8,7 @@
 int	strnlen(const char *str, size_t size);
 char * strncpy(char *dst, const char *src, size_t size);
 
-char *strfind(const char *s, char c);
+char * strfind(const char *s, char c);
 
 int strstr(const char *in, const char *str);
 

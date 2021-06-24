@@ -9,6 +9,9 @@
 
 
 
+INIT_FUNC void gdt_init(void);
+
+
 
 __attribute__((__aligned__(4)))
 PRIVATE gdt_desc_t gdt[GDT_ENTRIES];
@@ -64,7 +67,7 @@ PRIVATE void gdt_set_desc(phys_addr_t addr, uint32_t base, uint32_t limit_20, ui
     // Setup the descriptor base address
     descriptor->base_low_16 = (base & 0xFFFF);
     descriptor->base_middle_8 = (base >> 16) & 0xFF;
-    descriptor->base_high_8 = (base >> 24) & 0xFF;
+    descriptor->base_high_8 = (uint8_t) ((base >> 24) & 0xFF);
 
 	// Setup the descriptor limit
     descriptor->limit_low_16 = (limit_20 & 0xFFFF);

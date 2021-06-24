@@ -12,8 +12,10 @@
 #include <stdbool.h>    // for true
 #include <stdint.h>
 
+#include <arch/x86/memlayout.h>
 
-static inline void lcr3(uint32_t val) {
+
+static inline void lcr3(phys_addr_t val) {
     asm volatile("movl %0,%%cr3" : : "r" (val));
 }
 
@@ -38,9 +40,8 @@ static inline uint32_t read_cr0(void) {
     return val;
 }
 
-static inline void lgdt(void *p)
-{
-    asm volatile("lgdt (%0)" : : "r" (p));
+static inline void lgdt(phys_addr_t addr) {
+    asm volatile("lgdt (%0)" : : "r" (addr));
 }
 
 // Clears (maskable) interrupts

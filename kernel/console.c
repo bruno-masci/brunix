@@ -1,9 +1,13 @@
 #include <brunix/console.h>
 #include <brunix/defs.h>            // for PRIVATE, INIT_FUNC
 
+// por ahora los agrego acá, aunque están repetidos con vga.c y uart.c
+INIT_FUNC void vga_init(void);
+INIT_FUNC void uart_init(void);
+
 
 INIT_FUNC void console_init(void);
-PRIVATE void console_putc(int c);
+PRIVATE void console_putc(char c);
 
 
 #define ORIG_VIDEO_COLS 	80
@@ -19,7 +23,7 @@ INIT_FUNC void console_init(void) {
 }
 
 // `High'-level console I/O.  Used by readline and cprintf.
-void cputchar(int c) {
+void cputchar(char c) {
     console_putc(c);
 }
 
@@ -28,7 +32,7 @@ void set_fg_color(uint8_t color) {
 }
 
 // output a character to the console
-PRIVATE void console_putc(int c) {
+PRIVATE void console_putc(char c) {
     vga_putc(c);
     uart_putc(c);
 }

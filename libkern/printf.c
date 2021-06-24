@@ -11,10 +11,10 @@
 
 EXPORT int vcprintf(const char *fmt, va_list ap);
 
-IMPORT void vprintfmt(void (*putch)(int, void *), void *putdat, const char *fmt, va_list ap);
+IMPORT void vprintfmt(void (*putch)(char, void *), void *putdat, const char *fmt, va_list ap);
 
 
-PRIVATE void putch(int ch, int *cnt) {
+PRIVATE void putch(char ch, int *cnt) {
 	cputchar(ch);
     (*cnt)++;
 }
@@ -22,6 +22,6 @@ PRIVATE void putch(int ch, int *cnt) {
 int vcprintf(const char *fmt, va_list ap) {
 	int cnt = 0;
 
-	vprintfmt((void (*) (int, void *))putch, &cnt, fmt, ap);
+	vprintfmt((void (*) (char, void *))putch, &cnt, fmt, ap);
 	return cnt;
 }

@@ -11,11 +11,11 @@
 
 
 
-void load_page_directory(page_dir_t *addr) {
+void load_page_directory(struct page_dir_struct *addr) {
     uint32_t cr4 = read_cr4();
     lcr4(cr4 | MMU_CR4_PSE);
 
-    lcr3(addr);
+    lcr3((phys_addr_t) addr);
 }
 
 void enable_paging() {

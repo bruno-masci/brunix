@@ -1,4 +1,5 @@
 cpu: count=1
+#cpu: count=1, ips=50000000, reset_on_triple_fault=1
 megs: RAM_SIZE_MiB_PLACEHOLDER
 boot: cdrom
 
@@ -6,3 +7,7 @@ boot: cdrom
 ata0-slave: type=cdrom, path="ISO_NAME_PLACEHOLDER", status=inserted
 
 log: bochsout.log
+
+#display_library: sdl
+#debug: action=report
+#clock: sync=realtime

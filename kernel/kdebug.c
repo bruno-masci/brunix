@@ -19,7 +19,7 @@ extern const char __STABSTR_END__[];		// End of string table
 //FIXME analyse why it is not working as a local variable of print_stack_backtrace()
 struct Eipdebuginfo info[1000];
 
-static int debuginfo_eip(uintptr_t addr, struct Eipdebuginfo *info);
+static int debuginfo_eip(uintptr_t addr, struct Eipdebuginfo *info2);
 
 
 /*
@@ -102,19 +102,19 @@ static void stab_binsearch(const struct Stab *stabs, int *region_left, int *regi
  * Fill in the 'info' structure with information about the specified instruction address, 'addr'.  Returns 0 if
  * information was found, and negative if not.  But even if it returns negative it has stored some information into '*info'.
  */
-static int debuginfo_eip(uintptr_t addr, struct Eipdebuginfo *info) {
+static int debuginfo_eip(uintptr_t addr, struct Eipdebuginfo *info2) {
     const struct Stab *stabs, *stab_end;
     const char *stabstr, *stabstr_end;
-    int lfile, rfile, lfun, rfun, lline, rline;
+    int lfile, rfile, lfun, rfun, lline; //, rline; TODO ver esto
 
     // Initialize *info
-    *info->eip_file = '?';
-    *(info->eip_file+1) = '\0';
-    info->eip_line = -1;
-    *info->eip_fn_name = '?';
-    *(info->eip_fn_name+1) = '\0';
-    info->eip_fn_addr = addr;
-    info->eip_fn_narg = 0;
+    *info2->eip_file = '?';
+    *(info2->eip_file + 1) = '\0';
+    info2->eip_line = -1;
+    *info2->eip_fn_name = '?';
+    *(info2->eip_fn_name + 1) = '\0';
+    info2->eip_fn_addr = addr;
+    info2->eip_fn_narg = 0;
 
     stabs = __STAB_BEGIN__;
     stab_end = __STAB_END__;
@@ -145,20 +145,20 @@ static int debuginfo_eip(uintptr_t addr, struct Eipdebuginfo *info) {
     if (lfun <= rfun) {
         // stabs[lfun] points to the function name in the string table, but check bounds just in case.
         if (stabs[lfun].n_strx < (uintptr_t) (stabstr_end - stabstr)) {
-            uintptr_t stab_func_name = stabstr + stabs[lfun].n_strx;
-            int func_name_len = strfind(stab_func_name, ':') - stab_func_name;     // Ignore stuff after the colon.
-            strncpy(info->eip_fn_name, stab_func_name, func_name_len);
+            const char * stab_func_name = stabstr + stabs[lfun].n_strx;
+            size_t func_name_len = (size_t) (strfind(stab_func_name, ':') - stab_func_name);     // Ignore stuff after the colon.
+            strncpy(info2->eip_fn_name, stab_func_name, func_name_len);
         }
-        info->eip_fn_addr = stabs[lfun].n_value;
-        addr -= info->eip_fn_addr;
+        info2->eip_fn_addr = stabs[lfun].n_value;
+        addr -= info2->eip_fn_addr;
         // Search within the function definition for the line number.
         lline = lfun;
-		rline = rfun;
+//		rline = rfun;
     } else {
         // Couldn't find function stab!  Maybe we're in an assembly file.  Search the whole file for the line number.
-        info->eip_fn_addr = addr;
+        info2->eip_fn_addr = addr;
         lline = lfile;
-		rline = rfile;
+//		rline = rfile;
     }
 
 
@@ -168,7 +168,7 @@ static int debuginfo_eip(uintptr_t addr, struct Eipdebuginfo *info) {
     //
     // I will leave it unresolved because it is an exercise for the OS course I based this code on.
     lline = lfile;
-    rline = rfile;
+//    rline = rfile;
 
 
     // Search backwards from the line number for the relevant filename stab.
@@ -178,8 +178,8 @@ static int debuginfo_eip(uintptr_t addr, struct Eipdebuginfo *info) {
            && stabs[lline].n_type != N_SOL
            && (stabs[lline].n_type != N_SO || !stabs[lline].n_value))
         lline--;
-    if (lline >= lfile && stabs[lline].n_strx < (ptrdiff_t) (stabstr_end - stabstr))
-        strncpy(info->eip_file, stabstr + stabs[lline].n_strx, 1000);
+    if (lline >= lfile && stabs[lline].n_strx < (uint32_t) (stabstr_end - stabstr))
+        strncpy(info2->eip_file, stabstr + stabs[lline].n_strx, 1000);
 
 
     // Set eip_fn_narg to the number of arguments taken by the function,
@@ -188,22 +188,22 @@ static int debuginfo_eip(uintptr_t addr, struct Eipdebuginfo *info) {
         for (lline = lfun + 1;
              lline < rfun && stabs[lline].n_type == N_PSYM;
              lline++) {
-            info->eip_fn_narg++;
+            info2->eip_fn_narg++;
 
-            info->fn_params[info->eip_fn_narg - 1].is_ptr = false;
+            info2->fn_params[info2->eip_fn_narg - 1].is_ptr = false;
 
-            struct FunctionParam fn_param = info->fn_params[info->eip_fn_narg - 1];
+            struct FunctionParam fn_param = info2->fn_params[info2->eip_fn_narg - 1];
 
             const char *str = stabstr + stabs[lline].n_strx;
             char *typeptr = strfind(str, ':') + 1;
 
-            strncpy(fn_param.param_name, str, (ptrdiff_t) (typeptr - str - 1));
-            strncpy(info->fn_params[info->eip_fn_narg - 1].param_name, fn_param.param_name, 100);
+            strncpy(fn_param.param_name, str, (size_t) (typeptr - str - 1));
+            strncpy(info2->fn_params[info2->eip_fn_narg - 1].param_name, fn_param.param_name, 100);
 
             char * find = strfind(typeptr, '=');
             if (*find != '\0') {
                 if (*(find + 1) == '*') {
-                    info->fn_params[info->eip_fn_narg - 1].is_ptr = true;
+                    info2->fn_params[info2->eip_fn_narg - 1].is_ptr = true;
                 }
             }
 
@@ -214,7 +214,8 @@ static int debuginfo_eip(uintptr_t addr, struct Eipdebuginfo *info) {
 
 void print_stack_backtrace(bool ptr_as_string) {
 
-    int total = stack_backtrace(info);
+//    int total = stack_backtrace(info);
+    int total = stack_backtrace();
 
     printk("\n\nStack backtrace:\n");
     for (int i = 0; i < total; i++) {
@@ -258,7 +259,7 @@ void print_stack_backtrace(bool ptr_as_string) {
 
             set_fg_color(COLOR_LIGHT_GREY);
 
-            ptrdiff_t fn_addr_offset = info[i].eip - info[i].eip_fn_addr;
+            ptrdiff_t fn_addr_offset = (ptrdiff_t) (info[i].eip - info[i].eip_fn_addr);
             char offset[100] = "+";
             int hasOffset = 0;
             if (fn_addr_offset > 0) {
@@ -288,7 +289,8 @@ void print_stack_backtrace(bool ptr_as_string) {
 
 
 //stack_backtrace(int argc, char **argv, struct Trapframe *tf)
-int stack_backtrace(struct Eipdebuginfo infor[]) {
+//int stack_backtrace(struct Eipdebuginfo infor[]) {
+int stack_backtrace(void) {
     int i = 0;
 
 

@@ -9,9 +9,10 @@
 
 #include <stdint.h>                 // for uint8_t
 #include <arch/x86/vga.h>
+#include <arch/x86/uart.h>
 
 
-void cputchar(int c);
+void cputchar(char c);
 void set_fg_color(uint8_t color);
 
 

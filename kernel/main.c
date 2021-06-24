@@ -39,6 +39,7 @@ struct multiboot_info mboot_info;
 IMPORT void console_init(void);          // from kernel/console.c
 
 
+INIT_FUNC void gdt_init(void);
 INIT_FUNC int kmain(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint32_t stack_top);
 PRIVATE void print_kernel_context_info(uint32_t total_memory_kb, uint32_t stack_top);
 
@@ -52,13 +53,13 @@ PRIVATE void process_boot_args(const char *boot_args);
 // hence the "__aligned__" attribute.
 // Use PTE_PS in page directory entry to enable 4Mbyte pages.
 __attribute__((__aligned__(PAGE_SIZE)))
-pde_t entrypgdir[NPDENTRIES] = {
-        // Map VA's [0, 4MB) to PA's [0, 4MB)
-        [0] = (0) | PTE_P | PTE_W | PTE_PS,
-        // Map VA's [KERNBASE, KERNBASE+4MB) to PA's [0, 4MB)
-//        [KERN_BASE>>PDXSHIFT] = (0) | PTE_P | PTE_W | PTE_PS,
-};
-
+//pde_t entrypgdir[NPDENTRIES] = {
+//        // Map VA's [0, 4MB) to PA's [0, 4MB)
+//        [0] = (0) | PTE_P | PTE_W | PTE_PS,
+//        // Map VA's [KERNBASE, KERNBASE+4MB) to PA's [0, 4MB)
+////        [KERN_BASE>>PDXSHIFT] = (0) | PTE_P | PTE_W | PTE_PS,
+//};
+struct page_dir_struct entrypgdir[NPDENTRIES];
 
 /**
  * This is the main kernel function.
@@ -91,10 +92,21 @@ int kmain(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint32_t st
         process_boot_args(mboot_info.cmdline);
     }
 
+    entrypgdir[0].present_flag = 1;
+    entrypgdir[0].read_write_flag = 1;
+    entrypgdir[0].user_supervisor_flag = 0;
+    entrypgdir[0].zero_flag = 0;
+    entrypgdir[0].page_size_flag = 1;   // big pages
+    entrypgdir[0].page_table_base_address = 0;
+
+//    for (int i = 1; i < NPDENTRIES; ++i) {
+//        entrypgdir[i].present_flag = 0;
+//    }
+
     printk("entrypgdir address: %p...\n", VIRT_TO_PHYS_WO(entrypgdir));
-    page_dir_t *addr = (page_dir_t *) VIRT_TO_PHYS_WO(&entrypgdir);  //FIXME con esta anda; con _WO no!!
-    printk("addr address: %p...\n", addr);
-    load_page_directory(&entrypgdir);
+    phys_addr_t addr = (phys_addr_t) VIRT_TO_PHYS_WO(&entrypgdir);  //FIXME con esta anda; con _WO no!!
+    printk("addr address: %x...\n", addr);
+    load_page_directory((struct page_dir_struct *) &entrypgdir);
     enable_paging();
 
     print_kernel_context_info(mboot_info.mem_upper, stack_top);
@@ -104,7 +116,7 @@ int kmain(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint32_t st
 }
 
 PRIVATE void process_boot_args(const char *boot_args) {
-    //TODO
+    printk("boot args: %s (do nothing)", boot_args);
 }
 
 PRIVATE void print_segment_selectors(void) {

@@ -23,7 +23,7 @@ void itoa(int n, char s[])
         n = -n;          /* make n positive */
     i = 0;
     do {       /* generate digits in reverse order */
-        s[i++] = n % 10 + '0';   /* get next digit */
+        s[i++] = (char) (n % 10 + '0');   /* get next digit */
     } while ((n /= 10) > 0);     /* delete it */
     if (sign < 0)
         s[i++] = '-';

@@ -9,6 +9,11 @@
 #include <brunix/console.h>
 #include <brunix/defs.h>            // for PRIVATE
 
+
+void uart_init(void);
+
+
+
 PRIVATE inline void config_baud_rate(void) {
     // Set speed; requires DLAB latch
     outb(COM1+COM_LCR, COM_LCR_DLAB);
@@ -37,5 +42,5 @@ PRIVATE inline bool is_transmit_fifo_empty(void) {
 void uart_putc(char c) {
     while (!is_transmit_fifo_empty())
         ;
-    outb(COM1 + COM_TX, c);
+    outb(COM1 + COM_TX, (uint8_t) c);
 }

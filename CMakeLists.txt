@@ -30,7 +30,7 @@ file(GLOB_RECURSE   ASM_SRCS                        "kernel/*.S")
 file(GLOB           UNPROCESSED_LINKER_SCRIPT       "linker.ld.pp")
 file(GLOB           KERNEL_INCLUDE_DIR              "include")
 file(GLOB           MULTIBOOT_DIR                   "multiboot")
-file(GLOB           UNPROCESSED_BOCHS_CONF          "bochs.cfg.tmpl")
+file(GLOB           BOCHS_CONF_TEMPLATE             "bochs.cfg.tmpl")
 file(GLOB           GDB_INIT_TEMPLATE               ".gdbinit.tmpl")
 
 #########################################################################
@@ -98,7 +98,7 @@ set(QEMU_BIN qemu-system-i386)
 set(GDB_PORT 26000)
 
 set(QEMU_OPTS -cdrom ${ISO_NAME} -m ${RAM_MEMORY_MiB}M -serial mon:stdio -gdb tcp::${GDB_PORT})
-
+#$(QEMU) $(QEMU_OPTS) -soundhw pcspk
 
 add_custom_target(print-gdbport
         COMMAND @echo ${GDB_PORT}
@@ -108,23 +108,37 @@ add_custom_target(print-gdbport
 add_custom_target(pre-qemu
         DEPENDS ${BIN_NAME}
         COMMAND @echo Setting up .gdbinit file...
-        COMMAND sed "s/PORT_PLACEHOLDER/${GDB_PORT}/" ${GDB_INIT_TEMPLATE} > .gdbinit
+        COMMAND sed "s/GDB_PORT_PLACEHOLDER/${GDB_PORT}/" ${GDB_INIT_TEMPLATE} > .gdbinit
         COMMAND sed -i "s/BIN_NAME_PLACEHOLDER/${BIN_NAME}/" .gdbinit)
 
 add_custom_target(qemu
         COMMENT "Starting QEMU with ${RAM_MEMORY_MiB} MiB of RAM memory..."
         COMMAND ${QEMU_BIN} ${QEMU_OPTS})
 
+add_custom_target(qemu-nox
+        DEPENDS pre-qemu
+        COMMAND @echo "* * *"
+        COMMAND @echo "* * * Use Ctrl-a x to exit qemu"
+        COMMAND @echo "* * *"
+        COMMAND ${QEMU_BIN} -nographic ${QEMU_OPTS})
+
+add_custom_target(qemu-gdb
+        DEPENDS pre-qemu
+        COMMAND @echo "* * *"
+        COMMAND @echo "* * * Now run \\'make gdb\\'" 1>&2
+        COMMAND @echo "* * *"
+        COMMAND ${QEMU_BIN} ${QEMU_OPTS} -S)
+
 add_custom_target(qemu-nox-gdb
         DEPENDS pre-qemu
         COMMAND @echo "* * *"
-        COMMAND @echo "* * * Now run \\'make gdb\\'"
+        COMMAND @echo "* * * Now run \\'make gdb\\'" 1>&2
         COMMAND @echo "* * *"
         COMMAND ${QEMU_BIN} -nographic ${QEMU_OPTS} -S)
 
 add_custom_target(bochs
         COMMENT "Starting Bochs with ${RAM_MEMORY_MiB} MiB of RAM memory..."
-        COMMAND sed s/RAM_SIZE_MiB_PLACEHOLDER/${RAM_MEMORY_MiB}/ ${UNPROCESSED_BOCHS_CONF} > ${BOCHS_CONF}
+        COMMAND sed s/RAM_SIZE_MiB_PLACEHOLDER/${RAM_MEMORY_MiB}/ ${BOCHS_CONF_TEMPLATE} > ${BOCHS_CONF}
         COMMAND sed s/ISO_NAME_PLACEHOLDER/${ISO_NAME}/ -i ${BOCHS_CONF}
         COMMAND bochs -f ${BOCHS_CONF})
 
@@ -136,3 +150,4 @@ add_custom_target(clean-all
 
 #qemu-system-i386 --readconfig qemu.cfg2 -vga virtio
 #qemu-system-i386 -cdrom brunix.iso -m 512M -gdb tcp::46555 -d int -no-reboot -serial mon:stdio -vga virtio  --writeconfig qemu.cfg2
+#QEMU_OPTS = -cdrom os.iso -m 512M -serial mon:stdio -gdb tcp::$(GDBPORT) #-d int,cpu_reset -d int -no-reboot #-vga virtio

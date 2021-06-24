@@ -13,7 +13,7 @@
 #define STS_TG32    0xF     // 32-bit Trap Gate
 
 
-#define PAGE_SIZE          4096    // bytes mapped by a page
+//#define PAGE_SIZE          4096    // bytes mapped by a page
 
 #define PAGE_ROUND_UP(sz)  (((sz)+PAGE_SIZE-1) & ~(PAGE_SIZE-1))
 #define PGROUNDDOWN(a) (((a)) & ~(PAGE_SIZE-1))
@@ -62,11 +62,5 @@
 #define PTE_ADDR(pte)   ((uint32_t)(pte) & ~0xFFF)
 
 
-#ifndef __ASSEMBLER__
-typedef uint32_t pte_t;
 
-static inline bool is_page_aligned(const char *v) {
-    return ((uint32_t) v % PAGE_SIZE) == 0;
-}
-#endif
 
