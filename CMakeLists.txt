@@ -104,6 +104,8 @@ add_custom_target(print-gdbport
         COMMAND @echo ${GDB_PORT}
         "Final Message")
 
+add_custom_target(run-tests
+        COMMAND python ../test/qemu-tests.py)
 
 add_custom_target(pre-qemu
         DEPENDS ${BIN_NAME}

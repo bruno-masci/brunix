@@ -110,20 +110,18 @@ struct gdt_desc_struct {
     uint8_t  base_high_8;
 } __attribute__((packed));
 
-typedef struct gdt_desc_struct gdt_desc_t;
-
 
 
 /** @brief defines the GDT pointer structure
  *
  * This structure tells the address and size of the table.
  */
-typedef struct {
+struct gdt_ptr_struct {
     /// Table limit: Size of the table in bytes (not the number of entries!)
     uint16_t limit;
     /// Linear base address: Address of the table (the address of the first gdt_entry_t struct)
     uint32_t base;
-} __attribute__ ((packed)) gdt_ptr_t;
+} __attribute__ ((packed));
 
 
 

@@ -43,17 +43,10 @@ INIT_FUNC void gdt_init(void);
 INIT_FUNC int kmain(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint32_t stack_top);
 PRIVATE void print_kernel_context_info(uint32_t total_memory_kb, uint32_t stack_top);
 
-PRIVATE void print_segment_selectors(void);
-PRIVATE void process_boot_args(const char *boot_args);
+PRIVATE void process_boot_args(struct multiboot_info mb_info);
 
+PRIVATE void exercise_libkern(void);
 
-
-// Boot page table used in kernel/multiboot_entry_point.S.
-// Page directories (and page tables), must start on a page boundary,
-// hence the "__aligned__" attribute.
-// Use PTE_PS in page directory entry to enable 4Mbyte pages.
-__attribute__((__aligned__(PAGE_SIZE)))
-struct page_dir_struct entrypgdir[NPDENTRIES];
 
 /**
  * This is the main kernel function.
@@ -67,43 +60,18 @@ int kmain(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint32_t st
 
     printk("Starting Brunix...\n\n");
 
-    verify_loader(magic);
+    exercise_libkern();
 
-    printk("Segment selectors (bootloader) -> ");
-    print_segment_selectors();
+    verify_loader(magic);
 
     printk("Setting up GDT...\n");
     gdt_init();
 
-    printk("Segment selectors (brunix) -> ");
-    print_segment_selectors();
-    printk("\n");
-
     save_multiboot_info(std_mboot_info, &mboot_info);
 
-    if (strnlen(mboot_info.cmdline, 43) > 0) {
-        printk("Invoking kernel with args: %s\n", mboot_info.cmdline);
-        process_boot_args(mboot_info.cmdline);
-    }
+    process_boot_args(mboot_info);
 
-    entrypgdir[0].present_flag = 1;
-    entrypgdir[0].read_write_flag = 1;
-    entrypgdir[0].user_supervisor_flag = 0;
-    entrypgdir[0].zero_flag = 0;
-    entrypgdir[0].page_size_flag = 1;   // enable 'big' (4 MiB) pages
-    entrypgdir[0].page_table_base_address = 0;  // map VA's [0, 4MB) to PA's [0, 4MB)
-
-//    for (int i = 1; i < NPDENTRIES; ++i) {
-//        entrypgdir[i].present_flag = 0;
-//    }
-
-//    entrypgdir[KERN_BASE>>PDXSHIFT].page_table_base_address = 0;  // map VA's [0, 4MB) to PA's [0, 4MB)
-
-    printk("entrypgdir address: %p...\n", VIRT_TO_PHYS_WO(entrypgdir));
-    phys_addr_t addr = (phys_addr_t) VIRT_TO_PHYS_WO(&entrypgdir);  //FIXME con esta anda; con _WO no!!
-    printk("addr address: %x...\n", addr);
-    load_page_directory((struct page_dir_struct *) &entrypgdir);
-    enable_paging();
+    init_paging();
 
     print_kernel_context_info(mboot_info.mem_upper, stack_top);
 
@@ -111,20 +79,10 @@ int kmain(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint32_t st
     return 0;
 }
 
-PRIVATE void process_boot_args(const char *boot_args) {
-    printk("boot args: %s (do nothing)", boot_args);
-}
-
-PRIVATE void print_segment_selectors(void) {
-    uint32_t cs;
-    uint32_t ds;
-    uint32_t es;
-    uint32_t ss;
-    asm("movl %%cs, %0" : "=r" (cs) ::);
-    asm("movl %%ds, %0" : "=r" (ds) ::);
-    asm("movl %%es, %0" : "=r" (es) ::);
-    asm("movl %%ss, %0" : "=r" (ss) ::);
-    printk("CS 0x%x, DS 0x%x, ES 0x%x, SS 0x%x\n", cs, ds, es, ss);
+PRIVATE void process_boot_args(struct multiboot_info mb_info) {
+    if (strnlen(mb_info.cmdline, 43) > 0) {
+        printk("Invoking kernel with args: %s\n", mb_info.cmdline);
+    }
 }
 
 PRIVATE void print_kernel_context_info(uint32_t total_memory_kb, uint32_t stack_top) {
@@ -135,4 +93,14 @@ PRIVATE void print_kernel_context_info(uint32_t total_memory_kb, uint32_t stack_
     printk("\nSome special kernel symbols:\n");
     printk("  text    %08x (virt)  %08x (phys)\n", kernel_start, VIRT_TO_PHYS_WO(kernel_start));
     printk("  end     %08x (virt)  %08x (phys)\n\n", kernel_end, VIRT_TO_PHYS(kernel_end));
+}
+
+PRIVATE void exercise_libkern(void) {
+    printk("6828 decimal is %o octal!\n", 6828);
+    printk("131 decimal is %b binary!\n", 131);
+    printk("132 decimal is %d signed integer!\n", 132);
+    printk("-133 decimal is %d signed integer!\n", -133);
+    printk("134 decimal is %u unsigned integer!\n", 134);
+    printk("Null string is %s\n", NULL);
+    printk("String brunix is %s\n", "brunix");
 }

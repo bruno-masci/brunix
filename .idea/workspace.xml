@@ -14,6 +14,7 @@
       <config projectName="brunix" targetName="clean-all" />
       <config projectName="brunix" targetName="brunix.elf" />
       <config projectName="brunix" targetName="qemu-nox-gdb" />
+      <config projectName="brunix" targetName="run-tests" />
       <config projectName="brunix" targetName="pre-qemu" />
       <config projectName="brunix" targetName="qemu-gdb" />
       <config projectName="brunix" targetName="qemu-nox" />
@@ -27,8 +28,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09916d8b-a51c-45d5-9e44-a908d6f2453e" name="Default" comment="ble">
+      <change afterPath="$PROJECT_DIR$/test/gdt-test.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/run-tests.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/arch/x86/gdt.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/arch/x86/gdt.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/arch/x86/multiboot.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/arch/x86/multiboot.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/brunix/string.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/brunix/string.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/gdt.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/gdt.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/multiboot.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/multiboot.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/multiboot_entry_point.S" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/multiboot_entry_point.S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/paging.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/paging.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/gradelib.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/gradelib.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/qemu-tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/qemu-tests.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +90,7 @@
     <property name="cf.first.check.clang-format" value="false" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="cmake.loaded.for.project" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/kernel" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../linux-1.0" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -91,11 +104,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/test" />
       <recent name="$PROJECT_DIR$/kernel" />
       <recent name="$PROJECT_DIR$/pics" />
       <recent name="$PROJECT_DIR$/include/brunix" />
       <recent name="$PROJECT_DIR$/libkern" />
-      <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/include/brunix" />
@@ -106,11 +119,6 @@
     </key>
   </component>
   <component name="RunManager" selected="CMake Application.brunix.elf">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="bochs" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="bochs" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -156,9 +164,9 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="run-tests" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="run-tests" CONFIG_NAME="Debug">
       <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <list>
@@ -168,6 +176,7 @@
       <item itemvalue="CMake Application.pre-qemu" />
       <item itemvalue="CMake Application.print-gdbport" />
       <item itemvalue="CMake Application.qemu-nox-gdb" />
+      <item itemvalue="CMake Application.run-tests" />
       <item itemvalue="CMake Application.qemu" />
       <item itemvalue="CMake Application.qemu-gdb" />
       <item itemvalue="CMake Application.qemu-nox" />
@@ -257,7 +266,12 @@
       <workItem from="1606859760802" duration="3473000" />
       <workItem from="1624473115569" duration="305000" />
       <workItem from="1624473464271" duration="176000" />
-      <workItem from="1624473771827" duration="13923000" />
+      <workItem from="1624473771827" duration="17975000" />
+      <workItem from="1624562571346" duration="2646000" />
+      <workItem from="1624573270406" duration="4998000" />
+      <workItem from="1624648939248" duration="12986000" />
+      <workItem from="1624729271407" duration="7502000" />
+      <workItem from="1624821194064" duration="1016000" />
     </task>
     <task id="LOCAL-00001" summary="ble">
       <created>1624501088514</created>
@@ -266,7 +280,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624501088514</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="ble">
+      <created>1624501926598</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1624501926598</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

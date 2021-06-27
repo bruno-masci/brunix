@@ -1,5 +1,5 @@
-#ifndef __STRING_H__
-#define __STRING_H__
+#ifndef __STRING_H2__
+#define __STRING_H2__
 
 
 #include <stddef.h>     // for size_t
@@ -12,4 +12,4 @@ char * strfind(const char *s, char c);
 
 int strstr(const char *in, const char *str);
 
-#endif /* __STRING_H__ */
+#endif /* __STRING_H2__ */

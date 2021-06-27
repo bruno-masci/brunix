@@ -22,7 +22,7 @@
 
     #include <stdint.h>     // for uint32_t
 
-    struct std_multiboot_info {
+struct std_multiboot_info {
         uint32_t flags;
         uint32_t mem_lower;
         uint32_t mem_upper;

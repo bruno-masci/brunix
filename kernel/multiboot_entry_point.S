@@ -19,7 +19,7 @@
 #include <arch/x86/multiboot.h>     // for BOOT_HEADER_MAGIC, MBOOT_HEADER_FLAGS, MBOOT_HEADER_CHECKSUM
 
 
-// hand-made stab for the stack backtrace (see /kernel/kdebug.c)
+// Hand-made stab for the stack backtrace (see /kernel/kdebug.c)
 .stabs	"/kernel/multiboot_entry_point.S",100,0,0,.text
 
 
@@ -27,10 +27,11 @@
 // ********************* SECTION: multiboot_header ************************* //
 ///////////////////////////////////////////////////////////////////////////////
 
-/* Here we declare the Multiboot header that marks the program as a kernel. The bootloader will search for this header in
- * the first 8 KiB of the kernel file. This header must be longword (32-bit) aligned (".align 4"), and it is in its own
- * section so we can put it at the beginning of the kernel image file (see "/linker.ld.pp" file).
- * Note that we need to explicitly set the flag "a" (allocatable) because this is not a default text section (like .text or .rodata).
+/* Here we declare the Multiboot header that marks the program as a kernel. The bootloader will search for this header
+ * in the first 8 KiB of the kernel file. This header must be longword (32-bit) aligned (".align 4"), and it is in its
+ * own section so we can put it at the beginning of the kernel image file (see "/linker.ld.pp" file).
+ * Note that we need to explicitly set the flag "a" (allocatable) because this is not a default text section
+ * (like .text or .rodata).
  */
 .section .multiboot_header, "a"
 
@@ -47,12 +48,15 @@
 
 .section .data
 
-/* The Multiboot standard doesn't define a value for the stack pointer register (%esp) so it is up to the kernel to provide
- * a stack (see https://wiki.osdev.org/Stack).
- * Here we allocate room for a small temporal stack by creating a symbol at the bottom of it, then allocating BOOTSTRAP_STACK_SIZE
- * bytes for it, and finally creating a symbol at the top of it. Please note that the stack grows *downwards* on x86.
- * The stack on x86/GCC must be 16-byte aligned according to the System V ABI standard (see https://wiki.osdev.org/System_V_ABI).
- * The compiler will assume the stack is properly aligned and failure to align the stack will result in undefined behavior.
+/* The Multiboot standard doesn't define a value for the stack pointer register (%esp) so it is up to the kernel to
+ * provide a stack (see https://wiki.osdev.org/Stack).
+ * Here we allocate room for a small temporal stack by creating a symbol at the bottom of it, then allocating
+ * BOOTSTRAP_STACK_SIZE bytes for it, and finally creating a symbol at the top of it. Please note that the stack
+ * grows *downwards* on x86.
+ * The stack on x86/GCC must be 16-byte aligned according to the System V ABI standard
+ * (see https://wiki.osdev.org/System_V_ABI).
+ * The compiler will assume the stack is properly aligned and failure to align the stack will result in undefined
+ * behavior.
  */
 .set BOOTSTRAP_STACK_SIZE, 16384    # Size of bootstrap stack in bytes (16 KiB).
 
@@ -69,9 +73,9 @@ bootstrap_stack_top:
 
 .section .text
 
-/* The linker script (see "/linker.ld.pp" file) specifies _start as the entry point to the kernel and the bootloader will
- * jump to this position once the kernel has been loaded. It doesn't make sense to return from here as the bootloader
- * is gone.
+/* The linker script (see "/linker.ld.pp" file) specifies _start as the entry point to the kernel and the bootloader
+ * will jump to this position once the kernel has been loaded. It doesn't make sense to return from here as the
+ * bootloader is gone.
  */
 
 # By convention, the _start symbol specifies the ELF entry point.
@@ -79,17 +83,18 @@ bootstrap_stack_top:
 _start:
 
     /* The bootloader has loaded us into 32-bit Protected Mode. Entering kernel...
-     * Interrupts are disabled (by the bootloader). Paging is disabled. The processor state is as defined in the Multiboot
-     * standard. The kernel has full control over the CPU. The kernel can only make use of hardware features and any code
-     * it provides as part of itself. There's no printf function, unless the kernel provides its own <stdio.h>-like header
-     * and a printf() implementation (more on this later).
+     * Interrupts are disabled (by the bootloader). Paging is disabled. The processor state is as defined in the
+     * Multiboot standard. The kernel has full control over the CPU. The kernel can only make use of hardware features
+     * and any code it provides as part of itself. There's no printf function, unless the kernel provides its own
+     * <stdio.h>-like header and a printf() implementation (more on this later).
      *
      * At this point, the Multiboot-compliant bootloader should have set:
      *      %eax -> Multiboot magic number (see "/include/arch/x86/multiboot.h" and "/kernel/main.c")
      *      %ebx -> Multiboot information structure's 32-bit *physical* address
      */
 
-    # Clear the frame pointer register (EBP) so that once we get into debugging C code, stack backtraces will be terminated properly.
+    # Clear the frame pointer register (EBP) so that once we get into debugging C code, stack backtraces will be
+    # terminated properly.
 	movl $0x0, %ebp			# nuke frame pointer
 
 
