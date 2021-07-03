@@ -98,6 +98,7 @@ set(QEMU_BIN qemu-system-i386)
 set(GDB_PORT 26000)
 
 set(QEMU_OPTS -cdrom ${ISO_NAME} -m ${RAM_MEMORY_MiB}M -serial mon:stdio -gdb tcp::${GDB_PORT})
+#set(QEMU_OPTS -cdrom ${ISO_NAME} -m ${RAM_MEMORY_MiB}M -serial mon:stdio -gdb tcp::${GDB_PORT} -d int,cpu_reset -d int -no-reboot)
 #$(QEMU) $(QEMU_OPTS) -soundhw pcspk
 
 add_custom_target(print-gdbport

@@ -133,8 +133,10 @@ static int debuginfo_eip(uintptr_t addr, struct Eipdebuginfo *info2) {
     lfile = 0;
     rfile = (stab_end - stabs) - 1;
     stab_binsearch(stabs, &lfile, &rfile, N_SO, addr);
-    if (lfile == 0)
+    if (lfile == 0) {
+        printk("Failed reading stabs -> base: %p, addr: %x\n", &stabs, addr);
         return -1;
+    }
 
     // Search within that file's stabs for the function definition (N_FUN).
     lfun = lfile;
@@ -304,7 +306,7 @@ int stack_backtrace(void) {
     ebp = (uint32_t *) *ebp;
 
     while (ebp) {
-        uintptr_t eip = *(ebp+1);
+        uintptr_t eip = *(ebp+1);// + 0x100000000;
 
         info[i].eip = eip;
         info[i].ebp = *ebp;

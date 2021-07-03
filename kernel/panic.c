@@ -10,12 +10,12 @@
 #include <brunix/kdebug.h>
 
 void _panic(const char *file_name, int line_number, const char *message) {
-    set_fg_color(COLOR_RED);
-    printk("\nKernel panic: ");
     set_fg_color(COLOR_LIGHT_GREY);
-    printk(message);
+    printk("\nKernel panic: ");
     set_fg_color(COLOR_RED);
-    printk("\nat [%s:%d]", file_name, line_number);
+    printk(message);
+    set_fg_color(COLOR_LIGHT_GREY);
+    printk("\n[at %s:%d]", file_name, line_number);
 
     set_fg_color(COLOR_LIGHT_GREY);
     print_stack_backtrace(false);

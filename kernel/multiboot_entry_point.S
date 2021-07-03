@@ -17,6 +17,9 @@
 
 
 #include <arch/x86/multiboot.h>     // for BOOT_HEADER_MAGIC, MBOOT_HEADER_FLAGS, MBOOT_HEADER_CHECKSUM
+#include <arch/x86/memlayout.h>
+#include <arch/x86/mmu.h>
+#include <arch/x86/segment.h>
 
 
 // Hand-made stab for the stack backtrace (see /kernel/kdebug.c)
@@ -97,14 +100,54 @@ _start:
     # terminated properly.
 	movl $0x0, %ebp			# nuke frame pointer
 
-
     movl $bootstrap_stack_top, %esp     # Set up a stack, setting %esp register to point to the top of our stack (as it
                                         # grows downwards on x86 systems). This is necessarily done in assembly as
                                         # languages such as C cannot function without a stack.
 
+    movl %eax, %esi
+
+
+    # Turn on page size extension for 4Mbyte pages
+    movl    %cr4, %eax
+    orl     $(MMU_CR4_PSE), %eax
+    movl    %eax, %cr4
+    # Set page directory
+    movl    $(VIRT_TO_PHYS_WO(entrypgdir)), %eax
+    movl    %eax, %cr3
+    # Turn on paging.
+    movl    %cr0, %eax
+    orl     $(MMU_CR0_PG), %eax
+    orl     $(MMU_CR0_WP), %eax
+    movl    %eax, %cr0
+
+
+//        push $(gdtdesc-KERN_BASE)
+//        call gdt_flush
+//call gdt_init
+
+
+    lgdt    (gdtdesc)
+
+    // The kernel uses DS, ES and SS.
+    movw $__KERNEL_DS_SELECTOR, %ax
+    movw %ax, %ds
+    movw %ax, %es
+    movw %ax, %ss
+
+    // The kernel never uses FS or GS -> leave those set to zero
+    movw $0, %ax
+    movw %ax, %fs
+    movw %ax, %gs
+
+    // Load the kernel text segment into CS with a long jump.
+    ljmp $__KERNEL_CS_SELECTOR, $1f
+
+1:
+
     # Set up kmain()'s arguments
-    pushl %esp                          # Bootstrap stack top
-    pushl %eax                          # Multiboot magic number
+    pushl $bootstrap_stack_top                          # Bootstrap stack top
+    pushl %esi                          # Multiboot magic number
+//    pushl $0x2BADB002                          # Multiboot magic number
     pushl %ebx                          # Multiboot info
 
 	/* Enter the high-level kernel. The ABI requires the stack is 16-byte aligned at the time of the call instruction
@@ -112,7 +155,10 @@ _start:
 	 * we've since pushed a multiple of 16 bytes to the stack since (pushed 0 bytes so far) and the alignment is thus
 	 * preserved and the call is well defined.
 	 */
-    call kmain                  # Call kmain (defined in C), passing in the Multiboot info, Multiboot magic number and
+//mov $kmain, %eax
+//jmp *%eax
+
+call kmain                  # Call kmain (defined in C), passing in the Multiboot info, Multiboot magic number and
                                 # stack pointer (see /kernel/main.c) (see https://wiki.osdev.org/Calling_Conventions).
 
     # If we reach this point (kmain() returned), the best idea would be trying to halt the computer...
@@ -123,3 +169,16 @@ _start:
 	 */
     hlt
     jmp .hang
+
+
+# Bootstrap GDT
+.p2align 2                                # force 4 byte alignment
+gdt_x:
+SEG_NULL				# null seg
+SEG(STA_X|STA_R, 0x0, 0xffffffff)	# code seg
+SEG(STA_W, 0x0, 0xffffffff)	        # data seg
+
+gdtdesc:
+.word   0x17                            # sizeof(gdt) - 1
+.long   (gdt_x)                            # address gdt
+//.long   (gdt_x-KERN_BASE)                            # address gdt

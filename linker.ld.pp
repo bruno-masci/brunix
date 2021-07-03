@@ -30,31 +30,31 @@ ENTRY(_start)
 
 SECTIONS {
 
-    .boot : {
+    .boot : AT (EXT_MEM_BASE) {
         // Ensure that the multiboot header is at the beginning of the generated image
         *(.multiboot_header)
     }
 
     PROVIDE(kernel_start = .);
 
-    .text : AT (ADDR(.text) - KERN_BASE) {
+    .text : {//AT (0x10000c) {
 	    *(.text .stub)
     }
     PROVIDE(etext = .);
 
-    .rodata : AT (ADDR(.rodata) - KERN_BASE) {
+    .rodata : {//AT (ADDR(.rodata) - KERN_BASE) {
         *(.rodata)
     }
 
     /* Include debugging information in kernel memory */
-    .stab : AT (ADDR(.stab) - KERN_BASE) {
+    .stab : {//AT (ADDR(.stab) - KERN_BASE) {
         PROVIDE(__STAB_BEGIN__ = .);
         *(.stab);
         PROVIDE(__STAB_END__ = .);
         BYTE(0)     /* Force the linker to allocate space for this section */
     }
 
-    .stabstr : AT (ADDR(.stabstr) - KERN_BASE) {
+    .stabstr : {//AT (ADDR(.stabstr) - KERN_BASE) {
         PROVIDE(__STABSTR_BEGIN__ = .);
         *(.stabstr);
         PROVIDE(__STABSTR_END__ = .);
@@ -66,13 +66,13 @@ SECTIONS {
      * conventional symbols (the convention started before there was a read-only rodata section between text and data). */
 	PROVIDE(data = .);
 
-    .data : AT (ADDR(.data) - KERN_BASE) {
+    .data : {//AT (ADDR(.data) - KERN_BASE) {
     	*(.data)
     }
 
 	PROVIDE(edata = .);
 
-    .bss ALIGN(4096) : AT (ADDR(.bss) - KERN_BASE) {
+    .bss : {//AT (ADDR(.bss) - KERN_BASE) {
         *(.bss)
     }
 

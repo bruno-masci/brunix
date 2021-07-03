@@ -14,15 +14,15 @@
 #include <stdint.h>     // for uintptr_t
 typedef uint32_t phys_addr_t;
 
-#define VIRT_TO_PHYS(a) ((phys_addr_t) (((uintptr_t) (a)) - KERN_BASE))
+#define VIRT_TO_PHYS(a) ((phys_addr_t) ((a) - KERN_BASE))
 
 #endif  /* ! __ASSEMBLER__ */
 
 
-#define EXT_MEM_BASE    0x00100000                  // Start of physical "extended" memory (1 MiB)
+#define EXT_MEM_BASE    0x00201000                  // Start of physical "extended" memory (1 MiB)
 
 //0x80000000
-#define KERN_BASE       0x00000000                  // First kernel virtual address
+#define KERN_BASE       0xd0000000                  // First kernel virtual address
 
 #define KERN_LINK       (KERN_BASE + EXT_MEM_BASE)  // Address where kernel is linked at
 

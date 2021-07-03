@@ -33,6 +33,6 @@ void set_fg_color(uint8_t color) {
 
 // output a character to the console
 PRIVATE void console_putc(char c) {
-    vga_putc(c);
     uart_putc(c);
+    vga_putc(c);
 }

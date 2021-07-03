@@ -28,19 +28,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09916d8b-a51c-45d5-9e44-a908d6f2453e" name="Default" comment="ble">
-      <change afterPath="$PROJECT_DIR$/test/gdt-test.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/run-tests.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/arch/x86/gdt.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/arch/x86/gdt.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/arch/x86/multiboot.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/arch/x86/multiboot.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/brunix/string.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/brunix/string.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/arch/x86/memlayout.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/arch/x86/memlayout.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/arch/x86/mmu.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/arch/x86/mmu.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/console.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/gdt.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/gdt.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/kdebug.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/kdebug.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/multiboot.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/multiboot.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/multiboot_entry_point.S" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/multiboot_entry_point.S" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/paging.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/paging.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/gradelib.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/gradelib.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/panic.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/panic.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linker.ld.pp" beforeDir="false" afterPath="$PROJECT_DIR$/linker.ld.pp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/qemu-tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/qemu-tests.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -271,7 +270,14 @@
       <workItem from="1624573270406" duration="4998000" />
       <workItem from="1624648939248" duration="12986000" />
       <workItem from="1624729271407" duration="7502000" />
-      <workItem from="1624821194064" duration="1016000" />
+      <workItem from="1624821194064" duration="15572000" />
+      <workItem from="1624911813826" duration="8046000" />
+      <workItem from="1624970278571" duration="3657000" />
+      <workItem from="1625001153691" duration="6259000" />
+      <workItem from="1625094264406" duration="3996000" />
+      <workItem from="1625142253010" duration="13242000" />
+      <workItem from="1625181110918" duration="3749000" />
+      <workItem from="1625338244118" duration="3828000" />
     </task>
     <task id="LOCAL-00001" summary="ble">
       <created>1624501088514</created>
@@ -287,7 +293,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624501926598</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="ble">
+      <created>1624822315646</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1624822315646</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
