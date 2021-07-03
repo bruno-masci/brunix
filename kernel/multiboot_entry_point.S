@@ -106,6 +106,13 @@ _start:
 
     movl %eax, %esi
 
+//jmp _lower_console_init
+
+//_lower_console_init = console_init - 0xd0000001
+
+//    call console_init
+
+
 
     # Turn on page size extension for 4Mbyte pages
     movl    %cr4, %eax
@@ -119,6 +126,13 @@ _start:
     orl     $(MMU_CR0_PG), %eax
     orl     $(MMU_CR0_WP), %eax
     movl    %eax, %cr0
+
+//pushl $(VIRT_TO_PHYS_WO(entrypgdir))
+//call __load_page_directory
+//call __enable_paging
+//popl %eax
+
+//call init_paging2
 
 
 //        push $(gdtdesc-KERN_BASE)

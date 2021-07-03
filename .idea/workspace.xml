@@ -29,18 +29,12 @@
   <component name="ChangeListManager">
     <list default="true" id="09916d8b-a51c-45d5-9e44-a908d6f2453e" name="Default" comment="ble">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/arch/x86/memlayout.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/arch/x86/memlayout.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/arch/x86/mmu.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/arch/x86/mmu.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/console.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/gdt.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/gdt.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/kdebug.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/kdebug.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/main.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/multiboot_entry_point.S" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/multiboot_entry_point.S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/paging.S" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/paging.S" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/paging.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/paging.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/panic.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/panic.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linker.ld.pp" beforeDir="false" afterPath="$PROJECT_DIR$/linker.ld.pp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/qemu-tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/qemu-tests.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,6 +112,11 @@
     </key>
   </component>
   <component name="RunManager" selected="CMake Application.brunix.elf">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="bochs" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="bochs" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -277,7 +276,7 @@
       <workItem from="1625094264406" duration="3996000" />
       <workItem from="1625142253010" duration="13242000" />
       <workItem from="1625181110918" duration="3749000" />
-      <workItem from="1625338244118" duration="3828000" />
+      <workItem from="1625338244118" duration="12861000" />
     </task>
     <task id="LOCAL-00001" summary="ble">
       <created>1624501088514</created>
@@ -300,7 +299,21 @@
       <option name="project" value="LOCAL" />
       <updated>1624822315646</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="ble">
+      <created>1625342397693</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1625342397693</updated>
+    </task>
+    <task id="LOCAL-00005" summary="ble">
+      <created>1625342518723</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1625342518723</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

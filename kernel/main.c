@@ -56,9 +56,12 @@ PRIVATE void exercise_libkern(void);
  * @see multiboot_entry_point.S file
  */
 int kmain(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint32_t stack_top) {
-//    console_init();
+    console_init();
+
+    extern struct page_dir_struct entrypgdir[];
 
     printk("Starting Brunix...\n\n");
+    printk("entrypgdir addr: %p\n", &entrypgdir);
 
 //    exercise_libkern();
 
