@@ -56,22 +56,17 @@ PRIVATE void exercise_libkern(void);
  * @see multiboot_entry_point.S file
  */
 int kmain(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint32_t stack_top) {
-    console_init();
+//    console_init();
 
     printk("Starting Brunix...\n\n");
 
-    exercise_libkern();
+//    exercise_libkern();
 
     verify_loader(magic);
-
-    printk("Setting up GDT...\n");
-    gdt_init();
 
     save_multiboot_info(std_mboot_info, &mboot_info);
 
     process_boot_args(mboot_info);
-
-    init_paging();
 
     print_kernel_context_info(mboot_info.mem_upper, stack_top);
 
@@ -88,7 +83,7 @@ PRIVATE void process_boot_args(struct multiboot_info mb_info) {
 PRIVATE void print_kernel_context_info(uint32_t total_memory_kb, uint32_t stack_top) {
     printk("RAM memory: %u MiB, kernel size: %d KiB\n", roundup_binary(total_memory_kb) / 1024, (kernel_end - kernel_start) / 1024);
 
-    printk("Kernel bootstrap stack: %p\n", stack_top);
+    printk("Kernel bootstrap stack: %p; kmain(): %p\n", stack_top, kmain);
 
     printk("\nSome special kernel symbols:\n");
     printk("  text    %08x (virt)  %08x (phys)\n", kernel_start, VIRT_TO_PHYS_WO(kernel_start));
