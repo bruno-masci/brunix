@@ -17,10 +17,10 @@
 //PRIVATE volatile uint16_t *video_memory = (volatile uint16_t *)VIDEO_MEM_ADDR;
 PRIVATE volatile uint16_t *video_memory = (volatile uint16_t *)VIDEO_MEM_ADDR;
 // Stores the cursor position.
-uint8_t cursor_x = 0;
-uint8_t cursor_y = 0;
+uint8_t cursor_x __attribute__ ((section (".data"))) = 0;
+uint8_t cursor_y __attribute__ ((section (".data"))) = 0;
 
-uint8_t backColour = COLOR_BLACK;
+uint8_t backColour __attribute__ ((section (".data"))) = COLOR_BLACK;
 uint8_t foreColour = COLOR_LIGHT_GREY;
 
 

@@ -28,31 +28,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09916d8b-a51c-45d5-9e44-a908d6f2453e" name="Default" comment="ble">
+      <change afterPath="$PROJECT_DIR$/kernel/gdt.c2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/arch/x86/gdt.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/gdt.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/arch/x86/io.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/io.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/arch/x86/memlayout.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/memlayout.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/arch/x86/mmu.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/mmu.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/arch/x86/multiboot.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/multiboot.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/arch/x86/paging.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/paging.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/arch/x86/processor.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/processor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/arch/x86/segment.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/segment.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/arch/x86/uart.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/uart.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/arch/x86/vga.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/vga.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/brunix/console.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/brunix/console.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/gdt.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/gdt.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/gdt.c" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/kdebug.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/kdebug.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/multiboot.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/multiboot.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/multiboot_entry_point.S" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/multiboot_entry_point.S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/paging.S" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/paging.S" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/paging.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/paging.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/panic.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/panic.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/uart.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/uart.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/vga.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/vga.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linker.ld.pp" beforeDir="false" afterPath="$PROJECT_DIR$/linker.ld.pp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/gdt-test.c" beforeDir="false" afterPath="$PROJECT_DIR$/test/gdt-test.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/multiboot-test.c" beforeDir="false" afterPath="$PROJECT_DIR$/test/multiboot-test.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -295,7 +277,7 @@
       <workItem from="1625142253010" duration="13242000" />
       <workItem from="1625181110918" duration="3749000" />
       <workItem from="1625338244118" duration="17879000" />
-      <workItem from="1625426279967" duration="3127000" />
+      <workItem from="1625426279967" duration="5645000" />
     </task>
     <task id="LOCAL-00001" summary="ble">
       <created>1624501088514</created>
@@ -339,7 +321,14 @@
       <option name="project" value="LOCAL" />
       <updated>1625353510488</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="ble">
+      <created>1625429492244</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1625429492244</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

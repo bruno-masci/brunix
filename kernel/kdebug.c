@@ -17,7 +17,7 @@ extern const char __STABSTR_END__[];		// End of string table
 
 
 //FIXME analyse why it is not working as a local variable of print_stack_backtrace()
-struct Eipdebuginfo info[1000];
+struct Eipdebuginfo info[1000] __attribute__ ((section (".data")));
 
 static int debuginfo_eip(uintptr_t addr, struct Eipdebuginfo *info2);
 
