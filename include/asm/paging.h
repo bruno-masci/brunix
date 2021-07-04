@@ -45,6 +45,7 @@ struct page_table_struct {
 //typedef struct page_table_struct page_table_t;
 
 
+enum PageSize {NORMAL, HUGE};
 
 /**
    Sets up the environment, page directories etc and

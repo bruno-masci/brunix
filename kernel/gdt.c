@@ -1,9 +1,9 @@
 #include <stdint.h>                 // for uint32_t
 
-#include <arch/x86/processor.h>     // for lgdt()
-#include <arch/x86/gdt.h>
-#include <arch/x86/memlayout.h>     // for VIRT_TO_PHYS, phys_addr_t
-#include <arch/x86/segment.h>       // for __KERNEL_CS_SELECTOR, __KERNEL_DS_SELECTOR
+#include <asm/processor.h>     // for lgdt()
+#include <asm/gdt.h>
+#include <asm/memlayout.h>     // for VIRT_TO_PHYS, phys_addr_t
+#include <asm/segment.h>       // for __KERNEL_CS_SELECTOR, __KERNEL_DS_SELECTOR
 
 #include <brunix/defs.h>            // for PRIVATE, INIT_FUNC
 #include <brunix/kernel.h>
@@ -12,21 +12,15 @@
 INIT_FUNC void gdt_init(void);
 
 
-
-__attribute__((__aligned__(4)))
-PRIVATE struct gdt_desc_struct gdt[GDT_ENTRIES];
-
-PRIVATE struct gdt_ptr_struct gdt_ptr;
-
-
 // <<<<<<<<<<<<<<<<<<<<<<< PROTOTYPES >>>>>>>>>>>>>>>>>>>>>>>
 PRIVATE void gdt_set_desc(phys_addr_t, uint32_t, uint32_t, uint32_t, uint32_t);
-PRIVATE void gdt_flush(phys_addr_t);
+ void gdt_flush(phys_addr_t);
 
 PRIVATE void print_segment_selectors(void);
 
-
 struct gdt_ptr_struct get_gdt_ptr(uint16_t total_gdt_entries, uint32_t gdt_base_addr) {
+    struct gdt_ptr_struct gdt_ptr;
+
     gdt_ptr.limit = (sizeof(struct gdt_desc_struct) * total_gdt_entries) - 1;
     gdt_ptr.base = (uint32_t) (VIRT_TO_PHYS_WO(gdt_base_addr));
     return gdt_ptr;
@@ -47,9 +41,13 @@ PRIVATE  void print_segment_selectors(void) {
     asm("movl %%gs, %0" : "=r" (gs) ::);
     printk("CS 0x%x, DS 0x%x, ES 0x%x, SS 0x%x, FS 0x%x, GS 0x%x\n", cs, ds, es, ss, fs, gs);
 }
+__attribute__((__aligned__(4)))
+struct gdt_desc_struct gdt[GDT_ENTRIES-1];
+
+struct gdt_ptr_struct gdt_ptr;
 
 INIT_FUNC void gdt_init(void) {
-    gdt_ptr = get_gdt_ptr(GDT_ENTRIES, &gdt);
+    gdt_ptr = get_gdt_ptr(GDT_ENTRIES-1, &gdt);
 
     // Null Segment Descriptor (required)
     gdt_set_desc(
@@ -80,9 +78,12 @@ INIT_FUNC void gdt_init(void) {
 
     printk("Segment selectors (bootloader) -> ");
     print_segment_selectors();
+    uart_putc('X');
 
     // Flush out the old GDT and install the new changes!
-    gdt_flush((phys_addr_t) (VIRT_TO_PHYS_WO(&gdt_ptr)));
+//    gdt_flush((phys_addr_t) (VIRT_TO_PHYS_WO(&gdt_ptr)));
+
+    uart_putc('Z');
 
     printk("Segment selectors (brunix) -> ");
     print_segment_selectors();
@@ -112,7 +113,7 @@ PRIVATE void gdt_set_desc(phys_addr_t addr, uint32_t base, uint32_t limit_20, ui
     fill_gdt_desc(descriptor, base, limit_20, access_8, flags_4);
 }
 
-PRIVATE void gdt_flush(phys_addr_t addr) {
+ void gdt_flush(phys_addr_t addr) {
     lgdt(addr);
 
     // The kernel uses DS, ES and SS.

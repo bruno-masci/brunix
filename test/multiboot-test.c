@@ -3,7 +3,7 @@
 
 #include <CUnit/Basic.h>
 
-#include <arch/x86/multiboot.h>     // for struct std_multiboot_info, struct multiboot_info, MBOOT_LOADER_MAGIC
+#include <asm/multiboot.h>     // for struct std_multiboot_info, struct multiboot_info, MBOOT_LOADER_MAGIC
 
 
 int init_suite1(void) {

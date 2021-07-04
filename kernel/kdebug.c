@@ -1,4 +1,4 @@
-#include <arch/x86/processor.h>
+#include <asm/processor.h>
 #include <brunix/stab.h>
 #include <brunix/console.h>
 #include <brunix/string.h>

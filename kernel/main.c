@@ -13,16 +13,16 @@
 #include <brunix/console.h>
 #include <brunix/kernel.h>
 #include <brunix/kdebug.h>
-#include <arch/x86/gdt.h>
+#include <asm/gdt.h>
 
-#include <arch/x86/multiboot.h>     // for struct std_multiboot_info, struct multiboot_info
+#include <asm/multiboot.h>     // for struct std_multiboot_info, struct multiboot_info
 
-#include <arch/x86/memlayout.h>     // for VIRT_TO_PHYS_WO
+#include <asm/memlayout.h>     // for VIRT_TO_PHYS_WO
 
 
 ///
-#include <arch/x86/mmu.h>
-#include <arch/x86/paging.h>   //TODO
+#include <asm/mmu.h>
+#include <asm/paging.h>   //TODO
 
 /*
  * Note that linker symbols are not variables; they have no memory allocated
@@ -58,10 +58,7 @@ PRIVATE void exercise_libkern(void);
 int kmain(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint32_t stack_top) {
     console_init();
 
-    extern struct page_dir_struct entrypgdir[];
-
     printk("Starting Brunix...\n\n");
-    printk("entrypgdir addr: %p\n", &entrypgdir);
 
 //    exercise_libkern();
 

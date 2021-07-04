@@ -3,8 +3,8 @@
 
 #include <stdbool.h>        // for bool
 
-#include <arch/x86/uart.h>
-#include <arch/x86/io.h>
+#include <asm/uart.h>
+#include <asm/io.h>
 
 #include <brunix/console.h>
 #include <brunix/defs.h>            // for PRIVATE

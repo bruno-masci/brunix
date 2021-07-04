@@ -1,6 +1,6 @@
-//#include <arch/x86/multiboot.h>
-#include <arch/x86/mmu.h>
-#include <arch/x86/memlayout.h>
+//#include <asm/multiboot.h>
+#include <asm/mmu.h>
+#include <asm/memlayout.h>
 
 .section .text
 

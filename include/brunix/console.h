@@ -8,8 +8,8 @@
 
 
 #include <stdint.h>                 // for uint8_t
-#include <arch/x86/vga.h>
-#include <arch/x86/uart.h>
+#include <asm/vga.h>
+#include <asm/uart.h>
 
 
 void cputchar(char c);

@@ -5,9 +5,9 @@
  * Heavily based on Bran's kernel development tutorials, but rewritten for JamesM's kernel tutorials.
  */
 
-#include <arch/x86/vga.h>
-#include <arch/x86/io.h>
-#include <arch/x86/memlayout.h>
+#include <asm/vga.h>
+#include <asm/io.h>
+#include <asm/memlayout.h>
 
 #include <brunix/console.h>
 #include <brunix/defs.h>            // for PRIVATE, INIT_FUNC

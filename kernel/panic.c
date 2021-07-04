@@ -5,7 +5,7 @@
 #include <stdbool.h>                // for true
 
 #include <brunix/kernel.h>
-#include <arch/x86/processor.h>     // for cli(), halt()
+#include <asm/processor.h>     // for cli(), halt()
 #include <brunix/console.h>
 #include <brunix/kdebug.h>
 

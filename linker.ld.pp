@@ -14,7 +14,7 @@
 
 
 #define __ASSEMBLER__   // trick to avoid typedef, etc.
-#include <arch/x86/memlayout.h>     // for KERN_LINK, KERN_BASE
+#include <asm/memlayout.h>     // for KERN_LINK, KERN_BASE
 #undef __ASSEMBLER__
 
 

@@ -1,10 +1,10 @@
 #include <stdint.h>                 // for uint32_t
 
-#include <arch/x86/processor.h>     // for lgdt()
-#include <arch/x86/memlayout.h>     // for VIRT_TO_PHYS, phys_addr_t
-#include <arch/x86/segment.h>       // for __KERNEL_CS_SELECTOR, __KERNEL_DS_SELECTOR
-#include <arch/x86/mmu.h>
-#include <arch/x86/paging.h>
+#include <asm/processor.h>     // for lgdt()
+#include <asm/memlayout.h>     // for VIRT_TO_PHYS, phys_addr_t
+#include <asm/segment.h>       // for __KERNEL_CS_SELECTOR, __KERNEL_DS_SELECTOR
+#include <asm/mmu.h>
+#include <asm/paging.h>
 
 #include <brunix/defs.h>            // for PRIVATE, INIT_FUNC
 

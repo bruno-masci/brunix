@@ -16,10 +16,10 @@
  */
 
 
-#include <arch/x86/multiboot.h>     // for BOOT_HEADER_MAGIC, MBOOT_HEADER_FLAGS, MBOOT_HEADER_CHECKSUM
-#include <arch/x86/memlayout.h>
-#include <arch/x86/mmu.h>
-#include <arch/x86/segment.h>
+#include <asm/multiboot.h>     // for BOOT_HEADER_MAGIC, MBOOT_HEADER_FLAGS, MBOOT_HEADER_CHECKSUM
+#include <asm/memlayout.h>
+#include <asm/mmu.h>
+#include <asm/segment.h>
 
 
 // Hand-made stab for the stack backtrace (see /kernel/kdebug.c)
@@ -92,7 +92,7 @@ _start:
      * <stdio.h>-like header and a printf() implementation (more on this later).
      *
      * At this point, the Multiboot-compliant bootloader should have set:
-     *      %eax -> Multiboot magic number (see "/include/arch/x86/multiboot.h" and "/kernel/main.c")
+     *      %eax -> Multiboot magic number (see "/include/asm/multiboot.h" and "/kernel/main.c")
      *      %ebx -> Multiboot information structure's 32-bit *physical* address
      */
 
@@ -104,35 +104,26 @@ _start:
                                         # grows downwards on x86 systems). This is necessarily done in assembly as
                                         # languages such as C cannot function without a stack.
 
-    movl %eax, %esi
 
-//jmp _lower_console_init
-
-//_lower_console_init = console_init - 0xd0000001
-
-//    call console_init
-
-
+# We don't use %eax/%ax in order to keep the value stored by the bootloader on %eax; we use %esi/%si as an alternative, instead.
 
     # Turn on page size extension for 4Mbyte pages
-    movl    %cr4, %eax
-    orl     $(MMU_CR4_PSE), %eax
-    movl    %eax, %cr4
+    movl    %cr4, %esi
+    orl     $(MMU_CR4_PSE), %esi
+    movl    %esi, %cr4
     # Set page directory
-    movl    $(VIRT_TO_PHYS_WO(entrypgdir)), %eax
-    movl    %eax, %cr3
+    movl    $(VIRT_TO_PHYS_WO(entrypgdir)), %esi
+    movl    %esi, %cr3
     # Turn on paging.
-    movl    %cr0, %eax
-    orl     $(MMU_CR0_PG), %eax
-    orl     $(MMU_CR0_WP), %eax
-    movl    %eax, %cr0
+    movl    %cr0, %esi
+    orl     $(MMU_CR0_PG), %esi
+    orl     $(MMU_CR0_WP), %esi
+    movl    %esi, %cr0
 
 //pushl $(VIRT_TO_PHYS_WO(entrypgdir))
 //call __load_page_directory
 //call __enable_paging
 //popl %eax
-
-//call init_paging2
 
 
 //        push $(gdtdesc-KERN_BASE)
@@ -143,15 +134,15 @@ _start:
     lgdt    (gdtdesc)
 
     // The kernel uses DS, ES and SS.
-    movw $__KERNEL_DS_SELECTOR, %ax
-    movw %ax, %ds
-    movw %ax, %es
-    movw %ax, %ss
+    movw $__KERNEL_DS_SELECTOR, %si
+    movw %si, %ds
+    movw %si, %es
+    movw %si, %ss
 
     // The kernel never uses FS or GS -> leave those set to zero
-    movw $0, %ax
-    movw %ax, %fs
-    movw %ax, %gs
+    movw $0, %si
+    movw %si, %fs
+    movw %si, %gs
 
     // Load the kernel text segment into CS with a long jump.
     ljmp $__KERNEL_CS_SELECTOR, $1f
@@ -160,8 +151,7 @@ _start:
 
     # Set up kmain()'s arguments
     pushl $bootstrap_stack_top                          # Bootstrap stack top
-    pushl %esi                          # Multiboot magic number
-//    pushl $0x2BADB002                          # Multiboot magic number
+    pushl %eax                          # Multiboot magic number
     pushl %ebx                          # Multiboot info
 
 	/* Enter the high-level kernel. The ABI requires the stack is 16-byte aligned at the time of the call instruction
@@ -186,7 +176,7 @@ call kmain                  # Call kmain (defined in C), passing in the Multiboo
 
 
 # Bootstrap GDT
-.p2align 2                                # force 4 byte alignment
+.align 4
 gdt_x:
 SEG_NULL				# null seg
 SEG(STA_X|STA_R, 0x0, 0xffffffff)	# code seg

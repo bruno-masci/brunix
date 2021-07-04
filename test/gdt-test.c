@@ -2,8 +2,8 @@
 
 #include <CUnit/Basic.h>
 
-#include <arch/x86/gdt.h>     // for struct std_multiboot_info, struct multiboot_info, MBOOT_LOADER_MAGIC
-#include <arch/x86/memlayout.h>     // for struct std_multiboot_info, struct multiboot_info, MBOOT_LOADER_MAGIC
+#include <asm/gdt.h>     // for struct std_multiboot_info, struct multiboot_info, MBOOT_LOADER_MAGIC
+#include <asm/memlayout.h>     // for struct std_multiboot_info, struct multiboot_info, MBOOT_LOADER_MAGIC
 
 
 int init_suite1(void) {
