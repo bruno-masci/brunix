@@ -96,6 +96,11 @@ _start:
      *      %ebx -> Multiboot information structure's 32-bit *physical* address
      */
 
+
+    jmp setup_early_paging
+
+early_paging_ready:
+
     # Clear the frame pointer register (EBP) so that once we get into debugging C code, stack backtraces will be
     # terminated properly.
 	movl $0x0, %ebp			# nuke frame pointer
@@ -105,8 +110,47 @@ _start:
                                         # languages such as C cannot function without a stack.
 
 
-# We don't use %eax/%ax in order to keep the value stored by the bootloader on %eax; we use %esi/%si as an alternative, instead.
+    lgdt    (gdtdesc)
 
+    call setup_all_segments_but_CS
+
+    // Load the kernel text segment into CS with a long jump.
+    ljmp $__KERNEL_CS_SELECTOR, $1f
+
+1:
+
+    # Set up start_kernel()'s arguments
+    pushl $bootstrap_stack_top                          # Bootstrap stack top
+    pushl %eax                          # Multiboot magic number
+    pushl %ebx                          # Multiboot info
+
+	/* Enter the high-level kernel. The ABI requires the stack is 16-byte aligned at the time of the call instruction
+	 * (which afterwards pushes the return pointer of size 4 bytes). The stack was originally 16-byte aligned above and
+	 * we've since pushed a multiple of 16 bytes to the stack since (pushed 0 bytes so far) and the alignment is thus
+	 * preserved and the call is well defined.
+	 */
+//mov $start_kernel, %eax
+//jmp *%eax
+
+    call start_kernel           # Call kmain (defined in C), passing in the Multiboot info, Multiboot magic number and
+                                # stack pointer (see /kernel/main.c) (see https://wiki.osdev.org/Calling_Conventions).
+
+    # If we reach this point (start_kernel() returned), the best idea would be trying to halt the computer...
+
+.hang:
+	/* We need to do this inside an infinite loop because as soon as a Non-Maskable Interrupt (NMI) arrives, the CPU
+	 * will restart!
+	 */
+    hlt
+    jmp .hang
+
+
+
+# We don't use %eax/%ax in order to preserve the value stored on %eax by the bootloader; we use %esi/%si as an alternative, instead.
+
+/* Identity-map the kernel in low 4MB memory for ease of transition */
+
+setup_early_paging:
     # Turn on page size extension for 4Mbyte pages
     movl    %cr4, %esi
     orl     $(MMU_CR4_PSE), %esi
@@ -116,23 +160,31 @@ _start:
     movl    %esi, %cr3
     # Turn on paging.
     movl    %cr0, %esi
-    orl     $(MMU_CR0_PG), %esi
-    orl     $(MMU_CR0_WP), %esi
+    orl     $(MMU_CR0_PG | MMU_CR0_WP), %esi
     movl    %esi, %cr0
+    jmp early_paging_ready
 
 //pushl $(VIRT_TO_PHYS_WO(entrypgdir))
 //call __load_page_directory
 //call __enable_paging
 //popl %eax
 
+.globl __load_page_directory
+.type __load_page_directory, @function
+__load_page_directory:
+    pushl %ebp
+    movl %esp, %ebp
 
-//        push $(gdtdesc-KERN_BASE)
-//        call gdt_flush
-//call gdt_init
+    movl 8(%ebp), %eax      # get page dir's physical address
+    movl %eax, %cr3
+
+    movl %ebp, %esp
+    popl %ebp
+    ret
 
 
-    lgdt    (gdtdesc)
 
+setup_all_segments_but_CS:
     // The kernel uses DS, ES and SS.
     movw $__KERNEL_DS_SELECTOR, %si
     movw %si, %ds
@@ -143,36 +195,11 @@ _start:
     movw $0, %si
     movw %si, %fs
     movw %si, %gs
+    ret
 
-    // Load the kernel text segment into CS with a long jump.
-    ljmp $__KERNEL_CS_SELECTOR, $1f
-
-1:
-
-    # Set up kmain()'s arguments
-    pushl $bootstrap_stack_top                          # Bootstrap stack top
-    pushl %eax                          # Multiboot magic number
-    pushl %ebx                          # Multiboot info
-
-	/* Enter the high-level kernel. The ABI requires the stack is 16-byte aligned at the time of the call instruction
-	 * (which afterwards pushes the return pointer of size 4 bytes). The stack was originally 16-byte aligned above and
-	 * we've since pushed a multiple of 16 bytes to the stack since (pushed 0 bytes so far) and the alignment is thus
-	 * preserved and the call is well defined.
-	 */
-//mov $kmain, %eax
-//jmp *%eax
-
-call kmain                  # Call kmain (defined in C), passing in the Multiboot info, Multiboot magic number and
-                                # stack pointer (see /kernel/main.c) (see https://wiki.osdev.org/Calling_Conventions).
-
-    # If we reach this point (kmain() returned), the best idea would be trying to halt the computer...
-
-.hang:
-	/* We need to do this inside an infinite loop because as soon as a Non-Maskable Interrupt (NMI) arrives, the CPU
-	 * will restart!
-	 */
-    hlt
-    jmp .hang
+//        push $(gdtdesc-KERN_BASE)
+//        call gdt_flush
+//call gdt_init
 
 
 # Bootstrap GDT
@@ -185,4 +212,3 @@ SEG(STA_W, 0x0, 0xffffffff)	        # data seg
 gdtdesc:
 .word   0x17                            # sizeof(gdt) - 1
 .long   (gdt_x)                            # address gdt
-//.long   (gdt_x-KERN_BASE)                            # address gdt

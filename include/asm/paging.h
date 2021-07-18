@@ -9,19 +9,17 @@
 #define __ARCH_PAGING_H__
 
 #include <stdint.h>     // for uint32_t
+//#include <asm/stddef.h>
+#include <asm/isr.h>	// for registers_t
 
-
-typedef uint32_t pde_t;
 
 #define PGDIR_PRESENT_FLAG 			0x1
 #define PGDIR_WRITABLE_FLAG 		0x2
 #define PGDIR_USER_FLAG 			0x4	//(1 << 2) variante
 
 
-#define PAGE_SIZE					0x1000 // 4 KB
-#define	RAM_MAXPAGE					0x100000
-#define PAGE(addr)					(uint32_t)(((uint32_t)addr) >> 12)
-
+typedef unsigned int pde_t;
+typedef unsigned int pte_t;
 
 struct page_dir_struct {
     unsigned int present_flag : 1;
@@ -45,8 +43,6 @@ struct page_table_struct {
 //typedef struct page_table_struct page_table_t;
 
 
-enum PageSize {NORMAL, HUGE};
-
 /**
    Sets up the environment, page directories etc and
    enables paging.
@@ -69,15 +65,13 @@ void paging_init(uint32_t mem_upper_in_bytes);
 
 void enable_paging(void);
 
+/**
+   Handler for page faults.
+**/
+void page_fault(struct registers_t regs);
+
+
 void load_page_directory(struct page_dir_struct *page_dir);
 
-
-#ifndef __ASSEMBLER__
-typedef uint32_t pte_t;
-
-static inline bool is_page_aligned(const char *v) {
-    return ((uint32_t) v % PAGE_SIZE) == 0;
-}
-#endif
 
 #endif /* __ARCH_PAGING_H__ */

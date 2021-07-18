@@ -24,12 +24,12 @@ set(CMAKE_C_FLAGS "-ffreestanding -c -g -gstabs -fno-omit-frame-pointer \
 #########################################################################
 # Source files and other input files
 #########################################################################
-file(GLOB_RECURSE   C_SRCS                          "kernel/*.c" "libkern/*.c")
-file(GLOB_RECURSE   ASM_SRCS                        "kernel/*.S")
+file(GLOB_RECURSE   C_SRCS                          "kernel/*.c" "arch/x86/kernel/*.c" "libkern/*.c")
+file(GLOB_RECURSE   ASM_SRCS                        "kernel/*.S" "arch/x86/kernel/*.S")
 
 file(GLOB           UNPROCESSED_LINKER_SCRIPT       "linker.ld.pp")
 file(GLOB           KERNEL_INCLUDE_DIR              "include")
-file(GLOB           MULTIBOOT_DIR                   "multiboot")
+file(GLOB           MULTIBOOT_DIR                   "arch/x86/multiboot")
 file(GLOB           BOCHS_CONF_TEMPLATE             "bochs.cfg.tmpl")
 file(GLOB           GDB_INIT_TEMPLATE               ".gdbinit.tmpl")
 
@@ -97,8 +97,8 @@ set(RAM_MEMORY_MiB 512)
 set(QEMU_BIN qemu-system-i386)
 set(GDB_PORT 26000)
 
-set(QEMU_OPTS -cdrom ${ISO_NAME} -m ${RAM_MEMORY_MiB}M -serial mon:stdio -gdb tcp::${GDB_PORT})
-#set(QEMU_OPTS -cdrom ${ISO_NAME} -m ${RAM_MEMORY_MiB}M -serial mon:stdio -gdb tcp::${GDB_PORT} -d int,cpu_reset -d int -no-reboot)
+#set(QEMU_OPTS -cdrom ${ISO_NAME} -m ${RAM_MEMORY_MiB}M -serial mon:stdio -gdb tcp::${GDB_PORT})
+set(QEMU_OPTS -cdrom ${ISO_NAME} -m ${RAM_MEMORY_MiB}M -serial mon:stdio -gdb tcp::${GDB_PORT} -d int,cpu_reset -d int -no-reboot)
 #$(QEMU) $(QEMU_OPTS) -soundhw pcspk
 
 add_custom_target(print-gdbport

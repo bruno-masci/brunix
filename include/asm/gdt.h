@@ -39,7 +39,7 @@
 
 #include <stdint.h>     // for uint8_t, uint16_t, uint32_t
 
-#define GDT_ENTRIES	4   // = 3 + 1
+#define GDT_ENTRIES	5   // = 4 + 1
 
 #define GDT_SEGMENT_LIMIT	0xFFFFFFFF
 
@@ -123,6 +123,26 @@ struct gdt_ptr_struct {
     uint32_t base;
 } __attribute__ ((packed));
 
+
+struct tss {
+    uint16_t previous_task, __previous_task_unused;
+    uint32_t esp0;
+    uint16_t ss0, __ss0_unused;
+    uint32_t esp1;
+    uint16_t ss1, __ss1_unused;
+    uint32_t esp2;
+    uint16_t ss2, __ss2_unused;
+    uint32_t cr3;
+    uint32_t eip, eflags, eax, ecx, edx, ebx, esp, ebp, esi, edi;
+    uint16_t es, __es_unused;
+    uint16_t cs, __cs_unused;
+    uint16_t ss, __ss_unused;
+    uint16_t ds, __ds_unused;
+    uint16_t fs, __fs_unused;
+    uint16_t gs, __gs_unused;
+    uint16_t ldt_selector, __ldt_sel_unused;
+    uint16_t debug_flag, io_map;
+} __attribute__ ((packed));
 
 
 #endif /* __ARCH_GDT_H__ */

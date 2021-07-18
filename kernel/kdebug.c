@@ -7,7 +7,7 @@
 #include <brunix/kdebug.h>
 
 #include <brunix/kernel.h>
-#include <brunix/stdlib.h>
+//#include <brunix/stdlib.h>
 
 
 extern const struct Stab __STAB_BEGIN__[];	// Beginning of stabs table
@@ -243,7 +243,7 @@ void print_stack_backtrace(bool ptr_as_string) {
 
             char line_number[10];
             if (info[i].eip_line > 0) {
-                itoa(info[i].eip_line, line_number);
+                itoa(info[i].eip_line, line_number, 10);
             } else {
                 strncpy(line_number, "?", 1);
             }
@@ -266,7 +266,7 @@ void print_stack_backtrace(bool ptr_as_string) {
             int hasOffset = 0;
             if (fn_addr_offset > 0) {
                 char numberAsStr[10];
-                itoa(fn_addr_offset, numberAsStr);
+                itoa(fn_addr_offset, numberAsStr, 10);
                 strncpy(offset + 1, numberAsStr, 10);
                 hasOffset = 1;
             }

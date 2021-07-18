@@ -9,4 +9,4 @@ file BIN_NAME_PLACEHOLDER
 
 layout asm
 layout regs
-#break kmain
+#break start_kernel

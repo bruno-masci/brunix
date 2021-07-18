@@ -6,6 +6,8 @@
 #include <stdbool.h>     // for bool
 #endif
 
+//#define PAGE_SIZE          4096    // bytes mapped by a page      REDEFINED TODO
+
 #ifdef __ASSEMBLER__
 
 // Application segment type bits
@@ -38,7 +40,6 @@
 
 //#define PAGE_SIZE          4096    // bytes mapped by a page
 
-#define PAGE_ROUND_UP(sz)  (((sz)+PAGE_SIZE-1) & ~(PAGE_SIZE-1))
 #define PGROUNDDOWN(a) (((a)) & ~(PAGE_SIZE-1))
 
 
@@ -86,4 +87,12 @@
 
 
 
+// various segment selectors.
+#define SEG_KCODE 1  // kernel code
+#define SEG_KDATA 2  // kernel data+stack
+#define SEG_UCODE 3  // user code
+#define SEG_UDATA 4  // user data+stack
+#define SEG_TSS   5  // this process's task state
 
+//*pde=
+//10010000001111111101

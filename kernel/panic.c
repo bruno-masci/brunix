@@ -18,7 +18,7 @@ void _panic(const char *file_name, int line_number, const char *message) {
     printk("\n[at %s:%d]", file_name, line_number);
 
     set_fg_color(COLOR_LIGHT_GREY);
-    print_stack_backtrace(false);
+//    print_stack_backtrace(false);
 
     set_fg_color(COLOR_LIGHT_CYAN);
     printk("\n\nSystem halted!\n\n");

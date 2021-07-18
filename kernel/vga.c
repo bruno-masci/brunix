@@ -14,8 +14,8 @@
 
 
 // The VGA framebuffer starts at 0xB8000.
+PRIVATE volatile uint16_t *video_memory = PHYS_TO_VIRT((volatile uint16_t *)VIDEO_MEM_ADDR);
 //PRIVATE volatile uint16_t *video_memory = (volatile uint16_t *)VIDEO_MEM_ADDR;
-PRIVATE volatile uint16_t *video_memory = (volatile uint16_t *)VIDEO_MEM_ADDR;
 // Stores the cursor position.
 uint8_t cursor_x __attribute__ ((section (".data"))) = 0;
 uint8_t cursor_y __attribute__ ((section (".data"))) = 0;
