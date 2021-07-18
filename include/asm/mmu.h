@@ -40,7 +40,7 @@
 
 //#define PAGE_SIZE          4096    // bytes mapped by a page
 
-#define PGROUNDDOWN(a) (((a)) & ~(PAGE_SIZE-1))
+#define PGROUNDDOWN(a) (((a)) & ~((uint32_t)(PAGE_SIZE-1)))
 
 
 // TODO temporal: Control Register flags
@@ -83,7 +83,7 @@
 #define PTE_U           0x004   // User
 
 // Address in page table or page directory entry
-#define PTE_ADDR(pte)   ((uint32_t)(pte) & ~0xFFF)
+#define PTE_ADDR(pte)   ((uint32_t)((uint32_t)(pte)) & ((uint32_t)~0xFFF))
 
 
 

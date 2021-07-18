@@ -43,6 +43,7 @@ IMPORT const char kernel_end[];
 
 extern void kbd_init(void);
 extern void idt_flush(void);
+extern void kvmalloc(void);
 
 PRIVATE void print_timer_ticks(void);
 

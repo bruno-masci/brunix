@@ -16,6 +16,18 @@
 extern char data[];  // defined by kernel.ld
 pde_t *kpgdir;  // for use in scheduler()
 
+
+void * alloc_empty_page(void);
+pde_t * pgdir_entry(pde_t *pgdir, const void *va);
+pte_t * pgtable_entry(pte_t *pgtable, const void *va);
+pte_t * pgtable_base(pde_t *pde);
+void set_pgdir_entry(pde_t *pde, pte_t *pgtab);
+void switchkvm(void);
+pde_t * setupkvm(void);
+void kvmalloc(void);
+int mappages(pde_t *pgdir, void *va, uint32_t size, uint32_t pa, uint32_t perm);
+pte_t * walkpgdir(pde_t *pgdir, const void *va, int alloc);
+
 // Set up CPU's kernel segment descriptors.
 // Run once on entry on each CPU.
 //void
@@ -52,7 +64,7 @@ pte_t * pgtable_entry(pte_t *pgtable, const void *va) {
 }
 
 pte_t * pgtable_base(pde_t *pde) {
-    if (*pde & PTE_P)
+//    if (*pde & PTE_P)
 //        printk("*pde=%b\n", *pde);
 
     return (*pde & PTE_P) ?
@@ -78,16 +90,16 @@ void * alloc_empty_page(void) {
 }
 
 pte_t * walkpgdir(pde_t *pgdir, const void *va, int alloc) {
-    if (va < KERN_BASE)
+    if (va < (void *) KERN_BASE)
         panic("va < KERN_BASE");
 
-    if (pgdir < KERN_BASE)
+    if (pgdir < (pde_t *) KERN_BASE)
         panic("pgdir < KERN_BASE");
 
     pde_t *pde = pgdir_entry(pgdir, va);
     pte_t *pgtab = pgtable_base(pde);
 //    printk("SS pgtab=%p\n", pgtab);
-    if (pde < KERN_BASE)
+    if (pde < (pde_t *) KERN_BASE)
         panic("pde < KERN_BASE");
 
 //    printk("pde=%p pgtab=%p\n", pde, pgtab);
@@ -101,7 +113,7 @@ pte_t * walkpgdir(pde_t *pgdir, const void *va, int alloc) {
     }
 //    printk("AFTER pde=%p pgtab=%p\n", pde, pgtab);
 
-    if (pgtab < KERN_BASE)
+    if (pgtab < (pte_t *) KERN_BASE)
         panic("pgtab < KERN_BASE");
 
     return pgtable_entry(pgtab, va);
@@ -113,7 +125,7 @@ static struct kmap {
     void *virt;
     phys_addr_t phys_start;
     phys_addr_t phys_end;
-    int perm;
+    uint32_t perm;
 } kmap[] = {
         { (void*)KERN_BASE, 0,             EXT_MEM_BASE,    PTE_W}, // I/O space
         { (void*)KERN_LINK, VIRT_TO_PHYS(KERN_LINK), VIRT_TO_PHYS(data), 0},     // kern text+rodata
@@ -124,8 +136,9 @@ static struct kmap {
 // Create PTEs for virtual addresses starting at va that refer to
 // physical addresses starting at pa. va and size might not
 // be page-aligned.
-//static int
-mappages(pde_t *pgdir, void *va, uint32_t size, uint32_t pa, int perm)
+//static
+int
+mappages(pde_t *pgdir, void *va, uint32_t size, uint32_t pa, uint32_t perm)
 {
     char *a, *last = (char*)PGROUNDDOWN(((uint32_t)va) + size - 1);
     pte_t *pte;
@@ -149,7 +162,7 @@ printk("FAILED1");
 //            break;
 
     }
-printk("a  = %p\n", a);
+//printk("a  = %p\n", a);
     return 0;
 }
 
