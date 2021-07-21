@@ -67,8 +67,8 @@ pte_t * pgtable_base(pde_t *pde) {
 //    if (*pde & PTE_P)
 //        printk("*pde=%b\n", *pde);
 
-    return (*pde & PTE_P) ?
-           (pte_t *) PHYS_TO_VIRT(PTE_ADDR(*pde)) :
+    return (pde_val(pde) & PTE_P) ?
+           (pte_t *) PHYS_TO_VIRT(PTE_ADDR(pde_val(pde))) :
            NULL;
 }
 
@@ -77,7 +77,7 @@ void set_pgdir_entry(pde_t *pde, pte_t *pgtab) {
     // be further restricted by the permissions in the page table
     // entries, if necessary.
 //    printk("pgtab=%x - pgtab=%x - V2P pgtab=%x\n", pgtab, VIRT_TO_PHYS(pgtab));
-    *pde = VIRT_TO_PHYS(pgtab) | PTE_P | PTE_W | PTE_U;
+    pde_set(pde, VIRT_TO_PHYS(pgtab) | PTE_P | PTE_W | PTE_U);
 }
 
 void * alloc_empty_page(void) {
@@ -153,16 +153,16 @@ printk("FAILED1");
             return -1;
         }
 
-//printk("pte=%p\n", pte);
-        if(*pte & PTE_P)
+        if(pte_val(pte) & PTE_P)
             panic("remap");
-        *pte = pa | perm | PTE_P;
-//printk("PASE! *pte=%b\n", *pte);
+//        *pte = pa | perm | PTE_P;
+        pte_set(pte, pa | perm | PTE_P);
+
 //        if(a == last)
 //            break;
 
     }
-//printk("a  = %p\n", a);
+
     return 0;
 }
 

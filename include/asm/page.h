@@ -46,20 +46,14 @@ static inline bool is_page_aligned(const char *v) {
 /*
  * These are used to make use of C type-checking..
  */
-typedef struct { unsigned long pte; } pte_t2;
-typedef struct { unsigned long pmd; } pmd_t2;
-typedef struct { unsigned long pgd; } pgd_t2;
-typedef struct { unsigned long pgprot; } pgprot_t2;
+typedef struct { unsigned long _pte; } pte_t;
+typedef struct { unsigned long _pde; } pde_t;
 
-#define pte_val(x)	((x).pte)
-#define pmd_val(x)	((x).pmd)
-#define pgd_val(x)	((x).pgd)
-#define pgprot_val(x)	((x).pgprot)
+#define pte_val(pte) ((pte)->_pte)
+#define pde_val(pde) ((pde)->_pde)
 
-#define __pte(x)	((pte_t) { (x) } )
-#define __pmd(x)	((pmd_t) { (x) } )
-#define __pgd(x)	((pgd_t) { (x) } )
-#define __pgprot(x)	((pgprot_t) { (x) } )
+#define pte_set(pte, val) ((pte)->_pte = val);
+#define pde_set(pde, val) ((pde)->_pde = val);
 
 //#endif
 

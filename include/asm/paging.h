@@ -18,9 +18,6 @@
 #define PGDIR_USER_FLAG 			0x4	//(1 << 2) variante
 
 
-typedef unsigned int pde_t;
-typedef unsigned int pte_t;
-
 struct page_dir_struct {
     unsigned int present_flag : 1;
     unsigned int read_write_flag : 1;
