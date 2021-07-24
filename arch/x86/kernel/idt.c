@@ -12,23 +12,26 @@ void __idt_flush(phys_addr_t idtptr) {
 }
 
 //#pragma GCC diagnostic ignored "-Wpedantic"
-//__attribute__((__aligned__(4)))
-static idt_entry_t idt[256];// = {[0 ... 255] = {0, 0, 0, 0, 0, 0, 0, 0}};
+__attribute__((__aligned__(4)))
+static idt_entry_t idt[256] = {[0 ... 255] = {0, 0, 0, 0, 0, 0, 0, 0}};
 
-static idt_ptr_t idt_ptr;
-
-
+//static idt_ptr_t idt_ptr;
 
 
-void init_idt(void) {
+
+
+idt_ptr_t init_idt(void) {
+    idt_ptr_t idt_ptr;
     idt_ptr.limit = (sizeof(idt_entry_t) * 256) - 1;
     idt_ptr.base = VIRT_TO_PHYS(&idt);
 
     /* Clear out the entire IDT, initializing it to zeros */
-//    memset(&idt[0], 0, sizeof(idt_entry_t) * 256); FIXME check
+    memset(&idt[0], 0, sizeof(idt_entry_t) * 256); //FIXME check
+
+    return idt_ptr;
 }
 
-void idt_flush(void) {
+void idt_flush(idt_ptr_t idt_ptr) {
     __idt_flush(VIRT_TO_PHYS(&idt_ptr));
 }
 

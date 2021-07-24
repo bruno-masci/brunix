@@ -24,7 +24,7 @@
 #include <asm/paging.h>   //TODO
 //#include <asm/irq.h>
 
-#include "brunix/mm.h"
+//#include "brunix/kmalloc.h"
 
 ///
 #include <asm/mmu.h>
@@ -44,6 +44,8 @@ IMPORT const char kernel_end[];
 extern void kbd_init(void);
 extern void idt_flush(void);
 extern void kvmalloc(void);
+
+extern void kmalloc_init(const void *vstart, const void *vend);
 
 PRIVATE void print_timer_ticks(void);
 
@@ -99,7 +101,7 @@ PRIVATE void process_boot_args(struct multiboot_info mb_info);
  *
  * @param std_mboot_info Contextual information given by the bootloader.
  * @param magic Number representing the Multiboot bootloader magic number.
- * @see multiboot_entry_point.S file
+ * @see arch/x86/kernel/multiboot_entry_point.S file
  */
 int start_kernel(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint32_t stack_top) {
     /*
@@ -120,41 +122,33 @@ int start_kernel(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint
     process_boot_args(mboot_info);
 
     printk("Initializing physical page allocator...\n");
-    kinit1(kernel_end, PHYS_TO_VIRT(MB_TO_BYTES(4))); // phys page allocator
-
-
-//     test physical memory allocator
-    char *mem = kalloc();
-    if(mem == 0) {
-        panic("Out of memory. This should not happen...\n");
-    }
+    kmalloc_init(kernel_end, PHYS_TO_VIRT(MB_TO_BYTES(4))); // phys page allocator
 
 //    printk("IRQs...");
-//    irq_init();
+    irq_init();
 //    printk("Enabling interrupts...");
 //    asm volatile("sti");
 
-//    timer_init(100); // Initialise timer to 100Hz
+    timer_init(100); // Initialise timer to 100Hz
     print_timer_ticks();
 
 //    printk("Keyboard...");
 //    kbd_init();
 
-//    idt_flush();
+    idt_flush();
 //
 //    printk("Enabling interrupts...");
-//    asm volatile("sti");
+    asm volatile("sti");
 
     print_kernel_context_info(mboot_info.mem_upper, stack_top);
 
-
     // ---
-//    printk("kalloc() returned page address: %p (virt). Zeroing page...\n", mem);
+//    printk("kmalloc() returned page address: %p (virt). Zeroing page...\n", mem);
 //    if (VIRT_TO_PHYS(mem) != MB_TO_BYTES(4) - PAGE_SIZE) {
-//        panic(">> Unexpected returned address by kalloc(): %p", mem);
+//        panic(">> Unexpected returned address by kmalloc(): %p", mem);
 //    } temporal comment
 //    for (int i = 0; i < 254; i++) {     // requesting PAGE_SIZE * 256 = 1 MBy of memory
-//        mem = kalloc();
+//        mem = kmalloc();
 //        if(mem == 0) {
 //            panic("Out of memory. This should not happen...\n");
 //        }
@@ -162,13 +156,13 @@ int start_kernel(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint
 //        memset(mem, 0, PAGE_SIZE);
 //    }
 //
-//    mem = kalloc();
+//    mem = kmalloc();
 //    if(mem == 0) {
 //        panic("Out of memory. This should not happen...\n");
 //    }
-//    printk("kalloc() returned page address: %p (virt). Zeroing page...\n", mem);
+//    printk("kmalloc() returned page address: %p (virt). Zeroing page...\n", mem);
 //    if (VIRT_TO_PHYS(mem) != MB_TO_BYTES(4) - MB_TO_BYTES(1)) {
-//        panic("Unexpected returned address by kalloc(): %p", mem);
+//        panic("Unexpected returned address by kmalloc(): %p", mem);
 //    }temporal comment TODO
 
 

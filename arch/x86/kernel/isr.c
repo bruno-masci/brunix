@@ -24,7 +24,7 @@ static isr_t interrupt_handlers[256];//TODO revisar = {0, 0, 0, 0, 0, 0};
 
 
 void register_interrupt_handler(uint8_t n, isr_t handler) {
-    printk("Registering interrupt handler number %d, handler %x!", n, handler);
+    printk("Registering interrupt handler number %d, handler %x!\n", n, handler);
     interrupt_handlers[n] = handler;
 }
 
@@ -35,7 +35,7 @@ void isr_handler(struct registers_t *regs) {
      * bit (0x80) is set, regs.int_no will be very large (about 0xFFFFFF80).
      */
     uint8_t int_no = regs->int_no & 0xFF;
-//    printk("Calling isr_handler() for INT number 0x%x!\n", int_no);
+    printk("Calling isr_handler() for INT number 0x%x!\n", int_no);
 
     if (interrupt_handlers[int_no] != 0) {
         if (regs->int_no >= 32 && regs->int_no <= 40) {
@@ -94,4 +94,6 @@ void isr_install(void) {
 //    idt_set_gate(0x80, (uint32_t)isr0x80, 0x08, 0x8E);
 
     register_interrupt_handler(0, &dividebyzero);
+    register_interrupt_handler(1, &dividebyzero);
+    register_interrupt_handler(2, &dividebyzero);
 }

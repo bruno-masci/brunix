@@ -16,7 +16,7 @@ set(C_PREPROCESSOR_FLAGS -E -x c)
 
 # Do not optimise for now with "-O1", "-O2"... and so on, so we can do some validations. Note also the use
 # of "-fno-omit-frame-pointer" option below (for debugging purposes).
-set(CMAKE_C_FLAGS "-ffreestanding -c -g -gstabs -fno-omit-frame-pointer \
+set(CMAKE_C_FLAGS "-D__KERNEL__ -ffreestanding -c -g -gstabs -fno-omit-frame-pointer \
     -pedantic -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-align -Wwrite-strings -Wredundant-decls -Wnested-externs \
     -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wconversion -fno-tree-ch")
 

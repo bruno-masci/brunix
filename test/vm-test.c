@@ -22,7 +22,7 @@ void _panic(const char *message) {
 }
 
 
-void kalloc(void) {
+void kmalloc(void) {
 
 }
 

@@ -48,12 +48,20 @@ static inline bool is_page_aligned(const char *v) {
  */
 typedef struct { unsigned long _pte; } pte_t;
 typedef struct { unsigned long _pde; } pde_t;
+typedef struct { unsigned long _pde; } pgprot_t;
 
 #define pte_val(pte) ((pte)->_pte)
 #define pde_val(pde) ((pde)->_pde)
 
 #define pte_set(pte, val) ((pte)->_pte = val);
 #define pde_set(pde, val) ((pde)->_pde = val);
+
+#define __pgprot(x)	((pgprot_t) { (x) } )
+
+
+#define invalidate() \
+__asm__ __volatile__("movl %%cr3,%%eax\n\tmovl %%eax,%%cr3": : :"ax")
+
 
 //#endif
 

@@ -10,7 +10,7 @@
 #include <brunix/string.h>  // for memset()
 #include <brunix/kernel.h>  // for panic()
 
-#include "brunix/mm.h"
+#include "brunix/kmalloc.h"
 
 
 extern char data[];  // defined by kernel.ld
@@ -64,9 +64,6 @@ pte_t * pgtable_entry(pte_t *pgtable, const void *va) {
 }
 
 pte_t * pgtable_base(pde_t *pde) {
-//    if (*pde & PTE_P)
-//        printk("*pde=%b\n", *pde);
-
     return (pde_val(pde) & PTE_P) ?
            (pte_t *) PHYS_TO_VIRT(PTE_ADDR(pde_val(pde))) :
            NULL;
@@ -83,7 +80,7 @@ void set_pgdir_entry(pde_t *pde, pte_t *pgtab) {
 void * alloc_empty_page(void) {
     void *ptr = NULL;
 
-    if((ptr = kalloc()))
+    if((ptr = kmalloc()))
         memset(ptr, 0, PAGE_SIZE);
 
     return ptr;
@@ -176,7 +173,7 @@ setupkvm(void)
     if((pgdir = (pde_t*) alloc_empty_page()) == NULL)
         return NULL;
 
-    if (PHYS_TO_VIRT(PHYSTOP) > (void*)DEVSPACE)
+    if (PHYS_TO_VIRT(PHYSTOP) > (void *) DEVSPACE)
         panic("PHYSTOP too high");
 
     for(int i=0; i < 4; i++) {
@@ -185,7 +182,6 @@ setupkvm(void)
 //        printk(" k=%p!\n", k);
         if(mappages(pgdir, k->virt, k->phys_end - k->phys_start,
                     (uint32_t)k->phys_start, k->perm) < 0) {
-            printk(" H77!\n");
 //            freevm(pgdir);
             return 0;
         }
@@ -198,8 +194,17 @@ setupkvm(void)
 void
 kvmalloc(void)
 {
+    /*
+     * Physical page 0 is special; it's not touched by Linux since BIOS
+     * and SMM (for laptops with [34]86/SL chips) may need it.  It is read
+     * and write protected to detect null pointer references in the
+     * kernel.
+     */
+#if 0
+    memset((void *) 0, 0, PAGE_SIZE);
+#endif
+
     kpgdir = setupkvm();
-    printk(" PASE!!!");
     switchkvm();
 }
 
@@ -208,6 +213,7 @@ kvmalloc(void)
 void
 switchkvm(void)
 {
+//    invalidate(); //TODO hace falta??
     lcr3(VIRT_TO_PHYS(kpgdir));   // switch to the kernel page table
 }
 
@@ -292,7 +298,7 @@ switchkvm(void)
 //
 //    if(sz >= PAGE_SIZE)
 //        panic("inituvm: more than a page");
-//    mem = kalloc();
+//    mem = kmalloc();
 //    memset(mem, 0, PAGE_SIZE);
 //    mappages(pgdir, 0, PAGE_SIZE, VIRT_TO_PHYS(mem), PTE_W|PTE_U);
 //    memmove(mem, init, sz);
@@ -337,7 +343,7 @@ switchkvm(void)
 //
 //    a = PGROUNDUP(oldsz);
 //    for(; a < newsz; a += PAGE_SIZE){
-//        mem = kalloc();
+//        mem = kmalloc();
 //        if(mem == 0){
 //            cprintf("allocuvm out of memory\n");
 //            deallocuvm(pgdir, newsz, oldsz);
@@ -417,7 +423,7 @@ switchkvm(void)
 //            panic("copyuvm: page not present");
 //        pa = PTE_ADDR(*pte);
 //        flags = PTE_FLAGS(*pte);
-//        if((mem = kalloc()) == 0)
+//        if((mem = kmalloc()) == 0)
 //            goto bad;
 //        memmove(mem, (char*)PHYS_TO_VIRT(pa), PAGE_SIZE);
 //        if(mappages(d, (void*)i, PAGE_SIZE, VIRT_TO_PHYS(mem), flags) < 0) {

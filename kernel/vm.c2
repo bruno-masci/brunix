@@ -10,7 +10,7 @@
 #include <brunix/string.h>  // for memset()
 #include <brunix/kernel.h>  // for panic()
 
-#include "brunix/mm.h"
+#include "brunix/kmalloc.h"
 
 
 extern char data[];  // defined by kernel.ld
