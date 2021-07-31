@@ -16,7 +16,7 @@ typedef struct idt_ptr_struct idt_ptr_t;
 
 // Initialisation function is publicly accessible.
 idt_ptr_t init_idt(void);
-void idt_set_gate(uint8_t, uint32_t, uint16_t, uint8_t);
+void idt_set_gate(uint8_t num, uint32_t base, uint16_t cs_selector, uint8_t dpl);
 
 
 

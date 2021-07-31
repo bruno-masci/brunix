@@ -16,6 +16,8 @@
 #include <asm/idt.h>
 
 
+/*PRIVATE*/ void dividebyzero(__attribute__((unused)) struct registers_t *regs);
+
 extern void pic_acknowledge(uint32_t int_no); //TODO revisar
 
 
@@ -51,9 +53,13 @@ void isr_handler(struct registers_t *regs) {
 }
 
 /*PRIVATE*/ void dividebyzero(__attribute__((unused)) struct registers_t *regs) {
-    panic("Processor exception: divide by zero!");
+    printk("Processor exception: divide by zero!\n");
 }
 
+
+///*PRIVATE*/ void timerrrrrr(__attribute__((unused)) struct registers_t *regs) {
+//    printk("Timerrrrrr\n");
+//}
 
 void isr_install(void) {
     /* exceptions */
@@ -94,6 +100,6 @@ void isr_install(void) {
 //    idt_set_gate(0x80, (uint32_t)isr0x80, 0x08, 0x8E);
 
     register_interrupt_handler(0, &dividebyzero);
-    register_interrupt_handler(1, &dividebyzero);
-    register_interrupt_handler(2, &dividebyzero);
+//    register_interrupt_handler(1, &timerrrrrr);
+//    register_interrupt_handler(2, &dividebyzero);
 }

@@ -30,6 +30,7 @@
 #include <asm/mmu.h>
 #include <asm/page.h>   //TODO
 #include <asm/paging.h>   //TODO
+#include <asm/idt.h>
 
 /*
  * Note that linker symbols are not variables; they have no memory allocated
@@ -130,43 +131,19 @@ int start_kernel(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint
 //    asm volatile("sti");
 
     timer_init(100); // Initialise timer to 100Hz
-    print_timer_ticks();
+
 
 //    printk("Keyboard...");
 //    kbd_init();
 
-    idt_flush();
+
 //
 //    printk("Enabling interrupts...");
     asm volatile("sti");
 
     print_kernel_context_info(mboot_info.mem_upper, stack_top);
 
-    // ---
-//    printk("kmalloc() returned page address: %p (virt). Zeroing page...\n", mem);
-//    if (VIRT_TO_PHYS(mem) != MB_TO_BYTES(4) - PAGE_SIZE) {
-//        panic(">> Unexpected returned address by kmalloc(): %p", mem);
-//    } temporal comment
-//    for (int i = 0; i < 254; i++) {     // requesting PAGE_SIZE * 256 = 1 MBy of memory
-//        mem = kmalloc();
-//        if(mem == 0) {
-//            panic("Out of memory. This should not happen...\n");
-//        }
-//
-//        memset(mem, 0, PAGE_SIZE);
-//    }
-//
-//    mem = kmalloc();
-//    if(mem == 0) {
-//        panic("Out of memory. This should not happen...\n");
-//    }
-//    printk("kmalloc() returned page address: %p (virt). Zeroing page...\n", mem);
-//    if (VIRT_TO_PHYS(mem) != MB_TO_BYTES(4) - MB_TO_BYTES(1)) {
-//        panic("Unexpected returned address by kmalloc(): %p", mem);
-//    }temporal comment TODO
-
-
-    kvmalloc();      // kernel page table
+//    kvmalloc();      // kernel page table
     // ---
 
 
@@ -180,7 +157,10 @@ int start_kernel(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint
 //    uint32_t *ptr = (uint32_t *)0x400000;
 //    uint32_t do_page_fault = *ptr;
 
-
+while(1) {
+    for(long long int i=0;i<100000000;i++);
+    print_timer_ticks();
+}
     panic("Forcing kernel panic...");       // panic() DOES NOT return!
     return 0;
 }
@@ -212,6 +192,6 @@ PRIVATE void print_kernel_context_info(uint32_t total_memory_kb, uint32_t stack_
 //}
 
 PRIVATE void print_timer_ticks() {
-    for (int i=0;i<10000000;i++);	// delay
-//    printk("kmain", "Clock ticks: %u", get_clock_ticks());
+//    for (int i=0;i<10000000;i++);	// delay
+    printk("Clock ticks: %u\n", (get_clock_ticks() & 0xFFFFFFFF));
 }

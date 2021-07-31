@@ -27,24 +27,15 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="09916d8b-a51c-45d5-9e44-a908d6f2453e" name="Default" comment="ble">
-      <change afterPath="$PROJECT_DIR$/include/asm/pgtable.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/include/brunix/kmalloc.h" afterDir="false" />
+    <list default="true" id="16bb27d8-3b9f-4e32-9cd9-fbe08a7a03f6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/idt.c2" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/idt.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/interrupt.S2" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/interrupt.S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/irq.c2" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/irq.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/isr.c2" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/isr.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/idt.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/idt.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/irq.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/irq.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/isr.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/isr.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/asm/idt.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/idt.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/asm/page.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/page.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/brunix/mm.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/brunix/mm.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/mm.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/kmalloc.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/timer.c2" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/timer.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/vm.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/vm.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/vm.c2" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/vm.c2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/vm-test.c" beforeDir="false" afterPath="$PROJECT_DIR$/test/vm-test.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/timer.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/timer.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +57,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="stage2-kernel_debugging" />
+        <entry key="$PROJECT_DIR$" value="full-kernel" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -121,12 +112,12 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="quit" />
+    </option>
+  </component>
   <component name="RunManager" selected="CMake Application.brunix.elf">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="bochs" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="bochs" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -201,6 +192,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+      <changelist id="16bb27d8-3b9f-4e32-9cd9-fbe08a7a03f6" name="Default Changelist" comment="" />
       <created>1595721663564</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -311,6 +303,7 @@
       <workItem from="1626633947581" duration="4633000" />
       <workItem from="1626832566773" duration="3490000" />
       <workItem from="1627078327064" duration="9721000" />
+      <workItem from="1627179321060" duration="5598000" />
     </task>
     <task id="LOCAL-00001" summary="ble">
       <created>1624501088514</created>

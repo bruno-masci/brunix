@@ -9,10 +9,10 @@
 #include <brunix/console.h>
 
 
-/*#define WAIT_SOME_TIME() do { uint64_t start = rdtsc(); \
+#define WAIT_SOME_TIME() do { uint64_t start = rdtsc(); \
 			      while(rdtsc() - start < 1000000) ; \
 			} while (0)
-*/
+
 
 #define LATCH(f)	((CLOCK_TICK_RATE + f/2) / f)
 #define TIMER_FREQ		100	/* in HZ */
@@ -63,6 +63,7 @@ void timer_init(uint32_t frequency) {
     outb(0x43, 0x36);
 
     wait_some_time();
+//    WAIT_SOME_TIME();
 
     // Divisor has to be sent byte-wise, so split here into upper/lower bytes.
     uint8_t l = (uint8_t)(divisor & 0xFF);
@@ -72,6 +73,7 @@ void timer_init(uint32_t frequency) {
     outb(0x40, l);
 
     wait_some_time();
+//    WAIT_SOME_TIME();
 
     outb(0x40, h);
 }

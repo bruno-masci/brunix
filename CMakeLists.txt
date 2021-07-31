@@ -16,7 +16,7 @@ set(C_PREPROCESSOR_FLAGS -E -x c)
 
 # Do not optimise for now with "-O1", "-O2"... and so on, so we can do some validations. Note also the use
 # of "-fno-omit-frame-pointer" option below (for debugging purposes).
-set(CMAKE_C_FLAGS "-D__KERNEL__ -ffreestanding -c -g -gstabs -fno-omit-frame-pointer \
+set(CMAKE_C_FLAGS "-D__KERNEL__ -O0 -ffreestanding -c -g -gstabs -fno-omit-frame-pointer \
     -pedantic -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-align -Wwrite-strings -Wredundant-decls -Wnested-externs \
     -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wconversion -fno-tree-ch")
 
@@ -97,8 +97,8 @@ set(RAM_MEMORY_MiB 512)
 set(QEMU_BIN qemu-system-i386)
 set(GDB_PORT 26000)
 
-#set(QEMU_OPTS -cdrom ${ISO_NAME} -m ${RAM_MEMORY_MiB}M -serial mon:stdio -gdb tcp::${GDB_PORT})
-set(QEMU_OPTS -cdrom ${ISO_NAME} -m ${RAM_MEMORY_MiB}M -serial mon:stdio -gdb tcp::${GDB_PORT} -d int,cpu_reset -d int -no-reboot)
+set(QEMU_OPTS -cdrom ${ISO_NAME} -m ${RAM_MEMORY_MiB}M -serial mon:stdio -gdb tcp::${GDB_PORT})
+#set(QEMU_OPTS -cdrom ${ISO_NAME} -m ${RAM_MEMORY_MiB}M -serial mon:stdio -gdb tcp::${GDB_PORT} -d int,cpu_reset -d int -no-reboot)
 #$(QEMU) $(QEMU_OPTS) -soundhw pcspk
 
 add_custom_target(print-gdbport
