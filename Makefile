@@ -13,7 +13,7 @@ endif
 GDBPORT	:= 26000
 
 
-CROSS_COMPILER_PATH = /home/bmasci/opt/cross/bin
+CROSS_COMPILER_PATH = /home/phrack/osdev/opt/cross/bin
 AS =      $(CROSS_COMPILER_PATH)/i686-elf-gcc
 CC =      $(CROSS_COMPILER_PATH)/i686-elf-gcc
 OBJCOPY = $(CROSS_COMPILER_PATH)/i686-elf-objcopy
