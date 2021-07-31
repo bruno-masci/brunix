@@ -138,7 +138,7 @@ int start_kernel(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint
 
 
 //
-//    printk("Enabling interrupts...");
+    printk("Enabling interrupts...\n");
     asm volatile("sti");
 
     print_kernel_context_info(mboot_info.mem_upper, stack_top);

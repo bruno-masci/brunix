@@ -8,7 +8,7 @@ void __idt_flush(phys_addr_t idtptr);
 
 
 void __idt_flush(phys_addr_t idtptr) {
-//    printk("SAVING %x addr", idtptr);
+    printk("FLUSHING IDT: %x", idtptr);
     lidt(idtptr);
 }
 
@@ -36,7 +36,8 @@ idt_ptr_t init_idt(void) {
 }
 
 void idt_flush(void) {
-//    printk("PTR %x addr", &idt_ptr);
+    printk("IDT VIRT ADDR: %x\n", &idt_ptr);
+//    __idt_flush(0xd02dd960);
     __idt_flush(VIRT_TO_PHYS(&idt_ptr));
 }
 
