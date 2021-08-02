@@ -133,8 +133,8 @@ int start_kernel(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint
     timer_init(100); // Initialise timer to 100Hz
 
 
-//    printk("Keyboard...");
-//    kbd_init();
+    printk("Keyboard...");
+    kbd_init();
 
 
 //

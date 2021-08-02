@@ -65,7 +65,7 @@ void enable_paging(void);
 /**
    Handler for page faults.
 **/
-void page_fault(struct registers_t regs);
+void page_fault(struct registers_t *regs);
 
 
 void load_page_directory(struct page_dir_struct *page_dir);

@@ -54,6 +54,10 @@ static unsigned char kbd_US[128] = {
         0,	/* All other keys are undefined */
 };
 
+void handle_command(char *s) {
+    printk("HOLIS - %s-\n", s);
+}
+
 static void kbd_callback(__attribute__((unused)) struct registers_t *regs) {
     unsigned char scancode;
 
@@ -99,5 +103,5 @@ void kbd_init(void) {
     memset(buf, 0, 1024);
 //    buf[0] = '\0';
 //    buf_len = 0;
-    register_irq_handler(IRQ1, &kbd_callback);
+    register_irq_handler(IRQ1, kbd_callback);
 }

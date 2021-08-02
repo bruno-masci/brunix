@@ -17,14 +17,14 @@
 //static void* irq_routines[MAX_HANDLERS] = {[0 ... MAX_HANDLERS-1] = NULL };
 
 
-#pragma GCC diagnostic ignored "-Wpedantic"
-static isr_t irq_handlers[256];//TODO revisar = {[0 ... 255] = {0, 0, 0, 0, 0, 0}};
+//#pragma GCC diagnostic ignored "-Wpedantic"
+//static isr_t irq_handlers[256];//TODO revisar = {[0 ... 255] = {0, 0, 0, 0, 0, 0}};
 
 
 
 void irq_install(void);
 void pic_acknowledge(uint32_t int_no);
-void irq_handler(struct registers_t regs);
+void irq_handler(struct registers_t *regs);
 void pic_init(void);
 
 
@@ -65,22 +65,42 @@ void pic_init(void) {
 
 
 void irq_install(void) {
-    idt_set_gate(IRQ0, (uint32_t) irq0, __KERNEL_CS_SELECTOR, 0);
-    idt_set_gate(IRQ1, (uint32_t) irq1, __KERNEL_CS_SELECTOR, 0);
-    idt_set_gate(IRQ2, (uint32_t) irq2, __KERNEL_CS_SELECTOR, 0);
-    idt_set_gate(IRQ3, (uint32_t) irq3, __KERNEL_CS_SELECTOR, 0);
-    idt_set_gate(IRQ4, (uint32_t) irq4, __KERNEL_CS_SELECTOR, 0);
-    idt_set_gate(IRQ5, (uint32_t) irq5, __KERNEL_CS_SELECTOR, 0);
-    idt_set_gate(IRQ6, (uint32_t) irq6, __KERNEL_CS_SELECTOR, 0);
-    idt_set_gate(IRQ7, (uint32_t) irq7, __KERNEL_CS_SELECTOR, 0);
-    idt_set_gate(IRQ8, (uint32_t) irq8, __KERNEL_CS_SELECTOR, 0);
-    idt_set_gate(IRQ9, (uint32_t) irq9, __KERNEL_CS_SELECTOR, 0);
-    idt_set_gate(IRQ10, (uint32_t) irq10, __KERNEL_CS_SELECTOR, 0);
-    idt_set_gate(IRQ11, (uint32_t) irq11, __KERNEL_CS_SELECTOR, 0);
-    idt_set_gate(IRQ12, (uint32_t) irq12, __KERNEL_CS_SELECTOR, 0);
-    idt_set_gate(IRQ13, (uint32_t) irq13, __KERNEL_CS_SELECTOR, 0);
-    idt_set_gate(IRQ14, (uint32_t) irq14, __KERNEL_CS_SELECTOR, 0);
-    idt_set_gate(IRQ15, (uint32_t) irq15, __KERNEL_CS_SELECTOR, 0);
+        /// This bit shall be set to 0 if the IDT slot is empty
+#define IDT_FLAG_PRESENT 	0x80
+/// Interrupt can be called from within RING0
+#define IDT_FLAG_RING0		0x00
+/// Interrupt can be called from within RING1 and lower
+#define IDT_FLAG_RING1		0x20
+/// Interrupt can be called from within RING2 and lower
+#define IDT_FLAG_RING2		0x40
+/// Interrupt can be called from within RING3 and lower
+#define IDT_FLAG_RING3		0x60
+/// Size of gate is 16 bit
+#define IDT_FLAG_16BIT		0x00
+/// Size of gate is 32 bit
+#define IDT_FLAG_32BIT		0x08
+/// The entry describes an interrupt gate
+#define IDT_FLAG_INTTRAP	0x06
+/// The entry describes a trap gate
+#define IDT_FLAG_TRAPGATE	0x07
+/// The entry describes a task gate
+#define IDT_FLAG_TASKGATE	0x05
+    idt_set_gate(IRQ0, (uint32_t) irq0, __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
+    idt_set_gate(IRQ1, (uint32_t) irq1, __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
+    idt_set_gate(IRQ2, (uint32_t) irq2, __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
+    idt_set_gate(IRQ3, (uint32_t) irq3, __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
+    idt_set_gate(IRQ4, (uint32_t) irq4, __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
+    idt_set_gate(IRQ5, (uint32_t) irq5, __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
+    idt_set_gate(IRQ6, (uint32_t) irq6, __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
+    idt_set_gate(IRQ7, (uint32_t) irq7, __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
+    idt_set_gate(IRQ8, (uint32_t) irq8, __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
+    idt_set_gate(IRQ9, (uint32_t) irq9, __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
+    idt_set_gate(IRQ10, (uint32_t) irq10, __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
+    idt_set_gate(IRQ11, (uint32_t) irq11, __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
+    idt_set_gate(IRQ12, (uint32_t) irq12, __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
+    idt_set_gate(IRQ13, (uint32_t) irq13, __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
+    idt_set_gate(IRQ14, (uint32_t) irq14, __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
+    idt_set_gate(IRQ15, (uint32_t) irq15, __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
 }
 
 void pic_acknowledge(uint32_t int_no) {
@@ -95,41 +115,32 @@ void pic_acknowledge(uint32_t int_no) {
     outb(0x61, inb(0x61) | 0x03); //speaker
 }
 
+
+extern isr_t interrupt_handlers[256];
+
+
 /* Called from our ASM interrupt handler stub */
-void irq_handler(struct registers_t regs) {
-    printk("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ");
-    if (regs.int_no != 32 && regs.int_no != 33) {
-        printk("Calling isr_handler() for IRQ %d!", regs.int_no - 32);
+void irq_handler(struct registers_t *regs) {
+    if (regs->int_no == 16)//FIXME
+        return;
+
+    if (regs->int_no != 32 && regs->int_no != 33) {
+        printk("Calling irq_handler() for IRQ %d (int %d)!\n", (regs->int_no - 32), regs->int_no);
     }
 
     /* Send an EOI (end of interrupt) signal to the PICs. */
-    pic_acknowledge(regs.int_no);
+    pic_acknowledge(regs->int_no);
 
-    if (irq_handlers[regs.int_no] != 0) {
-        isr_t handler = irq_handlers[regs.int_no];
-        handler(&regs);
-    }
+    if (interrupt_handlers[regs->int_no] != 0) {
+        isr_t handler = interrupt_handlers[regs->int_no];
+        handler(regs);
+    } else
+        printk("FAILED HANDLING INT %d\n", regs->int_no);
 }
 
 void irq_init(void) {
     pic_init();
-
-    printk("YA\n");
     init_idt();
-
-    printk("YU\n");
-    irq_install();
-    printk("PE\n");
     isr_install();
-
-
-//    printk(" YA\n");
-//    init_idt();
-//    printk(" YU\n");
-//    irq_install();
-//    printk(" PE\n");
-//    isr_install();
-
-//    isr_install();
-//    init_idt();
+    irq_install();
 }

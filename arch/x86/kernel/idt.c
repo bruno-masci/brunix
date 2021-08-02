@@ -15,7 +15,7 @@ void __idt_flush(phys_addr_t idtptr) {
 //#pragma GCC diagnostic ignored "-Wpedantic"
 __attribute__((__aligned__(4)))
 //__attribute__((aligned(0x10)))
-static idt_entry_t idt[256] = {[0 ... 255] = {0, 0, 0, 0, 0, 0, 0, 0}};
+static idt_entry_t idt[256] = {[0 ... 255] = {0, 0, 0, 0, 0}};
 
 static idt_ptr_t idt_ptr;
 
@@ -41,18 +41,15 @@ void idt_flush(void) {
     __idt_flush(VIRT_TO_PHYS(&idt_ptr));
 }
 
-void idt_set_gate(uint8_t num, uint32_t base, uint16_t cs_selector, uint8_t dpl) {
+void idt_set_gate(uint8_t num, uint32_t base, uint16_t cs_selector, uint8_t flags) {
+
     // points to the ISR that will handle the interrupt request
     idt[num].base_15_0 = base & 0xFFFF;
     idt[num].base_31_16 = (uint16_t) ((base >> 16) & 0xFFFF);
 
+    /* The segment or 'selector' that this IDT entry will use
+	 *  is set here, along with any access flags */
     idt[num].cs_selector_16 = cs_selector;
-//    idt[num].args_5 = 0;
     idt[num].always0_8 = (uint8_t) 0;
-
-//    idt[num].type = (istrap) ? STS_TG32 : STS_IG32;
-    idt[num].type_4 = STS_IG32;
-    idt[num].s_1 = 0;
-    idt[num].dpl_2 = dpl;
-    idt[num].p_1 = 1;
+    idt[num].flags = flags;
 }

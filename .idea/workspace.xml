@@ -30,8 +30,15 @@
     <list default="true" id="16bb27d8-3b9f-4e32-9cd9-fbe08a7a03f6" name="Default Changelist" comment="ble">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/arch/x86/kernel/idt.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/idt.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/asm/memlayout.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/memlayout.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/interrupt.S" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/interrupt.S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/irq.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/irq.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/isr.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/isr.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/asm/idt.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/idt.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/asm/isr.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/isr.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/asm/paging.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/paging.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/keyboard.c2" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/keyboard.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/timer.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/timer.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,11 +121,6 @@
     </option>
   </component>
   <component name="RunManager" selected="CMake Application.brunix.elf">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="bochs" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="bochs" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -167,11 +169,6 @@
     <configuration name="run-tests" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="run-tests" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <list>
@@ -305,6 +302,9 @@
       <workItem from="1626832566773" duration="3490000" />
       <workItem from="1627078327064" duration="9721000" />
       <workItem from="1627179321060" duration="5598000" />
+      <workItem from="1627766537670" duration="8629000" />
+      <workItem from="1627841735777" duration="3857000" />
+      <workItem from="1627943855593" duration="699000" />
     </task>
     <task id="LOCAL-00001" summary="ble">
       <created>1624501088514</created>

@@ -3,7 +3,7 @@
 .macro ISR_NOERRCODE arg1  # define a macro, taking one parameter
 	.globl isr\arg1        # %1 accesses the first parameter.
   isr\arg1:
-    cli                         # Disable interrupts firstly.
+    #cli                         # Disable interrupts firstly.
     pushl $0                    # Push a dummy error code.
     pushl $\arg1                # Push the interrupt number.
     jmp isr_common_stub         # Go to our common handler code.
@@ -13,7 +13,7 @@
 .macro ISR_ERRCODE arg1
   .globl isr\arg1
   isr\arg1:
-    cli                         # Disable interrupts.
+    #cli                         # Disable interrupts.
     pushl $\arg1                # Push the interrupt number.
     jmp isr_common_stub
 .endm
@@ -23,7 +23,7 @@
 .macro IRQ arg1 arg2
 	.globl irq\arg1
   irq\arg1:
-    cli
+    #cli
     pushl $0        # always push a dummy err code so that we can reuse the register_t struct
     pushl $\arg2
     jmp irq_common_stub
@@ -146,7 +146,7 @@ irq_common_stub:
 #    movw %ax, %gs
 
     pushl %esp
-    call isr_handler
+    call irq_handler
     addl $4, %esp
 
 #    popw %bx        # reload the original data segment descriptor
