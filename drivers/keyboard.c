@@ -6,6 +6,9 @@
 #include <brunix/kernel.h>
 
 
+#define KEYBOARD_IRQ 1
+
+
 //
 static char buf[1024];
 static int buf_len = -1; //FIXME si le pongo 0, se comporta muy extranio
@@ -101,7 +104,35 @@ static void kbd_callback(__attribute__((unused)) struct registers_t *regs) {
 void kbd_init(void) {
     printk("KEYB INIT\n");
     memset(buf, 0, 1024);
-//    buf[0] = '\0';
-//    buf_len = 0;
-    register_irq_handler(IRQ1, kbd_callback);
+    request_irq(KEYBOARD_IRQ, kbd_callback);
+
+//    request_irq(KEYBOARD_IRQ, keyboard_interrupt, 0, "keyboard");
+//    request_region(0x60,1,"kbd");
+//    request_region(0x64,1,"kbd");
 }
+
+//unsigned long kbd_init(unsigned long kmem_start)
+//{
+//    int i;
+//    struct kbd_struct kbd0;
+//    extern struct tty_driver console_driver;
+//
+//    kbd0.ledflagstate = kbd0.default_ledflagstate = KBD_DEFLEDS;
+//    kbd0.ledmode = LED_SHOW_FLAGS;
+//    kbd0.lockstate = KBD_DEFLOCK;
+//    kbd0.modeflags = KBD_DEFMODE;
+//    kbd0.kbdmode = VC_XLATE;
+//
+//    for (i = 0 ; i < MAX_NR_CONSOLES ; i++)
+//        kbd_table[i] = kbd0;
+//
+//    ttytab = console_driver.table;
+//
+//    bh_base[KEYBOARD_BH].routine = kbd_bh;
+//    request_irq(KEYBOARD_IRQ, keyboard_interrupt, 0, "keyboard");
+//    request_region(0x60,1,"kbd");
+//    request_region(0x64,1,"kbd");
+//    mark_bh(KEYBOARD_BH);
+//    enable_bh(KEYBOARD_BH);
+//    return kmem_start;
+//}

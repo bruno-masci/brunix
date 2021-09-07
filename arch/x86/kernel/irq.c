@@ -5,6 +5,7 @@
 #include <asm/segment.h>     // for __KERNEL_CS_SELECTOR.
 #include <brunix/console.h>
 #include <brunix/kernel.h>
+#include <brunix/errno.h>
 #include <stddef.h>
 
 
@@ -14,11 +15,7 @@
  * this to handle custom IRQ handlers for a given IRQ
  */
 //#pragma GCC diagnostic ignored "-Wpedantic"
-//static void* irq_routines[MAX_HANDLERS] = {[0 ... MAX_HANDLERS-1] = NULL };
-
-
-//#pragma GCC diagnostic ignored "-Wpedantic"
-//static isr_t irq_handlers[256];//TODO revisar = {[0 ... 255] = {0, 0, 0, 0, 0, 0}};
+static isr_t irq_handlers[IRQS_COUNT] = {[0 ... IRQS_COUNT-1] = NULL };
 
 
 
@@ -28,9 +25,47 @@ void irq_handler(struct registers_t *regs);
 void pic_init(void);
 
 
-void register_irq_handler(uint8_t n, isr_t handler) {
-    printk("Registering IRQ handler number %d (%d), handler %x!...\n", n - 32, n, handler);
-    register_interrupt_handler(n, handler);
+int request_irq(uint8_t irq_nr, isr_t handler) {
+    if (irq_nr < 0 || irq_nr >= IRQS_COUNT)
+        return -EINVAL;
+
+    if (irq_handlers[irq_nr])
+        return -EBUSY;
+
+    if (!handler)
+        return -EINVAL;
+
+    printk("Registering IRQ%d handler...\n", irq_nr);
+//    save_flags(flags);
+//    cli();
+    irq_handlers[irq_nr] = handler;
+
+    if (irq_nr==0) {
+        /// This bit shall be set to 0 if the IDT slot is empty
+        #define IDT_FLAG_PRESENT 	0x80
+        /// Interrupt can be called from within RING0
+        #define IDT_FLAG_RING0		0x00
+        /// Interrupt can be called from within RING1 and lower
+        #define IDT_FLAG_RING1		0x20
+        /// Interrupt can be called from within RING2 and lower
+        #define IDT_FLAG_RING2		0x40
+        /// Interrupt can be called from within RING3 and lower
+        #define IDT_FLAG_RING3		0x60
+        /// Size of gate is 16 bit
+        #define IDT_FLAG_16BIT		0x00
+        /// Size of gate is 32 bit
+        #define IDT_FLAG_32BIT		0x08
+        /// The entry describes an interrupt gate
+        #define IDT_FLAG_INTTRAP	0x06
+        /// The entry describes a trap gate
+        #define IDT_FLAG_TRAPGATE	0x07
+        /// The entry describes a task gate
+        #define IDT_FLAG_TASKGATE	0x05
+        idt_set_gate(IRQ0, (uint32_t) irq0, __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
+    }
+//    set_intr_gate(0x20+irq,fast_interrupt[irq]);
+//    restore_flags(flags);
+    return 0;
 }
 
 // http://wiki.osdev.org/PIC
@@ -85,7 +120,7 @@ void irq_install(void) {
 #define IDT_FLAG_TRAPGATE	0x07
 /// The entry describes a task gate
 #define IDT_FLAG_TASKGATE	0x05
-    idt_set_gate(IRQ0, (uint32_t) irq0, __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
+//    idt_set_gate(IRQ0, (uint32_t) irq0, __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
     idt_set_gate(IRQ1, (uint32_t) irq1, __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
     idt_set_gate(IRQ2, (uint32_t) irq2, __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
     idt_set_gate(IRQ3, (uint32_t) irq3, __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
@@ -104,7 +139,7 @@ void irq_install(void) {
 }
 
 void pic_acknowledge(uint32_t int_no) {
-    if (int_no >= 40) {
+    if (int_no >= 8) {
         //printk("Resetting slave!", 0);
         outb (PIC2_COMMAND, PIC_EOI); /* Send reset signal to slave */
     }
@@ -116,26 +151,28 @@ void pic_acknowledge(uint32_t int_no) {
 }
 
 
-extern isr_t interrupt_handlers[256];
+//extern isr_t interrupt_handlers[256];
 
 
 /* Called from our ASM interrupt handler stub */
 void irq_handler(struct registers_t *regs) {
-    if (regs->int_no == 16)//FIXME
-        return;
+    uint32_t irq_nr = regs->int_no - 0x20;
 
-    if (regs->int_no != 32 && regs->int_no != 33) {
-        printk("Calling irq_handler() for IRQ %d (int %d)!\n", (regs->int_no - 32), regs->int_no);
+//    if (irq_nr == 16)//FIXME
+//        return;
+
+    if (irq_nr != 0 && irq_nr != 1) {
+        printk("Calling irq_handler() for IRQ %d (int %d)!\n", irq_nr, irq_nr + 0x20);
     }
 
     /* Send an EOI (end of interrupt) signal to the PICs. */
-    pic_acknowledge(regs->int_no);
+    pic_acknowledge(irq_nr);
 
-    if (interrupt_handlers[regs->int_no] != 0) {
-        isr_t handler = interrupt_handlers[regs->int_no];
+    if (irq_handlers[irq_nr] != 0) {
+        isr_t handler = irq_handlers[irq_nr];
         handler(regs);
     } else
-        printk("FAILED HANDLING INT %d\n", regs->int_no);
+        printk("FAILED HANDLING IRQ %d\n", irq_nr);
 }
 
 void irq_init(void) {

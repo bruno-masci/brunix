@@ -39,7 +39,7 @@
 
 #include <stdint.h>     // for uint8_t, uint16_t, uint32_t
 
-#define GDT_ENTRIES	5   // = 4 + 1
+#define GDT_ENTRIES	3   // = 2 + 1
 
 #define GDT_SEGMENT_LIMIT	0xFFFFFFFF
 

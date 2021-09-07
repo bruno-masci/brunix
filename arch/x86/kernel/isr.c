@@ -124,6 +124,4 @@ void isr_install(void) {
 
 for (int i=0;i<32;i++)
     register_interrupt_handler(i, &dividebyzero);
-//    register_interrupt_handler(1, &timerrrrrr);
-//    register_interrupt_handler(2, &dividebyzero);
 }

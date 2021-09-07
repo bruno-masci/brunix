@@ -24,7 +24,7 @@ set(CMAKE_C_FLAGS "-D__KERNEL__ -O0 -ffreestanding -c -g -gstabs -fno-omit-frame
 #########################################################################
 # Source files and other input files
 #########################################################################
-file(GLOB_RECURSE   C_SRCS                          "kernel/*.c" "arch/x86/kernel/*.c" "libkern/*.c")
+file(GLOB_RECURSE   C_SRCS                          "kernel/*.c" "arch/x86/kernel/*.c" "drivers/*.c" "libkern/*.c")
 file(GLOB_RECURSE   ASM_SRCS                        "kernel/*.S" "arch/x86/kernel/*.S")
 
 file(GLOB           UNPROCESSED_LINKER_SCRIPT       "linker.ld.pp")

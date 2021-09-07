@@ -20,6 +20,7 @@
 #include <asm/memlayout.h>
 #include <asm/mmu.h>
 #include <asm/segment.h>
+#include <brunix/linkage.h>
 
 
 // Hand-made stab for the stack backtrace (see /kernel/kdebug.c)
@@ -110,7 +111,7 @@ early_paging_ready:
                                         # languages such as C cannot function without a stack.
 
 
-    lgdt    (gdtdesc)
+    lgdt    (gdt_descr)
 
     call setup_all_segments_but_CS
 
@@ -118,6 +119,12 @@ early_paging_ready:
     ljmp $__KERNEL_CS_SELECTOR, $1f
 
 1:
+
+
+
+#TODO set IDT here??
+
+
 
     # Set up start_kernel()'s arguments
     pushl $bootstrap_stack_top                          # Bootstrap stack top
@@ -146,7 +153,7 @@ early_paging_ready:
 
 
 
-# We don't use %eax/%ax in order to preserve the value stored on %eax by the bootloader; we use %esi/%si as an alternative, instead.
+# We don't use %eax/%ax in order to preserve the value stored on %eax by the bootloader; we use %esi/%si instead.
 
 /* Identity-map the kernel in low 4MB memory for ease of transition */
 
@@ -163,6 +170,7 @@ setup_early_paging:
     orl     $(MMU_CR0_PG | MMU_CR0_WP), %esi
     movl    %esi, %cr0
     jmp early_paging_ready
+#    ret			/* this also flushes the prefetch-queue */  TAKEN FROM LINUX
 
 //pushl $(VIRT_TO_PHYS_WO(entrypgdir))
 //call __load_page_directory
@@ -197,18 +205,17 @@ setup_all_segments_but_CS:
     movw %si, %gs
     ret
 
-//        push $(gdtdesc-KERN_BASE)
+//        push $(gdt_descr-KERN_BASE)
 //        call gdt_flush
 //call gdt_init
 
 
-# Bootstrap GDT
-.align 4
-gdt_x:
-SEG_NULL				# null seg
-SEG(STA_X|STA_R, 0x0, 0xffffffff)	# code seg
-SEG(STA_W, 0x0, 0xffffffff)	        # data seg
+# GDT setup
+gdt_descr:
+.word (GDT_ENTRIES * 8 - 1)
+.long   gdt                            # address gdt
 
-gdtdesc:
-.word   0x17                            # sizeof(gdt) - 1
-.long   (gdt_x)                            # address gdt
+gdt:
+GDT_NULL_ENTRY				# null seg
+GDT_ENTRY(STA_X|STA_R, 0x0, 0xffffffff)     /* kernel 4GB code at 0x00000000 */
+GDT_ENTRY(STA_W, 0x0, 0xffffffff)           /* kernel 4GB data at 0x00000000 */

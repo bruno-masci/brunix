@@ -4,6 +4,8 @@
 #include <asm/isr.h>
 
 
+#define IRQS_COUNT 16
+
 /* A few defines to make life a little easier */
 #define IRQ0  32
 #define IRQ1  33
@@ -56,7 +58,7 @@ void irq15(void);
 
 void irq_init(void);
 
-void register_irq_handler(uint8_t n, isr_t handler);
+int request_irq(uint8_t irq_nr, isr_t handler);
 
 
 #endif /* #define __ARCH_IRQ_H__ */

@@ -21,10 +21,10 @@
 /*
  * Macros to build GDT entries in assembly.
  */
-#define SEG_NULL						\
+#define GDT_NULL_ENTRY						\
 	.word 0, 0;						\
 	.byte 0, 0, 0, 0
-#define SEG(type,base,lim)					\
+#define GDT_ENTRY(type,base,lim)					\
 	.word (((lim) >> 12) & 0xffff), ((base) & 0xffff);	\
 	.byte (((base) >> 16) & 0xff), (0x90 | (type)),		\
 		(0xC0 | (((lim) >> 28) & 0xf)), (((base) >> 24) & 0xff)
@@ -86,6 +86,8 @@
 #define PTE_ADDR(pte)   ((uint32_t)((uint32_t)(pte)) & ((uint32_t)~0xFFF))
 
 
+#define GDT_ENTRIES	3   // = 2 + 1
+
 
 // various segment selectors.
 #define SEG_KCODE 1  // kernel code
@@ -93,6 +95,3 @@
 #define SEG_UCODE 3  // user code
 #define SEG_UDATA 4  // user data+stack
 #define SEG_TSS   5  // this process's task state
-
-//*pde=
-//10010000001111111101

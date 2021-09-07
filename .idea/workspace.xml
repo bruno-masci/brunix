@@ -23,22 +23,29 @@
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
     <configurations>
-      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" ENABLED="true" />
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
     </configurations>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="16bb27d8-3b9f-4e32-9cd9-fbe08a7a03f6" name="Default Changelist" comment="ble">
+      <change afterPath="$PROJECT_DIR$/include/asm/linkage.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/include/brunix/errno.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/include/brunix/interrupt.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/include/brunix/linkage.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/idt.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/idt.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/interrupt.S" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/interrupt.S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/gdt.c1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/gdt.c2" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/arch/x86/kernel/irq.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/irq.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/arch/x86/kernel/isr.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/isr.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/asm/idt.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/idt.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/asm/isr.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/isr.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/asm/paging.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/paging.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/keyboard.c2" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/keyboard.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/multiboot_entry_point.S" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/multiboot_entry_point.S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/asm/gdt.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/gdt.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/asm/irq.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/irq.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/asm/mmu.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/mmu.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/keyboard.c" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/keyboard.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/timer.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/timer.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/vm.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/vm.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/vm.c2" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/vm.c2" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,11 +115,11 @@
       <recent name="$PROJECT_DIR$/arch/x86/kernel" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/drivers" />
       <recent name="$PROJECT_DIR$/include/brunix" />
       <recent name="$PROJECT_DIR$/arch/x86/kernel" />
       <recent name="$PROJECT_DIR$/arch/x86" />
       <recent name="$PROJECT_DIR$/include/asm" />
-      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -121,6 +128,11 @@
     </option>
   </component>
   <component name="RunManager" selected="CMake Application.brunix.elf">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="bochs" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="bochs" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -304,7 +316,18 @@
       <workItem from="1627179321060" duration="5598000" />
       <workItem from="1627766537670" duration="8629000" />
       <workItem from="1627841735777" duration="3857000" />
-      <workItem from="1627943855593" duration="699000" />
+      <workItem from="1627943855593" duration="3117000" />
+      <workItem from="1628030184050" duration="6006000" />
+      <workItem from="1628119979333" duration="4332000" />
+      <workItem from="1628298051289" duration="925000" />
+      <workItem from="1628299126947" duration="1949000" />
+      <workItem from="1629152400616" duration="4205000" />
+      <workItem from="1629170848738" duration="722000" />
+      <workItem from="1629243832876" duration="1372000" />
+      <workItem from="1629510699295" duration="1869000" />
+      <workItem from="1629762572435" duration="1815000" />
+      <workItem from="1629847264884" duration="2591000" />
+      <workItem from="1631055525325" duration="5000" />
     </task>
     <task id="LOCAL-00001" summary="ble">
       <created>1624501088514</created>
@@ -390,7 +413,14 @@
       <option name="project" value="LOCAL" />
       <updated>1626832784405</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="ble">
+      <created>1627944691335</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1627944691335</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
