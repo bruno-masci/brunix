@@ -49,7 +49,15 @@ void isr0x80(void);
  */
 struct registers_t
 {
-    uint32_t edi, esi, ebp, esp, ebx, edx, ecx, eax;    /*!< Pushed by pusha */
+    // registers as pushed by pusha
+    uint32_t edi;
+    uint32_t esi;
+    uint32_t ebp;
+    uint32_t oesp;  // useless & ignored
+    uint32_t ebx;
+    uint32_t edx;
+    uint32_t ecx;
+    uint32_t eax;
 
     // rest of trap frame
     uint16_t gs;
@@ -60,11 +68,18 @@ struct registers_t
     uint16_t padding3;
     uint16_t ds;
     uint16_t padding4;
+    uint32_t int_no;
 
-    uint32_t int_no, err_code;                          /*!< Interrupt number and error code (if applicable) */
-    uint32_t eip, cs;
+    // below here defined by x86 hardware
+    uint32_t err_code;                          /* error code (if applicable) */
+    uint32_t eip;
+    uint32_t cs;
     uint16_t padding5;
-    uint32_t eflags, useresp, ss;              /*!< Pushed by the processor automatically */
+    uint32_t eflags;
+
+    // below here only when crossing rings, such as from user to kernel
+    uint32_t useresp;              /*!< Pushed by the processor automatically */
+    uint32_t ss;              /*!< Pushed by the processor automatically */
     uint16_t padding6;
 };
 

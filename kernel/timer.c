@@ -45,7 +45,7 @@ static void timer_callback(__attribute__((unused)) struct registers_t *regs) {
     timer_ticks++;
     //TODO switch_task ();
 //    printk("Timer interrupt: 0x%x (error code: %d)\n", regs->int_no, regs->err_code);
-//    printk("CS: 0x%x; EIP: 0x%x; EFLAGS = %b", regs->cs, regs->eip, regs->eflags);
+//    printk("CS: 0x%x; EIP: 0x%x; EFLAGS = %b; DS: 0x%x; EAX: 0x%x; USS: 0x%x \n", regs->cs, regs->eip, regs->eflags, regs->ds, regs->eax, regs->useresp);
 }
 
 /*

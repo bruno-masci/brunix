@@ -27,25 +27,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="16bb27d8-3b9f-4e32-9cd9-fbe08a7a03f6" name="Default Changelist" comment="ble">
-      <change afterPath="$PROJECT_DIR$/include/asm/linkage.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/include/brunix/errno.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/include/brunix/interrupt.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/include/brunix/linkage.h" afterDir="false" />
+    <list default="true" id="16bb27d8-3b9f-4e32-9cd9-fbe08a7a03f6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/gdt.c1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/gdt.c2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/irq.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/irq.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/isr.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/isr.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/multiboot_entry_point.S" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/multiboot_entry_point.S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/asm/gdt.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/gdt.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/asm/irq.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/irq.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/asm/mmu.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/mmu.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/keyboard.c" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/keyboard.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/asm/isr.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/isr.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/timer.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/timer.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/vm.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/vm.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/vm.c2" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/vm.c2" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,11 +113,6 @@
     </option>
   </component>
   <component name="RunManager" selected="CMake Application.brunix.elf">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="bochs" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="bochs" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -181,6 +161,11 @@
     <configuration name="run-tests" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="run-tests" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <list>
@@ -327,7 +312,8 @@
       <workItem from="1629510699295" duration="1869000" />
       <workItem from="1629762572435" duration="1815000" />
       <workItem from="1629847264884" duration="2591000" />
-      <workItem from="1631055525325" duration="5000" />
+      <workItem from="1631055525325" duration="2649000" />
+      <workItem from="1631239498799" duration="11000" />
     </task>
     <task id="LOCAL-00001" summary="ble">
       <created>1624501088514</created>
@@ -420,7 +406,14 @@
       <option name="project" value="LOCAL" />
       <updated>1627944691335</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="ble">
+      <created>1631055879817</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1631055879817</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
