@@ -4,16 +4,13 @@
 // Rewritten for JamesM's kernel development tutorials.
 //
 
-#include <asm/isr.h>
-//#include <asm/io.h>
-#include <brunix/console.h>
-#include <asm/idt.h>
-//#include <brunix/stdio.h>
+#include "idt.h"
+
 #include <asm/isr.h>
 #include <asm/segment.h>     // for __KERNEL_CS_SELECTOR.
+
 #include <brunix/console.h>
 #include <brunix/kernel.h>
-#include <asm/idt.h>
 
 
 /*PRIVATE*/ void dividebyzero(__attribute__((unused)) struct registers_t *regs);
@@ -64,27 +61,6 @@ void isr_handler(struct registers_t *regs) {
 
 
 void isr_install(void) {
-    /// This bit shall be set to 0 if the IDT slot is empty
-#define IDT_FLAG_PRESENT 	0x80
-/// Interrupt can be called from within RING0
-#define IDT_FLAG_RING0		0x00
-/// Interrupt can be called from within RING1 and lower
-#define IDT_FLAG_RING1		0x20
-/// Interrupt can be called from within RING2 and lower
-#define IDT_FLAG_RING2		0x40
-/// Interrupt can be called from within RING3 and lower
-#define IDT_FLAG_RING3		0x60
-/// Size of gate is 16 bit
-#define IDT_FLAG_16BIT		0x00
-/// Size of gate is 32 bit
-#define IDT_FLAG_32BIT		0x08
-/// The entry describes an interrupt gate
-#define IDT_FLAG_INTTRAP	0x06
-/// The entry describes a trap gate
-#define IDT_FLAG_TRAPGATE	0x07
-/// The entry describes a task gate
-#define IDT_FLAG_TASKGATE	0x05
-
     /* exceptions */
     idt_set_gate( 0, (uint32_t)isr0 , __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
     idt_set_gate( 1, (uint32_t)isr1 , __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);

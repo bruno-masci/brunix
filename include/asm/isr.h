@@ -2,7 +2,6 @@
 #define __ARCH_ISR_H__
 
 #include <stdint.h>
-//#include <stddef.h>
 
 
 // These extern directives let us access the addresses of our ASM ISR handlers.

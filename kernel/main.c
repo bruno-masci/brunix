@@ -30,7 +30,7 @@
 #include <asm/mmu.h>
 #include <asm/page.h>   //TODO
 #include <asm/paging.h>   //TODO
-#include <asm/idt.h>
+#include "../arch/x86/kernel/idt.h"
 
 /*
  * Note that linker symbols are not variables; they have no memory allocated
@@ -43,7 +43,6 @@ IMPORT const char kernel_start[];
 IMPORT const char kernel_end[];
 
 extern void kbd_init(void);
-extern void idt_flush(void);
 extern void kvmalloc(void);
 
 extern void kmalloc_init(const void *vstart, const void *vend);

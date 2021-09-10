@@ -1,5 +1,5 @@
 #include <asm/irq.h>
-#include <asm/idt.h>
+#include "idt.h"
 #include <asm/isr.h>
 #include <asm/io.h>
 #include <asm/segment.h>     // for __KERNEL_CS_SELECTOR.
