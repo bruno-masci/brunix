@@ -13,7 +13,7 @@
 #include <brunix/kernel.h>
 
 
-/*PRIVATE*/ void dividebyzero(__attribute__((unused)) struct registers_t *regs);
+/*PRIVATE*/ void dividebyzero(__attribute__((unused)) struct trapframe *regs);
 
 extern void pic_acknowledge(uint32_t int_no); //TODO revisar
 
@@ -29,33 +29,33 @@ void register_interrupt_handler(uint8_t n, isr_t handler) {
 }
 
 // This gets called from our ASM interrupt handler stub.
-void isr_handler(struct registers_t *regs) {
+void isr_handler(struct trapframe *regs) {
     /* This line is important. When the processor extends the 8-bit interrupt number
      * to a 32bit value, it sign-extends, not zero extends. So if the most significant
      * bit (0x80) is set, regs.int_no will be very large (about 0xFFFFFF80).
      */
-    uint8_t int_no = regs->int_no & 0xFF;
+    uint8_t int_no = regs->trap_no & 0xFF;
     printk("Calling isr_handler() for INT number (code %d eip %p) 0x%x!\n", regs->err_code, regs->eip, int_no);
 
     if (interrupt_handlers[int_no] != 0) {
         printk("entre\n\n");
-        if (regs->int_no >= 32 && regs->int_no <= 40) {
-            pic_acknowledge(regs->int_no);
+        if (regs->trap_no >= 32 && regs->trap_no <= 40) {
+            pic_acknowledge(regs->trap_no);
         }
         isr_t handler = interrupt_handlers[int_no];
         handler(regs);
     }
     else {
-        printk("*** Unhandled interrupt: 0x%x (error code: %d)\n", regs->int_no, regs->err_code);
+        printk("*** Unhandled interrupt: 0x%x (error code: %d)\n", regs->trap_no, regs->err_code);
         printk("CS: 0x%x; EIP: 0x%x; EFLAGS = %b", regs->cs, regs->eip, regs->eflags);
     }
 }
 #include <asm/io.h>
-/*PRIVATE*/ void dividebyzero(__attribute__((unused)) struct registers_t *regs) {
+/*PRIVATE*/ void dividebyzero(__attribute__((unused)) struct trapframe *regs) {
     printk("Processor exception: divide by zero!\n");
 //    asm volatile("sti");
 
-    if (regs->int_no!=16)
+    if (regs->trap_no != 16)
         outb(0x20, 0x20);
 }
 

@@ -41,7 +41,7 @@ void wait_some_time(void) {
     sleep(100000000);
 }
 
-static void timer_callback(__attribute__((unused)) struct registers_t *regs) {
+static void timer_callback(__attribute__((unused)) struct trapframe *regs) {
     timer_ticks++;
     //TODO switch_task ();
 //    printk("Timer interrupt: 0x%x (error code: %d)\n", regs->int_no, regs->err_code);

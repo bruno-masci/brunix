@@ -117,7 +117,7 @@ early_paging_ready:
 
     // Load the kernel text segment into CS with a long jump.
     ljmp $__KERNEL_CS_SELECTOR, $1f
-
+//TODO otras formas de ljmp:   ljmpl    $(SEG_KCODE<<3), $(start32)    o    mov $main, %eax; jmp *%eax
 1:
 
 
@@ -213,9 +213,11 @@ setup_all_segments_but_CS:
 # GDT setup
 gdt_descr:
 .word (GDT_ENTRIES * 8 - 1)
-.long   gdt                            # address gdt
+.long   gdt                            # GDT address
 
 gdt:
 GDT_NULL_ENTRY				# null seg
 GDT_ENTRY(STA_X|STA_R, 0x0, 0xffffffff)     /* kernel 4GB code at 0x00000000 */
 GDT_ENTRY(STA_W, 0x0, 0xffffffff)           /* kernel 4GB data at 0x00000000 */
+//TODO y lo mismo con DPL_USER
+// y TSS?

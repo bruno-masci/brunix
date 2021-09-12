@@ -6,12 +6,12 @@
 #include <brunix/string.h>
 
 
-#define IDT_TOTAL_ENTRIES 256
+#define NR_VECTORS 256
 
 
 //#pragma GCC diagnostic ignored "-Wpedantic"
 __attribute__((__aligned__(4)))
-static idt_entry_t idt[IDT_TOTAL_ENTRIES];
+static idt_entry_t idt_table[NR_VECTORS];
 
 static idt_ptr_t idt_ptr;
 
@@ -22,11 +22,11 @@ static void idt_flush(phys_addr_t idt_ptr) {
 }
 
 idt_ptr_t init_idt(void) {
-    idt_ptr.limit = (sizeof(idt_entry_t) * IDT_TOTAL_ENTRIES) - 1;
-    idt_ptr.base = (uint32_t) idt;
+    idt_ptr.limit = (sizeof(idt_entry_t) * NR_VECTORS) - 1;
+    idt_ptr.base = (uint32_t) idt_table;
 
     /* Clear out the entire IDT, initializing it to zeros */
-    memset((void *) idt, 0, sizeof(idt_entry_t) * IDT_TOTAL_ENTRIES);
+    memset((void *) idt_table, 0, sizeof(idt_entry_t) * NR_VECTORS);
 
     idt_flush((phys_addr_t) &idt_ptr);
 
@@ -35,12 +35,12 @@ idt_ptr_t init_idt(void) {
 
 void idt_set_gate(uint8_t num, uint32_t base, uint16_t cs_selector, uint8_t flags) {
     // points to the ISR that will handle the interrupt request
-    idt[num].base_15_0 = base & 0xFFFF;
-    idt[num].base_31_16 = (uint16_t) ((base >> 16) & 0xFFFF);
+    idt_table[num].base_15_0 = base & 0xFFFF;
+    idt_table[num].base_31_16 = (uint16_t) ((base >> 16) & 0xFFFF);
 
     /* The segment or 'selector' that this IDT entry will use
 	 *  is set here, along with any access flags */
-    idt[num].cs_selector_16 = cs_selector;
-    idt[num].always0_8 = (uint8_t) 0;
-    idt[num].flags = flags;
+    idt_table[num].cs_selector_16 = cs_selector;
+    idt_table[num].always0_8 = (uint8_t) 0;
+    idt_table[num].flags = flags;
 }

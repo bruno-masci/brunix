@@ -32,6 +32,9 @@ void uart_init(void) {
 
     config_baud_rate();
     config_line();
+
+    //TODO ver esto   ioapicenable(IRQ_COM1, 0);
+    // por qué funciona SIN interrupts?
 }
 
 //TODO validar si esto se usa!

@@ -61,7 +61,7 @@ void handle_command(char *s) {
     printk("HOLIS - %s-\n", s);
 }
 
-static void kbd_callback(__attribute__((unused)) struct registers_t *regs) {
+static void kbd_callback(__attribute__((unused)) struct trapframe *regs) {
     unsigned char scancode;
 
     /* Read from the keyboard's data buffer */

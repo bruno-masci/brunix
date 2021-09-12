@@ -1,12 +1,15 @@
 // This file contains definitions for the
 // x86 memory management unit (MMU).
 
+
+//#define PAGE_SIZE          4096    // bytes mapped by a page      REDEFINED TODO
+
+
 #ifndef __ASSEMBLER__
 #include <stdint.h>     // for uint32_t
 #include <stdbool.h>     // for bool
 #endif
 
-//#define PAGE_SIZE          4096    // bytes mapped by a page      REDEFINED TODO
 
 #ifdef __ASSEMBLER__
 

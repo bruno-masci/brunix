@@ -46,7 +46,9 @@ void isr0x80(void);
  * \struct registers_t
  * \brief Structure describing registers used by the ISR handler.
  */
-struct registers_t
+// Layout of the trap frame built on the stack by the
+// hardware and by trapasm.S, and passed to trap().
+struct trapframe
 {
     // registers as pushed by pusha
     uint32_t edi;
@@ -67,7 +69,7 @@ struct registers_t
     uint16_t padding3;
     uint16_t ds;
     uint16_t padding4;
-    uint32_t int_no;
+    uint32_t trap_no;
 
     // below here defined by x86 hardware
     uint32_t err_code;                          /* error code (if applicable) */
@@ -82,13 +84,13 @@ struct registers_t
     uint16_t padding6;
 };
 
-typedef void (*isr_t)(struct registers_t *);
+typedef void (*isr_t)(struct trapframe *);
 
 void register_interrupt_handler(uint8_t n, isr_t handler);
 
 void isr_install(void);
 
-void isr_handler(struct registers_t *regs);
+void isr_handler(struct trapframe *regs);
 
 
 #endif /* #define __ARCH_ISR_H__ */

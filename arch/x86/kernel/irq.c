@@ -21,7 +21,7 @@ static isr_t irq_handlers[IRQS_COUNT] = {[0 ... IRQS_COUNT-1] = NULL };
 
 void irq_install(void);
 void pic_acknowledge(uint32_t int_no);
-void irq_handler(struct registers_t *regs);
+void irq_handler(struct trapframe *regs);
 void pic_init(void);
 
 
@@ -155,8 +155,8 @@ void pic_acknowledge(uint32_t int_no) {
 
 
 /* Called from our ASM interrupt handler stub */
-void irq_handler(struct registers_t *regs) {
-    uint32_t irq_nr = regs->int_no - 0x20;
+void irq_handler(struct trapframe *regs) {
+    uint32_t irq_nr = regs->trap_no - 0x20;
 
 //    if (irq_nr == 16)//FIXME
 //        return;
