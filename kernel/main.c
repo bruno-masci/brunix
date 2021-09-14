@@ -133,7 +133,7 @@ int start_kernel(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint
 
 
     printk("Keyboard...");
-    kbd_init();
+//    kbd_init();
 
 
 //

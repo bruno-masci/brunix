@@ -33,7 +33,7 @@ idt_ptr_t init_idt(void) {
     return idt_ptr;
 }
 
-void idt_set_gate(uint8_t num, uint32_t base, uint16_t cs_selector, uint8_t flags) {
+void idt_set_gate(uint8_t num, uint8_t type, uint32_t base, uint16_t cs_selector, uint8_t dpl, uint8_t flags) {
     // points to the ISR that will handle the interrupt request
     idt_table[num].base_15_0 = base & 0xFFFF;
     idt_table[num].base_31_16 = (uint16_t) ((base >> 16) & 0xFFFF);
@@ -42,5 +42,5 @@ void idt_set_gate(uint8_t num, uint32_t base, uint16_t cs_selector, uint8_t flag
 	 *  is set here, along with any access flags */
     idt_table[num].cs_selector_16 = cs_selector;
     idt_table[num].always0_8 = (uint8_t) 0;
-    idt_table[num].flags = flags;
+    idt_table[num].flags = flags | type | dpl | IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP;
 }

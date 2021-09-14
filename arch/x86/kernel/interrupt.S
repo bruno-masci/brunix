@@ -24,7 +24,7 @@
 	.globl irq\arg1
   irq\arg1:
     #cli
-    pushl $0        # always push a dummy err code so that we can reuse the register_t struct
+    pushl $0        # always push a dummy err code so that we can reuse the trapframe struct
     pushl $\arg2
     jmp irq_common_stub
 .endm
@@ -81,36 +81,29 @@ IRQ  13,    45
 IRQ  14,    46
 IRQ  15,    47
 
-.extern isr_handler
+.extern trap_handler
 
 # This is our common ISR stub. It saves the processor state, sets
 # up for kernel mode segments, calls the C-level fault handler,
 # and finally restores the stack frame.
 isr_common_stub:
-      pushl %ds
-      pushl %es
-      pushl %fs
-      pushl %gs
-    pushal                    # Pushes edi,esi,ebp,esp,ebx,edx,ecx,eax (see struct registers_t)
+    // build trap frame
+    pushl %ds
+    pushl %es
+    pushl %fs
+    pushl %gs
+    pushal                    # Pushes edi,esi,ebp,esp,ebx,edx,ecx,eax (see struct trapframe)
 
-#    movw %ds, %ax                # Lower 16-bits of eax = ds.
-#    pushw %ax                 # save the data segment descriptor
-
+  # Set up data segments.
     movw $__KERNEL_DS_SELECTOR, %ax  # load the kernel data segment descriptor
     movw %ax, %ds
     movw %ax, %es
-#    movw %ax, %fs
-#    movw %ax, %gs
+// TODO fs y gs??
 
+  # Call trap_handler(tf), where tf=%esp
     pushl %esp
-    call isr_handler
+    call trap_handler
     addl $4, %esp
-
-#    popw %bx        # reload the original data segment descriptor
-#    mov %bx, %ds
-#    mov %bx, %es
-#    mov %bx, %fs
-#    mov %bx, %gs
 
     # Return falls through to trapret...
 .globl trapret
