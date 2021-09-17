@@ -4,13 +4,17 @@
 #include <asm/irq.h>
 #include <asm/io.h>
 #include <brunix/kernel.h>
-
+#include <brunix/string.h>          // for memset
 
 #define KEYBOARD_IRQ 1
 
 
+void kbd_init(void);
+void handle_command(unsigned char *s);
+
+
 //
-static char buf[1024];
+static unsigned char buf[1024];
 static int buf_len = -1; //FIXME si le pongo 0, se comporta muy extranio
 
 /* KBDUS means US Keyboard Layout. This is a scancode table
@@ -57,7 +61,7 @@ static unsigned char kbd_US[128] = {
         0,	/* All other keys are undefined */
 };
 
-void handle_command(char *s) {
+void handle_command(unsigned char *s) {
     printk("HOLIS - %s-\n", s);
 }
 
@@ -85,7 +89,7 @@ static void kbd_callback(__attribute__((unused)) struct trapframe *regs) {
         *  to the above layout to correspond to 'shift' being
         *  held. If shift is held using the larger lookup table,
         *  you would add 128 to the scancode when you look for it */
-        char character = kbd_US[scancode];
+        unsigned char character = kbd_US[scancode];
         printk("%c", character);
         if (character == '\n') {
             buf_len = buf_len == -1 ? 0 : buf_len;//FIXME ver arriba

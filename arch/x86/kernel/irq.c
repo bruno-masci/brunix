@@ -22,10 +22,11 @@ static isr_t irq_handlers[IRQS_COUNT] = {[0 ... IRQS_COUNT-1] = NULL };
 void pic_acknowledge(uint32_t int_no);
 void irq_handler(struct trapframe *regs);
 void pic_init(void);
+extern void set_intr_gate(unsigned int n, uint32_t addr);
 
 
 int request_irq(uint8_t irq_nr, isr_t handler) {
-    if (irq_nr < 0 || irq_nr >= IRQS_COUNT || !handler)
+    if (irq_nr >= IRQS_COUNT || !handler)
         return -EINVAL;
 
     if (irq_handlers[irq_nr])

@@ -16,8 +16,13 @@ static idt_entry_t idt_table[NR_VECTORS];
 static idt_ptr_t idt_ptr;
 
 
-static void idt_flush(phys_addr_t idt_ptr) {
-    phys_addr_t p = VIRT_TO_PHYS(idt_ptr);
+idt_ptr_t init_idt(void);
+void idt_set_gate(uint8_t num, uint8_t type, uint32_t base, uint16_t cs_selector, uint8_t dpl, uint8_t flags);
+
+
+
+static void idt_flush(phys_addr_t idt_ptr_pa) {
+    phys_addr_t p = VIRT_TO_PHYS(idt_ptr_pa);
     lidt(p);
 }
 

@@ -13,6 +13,14 @@
 #include <brunix/kernel.h>
 
 
+
+extern idt_ptr_t init_idt(void);
+extern void pic_init(void);
+extern void idt_set_gate(uint8_t num, uint8_t type, uint32_t base, uint16_t cs_selector, uint8_t dpl, uint8_t flags);
+void traps_init(void);
+void set_intr_gate(unsigned int n, uint32_t addr);
+
+
 /*PRIVATE*/ void dividebyzero(__attribute__((unused)) struct trapframe *regs);
 
 extern void pic_acknowledge(uint32_t int_no); //TODO revisar
@@ -87,7 +95,7 @@ void set_intr_gate(unsigned int n, uint32_t addr)
 {
 //    BUG_ON((unsigned)n > 0xFF);
 //    _set_gate(n, GATE_INTERRUPT, addr, 0, 0, __KERNEL_CS);
-    idt_set_gate( n, GATE_INTERRUPT, addr, __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
+idt_set_gate( (uint8_t )n, GATE_INTERRUPT, addr, __KERNEL_CS_SELECTOR, IDT_FLAG_RING0, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
 }
 
 //GATE_INTERRUPT
@@ -160,7 +168,7 @@ void isr_install(void) {
     /* syscalls */
 //    idt_set_gate(0x80, (uint32_t)isr0x80, 0x08, 0x8E);
 
-for (int i=0;i<1;i++)
+for (uint8_t i=0;i<1;i++)
     register_interrupt_handler(i, &dividebyzero);
 }
 
