@@ -10,27 +10,17 @@
 
 #include <brunix/defs.h>            // for PRIVATE, IMPORT, INIT_FUNC, MAX_STR_SIZE?, roundup_binary()
 #include <brunix/string.h>
-#include <brunix/console.h>
 #include <brunix/kernel.h>
 #include <brunix/kdebug.h>
-#include <asm/gdt.h>
 
 #include <asm/multiboot.h>     // for struct std_multiboot_info, struct multiboot_info
 
 #include <asm/memlayout.h>     // for VIRT_TO_PHYS_WO
 
-#include <asm/irq.h>   //TODO
+#include <asm/mmu.h>
+#include <asm/page.h>
 #include <asm/timer.h>   //TODO
 #include <asm/paging.h>   //TODO
-//#include <asm/irq.h>
-
-//#include "brunix/kmalloc.h"
-
-///
-#include <asm/mmu.h>
-#include <asm/page.h>   //TODO
-#include <asm/paging.h>   //TODO
-#include "../arch/x86/kernel/idt.h"
 
 /*
  * Note that linker symbols are not variables; they have no memory allocated
@@ -44,7 +34,7 @@ IMPORT const char kernel_end[];
 
 extern void kbd_init(void);
 extern void kvmalloc(void);
-
+extern void traps_init(void);
 extern void kmalloc_init(const void *vstart, const void *vend);
 
 PRIVATE void print_timer_ticks(void);
@@ -66,11 +56,10 @@ struct page_dir_struct entrypgdir[NPDENTRIES] = {
 
 struct multiboot_info mboot_info __attribute__ ((section (".data")));
 
-IMPORT void console_init(void);          // from kernel/console.c
+IMPORT void console_init__(void);          // from kernel/console.c
 
 
-INIT_FUNC void gdt_init(void);
-INIT_FUNC int start_kernel(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint32_t stack_top);
+int start_kernel(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint32_t stack_top);
 PRIVATE void print_kernel_context_info(uint32_t total_memory_kb, uint32_t stack_top);
 
 PRIVATE void process_boot_args(struct multiboot_info mb_info);
@@ -109,7 +98,7 @@ int start_kernel(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint
      * enable them
      */
 
-    console_init();
+    console_init__();
 
     printk("Starting Brunix...\n\n");
 
@@ -124,19 +113,14 @@ int start_kernel(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint
     printk("Initializing physical page allocator...\n");
     kmalloc_init(kernel_end, PHYS_TO_VIRT(MB_TO_BYTES(4))); // phys page allocator
 
-//    printk("IRQs...");
+    printk("Initializing traps...\n");
     traps_init();
-//    printk("Enabling interrupts...");
-//    asm volatile("sti");
 
     timer_init(100); // Initialise timer to 100Hz
-
 
     printk("Keyboard...");
 //    kbd_init();
 
-
-//
     printk("Enabling interrupts...\n");
     asm volatile("sti");
 

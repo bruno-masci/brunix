@@ -2,11 +2,11 @@
 #include <brunix/defs.h>            // for PRIVATE, INIT_FUNC
 
 // por ahora los agrego acá, aunque están repetidos con vga.c y uart.c
-INIT_FUNC void vga_init(void);
-INIT_FUNC void uart_init(void);
+void vga_init__(void);
+void uart_init__(void);
 
 
-INIT_FUNC void console_init(void);
+void console_init__(void);
 PRIVATE void console_putc(char c);
 
 
@@ -17,9 +17,9 @@ PRIVATE void console_putc(char c);
 
 // We send all the output to both the screen and the serial port (emulator)
 
-INIT_FUNC void console_init(void) {
-    vga_init();
-    uart_init();
+void console_init__(void) {
+    vga_init__();
+    uart_init__();
 }
 
 // `High'-level console I/O.  Used by readline and cprintf.

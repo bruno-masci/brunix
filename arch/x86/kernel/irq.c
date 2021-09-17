@@ -37,7 +37,7 @@ int request_irq(uint8_t irq_nr, isr_t handler) {
 //    cli();
     irq_handlers[irq_nr] = handler;
 
-    set_intr_gate(32, irq0);
+    set_intr_gate(32, (uint32_t )irq0);
 
     return 0;
 }

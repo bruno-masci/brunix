@@ -10,7 +10,7 @@
 #include <brunix/defs.h>            // for PRIVATE
 
 
-void uart_init(void);
+void uart_init__(void);
 
 
 
@@ -27,7 +27,7 @@ PRIVATE inline void config_line(void) {
 }
 
 // Initializes serial device
-void uart_init(void) {
+void uart_init__(void) {
 //    info_noargs("Initializing serial port...");
 
     config_baud_rate();

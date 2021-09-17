@@ -24,7 +24,7 @@ uint8_t backColour __attribute__ ((section (".data"))) = COLOR_BLACK;
 uint8_t foreColour = COLOR_LIGHT_GREY;
 
 
-INIT_FUNC void vga_init(void);
+void vga_init__(void);
 
 
 void vga_set_foreground_color(uint8_t colour) {
@@ -77,7 +77,7 @@ PRIVATE void scroll(void) {
 }
 
 // Initializes VGA output and clears the screen
-void vga_init(void) {
+void vga_init__(void) {
     vga_clear();
 }
 

@@ -9,8 +9,6 @@
 
 #include <stdint.h>         // for uint32_t
 
-#define INIT_FUNC           // Indicates a function is used as part of system's initialization
-#define NORET_FUNC          // Indicates a function does not return
 #define EXPORT              // Indicates a symbol is exported to other source files
 #define IMPORT extern       // Indicates a symbol es imported from other source files
 #define PRIVATE static      // Indicates a symbol is private to the containing source file
