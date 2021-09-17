@@ -15,7 +15,7 @@
  * this to handle custom IRQ handlers for a given IRQ
  */
 //#pragma GCC diagnostic ignored "-Wpedantic"
-static isr_t irq_handlers[IRQS_COUNT] = {[0 ... IRQS_COUNT-1] = NULL };
+//static isr_t irq_handlers[IRQS_COUNT] = {[0 ... IRQS_COUNT-1] = NULL };
 
 
 
@@ -24,20 +24,20 @@ void irq_handler(struct trapframe *regs);
 void pic_init(void);
 extern void set_intr_gate(unsigned int n, uint32_t addr);
 
+extern isr_t trap_handlers[MAX_HANDLERS];
 
 int request_irq(uint8_t irq_nr, isr_t handler) {
     if (irq_nr >= IRQS_COUNT || !handler)
         return -EINVAL;
 
-    if (irq_handlers[irq_nr])
+    if (trap_handlers[irq_nr + 32])
         return -EBUSY;
 
     printk("Registering IRQ%d handler...\n", irq_nr);
-//    save_flags(flags);
-//    cli();
-    irq_handlers[irq_nr] = handler;
 
-    set_intr_gate(32, (uint32_t )irq0);
+    trap_handlers[irq_nr + 32] = handler;
+
+    set_intr_gate(irq_nr+32, ((uint32_t )irq0) + (6 * (irq_nr)));   // 6 = size of any irqXXX binary block
 
     return 0;
 }
@@ -86,23 +86,20 @@ void pic_acknowledge(uint32_t int_no) {
 
 
 /* Called from our ASM interrupt handler stub */
-void irq_handler(struct trapframe *regs) {
-    uint32_t irq_nr = regs->trap_no - 0x20;
-
-//    if (irq_nr == 16)//FIXME
-//        return;
-
-    if (irq_nr != 0 && irq_nr != 1) {
-        printk("Calling irq_handler() for IRQ %d (int %d)!\n", irq_nr, irq_nr + 0x20);
-    }
-
-    /* Send an EOI (end of interrupt) signal to the PICs. */
-    pic_acknowledge(irq_nr);
-
-    if (irq_handlers[irq_nr] != 0) {
-        isr_t handler = irq_handlers[irq_nr];
-        handler(regs);
-    } else
-        printk("FAILED HANDLING IRQ %d\n", irq_nr);
-}
+//void irq_handler(struct trapframe *regs) {
+//    uint32_t irq_nr = regs->trap_no - 0x20;
+//
+//    if (irq_nr != 0 && irq_nr != 1) {
+//        printk("Calling irq_handler() for IRQ %d (int %d)!\n", irq_nr, irq_nr + 0x20);
+//    }
+//
+//    /* Send an EOI (end of interrupt) signal to the PICs. */
+//    pic_acknowledge(irq_nr);
+//
+//    if (irq_handlers[irq_nr] != 0) {
+//        isr_t handler = irq_handlers[irq_nr];
+//        handler(regs);
+//    } else
+//        printk("FAILED HANDLING IRQ %d\n", irq_nr);
+//}
 

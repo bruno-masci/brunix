@@ -26,7 +26,7 @@
     #cli
     pushl $0        # always push a dummy err code so that we can reuse the trapframe struct
     pushl $\arg2
-    jmp irq_common_stub
+    jmp isr_common_stub
 .endm
 
 ISR_NOERRCODE 0
@@ -114,45 +114,5 @@ trapret:
     popl %es
     popl %ds
     addl $0x8, %esp     # Cleans up the pushed error code and pushed ISR number
-    sti
-    iret           # pops 5 things at once: CS, EIP, EFLAGS, SS, and ESP
-
-.extern irq_handler
-
-# This is our common IRQ stub. It saves the processor state, sets
-# up for kernel mode segments, calls the C-level fault handler,
-# and finally restores the stack frame.
-irq_common_stub:
-      pushl %ds
-      pushl %es
-      pushl %fs
-      pushl %gs
-    pushal                    # Pushes edi,esi,ebp,esp,ebx,edx,ecx,eax
-
-#    movw %ds, %ax               # Lower 16-bits of eax = ds.
-#    pushw %ax                 # save the data segment descriptor
-
-    movw $__KERNEL_DS_SELECTOR, %ax  # load the kernel data segment descriptor
-    movw %ax, %ds
-    movw %ax, %es
-#    movw %ax, %fs
-#    movw %ax, %gs
-
-    pushl %esp
-    call irq_handler
-    addl $4, %esp
-
-#    popw %bx        # reload the original data segment descriptor
-#    movw %bx, %ds
-#    movw %bx, %es
-#    movw %bx, %fs
-#    movw %bx, %gs
-
-    popal                    # Pops edi,esi,ebp...
-    popl %gs
-    popl %fs
-    popl %es
-    popl %ds
-    addl $0x8, %esp     # Cleans up the pushed error code and pushed ISR number
-    sti
+#    sti
     iret           # pops 5 things at once: CS, EIP, EFLAGS, SS, and ESP

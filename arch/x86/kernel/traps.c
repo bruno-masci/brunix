@@ -28,12 +28,12 @@ extern void pic_acknowledge(uint32_t int_no); //TODO revisar
 #define MAX_HANDLERS 256
 #include <stddef.h>
 #pragma GCC diagnostic ignored "-Wpedantic"
-/*static */isr_t interrupt_handlers[MAX_HANDLERS] = {[0 ... MAX_HANDLERS-1] = NULL };
+/*static */isr_t trap_handlers[MAX_HANDLERS] = {[0 ... MAX_HANDLERS-1] = NULL };
 
 
 void register_interrupt_handler(uint8_t n, isr_t handler) {
     printk("Registering interrupt handler number %d, handler %x!\n", n, handler);
-    interrupt_handlers[n] = handler;
+    trap_handlers[n] = handler;
 }
 
 // This gets called from our ASM interrupt handler stub.
@@ -43,28 +43,27 @@ void trap_handler(struct trapframe *tf) {
      * bit (0x80) is set, regs.int_no will be very large (about 0xFFFFFF80).
      */
     uint8_t trap_no = tf->trap_no & 0xFF;
-    printk("Calling trap_handler() for INT number (code %d eip %p) 0x%x!\n", tf->err_code, tf->eip, trap_no);
-    printk("AAAAAAAAAAAA");
+    if (trap_no!=32) printk("Calling trap_handler() for trap number 0x%x! (code %d eip %p)\n", trap_no, tf->err_code, tf->eip);
 
 //    if(tf->trapno == T_SYSCALL){
 //    }
 
     switch (trap_no) {
         case 32://T_IRQ0 + IRQ_TIMER:
-            interrupt_handlers[trap_no](tf);
+//            trap_handlers[trap_no](tf);
 //            wakeup(&ticks);     //TODO despertar a procesos esperando en queue "timer"
             pic_acknowledge(tf->trap_no);
             break;
         default:
-            printk("DO NOTHING\n");
+            printk("DEFAULT ISR\n");
     }
-
-    if (interrupt_handlers[trap_no] != 0 && trap_no != 32) {//FIXME
-        printk("entre\n\n");
+    if (trap_no!=32) printk("---debug--- calling ISR\n");
+    if (trap_handlers[trap_no] != 0) {//} && trap_no != 32) {//FIXME
         if (tf->trap_no >= 32 && tf->trap_no <= 40) {
+            /* Send an EOI (end of interrupt) signal to the PICs. */
             pic_acknowledge(tf->trap_no);
         }
-        isr_t handler = interrupt_handlers[trap_no];
+        isr_t handler = trap_handlers[trap_no];
         handler(tf);
     }
     else {
@@ -72,13 +71,15 @@ void trap_handler(struct trapframe *tf) {
         printk("CS: 0x%x; EIP: 0x%x; EFLAGS = %b", tf->cs, tf->eip, tf->eflags);
     }
 }
+
+
 #include <asm/io.h>
 /*PRIVATE*/ void dividebyzero(__attribute__((unused)) struct trapframe *regs) {
     printk("Processor exception: divide by zero!\n");
 //    asm volatile("sti");
 
-    if (regs->trap_no != 16)
-        outb(0x20, 0x20);
+//    if (regs->trap_no != 16)
+//        outb(0x20, 0x20);
 }
 
 enum gate_type {
@@ -97,7 +98,16 @@ void set_intr_gate(unsigned int n, uint32_t addr)   // void *addr TODO
     idt_set_gate((uint8_t) n, GATE_INTERRUPT, addr, __KERNEL_CS_SELECTOR, IDT_FLAG_RING0, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT);
 }
 
+void set_trap_gate(unsigned int n, uint32_t addr)   // void *addr TODO
+{
+    ASSERT(n < 0xFF);
+    idt_set_gate((uint8_t) n, GATE_TRAP, addr, __KERNEL_CS_SELECTOR, IDT_FLAG_RING0, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT);
+}
+
+
 void isr_install(void) {
+    set_trap_gate(0, isr0);
+
 //    set_intr_gate(X86_TRAP_DE, &divide_error);
 //    set_intr_gate_ist(X86_TRAP_NMI, &nmi, NMI_STACK);
 //    /* int4 can be called from all */

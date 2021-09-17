@@ -119,11 +119,11 @@ int start_kernel(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint
     timer_init(100); // Initialise timer to 100Hz
 
     printk("Keyboard...");
-//    kbd_init();
+    kbd_init();
 
     printk("Enabling interrupts...\n");
     asm volatile("sti");
-
+//int i=1/0;
     print_kernel_context_info(mboot_info.mem_upper, stack_top);
 
 //    kvmalloc();      // kernel page table
