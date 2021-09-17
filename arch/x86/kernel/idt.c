@@ -47,5 +47,5 @@ void idt_set_gate(uint8_t num, uint8_t type, uint32_t base, uint16_t cs_selector
 	 *  is set here, along with any access flags */
     idt_table[num].cs_selector_16 = cs_selector;
     idt_table[num].always0_8 = (uint8_t) 0;
-    idt_table[num].flags = flags | type | dpl | IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP;
+    idt_table[num].flags = flags | type | dpl | IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT;
 }

@@ -17,12 +17,7 @@
 #define IDT_FLAG_16BIT		0x00
 /// Size of gate is 32 bit
 #define IDT_FLAG_32BIT		0x08
-/// The entry describes an interrupt gate
-#define IDT_FLAG_INTTRAP	0x06
-/// The entry describes a trap gate
-#define IDT_FLAG_TRAPGATE	0x07
-/// The entry describes a task gate
-#define IDT_FLAG_TASKGATE	0x05
+
 
 
 struct idt_ptr_struct {

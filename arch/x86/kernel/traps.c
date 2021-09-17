@@ -81,26 +81,21 @@ void trap_handler(struct trapframe *tf) {
         outb(0x20, 0x20);
 }
 
-enum {
-    GATE_INTERRUPT = 0xE,
-    GATE_TRAP = 0xF,
-    GATE_CALL = 0xC,
-    GATE_TASK = 0x5,
+enum gate_type {
+    GATE_TASK = 0x05,
+    GATE_INTERRUPT = 0x06,
+    GATE_TRAP = 0x07
+//    GATE_CALL = 0xC,
 };
+
 
 //static
 //inline
-void set_intr_gate(unsigned int n, uint32_t addr)
-//void set_intr_gate(unsigned int n, void *addr)
+void set_intr_gate(unsigned int n, uint32_t addr)   // void *addr TODO
 {
-//    BUG_ON((unsigned)n > 0xFF);
-//    _set_gate(n, GATE_INTERRUPT, addr, 0, 0, __KERNEL_CS);
-idt_set_gate( (uint8_t )n, GATE_INTERRUPT, addr, __KERNEL_CS_SELECTOR, IDT_FLAG_RING0, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
+    ASSERT(n < 0xFF);
+    idt_set_gate((uint8_t) n, GATE_INTERRUPT, addr, __KERNEL_CS_SELECTOR, IDT_FLAG_RING0, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT);
 }
-
-//GATE_INTERRUPT
-//GATE_TRAP
-//GATE_TASK
 
 void isr_install(void) {
 //    set_intr_gate(X86_TRAP_DE, &divide_error);
