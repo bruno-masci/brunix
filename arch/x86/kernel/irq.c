@@ -8,20 +8,10 @@
 #include <brunix/errno.h>
 #include <stddef.h>
 
-
-/** @brief IRQ handle pointers
- *
- * This array is actually an array of function pointers. We use
- * this to handle custom IRQ handlers for a given IRQ
- */
-//#pragma GCC diagnostic ignored "-Wpedantic"
-//static isr_t irq_handlers[IRQS_COUNT] = {[0 ... IRQS_COUNT-1] = NULL };
-
-
-
 void pic_acknowledge(uint32_t int_no);
 void irq_handler(struct trapframe *regs);
-void pic_init(void);
+PRIVATE void pic_init(void);
+void irq_init(void);
 extern void set_intr_gate(unsigned int n, uint32_t addr);
 
 extern isr_t trap_handlers[MAX_HANDLERS];
@@ -37,7 +27,7 @@ int request_irq(uint8_t irq_nr, isr_t handler) {
 
     trap_handlers[irq_nr + 32] = handler;
 
-    set_intr_gate(irq_nr+32, ((uint32_t )irq0) + (6 * (irq_nr)));   // 6 = size of any irqXXX binary block
+    set_intr_gate((unsigned int)(irq_nr+32), ((uint32_t) irq0) + ((uint32_t) (6 * (irq_nr))));   // 6 = size of any irqXXX binary block
 
     return 0;
 }
@@ -63,7 +53,7 @@ static void pic_remap(uint8_t offset1, uint8_t offset2) {
     outb(PIC2_DATA, a2);
 }
 
-void pic_init(void) {
+PRIVATE void pic_init(void) {
     // Remap the irq table.
     //The PICs are communicated with via the I/O bus. Each has a command port and a data port:
     //Master - command: 0x20, data: 0x21
@@ -84,22 +74,6 @@ void pic_acknowledge(uint32_t int_no) {
     outb(0x61, inb(0x61) | 0x03); //speaker
 }
 
-
-/* Called from our ASM interrupt handler stub */
-//void irq_handler(struct trapframe *regs) {
-//    uint32_t irq_nr = regs->trap_no - 0x20;
-//
-//    if (irq_nr != 0 && irq_nr != 1) {
-//        printk("Calling irq_handler() for IRQ %d (int %d)!\n", irq_nr, irq_nr + 0x20);
-//    }
-//
-//    /* Send an EOI (end of interrupt) signal to the PICs. */
-//    pic_acknowledge(irq_nr);
-//
-//    if (irq_handlers[irq_nr] != 0) {
-//        isr_t handler = irq_handlers[irq_nr];
-//        handler(regs);
-//    } else
-//        printk("FAILED HANDLING IRQ %d\n", irq_nr);
-//}
-
+void irq_init(void) {
+    pic_init();
+}

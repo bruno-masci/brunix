@@ -15,11 +15,11 @@
 
 
 extern idt_ptr_t init_idt(void);
-extern void pic_init(void);
+extern void irq_init(void);
 extern void idt_set_gate(uint8_t num, uint8_t type, uint32_t base, uint16_t cs_selector, uint8_t dpl, uint8_t flags);
 void traps_init(void);
 void set_intr_gate(unsigned int n, uint32_t addr);
-
+void set_trap_gate(unsigned int n, uint32_t addr);
 
 /*PRIVATE*/ void dividebyzero(__attribute__((unused)) struct trapframe *regs);
 
@@ -106,7 +106,7 @@ void set_trap_gate(unsigned int n, uint32_t addr)   // void *addr TODO
 
 
 void isr_install(void) {
-    set_trap_gate(0, isr0);
+    set_trap_gate(0, (uint32_t) isr0);
 
 //    set_intr_gate(X86_TRAP_DE, &divide_error);
 //    set_intr_gate_ist(X86_TRAP_NMI, &nmi, NMI_STACK);
@@ -178,7 +178,7 @@ for (uint8_t i=0;i<1;i++)
 }
 
 void traps_init(void) {
-    pic_init();
+    irq_init();
     init_idt();
     isr_install();
 }

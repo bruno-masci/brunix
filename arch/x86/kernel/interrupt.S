@@ -114,5 +114,4 @@ trapret:
     popl %es
     popl %ds
     addl $0x8, %esp     # Cleans up the pushed error code and pushed ISR number
-#    sti
     iret           # pops 5 things at once: CS, EIP, EFLAGS, SS, and ESP
