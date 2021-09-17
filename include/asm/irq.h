@@ -1,7 +1,7 @@
 #ifndef __ARCH_IRQ_H__
 #define __ARCH_IRQ_H__
 
-#include <asm/isr.h>
+#include <asm/traps.h>
 
 
 #define IRQS_COUNT 16
@@ -56,7 +56,7 @@ void irq15(void);
 #define MAX_HANDLERS	256
 
 
-void irq_init(void);
+void traps_init(void);
 
 int request_irq(uint8_t irq_nr, isr_t handler);
 

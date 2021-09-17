@@ -1,6 +1,6 @@
 #include <asm/timer.h>
 //#include <task.h>
-#include <asm/isr.h>
+#include <asm/traps.h>
 #include <asm/irq.h>
 #include <asm/io.h>
 //#include <brunix/stdio.h>

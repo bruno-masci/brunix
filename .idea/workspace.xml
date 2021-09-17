@@ -29,14 +29,16 @@
   <component name="ChangeListManager">
     <list default="true" id="16bb27d8-3b9f-4e32-9cd9-fbe08a7a03f6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/idt.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/idt.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/interrupt.S" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/interrupt.S" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/arch/x86/kernel/irq.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/irq.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/isr.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/isr.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/asm/isr.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/isr.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/isr.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/traps.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivers/keyboard.c" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/keyboard.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/asm/irq.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/irq.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/asm/isr.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/traps.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/asm/page.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/page.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/asm/paging.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/paging.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/speaker.c2" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/speaker.c2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/timer.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/timer.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,11 +121,6 @@
     </option>
   </component>
   <component name="RunManager" selected="CMake Application.brunix.elf">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="bochs" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="bochs" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -172,6 +169,11 @@
     <configuration name="run-tests" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="run-tests" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <list>
@@ -322,7 +324,7 @@
       <workItem from="1631239498799" duration="4464000" />
       <workItem from="1631398744424" duration="12800000" />
       <workItem from="1631583544026" duration="2125000" />
-      <workItem from="1631658741503" duration="3043000" />
+      <workItem from="1631658741503" duration="6865000" />
     </task>
     <task id="LOCAL-00001" summary="ble">
       <created>1624501088514</created>
@@ -443,7 +445,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631410233336</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="ble">
+      <created>1631661830235</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1631661830236</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

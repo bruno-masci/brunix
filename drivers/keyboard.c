@@ -1,6 +1,6 @@
 // From http://www.osdever.net/bkerndev/Docs/keyboard.htm
 
-#include <asm/isr.h>
+#include <asm/traps.h>
 #include <asm/irq.h>
 #include <asm/io.h>
 #include <brunix/kernel.h>

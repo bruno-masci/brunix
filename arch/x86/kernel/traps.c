@@ -6,7 +6,7 @@
 
 #include "idt.h"
 
-#include <asm/isr.h>
+#include <asm/traps.h>
 #include <asm/segment.h>     // for __KERNEL_CS_SELECTOR.
 
 #include <brunix/console.h>
@@ -34,7 +34,7 @@ void trap_handler(struct trapframe *tf) {
      * to a 32bit value, it sign-extends, not zero extends. So if the most significant
      * bit (0x80) is set, regs.int_no will be very large (about 0xFFFFFF80).
      */
-    uint8_t trap_no = tf->trap_no;// & 0xFF;
+    uint8_t trap_no = tf->trap_no & 0xFF;
     printk("Calling trap_handler() for INT number (code %d eip %p) 0x%x!\n", tf->err_code, tf->eip, trap_no);
     printk("AAAAAAAAAAAA");
 
@@ -80,11 +80,14 @@ enum {
     GATE_TASK = 0x5,
 };
 
-static inline void set_intr_gate(unsigned int n, void *addr)
+//static
+//inline
+void set_intr_gate(unsigned int n, uint32_t addr)
+//void set_intr_gate(unsigned int n, void *addr)
 {
 //    BUG_ON((unsigned)n > 0xFF);
 //    _set_gate(n, GATE_INTERRUPT, addr, 0, 0, __KERNEL_CS);
-    idt_set_gate( n, GATE_INTERRUPT, (uint32_t) addr, __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
+    idt_set_gate( n, GATE_INTERRUPT, addr, __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
 }
 
 //GATE_INTERRUPT
@@ -119,7 +122,8 @@ void isr_install(void) {
 //    }
 
     /* exceptions */
-    set_intr_gate(0, isr0);
+//    set_intr_gate(32, isr0);
+
 //    idt_set_gate( 0, (uint32_t)isr0 , __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
 //    idt_set_gate( 1, (uint32_t)isr1 , __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
 //    idt_set_gate( 2, (uint32_t)isr2 , __KERNEL_CS_SELECTOR, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT|IDT_FLAG_INTTRAP);
@@ -158,4 +162,10 @@ void isr_install(void) {
 
 for (int i=0;i<1;i++)
     register_interrupt_handler(i, &dividebyzero);
+}
+
+void traps_init(void) {
+    pic_init();
+    init_idt();
+    isr_install();
 }

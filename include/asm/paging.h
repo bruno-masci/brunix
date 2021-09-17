@@ -10,7 +10,7 @@
 
 #include <stdint.h>     // for uint32_t
 //#include <asm/stddef.h>
-#include <asm/isr.h>	// for struct trapframe
+#include <asm/traps.h>	// for struct trapframe
 
 
 #define PGDIR_PRESENT_FLAG 			0x1

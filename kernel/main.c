@@ -125,7 +125,7 @@ int start_kernel(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint
     kmalloc_init(kernel_end, PHYS_TO_VIRT(MB_TO_BYTES(4))); // phys page allocator
 
 //    printk("IRQs...");
-    irq_init();
+    traps_init();
 //    printk("Enabling interrupts...");
 //    asm volatile("sti");
 
