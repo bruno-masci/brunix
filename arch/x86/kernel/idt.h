@@ -4,21 +4,6 @@
 #include <stdint.h>
 
 
-#define IDT_FLAG_PRESENT 	0x80
-/// Interrupt can be called from within RING0
-#define IDT_FLAG_RING0		0x00
-/// Interrupt can be called from within RING1 and lower
-#define IDT_FLAG_RING1		0x20
-/// Interrupt can be called from within RING2 and lower
-#define IDT_FLAG_RING2		0x40
-/// Interrupt can be called from within RING3 and lower
-#define IDT_FLAG_RING3		0x60
-/// Size of gate is 16 bit
-#define IDT_FLAG_16BIT		0x00/
-/// Size of gate is 32 bit
-//#define IDT_FLAG_32BIT		0x08
-
-
 
 struct idt_ptr_struct {
     uint16_t limit;               // Table limit: The upper 16 bits of all selector limits.

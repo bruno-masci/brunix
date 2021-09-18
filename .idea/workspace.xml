@@ -31,9 +31,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/arch/x86/kernel/idt.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/idt.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/arch/x86/kernel/idt.h" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/idt.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/interrupt.S" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/interrupt.S" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/arch/x86/kernel/traps.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/traps.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/asm/traps.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/traps.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -321,7 +319,7 @@
       <workItem from="1631583544026" duration="2125000" />
       <workItem from="1631658741503" duration="6865000" />
       <workItem from="1631842097352" duration="10581000" />
-      <workItem from="1631920372519" duration="6774000" />
+      <workItem from="1631920372519" duration="8887000" />
     </task>
     <task id="LOCAL-00001" summary="ble">
       <created>1624501088514</created>
@@ -491,7 +489,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631921181187</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="ble">
+      <created>1631930982295</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1631930982295</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

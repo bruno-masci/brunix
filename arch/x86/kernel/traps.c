@@ -16,7 +16,7 @@
 
 extern idt_ptr_t init_idt(void);
 extern void irq_init(void);
-extern void idt_set_gate(uint8_t num, uint8_t type, uint32_t base, uint16_t cs_selector, uint8_t dpl, uint8_t flags);
+//extern void idt_set_gate(uint8_t num, uint8_t type, uint32_t base, uint16_t cs_selector, uint8_t dpl);
 void traps_init(void);
 void set_intr_gate(unsigned int n, uint32_t addr);
 void set_trap_gate(unsigned int n, uint32_t addr);
@@ -75,27 +75,6 @@ void trap_handler(struct trapframe *tf) {
 
 /*PRIVATE*/ void dividebyzero(__attribute__((unused)) struct trapframe *regs) {
     printk("Processor exception: divide by zero!\n");
-}
-
-enum idt_gate_descr_type {
-    GATE_TASK = 0x05,     // unused for now
-    GATE_INTERRUPT = 0x0E,  // used by interrupts
-    GATE_TRAP = 0x0F        // used by Exceptions
-};
-
-
-//static
-//inline
-// Interrupts through interrupt gates automatically reset IF, disabling interrupts.
-void set_intr_gate(unsigned int n, uint32_t addr)   // void *addr TODO
-{
-    ASSERT(n < 0xFF);
-    idt_set_gate((uint8_t) n, GATE_INTERRUPT, addr, __KERNEL_CS_SELECTOR, IDT_FLAG_RING0, IDT_FLAG_PRESENT|IDT_FLAG_RING0);
-}
-
-void set_trap_gate(unsigned int n, uint32_t addr) {
-    ASSERT(n < 0xFF);
-    idt_set_gate((uint8_t) n, GATE_TRAP, addr, __KERNEL_CS_SELECTOR, IDT_FLAG_RING0, IDT_FLAG_PRESENT|IDT_FLAG_RING0);
 }
 
 
