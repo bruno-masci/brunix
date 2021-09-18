@@ -1,9 +1,27 @@
+/* TODO ver esto
+    9.2.4  MOV or POP to SS Masks Some Interrupts and Exceptions
+   Software that needs to change stack segments often uses a pair of
+   instructions; for example:
+     MOV SS, AX
+     MOV ESP, StackTop
+
+   If an interrupt or exception is processed after SS has been changed but
+   before ESP has received the corresponding change, the two parts of the stack
+   pointer SS:ESP are inconsistent for the duration of the interrupt handler or
+   exception handler.
+   To prevent this situation, the 80386, after both a MOV to SS and a POP to
+   SS instruction, inhibits NMI, INTR, debug exceptions, and single-step traps
+   at the instruction boundary following the instruction that changes SS. Some
+   exceptions may still occur; namely, page fault and general protection fault.
+   Always use the 80386 LSS instruction, and the problem will not occur.
+*/
+
+
 #include <asm/segment.h>     // for __KERNEL_CS_SELECTOR.
 
 .macro ISR_NOERRCODE arg1  # define a macro, taking one parameter
 	.globl isr\arg1        # %1 accesses the first parameter.
   isr\arg1:
-    #cli                         # Disable interrupts firstly.
     pushl $0                    # Push a dummy error code.
     pushl $\arg1                # Push the interrupt number.
     jmp isr_common_stub         # Go to our common handler code.
@@ -13,7 +31,6 @@
 .macro ISR_ERRCODE arg1
   .globl isr\arg1
   isr\arg1:
-    #cli                         # Disable interrupts.
     pushl $\arg1                # Push the interrupt number.
     jmp isr_common_stub
 .endm

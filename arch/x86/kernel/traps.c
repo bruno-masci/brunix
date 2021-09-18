@@ -73,35 +73,29 @@ void trap_handler(struct trapframe *tf) {
 }
 
 
-#include <asm/io.h>
 /*PRIVATE*/ void dividebyzero(__attribute__((unused)) struct trapframe *regs) {
     printk("Processor exception: divide by zero!\n");
-//    asm volatile("sti");
-
-//    if (regs->trap_no != 16)
-//        outb(0x20, 0x20);
 }
 
-enum gate_type {
-    GATE_TASK = 0x05,
-    GATE_INTERRUPT = 0x06,
-    GATE_TRAP = 0x07
-//    GATE_CALL = 0xC,
+enum idt_gate_descr_type {
+    GATE_TASK = 0x05,     // unused for now
+    GATE_INTERRUPT = 0x0E,  // used by interrupts
+    GATE_TRAP = 0x0F        // used by Exceptions
 };
 
 
 //static
 //inline
+// Interrupts through interrupt gates automatically reset IF, disabling interrupts.
 void set_intr_gate(unsigned int n, uint32_t addr)   // void *addr TODO
 {
     ASSERT(n < 0xFF);
-    idt_set_gate((uint8_t) n, GATE_INTERRUPT, addr, __KERNEL_CS_SELECTOR, IDT_FLAG_RING0, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT);
+    idt_set_gate((uint8_t) n, GATE_INTERRUPT, addr, __KERNEL_CS_SELECTOR, IDT_FLAG_RING0, IDT_FLAG_PRESENT|IDT_FLAG_RING0);
 }
 
-void set_trap_gate(unsigned int n, uint32_t addr)   // void *addr TODO
-{
+void set_trap_gate(unsigned int n, uint32_t addr) {
     ASSERT(n < 0xFF);
-    idt_set_gate((uint8_t) n, GATE_TRAP, addr, __KERNEL_CS_SELECTOR, IDT_FLAG_RING0, IDT_FLAG_PRESENT|IDT_FLAG_RING0|IDT_FLAG_32BIT);
+    idt_set_gate((uint8_t) n, GATE_TRAP, addr, __KERNEL_CS_SELECTOR, IDT_FLAG_RING0, IDT_FLAG_PRESENT|IDT_FLAG_RING0);
 }
 
 
