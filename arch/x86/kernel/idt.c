@@ -1,9 +1,9 @@
 /**
  * @see Chapter 9 of https://css.csail.mit.edu/6.858/2015/readings/i386.pdf
  */
-#include <stdint.h>
+#include <stdint.h>             // for uintN_t
 
-#include <brunix/defs.h>
+#include <brunix/defs.h>        // for PRIVATE, IMPORT, EXPORT
 #include <brunix/string.h>
 #include <brunix/kernel.h>
 
@@ -23,7 +23,7 @@ typedef enum {
 
 // See Figure 9-1 from 80386 manual
 struct idt_ptr_struct {
-    uint16_t limit;             // Table limit (zero-based).
+    uint16_t limit;             // Table limit (size - 1)
     uint32_t base;              // Table's linear base address.
 } __attribute__((packed));
 typedef struct idt_ptr_struct idt_ptr_t;
@@ -49,14 +49,18 @@ PRIVATE idt_ptr_t idt_ptr;
 
 
 EXPORT void init_idt(void);
-PRIVATE void idt_set_gate(uint8_t num, idt_gate_descr_type_enum type, uint32_t base, uint16_t cs_selector, segment_privilege_level_enum dpl);
 EXPORT void set_intr_gate(unsigned int n, uint32_t addr);
 EXPORT void set_trap_gate(unsigned int n, uint32_t addr);
+PRIVATE void idt_set_gate(uint8_t num, idt_gate_descr_type_enum type, uint32_t base, uint16_t cs_selector, segment_privilege_level_enum dpl);
 
-//PRIVATE
+
+
+/*
+ * Interrupts through interrupt gates automatically reset IF, disabling interrupts.
+ */
+
 //inline
-// Interrupts through interrupt gates automatically reset IF, disabling interrupts.
-EXPORT void set_intr_gate(unsigned int n, uint32_t addr)   // void *addr TODO
+void set_intr_gate(unsigned int n, uint32_t addr)   // void *addr TODO
 {
     ASSERT(n < 0xFF);
     idt_set_gate((uint8_t) n, GATE_INTERRUPT, addr, __KERNEL_CS_SELECTOR, PRIVILEGE_LEVEL_KERNEL);
