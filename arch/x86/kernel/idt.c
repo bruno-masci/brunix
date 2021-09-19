@@ -49,7 +49,7 @@ PRIVATE idt_ptr_t idt_ptr;
 
 
 EXPORT void init_idt(void);
-PRIVATE void idt_set_gate(uint8_t num, idt_gate_descr_type_enum type, uint32_t base, uint16_t cs_selector, enum segment_privilege_level dpl);
+PRIVATE void idt_set_gate(uint8_t num, idt_gate_descr_type_enum type, uint32_t base, uint16_t cs_selector, segment_privilege_level_enum dpl);
 EXPORT void set_intr_gate(unsigned int n, uint32_t addr);
 EXPORT void set_trap_gate(unsigned int n, uint32_t addr);
 
@@ -67,7 +67,7 @@ EXPORT void set_trap_gate(unsigned int n, uint32_t addr) {
     idt_set_gate((uint8_t) n, GATE_TRAP, addr, __KERNEL_CS_SELECTOR, PRIVILEGE_LEVEL_KERNEL);
 }
 
-PRIVATE void idt_set_gate(uint8_t num, idt_gate_descr_type_enum type, uint32_t base, uint16_t cs_selector, enum segment_privilege_level dpl) {
+PRIVATE void idt_set_gate(uint8_t num, idt_gate_descr_type_enum type, uint32_t base, uint16_t cs_selector, segment_privilege_level_enum dpl) {
     idt_table[num].offset_15_0 = base & 0xFFFF;
     idt_table[num].offset_31_16 = (uint16_t) ((base >> 16) & 0xFFFF);
     idt_table[num].selector = cs_selector;
@@ -84,11 +84,12 @@ PRIVATE void idt_flush(phys_addr_t idt_ptr_pa) {
 }
 
 EXPORT void init_idt(void) {
-    idt_ptr.limit = (sizeof(idt_gate_descr_t) * NR_VECTORS) - 1;
+    uint16_t table_size = sizeof(idt_gate_descr_t) * NR_VECTORS;
+    idt_ptr.limit = (uint16_t) (table_size - 1);
     idt_ptr.base = (uint32_t) idt_table;
 
     /* Clear out the entire IDT, initializing it to zeros */
-    memset((void *) idt_table, 0, sizeof(idt_gate_descr_t) * NR_VECTORS);
+    memset((void *) idt_table, 0, table_size);
 
     idt_flush((phys_addr_t) &idt_ptr);
 }
