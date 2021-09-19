@@ -4,8 +4,6 @@
 // Rewritten for JamesM's kernel development tutorials.
 //
 
-#include "idt.h"
-
 #include <asm/traps.h>
 #include <asm/segment.h>     // for __KERNEL_CS_SELECTOR.
 
@@ -14,9 +12,8 @@
 
 
 
-extern idt_ptr_t init_idt(void);
+extern void init_idt(void);
 extern void irq_init(void);
-//extern void idt_set_gate(uint8_t num, uint8_t type, uint32_t base, uint16_t cs_selector, uint8_t dpl);
 void traps_init(void);
 void set_intr_gate(unsigned int n, uint32_t addr);
 void set_trap_gate(unsigned int n, uint32_t addr);
@@ -79,6 +76,11 @@ void trap_handler(struct trapframe *tf) {
 
 
 void isr_install(void) {
+
+    /*
+     * From 80386 manual: "The NMI and the exceptions recognized by the processor are assigned
+predetermined identifiers in the range 0 through 31"
+     */
     set_trap_gate(0, (uint32_t) isr0);
 
 //    set_intr_gate(X86_TRAP_DE, &divide_error);

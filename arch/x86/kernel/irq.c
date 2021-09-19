@@ -1,8 +1,7 @@
 #include <asm/irq.h>
-#include "idt.h"
 #include <asm/traps.h>
 #include <asm/io.h>
-#include <asm/segment.h>     // for __KERNEL_CS_SELECTOR.
+#include <asm/segment.h>     // for __KERNEL_CS_SELECTOR
 #include <brunix/console.h>
 #include <brunix/kernel.h>
 #include <brunix/errno.h>
@@ -16,9 +15,14 @@ extern void set_intr_gate(unsigned int n, uint32_t addr);
 
 extern isr_t trap_handlers[MAX_HANDLERS];
 
+
 int request_irq(uint8_t irq_nr, isr_t handler) {
     if (irq_nr >= IRQS_COUNT || !handler)
         return -EINVAL;
+
+    /*
+     * The range 0 through 31 is reserved, so we offset IRQs by 32 (see arch/x86/kernel/traps.c).
+     */
 
     if (trap_handlers[irq_nr + 32])
         return -EBUSY;
@@ -53,6 +57,13 @@ static void pic_remap(uint8_t offset1, uint8_t offset2) {
     outb(PIC2_DATA, a2);
 }
 
+/**
+ * From 80386 manual: "The identifiers of the maskable interrupts are determined by external
+interrupt controllers (such as Intel's 8259A Programmable Interrupt
+Controller) and communicated to the processor during the processor's
+interrupt-acknowledge sequence. The numbers assigned by an 8259A PIC can be
+specified by software. Any numbers in the range 32 through 255 can be used."
+ */
 PRIVATE void pic_init(void) {
     // Remap the irq table.
     //The PICs are communicated with via the I/O bus. Each has a command port and a data port:
