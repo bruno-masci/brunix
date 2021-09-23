@@ -17,7 +17,7 @@
 */
 
 
-#include <asm/segment.h>     // for __KERNEL_CS_SELECTOR.
+#include <asm/segment.h>     // for __KERNEL_CS_SELECTOR
 
 .macro ISR_NOERRCODE arg1  # define a macro, taking one parameter
 	.globl isr\arg1        # %1 accesses the first parameter.
@@ -40,7 +40,6 @@
 .macro IRQ arg1 arg2
 	.globl irq\arg1
   irq\arg1:
-    #cli
     pushl $0        # always push a dummy err code so that we can reuse the trapframe struct
     pushl $\arg2
     jmp isr_common_stub
@@ -132,3 +131,18 @@ trapret:
     popl %ds
     addl $0x8, %esp     # Cleans up the pushed error code and pushed ISR number
     iret           # pops 5 things at once: CS, EIP, EFLAGS, SS, and ESP
+
+.altmacro
+
+.macro IRQ_VECTOR arg1
+	.long irq\arg1
+.endm
+
+.section .rodata
+.globl irq_vectors
+irq_vectors:
+.set i,0
+.rept 16
+    IRQ_VECTOR %i
+    .set i, i+1
+.endr

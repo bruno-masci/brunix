@@ -84,9 +84,9 @@ struct trapframe
     uint16_t padding6;
 };
 
-typedef void (*isr_t)(struct trapframe *);
+typedef void (*trap_handler_t)(struct trapframe *);
 
-void register_interrupt_handler(uint8_t n, isr_t handler);
+void register_interrupt_handler(uint8_t n, trap_handler_t handler);
 
 void isr_install(void);
 

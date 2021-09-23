@@ -52,7 +52,7 @@ static void timer_callback(__attribute__((unused)) struct trapframe *regs) {
  * Sets up the system clock by installing the timer handler into IRQ0
  */
 void timer_init(uint32_t frequency) {
-    request_irq(IRQ0-32, timer_callback);
+    request_irq(IRQ_TIMER, timer_callback);
 
     // The value we send to the PIT is the value to divide it's input clock
     // (1193180 Hz) by, to get our required frequency. Important to note is

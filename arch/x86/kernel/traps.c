@@ -5,62 +5,62 @@
 //
 
 #include <asm/traps.h>
-#include <asm/segment.h>     // for __KERNEL_CS_SELECTOR.
+#include <asm/segment.h>     // for __KERNEL_CS_SELECTOR
+#include <asm/irq.h>
 
 #include <brunix/console.h>
 #include <brunix/kernel.h>
 
 
 
+
 extern void init_idt(void);
 extern void irq_init(void);
 void traps_init(void);
-void set_intr_gate(unsigned int n, uint32_t addr);
-void set_trap_gate(unsigned int n, uint32_t addr);
+void set_intr_gate(uint8_t n, uint32_t addr);
+void set_trap_gate(uint8_t n, uint32_t addr);
 
 /*PRIVATE*/ void dividebyzero(__attribute__((unused)) struct trapframe *regs);
 
 extern void pic_acknowledge(uint32_t int_no); //TODO revisar
 
 #define MAX_HANDLERS 256
-#include <stddef.h>
+#include <stddef.h>     // for NULL
+#include <stdbool.h>
 #pragma GCC diagnostic ignored "-Wpedantic"
-/*static */isr_t trap_handlers[MAX_HANDLERS] = {[0 ... MAX_HANDLERS-1] = NULL };
+static trap_handler_t trap_handlers[MAX_HANDLERS] = {[0 ... MAX_HANDLERS-1] = NULL };
 
 
-void register_interrupt_handler(uint8_t n, isr_t handler) {
+void register_interrupt_handler(uint8_t n, trap_handler_t handler) {
     printk("Registering interrupt handler number %d, handler %x!\n", n, handler);
     trap_handlers[n] = handler;
 }
 
+bool is_interrupt_handler_registered(uint8_t n) {
+    return trap_handlers[n] != NULL;
+}
+
 // This gets called from our ASM interrupt handler stub.
 void trap_handler(struct trapframe *tf) {
-    /* This line is important. When the processor extends the 8-bit interrupt number
-     * to a 32bit value, it sign-extends, not zero extends. So if the most significant
-     * bit (0x80) is set, regs.int_no will be very large (about 0xFFFFFF80).
-     */
-    uint8_t trap_no = tf->trap_no & 0xFF;
-    if (trap_no!=32) printk("Calling trap_handler() for trap number 0x%x! (code %d eip %p)\n", trap_no, tf->err_code, tf->eip);
+    if (tf->trap_no != 32)
+        printk("Calling trap_handler() for trap number 0x%x! (code %d eip %p)\n", tf->trap_no, tf->err_code, tf->eip);
 
 //    if(tf->trapno == T_SYSCALL){
 //    }
 
-    switch (trap_no) {
-        case 32://T_IRQ0 + IRQ_TIMER:
-//            trap_handlers[trap_no](tf);
+    switch (tf->trap_no) {
+        case T_IRQ0 + IRQ_TIMER:
 //            wakeup(&ticks);     //TODO despertar a procesos esperando en queue "timer"
-            pic_acknowledge(tf->trap_no);
             break;
         default:
             printk("DEFAULT ISR\n");
     }
-    if (trap_no!=32) printk("---debug--- calling ISR\n");
-    if (trap_handlers[trap_no] != 0) {//} && trap_no != 32) {//FIXME
+    if (trap_handlers[tf->trap_no] != 0) {
         if (tf->trap_no >= 32 && tf->trap_no <= 40) {
             /* Send an EOI (end of interrupt) signal to the PICs. */
             pic_acknowledge(tf->trap_no);
         }
-        isr_t handler = trap_handlers[trap_no];
+        trap_handler_t handler = trap_handlers[tf->trap_no];
         handler(tf);
     }
     else {

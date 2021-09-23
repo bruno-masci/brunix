@@ -6,23 +6,16 @@
 
 #define IRQS_COUNT 16
 
-/* A few defines to make life a little easier */
-#define IRQ0  32
-#define IRQ1  33
-#define IRQ2  34
-#define IRQ3  35
-#define IRQ4  36
-#define IRQ5  37
-#define IRQ6  38
-#define IRQ7  39
-#define IRQ8  40
-#define IRQ9  41
-#define IRQ10 42
-#define IRQ11 43
-#define IRQ12 44
-#define IRQ13 45
-#define IRQ14 46
-#define IRQ15 47
+
+#define FIRST_EXTERNAL_VECTOR		0x20
+
+
+#define T_IRQ0          32      // IRQ 0 corresponds to int T_IRQ
+
+#define IRQ_TIMER        0
+#define IRQ_KBD          1
+#define IRQ_COM1         4
+#define IRQ_IDE         14
 
 
 #define PIC1			0x20		/* IO base address for master PIC */
@@ -51,14 +44,21 @@ void irq12(void);
 void irq13(void);
 void irq14(void);
 void irq15(void);
-//TODO eduOS tiene hasta irq23! ?
-
-#define MAX_HANDLERS	256
 
 
-void traps_init(void);
+/**
+ * Allocates an interrupt and add a handler for an interrupt line.
+ *
+ * @irq_nr:     The interrupt line to allocate.
+ * @handler:    Function to be called when the IRQ occurs.
+ */
+int request_irq(uint8_t irq_nr, trap_handler_t handler);
 
-int request_irq(uint8_t irq_nr, isr_t handler);
+//extern const void *free_irq(unsigned int, void *);
+//extern void enable_irq(unsigned int irq);
+//extern void disable_irq(unsigned int irq);
+
+
 
 
 #endif /* #define __ARCH_IRQ_H__ */

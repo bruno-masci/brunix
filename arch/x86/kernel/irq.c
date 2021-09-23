@@ -6,17 +6,19 @@
 #include <brunix/kernel.h>
 #include <brunix/errno.h>
 #include <stddef.h>
+#include <stdbool.h>
 
 void pic_acknowledge(uint32_t int_no);
 void irq_handler(struct trapframe *regs);
 PRIVATE void pic_init(void);
 void irq_init(void);
-extern void set_intr_gate(unsigned int n, uint32_t addr);
+extern void set_intr_gate(uint8_t n, uint32_t addr);
 
-extern isr_t trap_handlers[MAX_HANDLERS];
+extern bool is_interrupt_handler_registered(uint8_t n);
 
+extern uint32_t irq_vectors[];
 
-int request_irq(uint8_t irq_nr, isr_t handler) {
+int request_irq(uint8_t irq_nr, trap_handler_t handler) {
     if (irq_nr >= IRQS_COUNT || !handler)
         return -EINVAL;
 
@@ -24,14 +26,15 @@ int request_irq(uint8_t irq_nr, isr_t handler) {
      * The range 0 through 31 is reserved, so we offset IRQs by 32 (see arch/x86/kernel/traps.c).
      */
 
-    if (trap_handlers[irq_nr + 32])
+    if (is_interrupt_handler_registered(irq_nr + 32))
         return -EBUSY;
 
     printk("Registering IRQ%d handler...\n", irq_nr);
 
-    trap_handlers[irq_nr + 32] = handler;
+    register_interrupt_handler(irq_nr + 32, handler);
 
-    set_intr_gate((unsigned int)(irq_nr+32), ((uint32_t) irq0) + ((uint32_t) (6 * (irq_nr))));   // 6 = size of any irqXXX binary block
+    set_intr_gate((uint8_t) (irq_nr + 32), irq_vectors[irq_nr]);
+//    set_intr_gate((unsigned int)(irq_nr+32), ((uint32_t) irq0) + ((uint32_t) (6 * (irq_nr))));
 
     return 0;
 }
