@@ -19,6 +19,10 @@
 
 #include <asm/segment.h>     // for __KERNEL_CS_SELECTOR
 
+
+.altmacro
+
+
 .macro ISR_NOERRCODE arg1  # define a macro, taking one parameter
 	.globl isr\arg1        # %1 accesses the first parameter.
   isr\arg1:
@@ -45,6 +49,9 @@
     jmp isr_common_stub
 .endm
 
+
+# From Intel 80386's manual: "The NMI and the exceptions recognized by the processor are assigned
+# predetermined identifiers in the range 0 through 31".
 ISR_NOERRCODE 0
 ISR_NOERRCODE 1
 ISR_NOERRCODE 2
@@ -78,24 +85,14 @@ ISR_NOERRCODE 29
 ISR_NOERRCODE 30
 ISR_NOERRCODE 31
 
+.set i,32
+.rept 224   # = 256 - 32
+    ISR_NOERRCODE %i
+    .set i, i+1
+.endr
+
 #ISR_NOERRCODE 0x80
 
-IRQ   0,    32
-IRQ   1,    33
-IRQ   2,    34
-IRQ   3,    35
-IRQ   4,    36
-IRQ   5,    37
-IRQ   6,    38
-IRQ   7,    39
-IRQ   8,    40
-IRQ   9,    41
-IRQ  10,    42
-IRQ  11,    43
-IRQ  12,    44
-IRQ  13,    45
-IRQ  14,    46
-IRQ  15,    47
 
 .extern trap_handler
 
@@ -132,17 +129,15 @@ trapret:
     addl $0x8, %esp     # Cleans up the pushed error code and pushed ISR number
     iret           # pops 5 things at once: CS, EIP, EFLAGS, SS, and ESP
 
-.altmacro
-
-.macro IRQ_VECTOR arg1
-	.long irq\arg1
+.macro ISR_VECTOR arg1
+	.long isr\arg1
 .endm
 
 .section .rodata
-.globl irq_vectors
-irq_vectors:
+.globl interrupt_vectors
+interrupt_vectors:
 .set i,0
-.rept 16
-    IRQ_VECTOR %i
+.rept 256
+    ISR_VECTOR %i
     .set i, i+1
 .endr

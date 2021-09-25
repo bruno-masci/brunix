@@ -1,7 +1,6 @@
 #include <asm/irq.h>
 #include <asm/traps.h>
 #include <asm/io.h>
-#include <asm/segment.h>     // for __KERNEL_CS_SELECTOR
 #include <brunix/console.h>
 #include <brunix/kernel.h>
 #include <brunix/errno.h>
@@ -9,32 +8,27 @@
 #include <stdbool.h>
 
 void pic_acknowledge(uint32_t int_no);
-void irq_handler(struct trapframe *regs);
 PRIVATE void pic_init(void);
 void irq_init(void);
-extern void set_intr_gate(uint8_t n, uint32_t addr);
 
 extern bool is_interrupt_handler_registered(uint8_t n);
 
-extern uint32_t irq_vectors[];
-
 int request_irq(uint8_t irq_nr, trap_handler_t handler) {
-    if (irq_nr >= IRQS_COUNT || !handler)
+    if (irq_nr >= NR_IRQS || !handler)
         return -EINVAL;
 
     /*
      * The range 0 through 31 is reserved, so we offset IRQs by 32 (see arch/x86/kernel/traps.c).
      */
 
-    if (is_interrupt_handler_registered(irq_nr + 32))
+    uint8_t irq_index = (uint8_t) (irq_nr + FIRST_EXTERNAL_VECTOR);
+
+    if (is_interrupt_handler_registered(irq_index))
         return -EBUSY;
 
     printk("Registering IRQ%d handler...\n", irq_nr);
 
-    register_interrupt_handler(irq_nr + 32, handler);
-
-    set_intr_gate((uint8_t) (irq_nr + 32), irq_vectors[irq_nr]);
-//    set_intr_gate((unsigned int)(irq_nr+32), ((uint32_t) irq0) + ((uint32_t) (6 * (irq_nr))));
+    register_interrupt_handler(irq_index, handler);
 
     return 0;
 }
@@ -72,7 +66,7 @@ PRIVATE void pic_init(void) {
     //The PICs are communicated with via the I/O bus. Each has a command port and a data port:
     //Master - command: 0x20, data: 0x21
     //Slave - command: 0xA0, data: 0xA1
-    printk("Remapping PIC...");
+    printk("Remapping PIC...\n");
     pic_remap(0x20, 0x28);
 }
 

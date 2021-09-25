@@ -53,6 +53,8 @@ static void timer_callback(__attribute__((unused)) struct trapframe *regs) {
  */
 void timer_init(uint32_t frequency) {
     request_irq(IRQ_TIMER, timer_callback);
+//    if (request_irq(TIMER_IRQ, do_timer, 0, "timer") != 0)
+//        panic("Could not allocate timer IRQ!");
 
     // The value we send to the PIT is the value to divide it's input clock
     // (1193180 Hz) by, to get our required frequency. Important to note is

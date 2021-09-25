@@ -4,13 +4,13 @@
 #include <asm/traps.h>
 
 
-#define IRQS_COUNT 16
+#define NR_IRQS 16
 
 
 #define FIRST_EXTERNAL_VECTOR		0x20
 
 
-#define T_IRQ0          32      // IRQ 0 corresponds to int T_IRQ
+#define T_IRQ0          FIRST_EXTERNAL_VECTOR      // IRQ 0 corresponds to int T_IRQ
 
 #define IRQ_TIMER        0
 #define IRQ_KBD          1

@@ -34,9 +34,7 @@
       <change beforePath="$PROJECT_DIR$/arch/x86/kernel/irq.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/irq.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/arch/x86/kernel/traps.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/traps.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/asm/irq.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/irq.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/asm/segment.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/segment.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/asm/traps.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/traps.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/brunix/interrupt.h" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/timer.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/timer.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -330,7 +328,11 @@
       <workItem from="1632094336997" duration="3841000" />
       <workItem from="1632180284343" duration="3420000" />
       <workItem from="1632268641499" duration="1866000" />
-      <workItem from="1632349846496" duration="8345000" />
+      <workItem from="1632349846496" duration="9183000" />
+      <workItem from="1632448227799" duration="4036000" />
+      <workItem from="1632516447917" duration="2383000" />
+      <workItem from="1632526462188" duration="1196000" />
+      <workItem from="1632532267431" duration="1258000" />
     </task>
     <task id="LOCAL-00001" summary="ble">
       <created>1624501088514</created>
@@ -542,7 +544,14 @@
       <option name="project" value="LOCAL" />
       <updated>1632027697906</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="ble">
+      <created>1632358259970</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1632358259970</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

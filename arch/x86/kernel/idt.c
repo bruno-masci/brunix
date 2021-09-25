@@ -49,8 +49,8 @@ PRIVATE idt_ptr_t idt_ptr;
 
 
 EXPORT void init_idt(void);
-EXPORT void set_intr_gate(uint8_t n, uint32_t addr);
-EXPORT void set_trap_gate(uint8_t n, uint32_t addr);
+EXPORT void set_intr_gate(unsigned int n, uint32_t addr);
+EXPORT void set_trap_gate(unsigned int n, uint32_t addr);
 PRIVATE void idt_set_gate(uint8_t num, idt_gate_descr_type_enum type, uint32_t base, uint16_t cs_selector, segment_privilege_level_enum dpl);
 
 
@@ -60,15 +60,15 @@ PRIVATE void idt_set_gate(uint8_t num, idt_gate_descr_type_enum type, uint32_t b
  */
 
 //inline
-void set_intr_gate(uint8_t n, uint32_t addr)   // void *addr TODO
+void set_intr_gate(unsigned int n, uint32_t addr)
 {
-    ASSERT(n < 0xFF);
-    idt_set_gate(n, GATE_INTERRUPT, addr, __KERNEL_CS_SELECTOR, PRIVILEGE_LEVEL_KERNEL);
+    ASSERT(n <= 255);   //TODO ver tema 256 q no anda
+    idt_set_gate((uint8_t) n, GATE_INTERRUPT, (uint32_t) addr, __KERNEL_CS_SELECTOR, PRIVILEGE_LEVEL_KERNEL);
 }
 
-EXPORT void set_trap_gate(uint8_t n, uint32_t addr) {
+EXPORT void set_trap_gate(unsigned int n, uint32_t addr) {
     ASSERT(n < 0xFF);
-    idt_set_gate(n, GATE_TRAP, addr, __KERNEL_CS_SELECTOR, PRIVILEGE_LEVEL_KERNEL);
+    idt_set_gate((uint8_t) n, GATE_TRAP, (uint32_t) addr, __KERNEL_CS_SELECTOR, PRIVILEGE_LEVEL_KERNEL);
 }
 
 PRIVATE void idt_set_gate(uint8_t num, idt_gate_descr_type_enum type, uint32_t base, uint16_t cs_selector, segment_privilege_level_enum dpl) {
