@@ -28,14 +28,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="16bb27d8-3b9f-4e32-9cd9-fbe08a7a03f6" name="Default Changelist" comment="ble">
+      <change afterPath="$PROJECT_DIR$/arch/x86/kernel/gdt.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/idt.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/idt.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/interrupt.S" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/interrupt.S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/irq.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/irq.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/traps.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/traps.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/asm/irq.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/irq.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/asm/traps.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/traps.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/timer.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/timer.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/multiboot_entry_point.S" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/multiboot_entry_point.S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/asm/gdt.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/gdt.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/asm/mmu.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/mmu.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/asm/segment.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/segment.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/main.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,6 +118,11 @@
     </option>
   </component>
   <component name="RunManager" selected="CMake Application.brunix.elf">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="bochs" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="bochs" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -333,6 +338,8 @@
       <workItem from="1632516447917" duration="2383000" />
       <workItem from="1632526462188" duration="1196000" />
       <workItem from="1632532267431" duration="1258000" />
+      <workItem from="1633197606042" duration="6022000" />
+      <workItem from="1633218519181" duration="10338000" />
     </task>
     <task id="LOCAL-00001" summary="ble">
       <created>1624501088514</created>

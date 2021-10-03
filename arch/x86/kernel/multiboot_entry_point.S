@@ -70,6 +70,11 @@ bootstrap_stack_bottom:
 bootstrap_stack_top:
 
 
+.align 16
+user_test_stack_bottom:
+    .space BOOTSTRAP_STACK_SIZE
+user_test_stack_top:
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // *************************** SECTION: text ******************************* //
@@ -111,7 +116,15 @@ early_paging_ready:
                                         # languages such as C cannot function without a stack.
 
 
+   movl %eax, %edi
+    call gdt_init
+   movl %edi, %eax
+
+
     lgdt    (gdt_descr)
+
+    movw $__TSS_SEGMENT_SELECTOR, %dx
+    ltr %dx
 
     call setup_all_segments_but_CS
 
@@ -151,6 +164,32 @@ early_paging_ready:
     hlt
     jmp .hang
 
+
+
+
+.globl jump_usermode
+.extern test_user_function
+jump_usermode:
+    cli
+    pushfl
+    popl %edx
+    or $0x00003000, %edx
+
+
+	movw $(__USER_DS_SELECTOR | 3), %ax # ring 3 data with bottom 2 bits set for ring 3
+	movw %ax, %ds
+	movw %ax, %es
+	#mov %ax, %fs
+	#mov %ax, %gs # SS is handled by iret
+
+	# set up the stack frame iret expects
+#	mov %esp, %eax
+	push $(__USER_DS_SELECTOR | 3) # data selector
+	push $user_test_stack_top # current esp
+	pushf # eflags
+	push $(__USER_CS_SELECTOR | 3) # code selector (ring 3 code with bottom 2 bits set for ring 3)
+	push $test_user_function # instruction address to return to
+	iret
 
 
 # We don't use %eax/%ax in order to preserve the value stored on %eax by the bootloader; we use %esi/%si instead.
@@ -205,17 +244,13 @@ setup_all_segments_but_CS:
     movw %si, %gs
     ret
 
-//        push $(gdt_descr-KERN_BASE)
-//        call gdt_flush
-//call gdt_init
-
 
 # GDT setup
 gdt_descr:
 .word (GDT_ENTRIES * 8 - 1)
-.long   gdt                            # GDT address
+.long   VIRT_TO_PHYS_WO(gdt333)                            # GDT address
 
-gdt:
+gdt2_UNUSED:
 GDT_NULL_ENTRY				# null seg
 GDT_ENTRY(STA_X|STA_R, 0x0, 0xffffffff)     /* kernel 4GB code at 0x00000000 */
 GDT_ENTRY(STA_W, 0x0, 0xffffffff)           /* kernel 4GB data at 0x00000000 */

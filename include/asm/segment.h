@@ -6,6 +6,12 @@
 
 #define __KERNEL_DS_SELECTOR 0x10
 
+#define __USER_CS_SELECTOR 0x18
+
+#define __USER_DS_SELECTOR 0x20
+
+#define __TSS_SEGMENT_SELECTOR 0x28
+
 
 #ifndef __ASSEMBLER__
 

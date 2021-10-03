@@ -83,7 +83,7 @@
 #define PTE_ADDR(pte)   ((uint32_t)((uint32_t)(pte)) & ((uint32_t)~0xFFF))
 
 
-#define GDT_ENTRIES	3   // = 2 + 1
+#define GDT_ENTRIES	6   // = 2 + 1
 
 
 // various segment selectors.

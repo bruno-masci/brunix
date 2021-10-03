@@ -48,9 +48,9 @@ __attribute__((__aligned__(PAGE_SIZE)))
 //__attribute__((section(".data")))
 struct page_dir_struct entrypgdir[NPDENTRIES] = {
         // Map VA's [0, 4MB) to PA's [0, 4MB)
-        [0] = {.present_flag=true, .read_write_flag = 1, .user_supervisor_flag = 0, .zero_flag = 0, .page_size_flag = 1, .page_table_base_address = 0},
+        [0] = {.present_flag=true, .read_write_flag = 1, .user_supervisor_flag = 1, .zero_flag = 0, .page_size_flag = 1, .page_table_base_address = 0},
         // Map VA's [KERNBASE, KERNBASE+4MB) to PA's [0, 4MB)
-        [KERN_BASE>>PDXSHIFT] = {.present_flag=true, .read_write_flag = 1, .user_supervisor_flag = 0, .zero_flag = 0, .page_size_flag = 1, .page_table_base_address = 0},
+        [KERN_BASE>>PDXSHIFT] = {.present_flag=true, .read_write_flag = 1, .user_supervisor_flag = 1, .zero_flag = 0, .page_size_flag = 1, .page_table_base_address = 0},
 };
 
 
@@ -67,6 +67,25 @@ PRIVATE void process_boot_args(struct multiboot_info mb_info);
 //PRIVATE void exercise_libkern(void);
 
 
+extern void jump_usermode(void);
+extern void set_iopl_eflags(void);
+
+void test_user_function(void) {
+    printk("IN USER MODE!!! :)\n");
+}
+
+static inline uint32_t readeflags(void)
+{
+    uint32_t eflags;
+    asm volatile("pushfl; popl %0" : "=r" (eflags));
+    return eflags;
+}
+
+void set_iopl_eflags(void) {
+    uint32_t eflags = readeflags();
+    eflags = eflags | 0x00003000;
+    asm volatile("pushfl; popl %0" : "=r" (eflags));
+}
 
 //void handle_command(char *cmd) {
 ////    printk("Received command: %s\n", cmd);
@@ -139,6 +158,8 @@ int start_kernel(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint
 //    printk("\nGenerating a page fault...");
 //    uint32_t *ptr = (uint32_t *)0x400000;
 //    uint32_t do_page_fault = *ptr;
+
+jump_usermode();
 
 while(1) {
     for(long long int i=0;i<100000000;i++);

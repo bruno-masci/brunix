@@ -39,7 +39,7 @@
 
 #include <stdint.h>     // for uint8_t, uint16_t, uint32_t
 
-#define GDT_ENTRIES	3   // = 2 + 1
+#define GDT_ENTRIES	6   // = 2 + 1
 
 #define GDT_SEGMENT_LIMIT	0xFFFFFFFF
 
@@ -48,10 +48,12 @@
 #define GDT_FLAG_DATASEG	0x02
 /// This segment is a code segment
 #define GDT_FLAG_CODESEG	0x0a
-#define GDT_FLAG_TSS		0x09
-#define GDT_FLAG_TSS_BUSY	0x02
+#define GDT_FLAG_EXEC	0x08
 
-#define GDT_FLAG_SEGMENT	0x10
+//#define GDT_FLAG_TSS		0x09
+//#define GDT_FLAG_TSS_BUSY	0x02
+
+#define GDT_FLAG_CODE_DATA_SEGMENT	0x10
 /// Privilege level: Ring 0
 #define GDT_FLAG_RING0		0x00
 /// Privilege level: Ring 3
@@ -104,9 +106,9 @@ struct gdt_desc_struct {
     uint16_t limit_low_16;
     uint16_t base_low_16;
     uint8_t  base_middle_8;
-    uint8_t access_8;
+    uint8_t access;
     uint16_t limit_high_4 : 4;
-    uint8_t flags_4 : 4;
+    uint8_t flags : 4;
     uint8_t  base_high_8;
 } __attribute__((packed));
 
