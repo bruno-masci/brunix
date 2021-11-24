@@ -36,10 +36,10 @@ printk("AAAAAAAA");
 
 
     default_tss.debug_flag = 0x00;
-	default_tss.io_map = 0xFFFF;
+//	default_tss.io_map = 0x0;  // TODO hace falta?
 	default_tss.esp0 = (((uint32_t) &myStack) + 200);
-	default_tss.ss0 = __USER_DS_SELECTOR;
-	default_tss.io_map = (uint16_t) sizeof(default_tss);
+	default_tss.ss0 = __KERNEL_DS_SELECTOR;
+//	default_tss.io_map = (uint16_t) sizeof(default_tss);
 	gdt_set_desc(5, (uint32_t) &default_tss, sizeof(default_tss) - 1, GDT_FLAG_ACCESSED | GDT_FLAG_EXEC | GDT_FLAG_PRESENT, GDT_FLAG_32_BIT);	/* TSS */
 
 	/* Flush out the old GDT and install the new changes! */

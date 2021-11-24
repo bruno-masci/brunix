@@ -117,7 +117,7 @@ early_paging_ready:
 
 
    movl %eax, %edi
-    call gdt_init
+   call gdt_init
    movl %edi, %eax
 
 
@@ -140,9 +140,9 @@ early_paging_ready:
 
 
     # Set up start_kernel()'s arguments
-    pushl $bootstrap_stack_top                          # Bootstrap stack top
-    pushl %eax                          # Multiboot magic number
-    pushl %ebx                          # Multiboot info
+    pushl $bootstrap_stack_top              # Bootstrap stack top
+    pushl %eax                              # Multiboot magic number
+    pushl %ebx                              # Multiboot info
 
 	/* Enter the high-level kernel. The ABI requires the stack is 16-byte aligned at the time of the call instruction
 	 * (which afterwards pushes the return pointer of size 4 bytes). The stack was originally 16-byte aligned above and
@@ -171,10 +171,6 @@ early_paging_ready:
 .extern test_user_function
 jump_usermode:
     cli
-    pushfl
-    popl %edx
-    or $0x00003000, %edx
-
 
 	movw $(__USER_DS_SELECTOR | 3), %ax # ring 3 data with bottom 2 bits set for ring 3
 	movw %ax, %ds
@@ -189,6 +185,9 @@ jump_usermode:
 	pushf # eflags
 	push $(__USER_CS_SELECTOR | 3) # code selector (ring 3 code with bottom 2 bits set for ring 3)
 	push $test_user_function # instruction address to return to
+
+	sti
+
 	iret
 
 
