@@ -28,13 +28,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="16bb27d8-3b9f-4e32-9cd9-fbe08a7a03f6" name="Default Changelist" comment="ble">
-      <change afterPath="$PROJECT_DIR$/arch/x86/kernel/gdt.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/gdt.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/gdt.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/idt.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/idt.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/arch/x86/kernel/multiboot_entry_point.S" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/multiboot_entry_point.S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/asm/gdt.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/gdt.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/asm/mmu.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/mmu.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/asm/segment.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/asm/segment.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/traps.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/traps.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/main.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -118,9 +117,9 @@
     </option>
   </component>
   <component name="RunManager" selected="CMake Application.brunix.elf">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="bochs" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="bochs" CONFIG_NAME="Debug">
@@ -339,7 +338,10 @@
       <workItem from="1632526462188" duration="1196000" />
       <workItem from="1632532267431" duration="1258000" />
       <workItem from="1633197606042" duration="6022000" />
-      <workItem from="1633218519181" duration="10338000" />
+      <workItem from="1633218519181" duration="10796000" />
+      <workItem from="1633657597782" duration="3009000" />
+      <workItem from="1634080778504" duration="6046000" />
+      <workItem from="1637790498917" duration="1984000" />
     </task>
     <task id="LOCAL-00001" summary="ble">
       <created>1624501088514</created>
@@ -558,7 +560,14 @@
       <option name="project" value="LOCAL" />
       <updated>1632358259970</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="ble">
+      <created>1633231638002</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1633231638002</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

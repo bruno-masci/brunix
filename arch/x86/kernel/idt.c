@@ -71,6 +71,11 @@ EXPORT void set_trap_gate(unsigned int n, uint32_t addr) {
     idt_set_gate((uint8_t) n, GATE_TRAP, (uint32_t) addr, __KERNEL_CS_SELECTOR, PRIVILEGE_LEVEL_KERNEL);
 }
 
+EXPORT void set_trap_gate_user(unsigned int n, uint32_t addr) {
+    ASSERT(n < 0xFF);
+    idt_set_gate((uint8_t) n, GATE_TRAP, (uint32_t) addr, __KERNEL_CS_SELECTOR, PRIVILEGE_LEVEL_USER);
+}
+
 PRIVATE void idt_set_gate(uint8_t num, idt_gate_descr_type_enum type, uint32_t base, uint16_t cs_selector, segment_privilege_level_enum dpl) {
     idt_table[num].offset_15_0 = base & 0xFFFF;
     idt_table[num].offset_31_16 = (uint16_t) ((base >> 16) & 0xFFFF);

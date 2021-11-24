@@ -68,23 +68,9 @@ PRIVATE void process_boot_args(struct multiboot_info mb_info);
 
 
 extern void jump_usermode(void);
-extern void set_iopl_eflags(void);
 
 void test_user_function(void) {
-    printk("IN USER MODE!!! :)\n");
-}
-
-static inline uint32_t readeflags(void)
-{
-    uint32_t eflags;
-    asm volatile("pushfl; popl %0" : "=r" (eflags));
-    return eflags;
-}
-
-void set_iopl_eflags(void) {
-    uint32_t eflags = readeflags();
-    eflags = eflags | 0x00003000;
-    asm volatile("pushfl; popl %0" : "=r" (eflags));
+    while (1);
 }
 
 //void handle_command(char *cmd) {

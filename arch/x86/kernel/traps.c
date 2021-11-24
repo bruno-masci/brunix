@@ -21,7 +21,7 @@ void set_intr_gate(unsigned int n, uint32_t addr);
 void set_trap_gate(unsigned int n, uint32_t addr);
 bool is_interrupt_handler_registered(uint8_t n);
 
-/*PRIVATE*/ void dividebyzero(__attribute__((unused)) struct trapframe *regs);
+/*PRIVATE*/ void default_handler(__attribute__((unused)) struct trapframe *regs);
 
 extern uint32_t interrupt_vectors[];
 
@@ -65,18 +65,50 @@ void trap_handler(struct trapframe *tf) {
         }
         trap_handler_t handler = trap_handlers[tf->trap_no];
         handler(tf);
-    }
-    else {
+    } else {
         printk("*** Unhandled interrupt: 0x%x (error code: %d)\n", tf->trap_no, tf->err_code);
         printk("CS: 0x%x; EIP: 0x%x; EFLAGS = %b", tf->cs, tf->eip, tf->eflags);
     }
 }
 
 
-/*PRIVATE*/ void dividebyzero(__attribute__((unused)) struct trapframe *regs) {
-    printk("Processor exception: divide by zero!\n");
+char *trap_msg[] = {
+        "Divide-by-zero Error",
+        "Debug",
+        "Non-maskable Interrupt",
+        "Breakpoint",
+        "Overflow",
+        "Bound Range Exceeded",
+        "Invalid Opcode",
+        "Device Not Available",
+        "Double Fault",
+        "Coprocessor Segment Overrun",
+        "Invalid TSS",
+        "Segment Not Present",
+        "Stack-Segment Fault",
+        "General Protection Fault",
+        "Page Fault",
+        "<Reserved>",
+        //TODO terminar!
+
+};
+
+
+
+/*PRIVATE*/ void default_handler(struct trapframe *regs) {
+    printk("--> A '%s' (0x%x) trap has occurred!\n", trap_msg[regs->trap_no], regs->trap_no);
 }
 
+//TODO move!
+static inline uint32_t rcr2(void) {
+    uint32_t val;
+    asm volatile("movl %%cr2,%0" : "=r" (val));
+    return val;
+}
+
+/*PRIVATE*/ void page_fault(struct trapframe *regs) {
+    printk("Processor exception: page fault! eip=0x%x cr2=0x%x code=0x%x\n", regs->eip, rcr2(), regs->err_code);
+}
 
 void isr_install(void) {
 
@@ -89,7 +121,7 @@ predetermined identifiers in the range 0 through 31"
     set_trap_gate(0, interrupt_vectors[0]);
 
     for (uint8_t i=0;i<32;i++)
-        register_interrupt_handler(i, &dividebyzero);
+        register_interrupt_handler(i, &default_handler);
 
 //    set_intr_gate(X86_TRAP_DE, &divide_error);
 //    set_intr_gate_ist(X86_TRAP_NMI, &nmi, NMI_STACK);
@@ -114,7 +146,8 @@ predetermined identifiers in the range 0 through 31"
 
     /* syscalls */
 //    idt_set_gate(0x80, (uint32_t)isr0x80, 0x08, 0x8E);
-
+set_trap_gate_user(0x80, interrupt_vectors[0x80]);
+register_interrupt_handler(0x80, &page_fault);
 }
 
 void traps_init(void) {
