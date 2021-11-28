@@ -7,7 +7,6 @@
 
 
 #include <stdint.h>                 // for uint32_t
-#include <stdbool.h>
 
 #include <asm/multiboot.h>     // for struct std_multiboot_info, struct multiboot_info, MBOOT_LOADER_MAGIC, MAX_CMDLINE_LEN
 
