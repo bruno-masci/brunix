@@ -1,7 +1,7 @@
 // Based on https://github.com/guilleiguaran/xv6
 // Basic string routines.
 
-#include <brunix/string.h>
+#include <string.h>
 
 
 int strnlen(const char *str, size_t size) {

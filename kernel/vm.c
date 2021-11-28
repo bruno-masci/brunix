@@ -7,7 +7,7 @@
 #include <asm/processor.h>
 
 #include <brunix/defs.h>
-#include <brunix/string.h>  // for memset()
+#include <string.h>  // for memset()
 #include <brunix/kernel.h>  // for panic()
 
 #include "brunix/kmalloc.h"

@@ -78,17 +78,14 @@ void test_gdt_fill_table(void) {
 
     CU_ASSERT(gdt_table[5].flags == 0x4);
     CU_ASSERT(gdt_table[5].access == 0x89);
-    printf("\ntss addr %x\n", &default_tss);
-    printf("base low calculated %x\n", (((uint32_t) &default_tss) & 0xFFFF));
-    printf("base low %x\n", gdt_table[5].base_low_16);
     CU_ASSERT(gdt_table[5].base_low_16 == (((uint32_t) &default_tss) & 0xFFFF));
-    CU_ASSERT(gdt_table[5].base_middle_8 == ((((uint32_t)&default_tss) >> 16) & 0xFF));
-    CU_ASSERT(gdt_table[5].base_high_8 == ((((uint32_t)&default_tss) >> 24) & 0xFF));
+    CU_ASSERT(gdt_table[5].base_middle_8 == ((((uint32_t) &default_tss) >> 16) & 0xFF));
+    CU_ASSERT(gdt_table[5].base_high_8 == ((((uint32_t) &default_tss) >> 24) & 0xFF));
     CU_ASSERT(gdt_table[5].limit_low_16 == (sizeof(struct tss) - 1));
     CU_ASSERT(gdt_table[5].limit_high_4 == 0);
 }
 
-extern void fill_gdt_desc(struct gdt_desc_struct *descriptor, uint32_t base, uint32_t limit_20, uint32_t access_8, uint32_t flags_4);
+extern void gdt_set_descr(struct gdt_desc_struct *descriptor, uint32_t base, uint32_t limit_20, uint32_t access_8, uint32_t flags_4);
 
 void test_gdt_set_descr(void) {
     struct gdt_desc_struct desc;

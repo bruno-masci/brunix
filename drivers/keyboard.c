@@ -4,7 +4,7 @@
 #include <asm/irq.h>
 #include <asm/io.h>
 #include <brunix/kernel.h>
-#include <brunix/string.h>          // for memset
+#include <string.h>          // for memset
 
 #define KEYBOARD_IRQ 1
 

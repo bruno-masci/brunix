@@ -4,7 +4,7 @@
 #include <stdint.h>             // for uintN_t
 
 #include <brunix/defs.h>        // for PRIVATE, IMPORT, EXPORT
-#include <brunix/string.h>
+#include <string.h>
 #include <brunix/kernel.h>
 
 #include <asm/processor.h>      // for lidt()

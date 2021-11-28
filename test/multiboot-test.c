@@ -21,13 +21,14 @@ void reset_test_context(void) {
 }
 
 // stub for required external function
-void panic(const char *message) {
+void panic(const char *unused) {
     panic_function_called_count++;
 }
 
 void test_verify_valid_loader(void) {
     reset_test_context();
 
+    // under test
     verify_loader(MBOOT_LOADER_MAGIC);
 
     CU_ASSERT(panic_function_called_count == 0);
@@ -36,6 +37,7 @@ void test_verify_valid_loader(void) {
 void test_verify_invalid_loader(void) {
     reset_test_context();
 
+    // under test
     verify_loader(12345);
 
     CU_ASSERT(panic_function_called_count == 1);

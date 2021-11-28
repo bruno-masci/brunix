@@ -26,6 +26,7 @@ void gdt_fill_default_tss(struct tss *tss) {
     tss->ss0 = __KERNEL_DS_SELECTOR;
     //	tss.io_map = (uint16_t) sizeof(default_tss);
 }
+
 /*static */ void gdt_fill_table(struct gdt_desc_struct *gdt_table_ptr, struct tss *initial_tss) {
     gdt_set_descr(&gdt_table_ptr[0], 0, 0, 0, 0);                // Null Segment Descriptor (required)
     gdt_set_descr(&gdt_table_ptr[1], 0, GDT_SEGMENT_LIMIT, GDT_FLAG_RING0 | GDT_FLAG_CODE_DATA_SEGMENT | GDT_FLAG_CODESEG | GDT_FLAG_PRESENT, GDT_FLAG_4K_GRAN | GDT_FLAG_32_BIT); // Kernel Mode Code Segment Descriptor TODO refactor access flags

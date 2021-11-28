@@ -7,7 +7,7 @@
 
 #include <brunix/defs.h>            // for PRIVATE
 #include <brunix/kernel.h>          // for panic()
-#include <brunix/string.h>          // for memset
+#include <string.h>          // for memset
 
 
 extern const void *kernel_end; // first address after kernel loaded from ELF file

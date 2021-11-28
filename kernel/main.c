@@ -9,7 +9,7 @@
 #include <stdint.h>                 // for uint32_t
 
 #include <brunix/defs.h>            // for PRIVATE, IMPORT, INIT_FUNC, MAX_STR_SIZE?, roundup_binary()
-#include <brunix/string.h>
+#include <string.h>
 #include <brunix/kernel.h>
 #include <brunix/kdebug.h>
 

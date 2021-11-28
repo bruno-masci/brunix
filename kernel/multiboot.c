@@ -11,7 +11,7 @@
 
 #include <asm/multiboot.h>     // for struct std_multiboot_info, struct multiboot_info, MBOOT_LOADER_MAGIC, MAX_CMDLINE_LEN
 
-#include <brunix/string.h>          // for strcpy()
+#include <string.h>          // for strcpy()
 #include <brunix/kernel.h>          // for panic()
 
 

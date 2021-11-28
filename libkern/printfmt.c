@@ -8,7 +8,7 @@
 #include <stdarg.h>
 #include <stddef.h> // for NULL
 
-#include <brunix/string.h>
+#include <string.h>
 #include <brunix/defs.h>            // for PRIVATE, EXPORT
 
 
