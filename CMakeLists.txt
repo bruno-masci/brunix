@@ -27,9 +27,11 @@ set(CMAKE_C_FLAGS "-D__KERNEL__ -O0 -ffreestanding -c -g -gstabs -fno-omit-frame
 file(GLOB_RECURSE   C_SRCS                          "kernel/*.c" "arch/x86/kernel/*.c" "drivers/*.c" "libkern/*.c")
 file(GLOB_RECURSE   ASM_SRCS                        "kernel/*.S" "arch/x86/kernel/*.S")
 
-file(GLOB           UNPROCESSED_LINKER_SCRIPT       "linker.ld.pp")
+file(GLOB           UNPROCESSED_LINKER_SCRIPT       "arch/x86/boot/linker.ld.pp")
 file(GLOB           KERNEL_INCLUDE_DIR              "include")
-file(GLOB           MULTIBOOT_DIR                   "arch/x86/multiboot")
+file(GLOB           x86_KERNEL_INCLUDE_DIR          "arch/x86/include")
+file(GLOB           MULTIBOOT_DIR                   "arch/x86/boot/multiboot")
+file(GLOB           SCRIPTS_DIR                     "scripts")
 file(GLOB           BOCHS_CONF_TEMPLATE             "bochs.cfg.tmpl")
 file(GLOB           GDB_INIT_TEMPLATE               ".gdbinit.tmpl")
 
@@ -57,21 +59,21 @@ set(CMAKE_C_LINK_EXECUTABLE "${CMAKE_C_COMPILER} <CMAKE_C_LINK_FLAGS> <LINK_FLAG
 # Executable creation
 #########################################################################
 add_executable(${BIN_NAME} ${C_SRCS} ${ASM_SRCS})
-target_include_directories(${BIN_NAME} PUBLIC include)
+target_include_directories(${BIN_NAME} PUBLIC ${KERNEL_INCLUDE_DIR} ${x86_KERNEL_INCLUDE_DIR})
 
 # ------------------------------ PRE BUILD ------------------------------
 
 # prepare linker script file
 add_custom_command(TARGET ${BIN_NAME} PRE_BUILD
         COMMENT "Preprocessing linker script..."
-        COMMAND ${CMAKE_C_COMPILER} ${C_PREPROCESSOR_FLAGS} -isystem ${KERNEL_INCLUDE_DIR} ${UNPROCESSED_LINKER_SCRIPT} |  grep -v "^#" > ${PREPROCESSED_LINKER_SCRIPT})
+        COMMAND ${CMAKE_C_COMPILER} ${C_PREPROCESSOR_FLAGS} -isystem ${KERNEL_INCLUDE_DIR} -isystem ${x86_KERNEL_INCLUDE_DIR} ${UNPROCESSED_LINKER_SCRIPT} |  grep -v "^#" > ${PREPROCESSED_LINKER_SCRIPT})
 
 # ------------------------------ POST BUILD -----------------------------
 
 # validate whether the generated image is Multiboot-complaint
 add_custom_command(TARGET ${BIN_NAME} POST_BUILD
         COMMENT "Validating Multiboot image..."
-        COMMAND ${MULTIBOOT_DIR}/multiboot-checker.sh ${BIN_NAME}
+        COMMAND ${SCRIPTS_DIR}/multiboot-checker.sh ${BIN_NAME}
         MAIN_DEPENDENCY ${BIN_NAME})
 
 # create kernel's bootable ISO image

@@ -12,7 +12,7 @@
 #include <stdbool.h>    // for true
 #include <stdint.h>
 
-#include <asm/memlayout.h>
+#include "memlayout.h"
 
 
 static inline void lcr3(phys_addr_t val) {

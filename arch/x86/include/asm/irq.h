@@ -1,7 +1,7 @@
 #ifndef __ARCH_IRQ_H__
 #define __ARCH_IRQ_H__
 
-#include <asm/traps.h>
+#include "traps.h"
 
 
 #define NR_IRQS 16

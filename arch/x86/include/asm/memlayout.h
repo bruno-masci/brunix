@@ -12,7 +12,7 @@
 #ifndef __ASSEMBLER__
 
 #include <stdint.h>     // for uintptr_t
-#include <asm/memlayout.h>     // for uintptr_t
+#include "memlayout.h"     // for uintptr_t
 typedef uint32_t phys_addr_t;
 
 

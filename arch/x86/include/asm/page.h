@@ -11,7 +11,7 @@
 #include <stdint.h>     // for uint32_t
 #include <stdbool.h>
 
-#include <asm/traps.h>	// for struct trapframe
+#include "traps.h"    // for struct trapframe
 
 
 
