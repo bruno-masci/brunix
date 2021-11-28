@@ -69,9 +69,6 @@ PRIVATE void process_boot_args(struct multiboot_info mb_info);
 
 extern void jump_usermode(void);
 
-void test_user_function(void) {
-    while (1);
-}
 
 //void handle_command(char *cmd) {
 ////    printk("Received command: %s\n", cmd);
@@ -145,7 +142,7 @@ int start_kernel(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint
 //    uint32_t *ptr = (uint32_t *)0x400000;
 //    uint32_t do_page_fault = *ptr;
 
-jump_usermode();
+//jump_usermode();
 
 while(1) {
     for(long long int i=0;i<100000000;i++);

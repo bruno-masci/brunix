@@ -118,12 +118,13 @@ struct gdt_desc_struct {
  *
  * This structure tells the address and size of the table.
  */
-struct gdt_ptr_struct {
-    /// Table limit: Size of the table in bytes (not the number of entries!)
-    uint16_t limit;
-    /// Linear base address: Address of the table (the address of the first gdt_entry_t struct)
-    uint32_t base;
-} __attribute__ ((packed));
+ //TODO
+//struct gdt_ptr_struct {
+//    /// Table limit: Size of the table in bytes (not the number of entries!)
+//    uint16_t limit;
+//    /// Linear base address: Address of the table (the address of the first gdt_entry_t struct)
+//    uint32_t base;
+//} __attribute__ ((packed));
 
 
 struct tss {

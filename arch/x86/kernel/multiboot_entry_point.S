@@ -121,7 +121,7 @@ early_paging_ready:
    movl %edi, %eax
 
 
-    lgdt    (gdt_descr)
+    lgdt    (gdt_pointer)
 
     movw $__TSS_SEGMENT_SELECTOR, %dx
     ltr %dx
@@ -168,7 +168,7 @@ early_paging_ready:
 
 
 .globl jump_usermode
-.extern test_user_function
+#.extern test_user_function
 jump_usermode:
     cli
 
@@ -184,7 +184,7 @@ jump_usermode:
 	push $user_test_stack_top # current esp
 	pushf # eflags
 	push $(__USER_CS_SELECTOR | 3) # code selector (ring 3 code with bottom 2 bits set for ring 3)
-	push $test_user_function # instruction address to return to
+	#FIXME push $test_user_function # instruction address to return to
 
 	sti
 
@@ -245,13 +245,6 @@ setup_all_segments_but_CS:
 
 
 # GDT setup
-gdt_descr:
+gdt_pointer:
 .word (GDT_ENTRIES * 8 - 1)
-.long   VIRT_TO_PHYS_WO(gdt333)                            # GDT address
-
-gdt2_UNUSED:
-GDT_NULL_ENTRY				# null seg
-GDT_ENTRY(STA_X|STA_R, 0x0, 0xffffffff)     /* kernel 4GB code at 0x00000000 */
-GDT_ENTRY(STA_W, 0x0, 0xffffffff)           /* kernel 4GB data at 0x00000000 */
-//TODO y lo mismo con DPL_USER
-// y TSS?
+.long   VIRT_TO_PHYS_WO(gdt_table)                            # GDT address

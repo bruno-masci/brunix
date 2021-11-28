@@ -13,12 +13,15 @@
 #include <stdbool.h>
 
 
+/*PRIVATE*/ void page_fault(struct trapframe *regs);
+
 
 extern void init_idt(void);
 extern void irq_init(void);
 void traps_init(void);
 void set_intr_gate(unsigned int n, uint32_t addr);
 void set_trap_gate(unsigned int n, uint32_t addr);
+extern void set_trap_gate_user(unsigned int n, uint32_t addr);
 bool is_interrupt_handler_registered(uint8_t n);
 
 /*PRIVATE*/ void default_handler(__attribute__((unused)) struct trapframe *regs);
@@ -72,7 +75,7 @@ void trap_handler(struct trapframe *tf) {
 }
 
 
-char *trap_msg[] = {
+const char *trap_msg[] = {
         "Divide-by-zero Error",
         "Debug",
         "Non-maskable Interrupt",

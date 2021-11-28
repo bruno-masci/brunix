@@ -51,6 +51,7 @@ PRIVATE idt_ptr_t idt_ptr;
 EXPORT void init_idt(void);
 EXPORT void set_intr_gate(unsigned int n, uint32_t addr);
 EXPORT void set_trap_gate(unsigned int n, uint32_t addr);
+EXPORT void set_trap_gate_user(unsigned int n, uint32_t addr);
 PRIVATE void idt_set_gate(uint8_t num, idt_gate_descr_type_enum type, uint32_t base, uint16_t cs_selector, segment_privilege_level_enum dpl);
 
 
