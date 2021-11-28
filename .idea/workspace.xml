@@ -27,13 +27,12 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="16bb27d8-3b9f-4e32-9cd9-fbe08a7a03f6" name="Default Changelist" comment="">
+    <list default="true" id="16bb27d8-3b9f-4e32-9cd9-fbe08a7a03f6" name="Default Changelist" comment="ble">
+      <change afterPath="$PROJECT_DIR$/arch/x86/kernel/entry_pgdir.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/multiboot.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/multiboot.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/speaker.c2" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/speaker.c2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/timer.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/timer.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/uart.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/uart.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/vga.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/vga.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/multiboot.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/multiboot.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/run-tests.sh" beforeDir="false" afterPath="$PROJECT_DIR$/test/run-tests.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +81,7 @@
     <property name="cf.first.check.clang-format" value="false" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="cmake.loaded.for.project" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/arch/x86/kernel" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -96,11 +95,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/arch/x86/kernel" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/include/asm" />
       <recent name="$PROJECT_DIR$/include/brunix" />
       <recent name="$PROJECT_DIR$/kernel" />
-      <recent name="$PROJECT_DIR$/test" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/arch/x86/kernel" />
@@ -347,7 +346,7 @@
       <workItem from="1637883651326" duration="27000" />
       <workItem from="1637883747317" duration="3252000" />
       <workItem from="1638064431902" duration="6109000" />
-      <workItem from="1638121267841" duration="15875000" />
+      <workItem from="1638121267841" duration="17348000" />
     </task>
     <task id="LOCAL-00001" summary="ble">
       <created>1624501088514</created>
@@ -608,7 +607,14 @@
       <option name="project" value="LOCAL" />
       <updated>1638137674550</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="ble">
+      <created>1638139459080</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1638139459080</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
