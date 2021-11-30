@@ -1,5 +1,6 @@
 #include <asm/gdt.h>
 #include <asm/segment.h>
+#include <asm/memlayout.h>
 
 
 // PROTOTYPES
@@ -8,8 +9,11 @@ extern void __gdt_flush(uint32_t);
 /*static */ void gdt_fill_table(struct gdt_desc_struct *gdt_table, struct tss *initial_tss);
 /*static */ void gdt_set_descr(struct gdt_desc_struct *, uint32_t, uint32_t, uint8_t, uint8_t);
 void gdt_fill_default_tss(struct tss *default_tss);
+void fill_gdt_ptr(struct gdt_ptr_struct *gdt_ptr, uint32_t base, uint16_t total_gdt_entries);
 
 static struct tss default_tss;
+
+struct gdt_ptr_struct gdt_ptr;
 
 struct gdt_desc_struct gdt_table[GDT_ENTRIES];
 
@@ -17,6 +21,7 @@ struct gdt_desc_struct gdt_table[GDT_ENTRIES];
 void gdt_init(void) {
     gdt_fill_default_tss(&default_tss);
     gdt_fill_table(gdt_table, &default_tss);
+    fill_gdt_ptr(&gdt_ptr, &gdt_table, GDT_ENTRIES);
 }
 
 void gdt_fill_default_tss(struct tss *tss) {
@@ -25,6 +30,11 @@ void gdt_fill_default_tss(struct tss *tss) {
     tss->esp0 = 0; //TODO
     tss->ss0 = __KERNEL_DS_SELECTOR;
     //	tss.io_map = (uint16_t) sizeof(default_tss);
+}
+
+void fill_gdt_ptr(struct gdt_ptr_struct *gdt_ptr, uint32_t base, uint16_t total_gdt_entries) {
+    gdt_ptr->base = VIRT_TO_PHYS_WO(base);
+    gdt_ptr->limit = (uint16_t) ((sizeof(struct gdt_desc_struct) * total_gdt_entries) - 1);
 }
 
 /*static */ void gdt_fill_table(struct gdt_desc_struct *gdt_table_ptr, struct tss *initial_tss) {
@@ -53,10 +63,4 @@ void gdt_fill_default_tss(struct tss *tss) {
 
 	gdt_descr->flags = (flags_4 >> 4) & 0xF;
 	gdt_descr->access = access;
-
-
-//struct gdt_ptr_struct gdt_ptr = {.base = &gdt, .limit = 8*3};
-
-//	gdt_ptr.limit = (sizeof(gdt_desc_t) * GDT_ENTRIES) - 1;
-//	gdt_ptr.base = (size_t)&gdt;
 }

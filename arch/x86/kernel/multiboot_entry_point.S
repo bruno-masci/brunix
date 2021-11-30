@@ -121,7 +121,7 @@ early_paging_ready:
    movl %edi, %eax
 
 
-    lgdt    (gdt_pointer)
+    lgdt    (gdt_ptr)
 
     movw $__TSS_SEGMENT_SELECTOR, %dx
     ltr %dx
@@ -242,9 +242,3 @@ setup_all_segments_but_CS:
     movw %si, %fs
     movw %si, %gs
     ret
-
-
-# GDT setup
-gdt_pointer:
-.word (GDT_ENTRIES * 8 - 1)
-.long   VIRT_TO_PHYS_WO(gdt_table)                            # GDT address

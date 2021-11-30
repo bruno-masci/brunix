@@ -3,7 +3,7 @@
 #include <CUnit/Basic.h>
 
 #include "../include/asm/gdt.h"     // for struct std_multiboot_info, struct multiboot_info, MBOOT_LOADER_MAGIC
-
+#include "../include/asm/memlayout.h"
 
 int init_suite1(void) {
   return 0;
@@ -13,18 +13,20 @@ int clean_suite1(void) {
   return 0;
 }
 
-//extern struct gdt_ptr_struct get_gdt_ptr(uint16_t total_gdt_entries, uint32_t gdt_base_addr);
-//
-//void test_get_gdt_ptr(void) {
-//    uint16_t total_gdt_entries = 5;
-//    size_t gdt_desc_size = sizeof(struct gdt_desc_struct);
-//
-//    // under test
-//    struct gdt_ptr_struct gdtPtr = get_gdt_ptr(total_gdt_entries, (uint32_t)1);
-//
-//    CU_ASSERT(gdtPtr.limit == ((gdt_desc_size * total_gdt_entries) - 1));
-//    CU_ASSERT(gdtPtr.base == VIRT_TO_PHYS_WO(1));
-//}
+extern struct gdt_ptr_struct get_gdt_ptr(uint16_t total_gdt_entries, uint32_t gdt_base_addr);
+
+void test_get_gdt_ptr(void) {
+    uint16_t total_gdt_entries = 5;
+    size_t gdt_desc_size = sizeof(struct gdt_desc_struct);
+
+    // under test
+    struct gdt_ptr_struct gdtPtr;
+    uint32_t base = 0xFFFFFFFF;
+    fill_gdt_ptr(&gdtPtr, base, total_gdt_entries);
+
+    CU_ASSERT(gdtPtr.limit == ((gdt_desc_size * total_gdt_entries) - 1));
+    CU_ASSERT(gdtPtr.base == VIRT_TO_PHYS_WO(base));
+}
 
 extern void gdt_fill_table(struct gdt_desc_struct *gdt_table, struct tss *initial_tss);
 
@@ -129,6 +131,7 @@ int main(void) {
 
    /* add the tests to the suite in a particular order */
    if ((NULL == CU_add_test(pSuite, "test of gdt_fill_table()", test_gdt_fill_table)) ||
+    (NULL == CU_add_test(pSuite, "test of get_gdt_ptr()", test_get_gdt_ptr)) ||
     (NULL == CU_add_test(pSuite, "test of gdt_set_descr()", test_gdt_set_descr))) {
       CU_cleanup_registry();
       return CU_get_error();
