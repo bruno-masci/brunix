@@ -140,13 +140,13 @@ mappages(pde_t *pgdir, void *va, uint32_t size, uint32_t pa, uint32_t perm)
     char *a, *last = (char*)PGROUNDDOWN(((uint32_t)va) + size - 1);
     pte_t *pte;
 
-    printk("Mapping va=%p - %p (%d bytes) to phys_addr=%p\n", va, (((uint32_t)va) + size), size, pa);
+    printk("Mapping va range [%p-%p) (%d bytes) to phys_addr=%p\n", va, (((uint32_t)va) + size), size, pa);
 
     for (a = (char*)PGROUNDDOWN((uint32_t)va); a < last; a += PAGE_SIZE, pa += PAGE_SIZE) {
 
 //printk("a=%p last=%p\n", a, last);
         if((pte = walkpgdir(pgdir, a, 1)) == 0) {
-printk("FAILED1");
+            printk("FAILED1");
             return -1;
         }
 
@@ -176,16 +176,15 @@ setupkvm(void)
     if (PHYS_TO_VIRT(PHYSTOP) > (void *) DEVSPACE)
         panic("PHYSTOP too high");
 
-    for(int i=0; i < 4; i++) {
-        k = &kmap[i];
-//    for(k = kmap; k < &kmap[NELEM(kmap)]; k++) {
-//        printk(" k=%p!\n", k);
+    for(k = kmap; k < &kmap[NELEM(kmap)]; k++) {
         if(mappages(pgdir, k->virt, k->phys_end - k->phys_start,
                     (uint32_t)k->phys_start, k->perm) < 0) {
-//            freevm(pgdir);
+//  TODO later          freevm(pgdir);
+            printk(" ZEEROOO\n");
             return 0;
         }
     }
+
     return pgdir;
 }
 

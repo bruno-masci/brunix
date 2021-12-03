@@ -89,8 +89,7 @@ PRIVATE void idt_set_gate(uint8_t num, idt_gate_descr_type_enum type, uint32_t b
 }
 
 PRIVATE void idt_flush(phys_addr_t idt_ptr_pa) {
-    phys_addr_t p = VIRT_TO_PHYS(idt_ptr_pa);
-    lidt(p);
+    lidt(idt_ptr_pa);
 }
 
 EXPORT void init_idt(void) {

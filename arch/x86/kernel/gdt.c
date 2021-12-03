@@ -33,7 +33,7 @@ void gdt_fill_default_tss(struct tss *tss) {
 }
 
 void fill_gdt_ptr(struct gdt_ptr_struct *gdt_ptr, uint32_t base, uint16_t total_gdt_entries) {
-    gdt_ptr->base = VIRT_TO_PHYS_WO(base);
+    gdt_ptr->base = base;
     gdt_ptr->limit = (uint16_t) ((sizeof(struct gdt_desc_struct) * total_gdt_entries) - 1);
 }
 

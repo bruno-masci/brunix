@@ -3,7 +3,6 @@
 #include <CUnit/Basic.h>
 
 #include "../include/asm/gdt.h"     // for struct std_multiboot_info, struct multiboot_info, MBOOT_LOADER_MAGIC
-#include "../include/asm/memlayout.h"
 
 int init_suite1(void) {
   return 0;
@@ -25,7 +24,7 @@ void test_get_gdt_ptr(void) {
     fill_gdt_ptr(&gdtPtr, base, total_gdt_entries);
 
     CU_ASSERT(gdtPtr.limit == ((gdt_desc_size * total_gdt_entries) - 1));
-    CU_ASSERT(gdtPtr.base == VIRT_TO_PHYS_WO(base));
+    CU_ASSERT(gdtPtr.base == base);
 }
 
 extern void gdt_fill_table(struct gdt_desc_struct *gdt_table, struct tss *initial_tss);

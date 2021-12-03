@@ -38,7 +38,6 @@ static trap_handler_t trap_handlers[MAX_HANDLERS] = {[0 ... MAX_HANDLERS-1] = NU
 
 
 void register_interrupt_handler(uint8_t n, trap_handler_t handler) {
-    printk("Registering interrupt handler number %d, handler %x!\n", n, handler);
     trap_handlers[n] = handler;
 }
 
@@ -123,6 +122,7 @@ predetermined identifiers in the range 0 through 31"
      */
     set_trap_gate(0, interrupt_vectors[0]);
 
+    printk("Registering the first 32 interrupt handlers...\n");
     for (uint8_t i=0;i<32;i++)
         register_interrupt_handler(i, &default_handler);
 

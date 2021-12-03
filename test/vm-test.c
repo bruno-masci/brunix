@@ -6,6 +6,10 @@
 #include <asm/mmu.h>
 
 
+
+// just for defining an expected linker symbol (unused)
+char data[];
+
 int init_suite1(void) {
   return 0;
 }

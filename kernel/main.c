@@ -95,8 +95,12 @@ int start_kernel(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint
 
     process_boot_args(mboot_info);
 
-    printk("Initializing physical page allocator...\n");
+    print_kernel_context_info(mboot_info.mem_upper, stack_top);
+
+    printk("Initializing (part of) physical page allocator...\n");
     kmalloc_init(kernel_end, PHYS_TO_VIRT(MB_TO_BYTES(4))); // phys page allocator
+
+    kvmalloc();     // kernel page table
 
     printk("Initializing traps...\n");
     traps_init();
@@ -109,9 +113,7 @@ int start_kernel(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint
     printk("Enabling interrupts...\n");
     asm volatile("sti");
 //int i=1/0;
-    print_kernel_context_info(mboot_info.mem_upper, stack_top);
 
-//    kvmalloc();      // kernel page table
     // ---
 
 

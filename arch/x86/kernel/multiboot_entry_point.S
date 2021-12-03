@@ -123,8 +123,9 @@ early_paging_ready:
 
     lgdt    (gdt_ptr)
 
-    movw $__TSS_SEGMENT_SELECTOR, %dx
-    ltr %dx
+# FIXME
+#    movw $__TSS_SEGMENT_SELECTOR, %dx
+#    ltr %dx
 
     call setup_all_segments_but_CS
 
