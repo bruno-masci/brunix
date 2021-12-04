@@ -31,10 +31,10 @@ typedef uint32_t phys_addr_t;
 
 
 
-#define EXT_MEM_BASE    0x00201000                  // Start of physical "extended" memory (1 MiB)
+#define EXT_MEM_BASE    0x00100000                  // Start of physical "extended" memory (1 MiB)
 
 //0x80000000
-#define KERN_BASE       0xd0000000                  // First kernel virtual address
+#define KERN_BASE       0xc0000000                  // First kernel virtual address
 
 #define KERN_LINK       (KERN_BASE + EXT_MEM_BASE)  // Address where kernel is linked at
 

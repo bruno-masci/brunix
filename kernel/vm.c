@@ -140,7 +140,7 @@ mappages(pde_t *pgdir, void *va, uint32_t size, uint32_t pa, uint32_t perm)
     char *a, *last = (char*)PGROUNDDOWN(((uint32_t)va) + size - 1);
     pte_t *pte;
 
-    printk("Mapping va range [%p-%p) (%d bytes) to phys_addr=%p\n", va, (((uint32_t)va) + size), size, pa);
+    printk("Mapping va range [%p-%p] (%d bytes) to phys_addr=%p\n", va, (((uint32_t)va) + size - 1), size, pa);
 
     for (a = (char*)PGROUNDDOWN((uint32_t)va); a < last; a += PAGE_SIZE, pa += PAGE_SIZE) {
 

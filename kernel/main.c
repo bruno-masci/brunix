@@ -97,10 +97,16 @@ int start_kernel(struct std_multiboot_info *std_mboot_info, uint32_t magic, uint
 
     print_kernel_context_info(mboot_info.mem_upper, stack_top);
 
-    printk("Initializing (part of) physical page allocator...\n");
+    printk("Initializing physical page allocator...\n");
     kmalloc_init(kernel_end, PHYS_TO_VIRT(MB_TO_BYTES(4))); // phys page allocator
 
     kvmalloc();     // kernel page table
+
+    // se hace esto pq entrypgdir mapea solo 4 mb, entonces se configura el memallocator (limitado a 4mb) para crear una kpgdir dinamicamente.
+    // luego se mapea el resto de la memoria RAM aca abajo.
+    kmalloc_init(PHYS_TO_VIRT(MB_TO_BYTES(4)), PHYS_TO_VIRT(MB_TO_BYTES(16)));
+//    kmalloc_init(PHYS_TO_VIRT(MB_TO_BYTES(4)), PHYS_TO_VIRT(KB_TO_BYTES(mboot_info.mem_upper))); FIXME uncomment and comment above
+
 
     printk("Initializing traps...\n");
     traps_init();

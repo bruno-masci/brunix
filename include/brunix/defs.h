@@ -32,6 +32,7 @@ static inline uint32_t roundup_binary(uint32_t n) {
 /* Check if the bit BIT in FLAGS is set. */
 #define CHECK_FLAG(flags,bit)   ((flags) & (1 << (bit)))
 
+#define KB_TO_BYTES(val) (val * 1024)
 #define MB_TO_BYTES(val) (val * 1024 * 1024)
 
 // number of elements in fixed-size array

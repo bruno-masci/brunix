@@ -27,17 +27,13 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="16bb27d8-3b9f-4e32-9cd9-fbe08a7a03f6" name="Default Changelist" comment="ble">
+    <list default="true" id="16bb27d8-3b9f-4e32-9cd9-fbe08a7a03f6" name="Default Changelist" comment="kernel kpgdir (not really user mode)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/gdt.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/gdt.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/idt.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/idt.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/multiboot_entry_point.S" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/multiboot_entry_point.S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arch/x86/kernel/traps.c" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/kernel/traps.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arch/x86/include/asm/memlayout.h" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/include/asm/memlayout.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/brunix/defs.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/brunix/defs.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/kmalloc.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/kmalloc.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/main.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/vm.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/vm.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/gdt-test.c" beforeDir="false" afterPath="$PROJECT_DIR$/test/gdt-test.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/run-tests.sh" beforeDir="false" afterPath="$PROJECT_DIR$/test/run-tests.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/vm-test.c" beforeDir="false" afterPath="$PROJECT_DIR$/test/vm-test.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,11 +116,6 @@
     </option>
   </component>
   <component name="RunManager" selected="CMake Application.brunix.elf">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="bochs" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="bochs" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -354,7 +345,8 @@
       <workItem from="1638121267841" duration="17963000" />
       <workItem from="1638237082673" duration="6285000" />
       <workItem from="1638398105509" duration="9763000" />
-      <workItem from="1638494075388" duration="1758000" />
+      <workItem from="1638494075388" duration="5156000" />
+      <workItem from="1638654911011" duration="311000" />
     </task>
     <task id="LOCAL-00001" summary="ble">
       <created>1624501088514</created>
@@ -636,7 +628,14 @@
       <option name="project" value="LOCAL" />
       <updated>1638243395661</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="kernel kpgdir (not really user mode)">
+      <created>1638496635855</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1638496635855</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -696,7 +695,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="ble" />
-    <option name="LAST_COMMIT_MESSAGE" value="ble" />
+    <MESSAGE value="kernel kpgdir (not really user mode)" />
+    <option name="LAST_COMMIT_MESSAGE" value="kernel kpgdir (not really user mode)" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

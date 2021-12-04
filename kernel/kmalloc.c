@@ -56,6 +56,7 @@ void kfree(const void * const vaddr) {
     freelist = node;
 
     free_pages_count++;
+//    printk("FREE PAGES: %d\n", free_pages_count);
 }
 
 // Allocate one 4096-byte page of physical memory.
@@ -73,6 +74,8 @@ void * kmalloc(void) {
 // start at kernel end address
 PRIVATE void free_range(const void *vstart, const void *vend) {
     char *p = (char *) PAGE_ROUND_UP((uint32_t) vstart);
-    for(; p + PAGE_SIZE <= (char *) vend; p += PAGE_SIZE)
+    for(; p + PAGE_SIZE <= (char *) vend; p += PAGE_SIZE) {
+//        printk("Freeing p=%p\n", p);
         kfree(p);
+    }
 }
