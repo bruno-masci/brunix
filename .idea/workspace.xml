@@ -27,9 +27,14 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="16bb27d8-3b9f-4e32-9cd9-fbe08a7a03f6" name="Default Changelist" comment="">
+    <list default="true" id="16bb27d8-3b9f-4e32-9cd9-fbe08a7a03f6" name="Default Changelist" comment="kernel kpgdir (not really user mode)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/arch/x86/include/asm/memlayout.h" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/include/asm/memlayout.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arch/x86/include/asm/page.h" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/include/asm/page.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/kmalloc.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/kmalloc.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/vm.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/vm.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,6 +117,11 @@
     </option>
   </component>
   <component name="RunManager" selected="CMake Application.brunix.elf">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="bochs" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="brunix" TARGET_NAME="bochs" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -342,7 +352,7 @@
       <workItem from="1638237082673" duration="6285000" />
       <workItem from="1638398105509" duration="9763000" />
       <workItem from="1638494075388" duration="5156000" />
-      <workItem from="1638654911011" duration="671000" />
+      <workItem from="1638654911011" duration="3196000" />
     </task>
     <task id="LOCAL-00001" summary="ble">
       <created>1624501088514</created>
@@ -638,7 +648,14 @@
       <option name="project" value="LOCAL" />
       <updated>1638655228845</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="kernel kpgdir (not really user mode)">
+      <created>1638655600266</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1638655600266</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

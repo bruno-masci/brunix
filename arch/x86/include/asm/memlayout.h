@@ -22,8 +22,8 @@ typedef uint32_t phys_addr_t;
 
 
 //#define PHYSTOP     ((phys_addr_t) 0xE000000)       // Top physical memory
-#define PHYSTOP     256*1024*1024       // Top physical memory
-#define DEVSPACE            0xFE000000      // Other devices are at high addresses TODO resolver esto respecto a la RAM de GRUB
+#define PHYSTOP     128*1024*1024       // Top physical memory  TODO resolver esto respecto a la RAM de GRUB. Por ahora equiparo con GRUB (512MB)
+#define DEVSPACE            0xFE000000      // Other devices are at high addresses
 
 //#if PHYSTOP % 4096
 //#error PHYSTOP must be page aligned!

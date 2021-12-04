@@ -26,7 +26,7 @@
 
 
 /* to align the pointer to the (next) page boundary */
-//#define PAGE_ALIGN(addr)	(((addr)+PAGE_SIZE-1)&PAGE_MASK)
+#define PAGE_ROUND_DOWN(addr)	(((uint32_t)(addr)) & -PAGE_SIZE)
 #define PAGE_ROUND_UP(addr)	((((uint32_t)(addr))+PAGE_SIZE-1) & ((uint32_t)PAGE_MASK))
 
 

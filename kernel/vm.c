@@ -28,27 +28,6 @@ void kvmalloc(void);
 int mappages(pde_t *pgdir, void *va, uint32_t size, uint32_t pa, uint32_t perm);
 pte_t * walkpgdir(pde_t *pgdir, const void *va, int alloc);
 
-// Set up CPU's kernel segment descriptors.
-// Run once on entry on each CPU.
-//void
-//seginit(void)
-//{
-//    struct cpu *c;
-//
-//    // Map "logical" addresses to virtual addresses using identity map.
-//    // Cannot share a CODE descriptor for both kernel and user
-//    // because it would have to have DPL_USR, but the CPU forbids
-//    // an interrupt from CPL=0 to DPL=3.
-//    c = &cpus[cpuid()];
-//    c->gdt[SEG_KCODE] = GDT_ENTRY(STA_X|STA_R, 0, 0xffffffff, 0);
-//    c->gdt[SEG_KDATA] = GDT_ENTRY(STA_W, 0, 0xffffffff, 0);
-//    c->gdt[SEG_UCODE] = GDT_ENTRY(STA_X|STA_R, 0, 0xffffffff, DPL_USER);
-//    c->gdt[SEG_UDATA] = GDT_ENTRY(STA_W, 0, 0xffffffff, DPL_USER);
-//    lgdt(c->gdt, sizeof(c->gdt));
-//}
-
-
-
 
 
 // Return the address of the PTE in page table pgdir
@@ -95,7 +74,7 @@ pte_t * walkpgdir(pde_t *pgdir, const void *va, int alloc) {
 
     pde_t *pde = pgdir_entry(pgdir, va);
     pte_t *pgtab = pgtable_base(pde);
-//    printk("SS pgtab=%p\n", pgtab);
+
     if (pde < (pde_t *) KERN_BASE)
         panic("pde < KERN_BASE");
 
@@ -105,7 +84,7 @@ pte_t * walkpgdir(pde_t *pgdir, const void *va, int alloc) {
         if(!alloc || (pgtab = (pte_t *) alloc_empty_page()) == NULL) {
             return NULL;
         }
-//        printk("pgtab: %p\n", pgtab);
+
         set_pgdir_entry(pde, pgtab);
     }
 //    printk("AFTER pde=%p pgtab=%p\n", pde, pgtab);
@@ -180,7 +159,7 @@ setupkvm(void)
         if(mappages(pgdir, k->virt, k->phys_end - k->phys_start,
                     (uint32_t)k->phys_start, k->perm) < 0) {
 //  TODO later          freevm(pgdir);
-            printk(" ZEEROOO\n");
+            panic(" OUT OF MEMORY!\n");
             return 0;
         }
     }

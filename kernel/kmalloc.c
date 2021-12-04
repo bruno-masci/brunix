@@ -73,9 +73,10 @@ void * kmalloc(void) {
 
 // start at kernel end address
 PRIVATE void free_range(const void *vstart, const void *vend) {
-    char *p = (char *) PAGE_ROUND_UP((uint32_t) vstart);
-    for(; p + PAGE_SIZE <= (char *) vend; p += PAGE_SIZE) {
-//        printk("Freeing p=%p\n", p);
+    char *aligned_start = (char *) PAGE_ROUND_UP((uint32_t) vstart);
+    char *aligned_end = (char *) PAGE_ROUND_DOWN((uint32_t) vend);
+    char *p = (char *) aligned_start;
+    for(; p + PAGE_SIZE < (char *) aligned_end; p += PAGE_SIZE) {
         kfree(p);
     }
 }

@@ -95,7 +95,7 @@ add_custom_command(TARGET ${BIN_NAME} POST_BUILD
 #########################################################################
 # CMake's custom targets
 #########################################################################
-set(RAM_MEMORY_MiB 512)
+set(RAM_MEMORY_MiB 128) # TODO adjust PHYSTOP also!
 set(QEMU_BIN qemu-system-i386)
 set(GDB_PORT 26000)
 
