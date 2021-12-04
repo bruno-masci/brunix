@@ -27,13 +27,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="16bb27d8-3b9f-4e32-9cd9-fbe08a7a03f6" name="Default Changelist" comment="kernel kpgdir (not really user mode)">
+    <list default="true" id="16bb27d8-3b9f-4e32-9cd9-fbe08a7a03f6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/arch/x86/include/asm/memlayout.h" beforeDir="false" afterPath="$PROJECT_DIR$/arch/x86/include/asm/memlayout.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/brunix/defs.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/brunix/defs.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/kmalloc.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/kmalloc.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/vm.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/vm.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -346,7 +342,7 @@
       <workItem from="1638237082673" duration="6285000" />
       <workItem from="1638398105509" duration="9763000" />
       <workItem from="1638494075388" duration="5156000" />
-      <workItem from="1638654911011" duration="311000" />
+      <workItem from="1638654911011" duration="671000" />
     </task>
     <task id="LOCAL-00001" summary="ble">
       <created>1624501088514</created>
@@ -635,7 +631,14 @@
       <option name="project" value="LOCAL" />
       <updated>1638496635855</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="kernel kpgdir (not really user mode)">
+      <created>1638655228845</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1638655228845</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
